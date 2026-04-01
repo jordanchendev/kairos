@@ -7,17 +7,87 @@ import {
   healthHealthGetOptions,
   listSignalsApiSignalsGetOptions,
 } from "@/api/poseidon/@tanstack/react-query.gen";
+import type { AlertsResponse, HoldingResponse, PerformanceSummaryResponse, SignalResponse } from "@/api/poseidon/types.gen";
 import { ErrorState } from "@/features/monitoring/error-state";
+import { MetricCard } from "@/features/monitoring/metric-card";
 import { PanelFrame } from "@/features/monitoring/panel-frame";
 import { StatusBadge } from "@/features/monitoring/status-badge";
 import { getMonitoringQueryOptions } from "@/features/monitoring/query-config";
-import { normalizePoseidonHealth } from "@/features/infrastructure/infrastructure-model";
-import { OverviewKpis } from "@/features/overview/overview-kpis";
-import { RecentSignalsPanel } from "@/features/overview/recent-signals-panel";
-import { TopPositionsPanel } from "@/features/overview/top-positions-panel";
-import { filterNavCurveByTimeRange, getApiMarket } from "@/features/portfolio/portfolio-view-model";
+import { normalizePoseidonHealth, type PoseidonHealth } from "@/features/infrastructure/infrastructure-model";
+import { OverviewAttentionQueue } from "@/features/overview/overview-attention-queue";
+import { RecentActivityPanel } from "@/features/overview/recent-activity-panel";
+import { OverviewStatusRail } from "@/features/overview/overview-status-rail";
+import { TopExposurePanel } from "@/features/overview/top-exposure-panel";
+import { filterNavCurveByTimeRange, formatCompactCurrency, formatPercent, getApiMarket, summarizeHoldings } from "@/features/portfolio/portfolio-view-model";
 import { PerformanceChart } from "@/features/portfolio/performance-chart";
 import { useUiStore } from "@/stores/ui-store";
+
+type OverviewPageProps = {
+  alerts: AlertsResponse;
+  holdings: HoldingResponse[];
+  performance: PerformanceSummaryResponse;
+  poseidonHealth: PoseidonHealth;
+  selectedMarket: string;
+  selectedTimeRange: string;
+  signals: SignalResponse[];
+};
+
+export function OverviewPage({
+  alerts,
+  holdings,
+  performance,
+  poseidonHealth,
+  selectedMarket,
+  selectedTimeRange,
+  signals,
+}: OverviewPageProps) {
+  const navPoints = filterNavCurveByTimeRange(performance.nav_curve, selectedTimeRange as "1D" | "1W" | "1M" | "1Q" | "YTD");
+  const holdingsSummary = summarizeHoldings(holdings);
+  const latestNav = performance.nav_curve.at(-1)?.total_nav ?? 0;
+  const netExposure = holdings.reduce((total, holding) => total + holding.weight, 0);
+
+  return (
+    <section className="space-y-4" data-page-id="overview">
+      <OverviewStatusRail
+        alertsCount={alerts.alerts.length}
+        holdings={holdings}
+        performance={performance}
+        poseidonHealth={poseidonHealth}
+        selectedMarket={selectedMarket}
+        selectedTimeRange={selectedTimeRange}
+        signalsCount={signals.length}
+      />
+
+      <div className="grid gap-4 xl:grid-cols-[1.45fr_0.9fr]">
+        <PanelFrame
+          className="p-4 lg:p-5"
+          action={<StatusBadge label={poseidonHealth.status} status={poseidonHealth.status === "ok" ? "up" : "degraded"} />}
+          description={`Primary portfolio pulse for ${selectedMarket}. This is the visual anchor; everything else on the page is subordinate to action triage.`}
+          eyebrow="Portfolio Core"
+          title="Portfolio Pulse"
+        >
+          <div className="grid gap-4 xl:grid-cols-[1.35fr_0.85fr]">
+            <PerformanceChart points={navPoints} timeRangeLabel={selectedTimeRange} />
+
+            <div className="grid gap-3">
+              <MetricCard className="p-3 lg:p-4" detail={`${holdingsSummary.holdingsCount} positions in scope`} label="Net Exposure" value={formatPercent(netExposure)} />
+              <MetricCard className="p-3 lg:p-4" detail={`${performance.total_trades} realized trades`} label="Realized P&L" value={formatCompactCurrency(performance.total_realized_pnl)} />
+              <MetricCard className="p-3 lg:p-4" detail={`${signals.length} fresh signals feeding operator flow`} label="Drawdown" value={formatPercent(performance.max_drawdown_pct)} />
+              <MetricCard className="p-3 lg:p-4" detail={`${poseidonHealth.components.celery.active_tasks} active / ${poseidonHealth.components.celery.reserved_tasks} reserved`} label="Latest NAV" value={formatCompactCurrency(latestNav)} />
+            </div>
+          </div>
+        </PanelFrame>
+
+        <OverviewAttentionQueue alerts={alerts} poseidonHealth={poseidonHealth} signals={signals} />
+      </div>
+
+      <div className="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
+        <TopExposurePanel holdings={holdings} />
+        <RecentActivityPanel alerts={alerts} signals={signals} />
+      </div>
+    </section>
+  );
+}
 
 export function Component() {
   const selectedMarket = useUiStore((state) => state.selectedMarket);
@@ -71,49 +141,16 @@ export function Component() {
   const holdings = (holdingsQuery.data?.holdings ?? []).filter((holding) => !apiMarket || holding.market === apiMarket);
   const recentSignals = signalsQuery.data ?? [];
   const poseidonHealth = normalizePoseidonHealth(healthQuery.data);
-  const navPoints = filterNavCurveByTimeRange(performanceQuery.data.nav_curve, selectedTimeRange);
 
   return (
-    <section className="space-y-6" data-page-id="overview">
-      <OverviewKpis
-        alertsCount={alertsQuery.data?.alerts.length ?? 0}
-        healthStatus={poseidonHealth.status}
-        holdings={holdings}
-        performance={performanceQuery.data}
-        signalsCount={recentSignals.length}
-      />
-
-      <div className="grid gap-6 xl:grid-cols-[1.35fr_0.95fr]">
-        <PanelFrame
-          action={<StatusBadge label={poseidonHealth.status} status={poseidonHealth.status === "ok" ? "up" : "degraded"} />}
-          description={`Market scope: ${selectedMarket}. The landing chart follows the global time range and the latest Poseidon healthHealthGet payload.`}
-          eyebrow="Landing View"
-          title="30-day NAV pulse"
-        >
-          <PerformanceChart points={navPoints} timeRangeLabel={selectedTimeRange} />
-        </PanelFrame>
-
-        <RecentSignalsPanel signals={recentSignals} />
-      </div>
-
-      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <TopPositionsPanel holdings={holdings} />
-        <PanelFrame
-          action={<StatusBadge label={`${alertsQuery.data?.alerts.length ?? 0} live`} status={(alertsQuery.data?.alerts.length ?? 0) > 0 ? "degraded" : "idle"} />}
-          description="Open Alerts stay visible on the landing page, but drilldown remains in the dedicated Alerts route."
-          eyebrow="Risk Snapshot"
-          title="Open Alerts"
-        >
-          <div className="space-y-3">
-            {(alertsQuery.data?.alerts ?? []).slice(0, 5).map((alert) => (
-              <div className="rounded-[22px] border border-[hsl(var(--border))] bg-[hsla(225,47%,7%,0.7)] p-4" key={alert.id}>
-                <div className="text-sm font-semibold text-[hsl(var(--foreground))]">{alert.event_type}</div>
-                <div className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">{JSON.stringify(alert.data)}</div>
-              </div>
-            ))}
-          </div>
-        </PanelFrame>
-      </div>
-    </section>
+    <OverviewPage
+      alerts={alertsQuery.data ?? { alerts: [], total: 0 }}
+      holdings={holdings}
+      performance={performanceQuery.data}
+      poseidonHealth={poseidonHealth}
+      selectedMarket={selectedMarket}
+      selectedTimeRange={selectedTimeRange}
+      signals={recentSignals}
+    />
   );
 }

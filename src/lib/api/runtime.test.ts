@@ -40,4 +40,48 @@ describe("api runtime", () => {
       }),
     );
   });
+
+  it("retries legacy poseidon routes without the /api prefix when the live backend returns 404", async () => {
+    const networkFetch = vi.fn(async (input: RequestInfo | URL) => {
+      const url = input instanceof Request ? input.url : String(input);
+
+      if (url === "http://stormtrooper/poseidon/api/signals?limit=6") {
+        return new Response(JSON.stringify({ detail: "Not Found", status_code: 404 }), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          status: 404,
+        });
+      }
+
+      if (url === "http://stormtrooper/poseidon/signals?limit=6") {
+        return new Response(JSON.stringify([{ id: "signal-001" }]), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          status: 200,
+        });
+      }
+
+      return new Response("unexpected", { status: 500 });
+    });
+
+    vi.stubGlobal("fetch", networkFetch);
+
+    const { syncRuntimeClients } = await import("./runtime");
+
+    syncRuntimeClients();
+
+    const poseidonConfig = poseidonSetConfig.mock.calls.at(-1)?.[0];
+
+    expect(poseidonConfig?.fetch).toBeTypeOf("function");
+
+    const response = await poseidonConfig.fetch(new Request("http://stormtrooper/poseidon/api/signals?limit=6"));
+
+    expect(networkFetch).toHaveBeenCalledTimes(2);
+    expect(networkFetch.mock.calls[0]?.[0]).toBeInstanceOf(Request);
+    expect((networkFetch.mock.calls[0]?.[0] as Request).url).toBe("http://stormtrooper/poseidon/api/signals?limit=6");
+    expect((networkFetch.mock.calls[1]?.[0] as Request).url).toBe("http://stormtrooper/poseidon/signals?limit=6");
+    expect(response.status).toBe(200);
+  });
 });

@@ -23,6 +23,7 @@ import {
 } from "@/features/strategy-lab/strategy-comparison-table";
 import { StrategyDetailPanel } from "@/features/strategy-lab/strategy-detail-panel";
 import { getApiMarket } from "@/features/portfolio/portfolio-view-model";
+import { isPoseidonNotFoundError } from "@/lib/api/poseidon-compat";
 import { useUiStore } from "@/stores/ui-store";
 
 function readMetricNumber(metrics: BacktestResponse["metrics"], keys: string[]) {
@@ -235,7 +236,11 @@ export function Component() {
     enabled: Boolean(activeStrategyId),
   });
 
-  const error = strategiesQuery.error ?? backtestsQuery.error ?? selectedStrategyQuery.error ?? selectedPerformanceQuery.error;
+  const error =
+    strategiesQuery.error ??
+    backtestsQuery.error ??
+    selectedStrategyQuery.error ??
+    (isPoseidonNotFoundError(selectedPerformanceQuery.error) ? null : selectedPerformanceQuery.error);
 
   if (error) {
     return <ErrorState message={error instanceof Error ? error.message : "Strategy comparison data could not be loaded from Poseidon."} />;

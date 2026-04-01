@@ -1,5 +1,6 @@
 import { client as poseidonClient } from "@/api/poseidon/client.gen";
 import { client as tritonClient } from "@/api/triton/client.gen";
+import { createPoseidonCompatibilityFetch } from "@/lib/api/poseidon-compat";
 
 export const API_PROXY_BASES = {
   poseidonApiKey: import.meta.env.VITE_POSEIDON_API_KEY,
@@ -14,6 +15,7 @@ export function hasPoseidonApiKey() {
 export function syncRuntimeClients() {
   poseidonClient.setConfig({
     baseUrl: API_PROXY_BASES.poseidon,
+    fetch: createPoseidonCompatibilityFetch(),
     headers: API_PROXY_BASES.poseidonApiKey
       ? {
           "X-API-Key": API_PROXY_BASES.poseidonApiKey,

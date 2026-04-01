@@ -19,6 +19,7 @@ import { PanelFrame } from "@/features/monitoring/panel-frame";
 import { StatusBadge } from "@/features/monitoring/status-badge";
 import { getMonitoringQueryOptions } from "@/features/monitoring/query-config";
 import { getApiMarket } from "@/features/portfolio/portfolio-view-model";
+import { isPoseidonNotFoundError } from "@/lib/api/poseidon-compat";
 import { useUiStore } from "@/stores/ui-store";
 
 type BacktestingPageProps = {
@@ -164,7 +165,11 @@ export function Component() {
     enabled: Boolean(activeBacktestId),
   });
 
-  const error = backtestsQuery.error ?? detailQuery.error ?? tradesQuery.error ?? equityCurveQuery.error;
+  const error =
+    backtestsQuery.error ??
+    detailQuery.error ??
+    (isPoseidonNotFoundError(tradesQuery.error) ? null : tradesQuery.error) ??
+    (isPoseidonNotFoundError(equityCurveQuery.error) ? null : equityCurveQuery.error);
 
   if (error) {
     return <ErrorState message={error instanceof Error ? error.message : "Backtesting data could not be loaded from Poseidon."} />;
