@@ -3,6 +3,8 @@ services:
     image: caddy:2.10.0-alpine
     container_name: kairos-proxy
     restart: unless-stopped
+    environment:
+      POSEIDON_API_KEY: ${POSEIDON_API_KEY}
     ports:
       - "80:80"
     extra_hosts:

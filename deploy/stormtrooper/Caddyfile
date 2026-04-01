@@ -1,9 +1,11 @@
 :80 {
-  handle_path /api/poseidon/* {
-    reverse_proxy host.docker.internal:8001
+  handle_path /poseidon/* {
+    reverse_proxy host.docker.internal:8001 {
+      header_up X-API-Key {$POSEIDON_API_KEY}
+    }
   }
 
-  handle_path /api/triton/* {
+  handle_path /triton/* {
     reverse_proxy host.docker.internal:8000
   }
 

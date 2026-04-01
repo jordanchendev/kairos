@@ -12,6 +12,6 @@ REMOTE_COMPOSE_FILE="${STORMTROOPER_COMPOSE_FILE:-deploy/stormtrooper/docker-com
 cd "${REPO_ROOT}"
 
 echo "Deploying kairos on ${HOST} from ${REMOTE_REPO_PATH}"
-ssh "${HOST}" "cd ${REMOTE_REPO_PATH} && git pull --ff-only origin main && npm ci && npm run build && sudo docker compose -f ${REMOTE_COMPOSE_FILE} up -d"
+ssh "${HOST}" "cd ${REMOTE_REPO_PATH} && git pull --ff-only origin main && npm ci && npm run build && export POSEIDON_API_KEY=\$(sudo docker inspect poseidon-api-1 --format '{{range .Config.Env}}{{println .}}{{end}}' | sed -n 's/^POSEIDON_API_KEY=//p' | head -n 1) && sudo --preserve-env=POSEIDON_API_KEY docker compose -f ${REMOTE_COMPOSE_FILE} up -d"
 
 echo "Deployment complete."

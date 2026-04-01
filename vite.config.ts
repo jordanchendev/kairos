@@ -15,15 +15,15 @@ export default defineConfig({
     host: true,
     port: 5173,
     proxy: {
-      "/api/poseidon": {
+      "/poseidon": {
         target: "http://localhost:8001",
         changeOrigin: true,
-        rewrite: (requestPath) => requestPath.replace(/^\/api\/poseidon/, ""),
+        rewrite: (requestPath) => requestPath.replace(/^\/poseidon/, ""),
       },
-      "/api/triton": {
+      "/triton": {
         target: "http://localhost:8000",
         changeOrigin: true,
-        rewrite: (requestPath) => requestPath.replace(/^\/api\/triton/, ""),
+        rewrite: (requestPath) => requestPath.replace(/^\/triton/, ""),
       },
     },
   },
