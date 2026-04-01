@@ -1,15 +1,17 @@
 :80 {
-  handle_path /poseidon/* {
-    reverse_proxy host.docker.internal:8001 {
-      header_up X-API-Key {$POSEIDON_API_KEY}
+  route {
+    handle_path /poseidon/* {
+      reverse_proxy host.docker.internal:8001 {
+        header_up X-API-Key {$POSEIDON_API_KEY}
+      }
     }
-  }
 
-  handle_path /triton/* {
-    reverse_proxy host.docker.internal:8000
-  }
+    handle_path /triton/* {
+      reverse_proxy host.docker.internal:8000
+    }
 
-  root * /srv/kairos
-  try_files {path} /index.html
-  file_server
+    root * /srv/kairos
+    try_files {path} /index.html
+    file_server
+  }
 }
