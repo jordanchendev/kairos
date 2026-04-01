@@ -1,0 +1,13 @@
+:80 {
+  handle_path /api/poseidon/* {
+    reverse_proxy host.docker.internal:8001
+  }
+
+  handle_path /api/triton/* {
+    reverse_proxy host.docker.internal:8000
+  }
+
+  root * /srv/kairos
+  try_files {path} /index.html
+  file_server
+}

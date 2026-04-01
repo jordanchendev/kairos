@@ -1,0 +1,18 @@
+services:
+  kairos-proxy:
+    image: caddy:2.10.0-alpine
+    container_name: kairos-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - /home/jordan/Projects/kairos/dist:/srv/kairos:ro
+      - kairos_caddy_data:/data
+      - kairos_caddy_config:/config
+
+volumes:
+  kairos_caddy_data:
+  kairos_caddy_config:
