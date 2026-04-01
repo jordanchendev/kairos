@@ -4,8 +4,8 @@ import { persist } from "zustand/middleware";
 const MARKET_OPTIONS = ["All Markets", "TW Equities", "US Equities", "Crypto Perps"] as const;
 const TIME_RANGE_OPTIONS = ["1D", "1W", "1M", "1Q", "YTD"] as const;
 
-type MarketOption = (typeof MARKET_OPTIONS)[number];
-type TimeRangeOption = (typeof TIME_RANGE_OPTIONS)[number];
+export type MarketOption = (typeof MARKET_OPTIONS)[number];
+export type TimeRangeOption = (typeof TIME_RANGE_OPTIONS)[number];
 
 type UiState = {
   commandPaletteOpen: boolean;
