@@ -6,6 +6,10 @@ export const monitoringQueryDefaults = {
     refetchInterval: 15 * second,
     staleTime: 10 * second,
   },
+  indexedData: {
+    refetchInterval: 45 * second,
+    staleTime: 20 * second,
+  },
   infrastructure: {
     refetchInterval: 20 * second,
     staleTime: 10 * second,
@@ -25,6 +29,10 @@ export const monitoringQueryDefaults = {
   signals: {
     refetchInterval: minute,
     staleTime: 30 * second,
+  },
+  transcription: {
+    refetchInterval: 15 * second,
+    staleTime: 10 * second,
   },
 } as const;
 
