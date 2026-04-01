@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { RefreshCw } from "lucide-react";
 
 import {
-  getSignalSignalsSignalIdGetOptions,
-  listSignalsSignalsGetOptions,
+  getSignalApiSignalsSignalIdGetOptions,
+  listSignalsApiSignalsGetOptions,
 } from "@/api/poseidon/@tanstack/react-query.gen";
 import { Button } from "@/components/ui/button";
 import { ErrorState } from "@/features/monitoring/error-state";
@@ -31,7 +31,7 @@ export function Component() {
   const [selectedSignalId, setSelectedSignalId] = useState<string | null>(null);
 
   const signalsQuery = useQuery({
-    ...listSignalsSignalsGetOptions({
+    ...listSignalsApiSignalsGetOptions({
       query: {
         limit: 120,
         market: apiMarket,
@@ -58,12 +58,12 @@ export function Component() {
 
   const signalDetailQuery = useQuery({
     ...(activeSignalId
-      ? getSignalSignalsSignalIdGetOptions({
+      ? getSignalApiSignalsSignalIdGetOptions({
           path: {
             signal_id: activeSignalId,
           },
         })
-      : getSignalSignalsSignalIdGetOptions({
+      : getSignalApiSignalsSignalIdGetOptions({
           path: {
             signal_id: "pending",
           },

@@ -117,6 +117,86 @@ export type BackfillStatusResponse = {
 };
 
 /**
+ * BacktestEquityPointResponse
+ *
+ * Response model for a single equity curve data point.
+ */
+export type BacktestEquityPointResponse = {
+    /**
+     * Time
+     */
+    time: string;
+    /**
+     * Equity
+     */
+    equity: number;
+    /**
+     * Drawdown
+     */
+    drawdown: number;
+};
+
+/**
+ * BacktestEquityResponse
+ *
+ * Response model wrapping the equity curve for a backtest.
+ */
+export type BacktestEquityResponse = {
+    /**
+     * Backtest Id
+     */
+    backtest_id: string;
+    /**
+     * Data
+     */
+    data: Array<BacktestEquityPointResponse>;
+    /**
+     * Count
+     */
+    count: number;
+};
+
+/**
+ * BacktestMetricsSummary
+ *
+ * Summary of metrics from a single backtest run.
+ */
+export type BacktestMetricsSummary = {
+    /**
+     * Backtest Id
+     */
+    backtest_id: string;
+    /**
+     * Completed At
+     */
+    completed_at: string | null;
+    /**
+     * Sharpe Ratio
+     */
+    sharpe_ratio: number | null;
+    /**
+     * Win Rate
+     */
+    win_rate: number | null;
+    /**
+     * Total Pnl
+     */
+    total_pnl: number | null;
+    /**
+     * Trade Count
+     */
+    trade_count: number | null;
+    /**
+     * Max Drawdown
+     */
+    max_drawdown: number | null;
+    /**
+     * Composite Score
+     */
+    composite_score: number | null;
+};
+
+/**
  * BacktestResponse
  *
  * Response model for a backtest record.
@@ -204,6 +284,80 @@ export type BacktestRunRequest = {
      * Initial Capital
      */
     initial_capital?: number;
+};
+
+/**
+ * BacktestTradeResponse
+ *
+ * Response model for a single backtest trade.
+ */
+export type BacktestTradeResponse = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Backtest Id
+     */
+    backtest_id: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Action
+     */
+    action: string;
+    /**
+     * Entry Time
+     */
+    entry_time: string;
+    /**
+     * Exit Time
+     */
+    exit_time: string | null;
+    /**
+     * Entry Price
+     */
+    entry_price: number;
+    /**
+     * Exit Price
+     */
+    exit_price: number | null;
+    /**
+     * Quantity
+     */
+    quantity: number;
+    /**
+     * Pnl
+     */
+    pnl: number | null;
+    /**
+     * Fees
+     */
+    fees: number;
+};
+
+/**
+ * CorrelationResponse
+ */
+export type CorrelationResponse = {
+    /**
+     * Symbols
+     */
+    symbols: Array<string>;
+    /**
+     * Matrix
+     */
+    matrix: Array<Array<number>>;
+    /**
+     * As Of
+     */
+    as_of?: string | null;
+    /**
+     * Computed At
+     */
+    computed_at?: string | null;
 };
 
 /**
@@ -304,6 +458,46 @@ export type FetchRequest = {
      * Interval
      */
     interval?: string;
+};
+
+/**
+ * FundingRatePoint
+ */
+export type FundingRatePoint = {
+    /**
+     * Time
+     */
+    time: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Funding Rate
+     */
+    funding_rate: number;
+    /**
+     * Mark Price
+     */
+    mark_price: number | null;
+    /**
+     * Index Price
+     */
+    index_price: number | null;
+};
+
+/**
+ * FundingRateResponse
+ */
+export type FundingRateResponse = {
+    /**
+     * Data
+     */
+    data: Array<FundingRatePoint>;
+    /**
+     * Count
+     */
+    count: number;
 };
 
 /**
@@ -496,6 +690,104 @@ export type NavPointResponse = {
      * Holdings Count
      */
     holdings_count: number;
+};
+
+/**
+ * NotificationItem
+ */
+export type NotificationItem = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Source
+     */
+    source: string;
+    /**
+     * Event Type
+     */
+    event_type: string;
+    /**
+     * Data
+     */
+    data: {
+        [key: string]: unknown;
+    };
+    /**
+     * Timestamp
+     */
+    timestamp?: string | null;
+};
+
+/**
+ * NotificationsResponse
+ */
+export type NotificationsResponse = {
+    /**
+     * Notifications
+     */
+    notifications: Array<NotificationItem>;
+    /**
+     * Total
+     */
+    total: number;
+};
+
+/**
+ * OHLCVPoint
+ */
+export type OhlcvPoint = {
+    /**
+     * Time
+     */
+    time: string;
+    /**
+     * Open
+     */
+    open: number;
+    /**
+     * High
+     */
+    high: number;
+    /**
+     * Low
+     */
+    low: number;
+    /**
+     * Close
+     */
+    close: number;
+    /**
+     * Volume
+     */
+    volume: number;
+};
+
+/**
+ * OHLCVResponse
+ */
+export type OhlcvResponse = {
+    /**
+     * Data
+     */
+    data: Array<OhlcvPoint>;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Interval
+     */
+    interval: string;
+    /**
+     * Count
+     */
+    count: number;
 };
 
 /**
@@ -1027,6 +1319,24 @@ export type StrategyCreate = {
 };
 
 /**
+ * StrategyPerformanceResponse
+ *
+ * Aggregated performance response: best + latest backtest metrics.
+ */
+export type StrategyPerformanceResponse = {
+    /**
+     * Strategy Id
+     */
+    strategy_id: string;
+    /**
+     * Backtest Count
+     */
+    backtest_count: number;
+    best: BacktestMetricsSummary | null;
+    latest: BacktestMetricsSummary | null;
+};
+
+/**
  * StrategyResponse
  *
  * Response model for a strategy.
@@ -1384,57 +1694,57 @@ export type HealthHealthGetResponses = {
     200: unknown;
 };
 
-export type TriggerFetchDataFetchPostData = {
+export type TriggerFetchApiDataFetchPostData = {
     body: FetchRequest;
     path?: never;
     query?: never;
-    url: '/data/fetch';
+    url: '/api/data/fetch';
 };
 
-export type TriggerFetchDataFetchPostErrors = {
+export type TriggerFetchApiDataFetchPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type TriggerFetchDataFetchPostError = TriggerFetchDataFetchPostErrors[keyof TriggerFetchDataFetchPostErrors];
+export type TriggerFetchApiDataFetchPostError = TriggerFetchApiDataFetchPostErrors[keyof TriggerFetchApiDataFetchPostErrors];
 
-export type TriggerFetchDataFetchPostResponses = {
+export type TriggerFetchApiDataFetchPostResponses = {
     /**
      * Successful Response
      */
     202: MessageResponse;
 };
 
-export type TriggerFetchDataFetchPostResponse = TriggerFetchDataFetchPostResponses[keyof TriggerFetchDataFetchPostResponses];
+export type TriggerFetchApiDataFetchPostResponse = TriggerFetchApiDataFetchPostResponses[keyof TriggerFetchApiDataFetchPostResponses];
 
-export type TriggerBackfillEndpointDataBackfillPostData = {
+export type TriggerBackfillEndpointApiDataBackfillPostData = {
     body: BackfillRequest;
     path?: never;
     query?: never;
-    url: '/data/backfill';
+    url: '/api/data/backfill';
 };
 
-export type TriggerBackfillEndpointDataBackfillPostErrors = {
+export type TriggerBackfillEndpointApiDataBackfillPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type TriggerBackfillEndpointDataBackfillPostError = TriggerBackfillEndpointDataBackfillPostErrors[keyof TriggerBackfillEndpointDataBackfillPostErrors];
+export type TriggerBackfillEndpointApiDataBackfillPostError = TriggerBackfillEndpointApiDataBackfillPostErrors[keyof TriggerBackfillEndpointApiDataBackfillPostErrors];
 
-export type TriggerBackfillEndpointDataBackfillPostResponses = {
+export type TriggerBackfillEndpointApiDataBackfillPostResponses = {
     /**
      * Successful Response
      */
     202: MessageResponse;
 };
 
-export type TriggerBackfillEndpointDataBackfillPostResponse = TriggerBackfillEndpointDataBackfillPostResponses[keyof TriggerBackfillEndpointDataBackfillPostResponses];
+export type TriggerBackfillEndpointApiDataBackfillPostResponse = TriggerBackfillEndpointApiDataBackfillPostResponses[keyof TriggerBackfillEndpointApiDataBackfillPostResponses];
 
-export type GetBackfillStatusDataBackfillStatusGetData = {
+export type GetBackfillStatusApiDataBackfillStatusGetData = {
     body?: never;
     path?: never;
     query?: {
@@ -1443,30 +1753,130 @@ export type GetBackfillStatusDataBackfillStatusGetData = {
          */
         market?: string | null;
     };
-    url: '/data/backfill/status';
+    url: '/api/data/backfill/status';
 };
 
-export type GetBackfillStatusDataBackfillStatusGetErrors = {
+export type GetBackfillStatusApiDataBackfillStatusGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetBackfillStatusDataBackfillStatusGetError = GetBackfillStatusDataBackfillStatusGetErrors[keyof GetBackfillStatusDataBackfillStatusGetErrors];
+export type GetBackfillStatusApiDataBackfillStatusGetError = GetBackfillStatusApiDataBackfillStatusGetErrors[keyof GetBackfillStatusApiDataBackfillStatusGetErrors];
 
-export type GetBackfillStatusDataBackfillStatusGetResponses = {
+export type GetBackfillStatusApiDataBackfillStatusGetResponses = {
     /**
-     * Response Get Backfill Status Data Backfill Status Get
+     * Response Get Backfill Status Api Data Backfill Status Get
      *
      * Successful Response
      */
     200: Array<BackfillStatusResponse>;
 };
 
-export type GetBackfillStatusDataBackfillStatusGetResponse = GetBackfillStatusDataBackfillStatusGetResponses[keyof GetBackfillStatusDataBackfillStatusGetResponses];
+export type GetBackfillStatusApiDataBackfillStatusGetResponse = GetBackfillStatusApiDataBackfillStatusGetResponses[keyof GetBackfillStatusApiDataBackfillStatusGetResponses];
 
-export type ListSentimentSentimentGetData = {
+export type GetOhlcvApiDataOhlcvGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         *
+         * Ticker symbol, e.g. BTCUSDT
+         */
+        symbol: string;
+        /**
+         * Market
+         *
+         * Market name, e.g. crypto_perp
+         */
+        market: string;
+        /**
+         * Interval
+         *
+         * Candle interval, e.g. 1d, 4h, 1h
+         */
+        interval?: string;
+        /**
+         * Start
+         *
+         * Start date (ISO format)
+         */
+        start?: string | null;
+        /**
+         * End
+         *
+         * End date (ISO format)
+         */
+        end?: string | null;
+    };
+    url: '/api/data/ohlcv';
+};
+
+export type GetOhlcvApiDataOhlcvGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetOhlcvApiDataOhlcvGetError = GetOhlcvApiDataOhlcvGetErrors[keyof GetOhlcvApiDataOhlcvGetErrors];
+
+export type GetOhlcvApiDataOhlcvGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: OhlcvResponse;
+};
+
+export type GetOhlcvApiDataOhlcvGetResponse = GetOhlcvApiDataOhlcvGetResponses[keyof GetOhlcvApiDataOhlcvGetResponses];
+
+export type GetFundingRatesApiDataFundingRatesGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         *
+         * Perp symbol, e.g. BTC/USDT:USDT
+         */
+        symbol: string;
+        /**
+         * Start
+         */
+        start?: string | null;
+        /**
+         * End
+         */
+        end?: string | null;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/data/funding-rates';
+};
+
+export type GetFundingRatesApiDataFundingRatesGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetFundingRatesApiDataFundingRatesGetError = GetFundingRatesApiDataFundingRatesGetErrors[keyof GetFundingRatesApiDataFundingRatesGetErrors];
+
+export type GetFundingRatesApiDataFundingRatesGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: FundingRateResponse;
+};
+
+export type GetFundingRatesApiDataFundingRatesGetResponse = GetFundingRatesApiDataFundingRatesGetResponses[keyof GetFundingRatesApiDataFundingRatesGetResponses];
+
+export type ListSentimentApiSentimentGetData = {
     body?: never;
     path?: never;
     query: {
@@ -1489,53 +1899,53 @@ export type ListSentimentSentimentGetData = {
          */
         limit?: number;
     };
-    url: '/sentiment';
+    url: '/api/sentiment';
 };
 
-export type ListSentimentSentimentGetErrors = {
+export type ListSentimentApiSentimentGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListSentimentSentimentGetError = ListSentimentSentimentGetErrors[keyof ListSentimentSentimentGetErrors];
+export type ListSentimentApiSentimentGetError = ListSentimentApiSentimentGetErrors[keyof ListSentimentApiSentimentGetErrors];
 
-export type ListSentimentSentimentGetResponses = {
+export type ListSentimentApiSentimentGetResponses = {
     /**
-     * Response List Sentiment Sentiment Get
+     * Response List Sentiment Api Sentiment Get
      *
      * Successful Response
      */
     200: Array<SentimentResponse>;
 };
 
-export type ListSentimentSentimentGetResponse = ListSentimentSentimentGetResponses[keyof ListSentimentSentimentGetResponses];
+export type ListSentimentApiSentimentGetResponse = ListSentimentApiSentimentGetResponses[keyof ListSentimentApiSentimentGetResponses];
 
-export type CreateSentimentSentimentPostData = {
+export type CreateSentimentApiSentimentPostData = {
     body: SentimentCreate;
     path?: never;
     query?: never;
-    url: '/sentiment';
+    url: '/api/sentiment';
 };
 
-export type CreateSentimentSentimentPostErrors = {
+export type CreateSentimentApiSentimentPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateSentimentSentimentPostError = CreateSentimentSentimentPostErrors[keyof CreateSentimentSentimentPostErrors];
+export type CreateSentimentApiSentimentPostError = CreateSentimentApiSentimentPostErrors[keyof CreateSentimentApiSentimentPostErrors];
 
-export type CreateSentimentSentimentPostResponses = {
+export type CreateSentimentApiSentimentPostResponses = {
     /**
      * Successful Response
      */
     201: SentimentResponse;
 };
 
-export type CreateSentimentSentimentPostResponse = CreateSentimentSentimentPostResponses[keyof CreateSentimentSentimentPostResponses];
+export type CreateSentimentApiSentimentPostResponse = CreateSentimentApiSentimentPostResponses[keyof CreateSentimentApiSentimentPostResponses];
 
 export type ListRuleTypesApiRiskRulesTypesGetData = {
     body?: never;
@@ -1720,50 +2130,50 @@ export type UpdateRuleApiRiskRulesRuleIdPatchResponses = {
 
 export type UpdateRuleApiRiskRulesRuleIdPatchResponse = UpdateRuleApiRiskRulesRuleIdPatchResponses[keyof UpdateRuleApiRiskRulesRuleIdPatchResponses];
 
-export type ListStrategiesStrategiesGetData = {
+export type ListStrategiesApiStrategiesGetData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/strategies';
+    url: '/api/strategies';
 };
 
-export type ListStrategiesStrategiesGetResponses = {
+export type ListStrategiesApiStrategiesGetResponses = {
     /**
-     * Response List Strategies Strategies Get
+     * Response List Strategies Api Strategies Get
      *
      * Successful Response
      */
     200: Array<StrategyResponse>;
 };
 
-export type ListStrategiesStrategiesGetResponse = ListStrategiesStrategiesGetResponses[keyof ListStrategiesStrategiesGetResponses];
+export type ListStrategiesApiStrategiesGetResponse = ListStrategiesApiStrategiesGetResponses[keyof ListStrategiesApiStrategiesGetResponses];
 
-export type CreateStrategyStrategiesPostData = {
+export type CreateStrategyApiStrategiesPostData = {
     body: StrategyCreate;
     path?: never;
     query?: never;
-    url: '/strategies';
+    url: '/api/strategies';
 };
 
-export type CreateStrategyStrategiesPostErrors = {
+export type CreateStrategyApiStrategiesPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateStrategyStrategiesPostError = CreateStrategyStrategiesPostErrors[keyof CreateStrategyStrategiesPostErrors];
+export type CreateStrategyApiStrategiesPostError = CreateStrategyApiStrategiesPostErrors[keyof CreateStrategyApiStrategiesPostErrors];
 
-export type CreateStrategyStrategiesPostResponses = {
+export type CreateStrategyApiStrategiesPostResponses = {
     /**
      * Successful Response
      */
     201: StrategyResponse;
 };
 
-export type CreateStrategyStrategiesPostResponse = CreateStrategyStrategiesPostResponses[keyof CreateStrategyStrategiesPostResponses];
+export type CreateStrategyApiStrategiesPostResponse = CreateStrategyApiStrategiesPostResponses[keyof CreateStrategyApiStrategiesPostResponses];
 
-export type DeleteStrategyStrategiesStrategyIdDeleteData = {
+export type DeleteStrategyApiStrategiesStrategyIdDeleteData = {
     body?: never;
     path: {
         /**
@@ -1772,28 +2182,28 @@ export type DeleteStrategyStrategiesStrategyIdDeleteData = {
         strategy_id: string;
     };
     query?: never;
-    url: '/strategies/{strategy_id}';
+    url: '/api/strategies/{strategy_id}';
 };
 
-export type DeleteStrategyStrategiesStrategyIdDeleteErrors = {
+export type DeleteStrategyApiStrategiesStrategyIdDeleteErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeleteStrategyStrategiesStrategyIdDeleteError = DeleteStrategyStrategiesStrategyIdDeleteErrors[keyof DeleteStrategyStrategiesStrategyIdDeleteErrors];
+export type DeleteStrategyApiStrategiesStrategyIdDeleteError = DeleteStrategyApiStrategiesStrategyIdDeleteErrors[keyof DeleteStrategyApiStrategiesStrategyIdDeleteErrors];
 
-export type DeleteStrategyStrategiesStrategyIdDeleteResponses = {
+export type DeleteStrategyApiStrategiesStrategyIdDeleteResponses = {
     /**
      * Successful Response
      */
     204: void;
 };
 
-export type DeleteStrategyStrategiesStrategyIdDeleteResponse = DeleteStrategyStrategiesStrategyIdDeleteResponses[keyof DeleteStrategyStrategiesStrategyIdDeleteResponses];
+export type DeleteStrategyApiStrategiesStrategyIdDeleteResponse = DeleteStrategyApiStrategiesStrategyIdDeleteResponses[keyof DeleteStrategyApiStrategiesStrategyIdDeleteResponses];
 
-export type GetStrategyStrategiesStrategyIdGetData = {
+export type GetStrategyApiStrategiesStrategyIdGetData = {
     body?: never;
     path: {
         /**
@@ -1802,28 +2212,28 @@ export type GetStrategyStrategiesStrategyIdGetData = {
         strategy_id: string;
     };
     query?: never;
-    url: '/strategies/{strategy_id}';
+    url: '/api/strategies/{strategy_id}';
 };
 
-export type GetStrategyStrategiesStrategyIdGetErrors = {
+export type GetStrategyApiStrategiesStrategyIdGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetStrategyStrategiesStrategyIdGetError = GetStrategyStrategiesStrategyIdGetErrors[keyof GetStrategyStrategiesStrategyIdGetErrors];
+export type GetStrategyApiStrategiesStrategyIdGetError = GetStrategyApiStrategiesStrategyIdGetErrors[keyof GetStrategyApiStrategiesStrategyIdGetErrors];
 
-export type GetStrategyStrategiesStrategyIdGetResponses = {
+export type GetStrategyApiStrategiesStrategyIdGetResponses = {
     /**
      * Successful Response
      */
     200: StrategyResponse;
 };
 
-export type GetStrategyStrategiesStrategyIdGetResponse = GetStrategyStrategiesStrategyIdGetResponses[keyof GetStrategyStrategiesStrategyIdGetResponses];
+export type GetStrategyApiStrategiesStrategyIdGetResponse = GetStrategyApiStrategiesStrategyIdGetResponses[keyof GetStrategyApiStrategiesStrategyIdGetResponses];
 
-export type UpdateStrategyStrategiesStrategyIdPutData = {
+export type UpdateStrategyApiStrategiesStrategyIdPutData = {
     body: StrategyUpdate;
     path: {
         /**
@@ -1832,28 +2242,28 @@ export type UpdateStrategyStrategiesStrategyIdPutData = {
         strategy_id: string;
     };
     query?: never;
-    url: '/strategies/{strategy_id}';
+    url: '/api/strategies/{strategy_id}';
 };
 
-export type UpdateStrategyStrategiesStrategyIdPutErrors = {
+export type UpdateStrategyApiStrategiesStrategyIdPutErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UpdateStrategyStrategiesStrategyIdPutError = UpdateStrategyStrategiesStrategyIdPutErrors[keyof UpdateStrategyStrategiesStrategyIdPutErrors];
+export type UpdateStrategyApiStrategiesStrategyIdPutError = UpdateStrategyApiStrategiesStrategyIdPutErrors[keyof UpdateStrategyApiStrategiesStrategyIdPutErrors];
 
-export type UpdateStrategyStrategiesStrategyIdPutResponses = {
+export type UpdateStrategyApiStrategiesStrategyIdPutResponses = {
     /**
      * Successful Response
      */
     200: StrategyResponse;
 };
 
-export type UpdateStrategyStrategiesStrategyIdPutResponse = UpdateStrategyStrategiesStrategyIdPutResponses[keyof UpdateStrategyStrategiesStrategyIdPutResponses];
+export type UpdateStrategyApiStrategiesStrategyIdPutResponse = UpdateStrategyApiStrategiesStrategyIdPutResponses[keyof UpdateStrategyApiStrategiesStrategyIdPutResponses];
 
-export type ActivateStrategyStrategiesStrategyIdActivatePostData = {
+export type ActivateStrategyApiStrategiesStrategyIdActivatePostData = {
     body?: never;
     path: {
         /**
@@ -1862,28 +2272,28 @@ export type ActivateStrategyStrategiesStrategyIdActivatePostData = {
         strategy_id: string;
     };
     query?: never;
-    url: '/strategies/{strategy_id}/activate';
+    url: '/api/strategies/{strategy_id}/activate';
 };
 
-export type ActivateStrategyStrategiesStrategyIdActivatePostErrors = {
+export type ActivateStrategyApiStrategiesStrategyIdActivatePostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ActivateStrategyStrategiesStrategyIdActivatePostError = ActivateStrategyStrategiesStrategyIdActivatePostErrors[keyof ActivateStrategyStrategiesStrategyIdActivatePostErrors];
+export type ActivateStrategyApiStrategiesStrategyIdActivatePostError = ActivateStrategyApiStrategiesStrategyIdActivatePostErrors[keyof ActivateStrategyApiStrategiesStrategyIdActivatePostErrors];
 
-export type ActivateStrategyStrategiesStrategyIdActivatePostResponses = {
+export type ActivateStrategyApiStrategiesStrategyIdActivatePostResponses = {
     /**
      * Successful Response
      */
     200: StrategyResponse;
 };
 
-export type ActivateStrategyStrategiesStrategyIdActivatePostResponse = ActivateStrategyStrategiesStrategyIdActivatePostResponses[keyof ActivateStrategyStrategiesStrategyIdActivatePostResponses];
+export type ActivateStrategyApiStrategiesStrategyIdActivatePostResponse = ActivateStrategyApiStrategiesStrategyIdActivatePostResponses[keyof ActivateStrategyApiStrategiesStrategyIdActivatePostResponses];
 
-export type DeactivateStrategyStrategiesStrategyIdDeactivatePostData = {
+export type DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData = {
     body?: never;
     path: {
         /**
@@ -1892,53 +2302,83 @@ export type DeactivateStrategyStrategiesStrategyIdDeactivatePostData = {
         strategy_id: string;
     };
     query?: never;
-    url: '/strategies/{strategy_id}/deactivate';
+    url: '/api/strategies/{strategy_id}/deactivate';
 };
 
-export type DeactivateStrategyStrategiesStrategyIdDeactivatePostErrors = {
+export type DeactivateStrategyApiStrategiesStrategyIdDeactivatePostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type DeactivateStrategyStrategiesStrategyIdDeactivatePostError = DeactivateStrategyStrategiesStrategyIdDeactivatePostErrors[keyof DeactivateStrategyStrategiesStrategyIdDeactivatePostErrors];
+export type DeactivateStrategyApiStrategiesStrategyIdDeactivatePostError = DeactivateStrategyApiStrategiesStrategyIdDeactivatePostErrors[keyof DeactivateStrategyApiStrategiesStrategyIdDeactivatePostErrors];
 
-export type DeactivateStrategyStrategiesStrategyIdDeactivatePostResponses = {
+export type DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponses = {
     /**
      * Successful Response
      */
     200: StrategyResponse;
 };
 
-export type DeactivateStrategyStrategiesStrategyIdDeactivatePostResponse = DeactivateStrategyStrategiesStrategyIdDeactivatePostResponses[keyof DeactivateStrategyStrategiesStrategyIdDeactivatePostResponses];
+export type DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponse = DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponses[keyof DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponses];
 
-export type StartTrainingModelsTrainPostData = {
+export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData = {
+    body?: never;
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query?: never;
+    url: '/api/strategies/{strategy_id}/performance';
+};
+
+export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetError = GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetErrors[keyof GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetErrors];
+
+export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: StrategyPerformanceResponse;
+};
+
+export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse = GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses[keyof GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses];
+
+export type StartTrainingApiModelsTrainPostData = {
     body: TrainRequest;
     path?: never;
     query?: never;
-    url: '/models/train';
+    url: '/api/models/train';
 };
 
-export type StartTrainingModelsTrainPostErrors = {
+export type StartTrainingApiModelsTrainPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type StartTrainingModelsTrainPostError = StartTrainingModelsTrainPostErrors[keyof StartTrainingModelsTrainPostErrors];
+export type StartTrainingApiModelsTrainPostError = StartTrainingApiModelsTrainPostErrors[keyof StartTrainingApiModelsTrainPostErrors];
 
-export type StartTrainingModelsTrainPostResponses = {
+export type StartTrainingApiModelsTrainPostResponses = {
     /**
      * Successful Response
      */
     202: MessageResponse;
 };
 
-export type StartTrainingModelsTrainPostResponse = StartTrainingModelsTrainPostResponses[keyof StartTrainingModelsTrainPostResponses];
+export type StartTrainingApiModelsTrainPostResponse = StartTrainingApiModelsTrainPostResponses[keyof StartTrainingApiModelsTrainPostResponses];
 
-export type ListModelsModelsGetData = {
+export type ListModelsApiModelsGetData = {
     body?: never;
     path?: never;
     query?: {
@@ -1947,30 +2387,30 @@ export type ListModelsModelsGetData = {
          */
         name?: string | null;
     };
-    url: '/models';
+    url: '/api/models';
 };
 
-export type ListModelsModelsGetErrors = {
+export type ListModelsApiModelsGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListModelsModelsGetError = ListModelsModelsGetErrors[keyof ListModelsModelsGetErrors];
+export type ListModelsApiModelsGetError = ListModelsApiModelsGetErrors[keyof ListModelsApiModelsGetErrors];
 
-export type ListModelsModelsGetResponses = {
+export type ListModelsApiModelsGetResponses = {
     /**
-     * Response List Models Models Get
+     * Response List Models Api Models Get
      *
      * Successful Response
      */
     200: Array<ModelVersionResponse>;
 };
 
-export type ListModelsModelsGetResponse = ListModelsModelsGetResponses[keyof ListModelsModelsGetResponses];
+export type ListModelsApiModelsGetResponse = ListModelsApiModelsGetResponses[keyof ListModelsApiModelsGetResponses];
 
-export type GetModelVersionModelsVersionIdGetData = {
+export type GetModelVersionApiModelsVersionIdGetData = {
     body?: never;
     path: {
         /**
@@ -1979,28 +2419,28 @@ export type GetModelVersionModelsVersionIdGetData = {
         version_id: string;
     };
     query?: never;
-    url: '/models/{version_id}';
+    url: '/api/models/{version_id}';
 };
 
-export type GetModelVersionModelsVersionIdGetErrors = {
+export type GetModelVersionApiModelsVersionIdGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetModelVersionModelsVersionIdGetError = GetModelVersionModelsVersionIdGetErrors[keyof GetModelVersionModelsVersionIdGetErrors];
+export type GetModelVersionApiModelsVersionIdGetError = GetModelVersionApiModelsVersionIdGetErrors[keyof GetModelVersionApiModelsVersionIdGetErrors];
 
-export type GetModelVersionModelsVersionIdGetResponses = {
+export type GetModelVersionApiModelsVersionIdGetResponses = {
     /**
      * Successful Response
      */
     200: ModelVersionResponse;
 };
 
-export type GetModelVersionModelsVersionIdGetResponse = GetModelVersionModelsVersionIdGetResponses[keyof GetModelVersionModelsVersionIdGetResponses];
+export type GetModelVersionApiModelsVersionIdGetResponse = GetModelVersionApiModelsVersionIdGetResponses[keyof GetModelVersionApiModelsVersionIdGetResponses];
 
-export type ShadowModelModelsVersionIdShadowPostData = {
+export type ShadowModelApiModelsVersionIdShadowPostData = {
     /**
      * Body
      */
@@ -2012,28 +2452,28 @@ export type ShadowModelModelsVersionIdShadowPostData = {
         version_id: string;
     };
     query?: never;
-    url: '/models/{version_id}/shadow';
+    url: '/api/models/{version_id}/shadow';
 };
 
-export type ShadowModelModelsVersionIdShadowPostErrors = {
+export type ShadowModelApiModelsVersionIdShadowPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ShadowModelModelsVersionIdShadowPostError = ShadowModelModelsVersionIdShadowPostErrors[keyof ShadowModelModelsVersionIdShadowPostErrors];
+export type ShadowModelApiModelsVersionIdShadowPostError = ShadowModelApiModelsVersionIdShadowPostErrors[keyof ShadowModelApiModelsVersionIdShadowPostErrors];
 
-export type ShadowModelModelsVersionIdShadowPostResponses = {
+export type ShadowModelApiModelsVersionIdShadowPostResponses = {
     /**
      * Successful Response
      */
     200: ModelVersionResponse;
 };
 
-export type ShadowModelModelsVersionIdShadowPostResponse = ShadowModelModelsVersionIdShadowPostResponses[keyof ShadowModelModelsVersionIdShadowPostResponses];
+export type ShadowModelApiModelsVersionIdShadowPostResponse = ShadowModelApiModelsVersionIdShadowPostResponses[keyof ShadowModelApiModelsVersionIdShadowPostResponses];
 
-export type ActivateModelModelsVersionIdActivatePostData = {
+export type ActivateModelApiModelsVersionIdActivatePostData = {
     /**
      * Body
      */
@@ -2045,28 +2485,28 @@ export type ActivateModelModelsVersionIdActivatePostData = {
         version_id: string;
     };
     query?: never;
-    url: '/models/{version_id}/activate';
+    url: '/api/models/{version_id}/activate';
 };
 
-export type ActivateModelModelsVersionIdActivatePostErrors = {
+export type ActivateModelApiModelsVersionIdActivatePostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ActivateModelModelsVersionIdActivatePostError = ActivateModelModelsVersionIdActivatePostErrors[keyof ActivateModelModelsVersionIdActivatePostErrors];
+export type ActivateModelApiModelsVersionIdActivatePostError = ActivateModelApiModelsVersionIdActivatePostErrors[keyof ActivateModelApiModelsVersionIdActivatePostErrors];
 
-export type ActivateModelModelsVersionIdActivatePostResponses = {
+export type ActivateModelApiModelsVersionIdActivatePostResponses = {
     /**
      * Successful Response
      */
     200: ModelVersionResponse;
 };
 
-export type ActivateModelModelsVersionIdActivatePostResponse = ActivateModelModelsVersionIdActivatePostResponses[keyof ActivateModelModelsVersionIdActivatePostResponses];
+export type ActivateModelApiModelsVersionIdActivatePostResponse = ActivateModelApiModelsVersionIdActivatePostResponses[keyof ActivateModelApiModelsVersionIdActivatePostResponses];
 
-export type PredictModelsVersionIdPredictPostData = {
+export type PredictApiModelsVersionIdPredictPostData = {
     body: PredictRequest;
     path: {
         /**
@@ -2075,78 +2515,78 @@ export type PredictModelsVersionIdPredictPostData = {
         version_id: string;
     };
     query?: never;
-    url: '/models/{version_id}/predict';
+    url: '/api/models/{version_id}/predict';
 };
 
-export type PredictModelsVersionIdPredictPostErrors = {
+export type PredictApiModelsVersionIdPredictPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type PredictModelsVersionIdPredictPostError = PredictModelsVersionIdPredictPostErrors[keyof PredictModelsVersionIdPredictPostErrors];
+export type PredictApiModelsVersionIdPredictPostError = PredictApiModelsVersionIdPredictPostErrors[keyof PredictApiModelsVersionIdPredictPostErrors];
 
-export type PredictModelsVersionIdPredictPostResponses = {
+export type PredictApiModelsVersionIdPredictPostResponses = {
     /**
      * Successful Response
      */
     202: MessageResponse;
 };
 
-export type PredictModelsVersionIdPredictPostResponse = PredictModelsVersionIdPredictPostResponses[keyof PredictModelsVersionIdPredictPostResponses];
+export type PredictApiModelsVersionIdPredictPostResponse = PredictApiModelsVersionIdPredictPostResponses[keyof PredictApiModelsVersionIdPredictPostResponses];
 
-export type RunBacktestBacktestRunPostData = {
+export type RunBacktestApiBacktestRunPostData = {
     body: BacktestRunRequest;
     path?: never;
     query?: never;
-    url: '/backtest/run';
+    url: '/api/backtest/run';
 };
 
-export type RunBacktestBacktestRunPostErrors = {
+export type RunBacktestApiBacktestRunPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type RunBacktestBacktestRunPostError = RunBacktestBacktestRunPostErrors[keyof RunBacktestBacktestRunPostErrors];
+export type RunBacktestApiBacktestRunPostError = RunBacktestApiBacktestRunPostErrors[keyof RunBacktestApiBacktestRunPostErrors];
 
-export type RunBacktestBacktestRunPostResponses = {
+export type RunBacktestApiBacktestRunPostResponses = {
     /**
      * Successful Response
      */
     202: MessageResponse;
 };
 
-export type RunBacktestBacktestRunPostResponse = RunBacktestBacktestRunPostResponses[keyof RunBacktestBacktestRunPostResponses];
+export type RunBacktestApiBacktestRunPostResponse = RunBacktestApiBacktestRunPostResponses[keyof RunBacktestApiBacktestRunPostResponses];
 
-export type RunOptimizationBacktestOptimizePostData = {
+export type RunOptimizationApiBacktestOptimizePostData = {
     body: OptimizeRequest;
     path?: never;
     query?: never;
-    url: '/backtest/optimize';
+    url: '/api/backtest/optimize';
 };
 
-export type RunOptimizationBacktestOptimizePostErrors = {
+export type RunOptimizationApiBacktestOptimizePostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type RunOptimizationBacktestOptimizePostError = RunOptimizationBacktestOptimizePostErrors[keyof RunOptimizationBacktestOptimizePostErrors];
+export type RunOptimizationApiBacktestOptimizePostError = RunOptimizationApiBacktestOptimizePostErrors[keyof RunOptimizationApiBacktestOptimizePostErrors];
 
-export type RunOptimizationBacktestOptimizePostResponses = {
+export type RunOptimizationApiBacktestOptimizePostResponses = {
     /**
      * Successful Response
      */
     202: MessageResponse;
 };
 
-export type RunOptimizationBacktestOptimizePostResponse = RunOptimizationBacktestOptimizePostResponses[keyof RunOptimizationBacktestOptimizePostResponses];
+export type RunOptimizationApiBacktestOptimizePostResponse = RunOptimizationApiBacktestOptimizePostResponses[keyof RunOptimizationApiBacktestOptimizePostResponses];
 
-export type ListBacktestsBacktestGetData = {
+export type ListBacktestsApiBacktestGetData = {
     body?: never;
     path?: never;
     query?: {
@@ -2159,30 +2599,30 @@ export type ListBacktestsBacktestGetData = {
          */
         limit?: number;
     };
-    url: '/backtest';
+    url: '/api/backtest';
 };
 
-export type ListBacktestsBacktestGetErrors = {
+export type ListBacktestsApiBacktestGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListBacktestsBacktestGetError = ListBacktestsBacktestGetErrors[keyof ListBacktestsBacktestGetErrors];
+export type ListBacktestsApiBacktestGetError = ListBacktestsApiBacktestGetErrors[keyof ListBacktestsApiBacktestGetErrors];
 
-export type ListBacktestsBacktestGetResponses = {
+export type ListBacktestsApiBacktestGetResponses = {
     /**
-     * Response List Backtests Backtest Get
+     * Response List Backtests Api Backtest Get
      *
      * Successful Response
      */
     200: Array<BacktestResponse>;
 };
 
-export type ListBacktestsBacktestGetResponse = ListBacktestsBacktestGetResponses[keyof ListBacktestsBacktestGetResponses];
+export type ListBacktestsApiBacktestGetResponse = ListBacktestsApiBacktestGetResponses[keyof ListBacktestsApiBacktestGetResponses];
 
-export type GetBacktestBacktestBacktestIdGetData = {
+export type GetBacktestApiBacktestBacktestIdGetData = {
     body?: never;
     path: {
         /**
@@ -2191,28 +2631,90 @@ export type GetBacktestBacktestBacktestIdGetData = {
         backtest_id: string;
     };
     query?: never;
-    url: '/backtest/{backtest_id}';
+    url: '/api/backtest/{backtest_id}';
 };
 
-export type GetBacktestBacktestBacktestIdGetErrors = {
+export type GetBacktestApiBacktestBacktestIdGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetBacktestBacktestBacktestIdGetError = GetBacktestBacktestBacktestIdGetErrors[keyof GetBacktestBacktestBacktestIdGetErrors];
+export type GetBacktestApiBacktestBacktestIdGetError = GetBacktestApiBacktestBacktestIdGetErrors[keyof GetBacktestApiBacktestBacktestIdGetErrors];
 
-export type GetBacktestBacktestBacktestIdGetResponses = {
+export type GetBacktestApiBacktestBacktestIdGetResponses = {
     /**
      * Successful Response
      */
     200: BacktestResponse;
 };
 
-export type GetBacktestBacktestBacktestIdGetResponse = GetBacktestBacktestBacktestIdGetResponses[keyof GetBacktestBacktestBacktestIdGetResponses];
+export type GetBacktestApiBacktestBacktestIdGetResponse = GetBacktestApiBacktestBacktestIdGetResponses[keyof GetBacktestApiBacktestBacktestIdGetResponses];
 
-export type ListSignalsSignalsGetData = {
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetData = {
+    body?: never;
+    path: {
+        /**
+         * Backtest Id
+         */
+        backtest_id: string;
+    };
+    query?: never;
+    url: '/api/backtest/{backtest_id}/trades';
+};
+
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetError = GetBacktestTradesApiBacktestBacktestIdTradesGetErrors[keyof GetBacktestTradesApiBacktestBacktestIdTradesGetErrors];
+
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetResponses = {
+    /**
+     * Response Get Backtest Trades Api Backtest  Backtest Id  Trades Get
+     *
+     * Successful Response
+     */
+    200: Array<BacktestTradeResponse>;
+};
+
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetResponse = GetBacktestTradesApiBacktestBacktestIdTradesGetResponses[keyof GetBacktestTradesApiBacktestBacktestIdTradesGetResponses];
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData = {
+    body?: never;
+    path: {
+        /**
+         * Backtest Id
+         */
+        backtest_id: string;
+    };
+    query?: never;
+    url: '/api/backtest/{backtest_id}/equity-curve';
+};
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetError = GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors[keyof GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors];
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: BacktestEquityResponse;
+};
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponse = GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses[keyof GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses];
+
+export type ListSignalsApiSignalsGetData = {
     body?: never;
     path?: never;
     query?: {
@@ -2233,30 +2735,30 @@ export type ListSignalsSignalsGetData = {
          */
         limit?: number;
     };
-    url: '/signals';
+    url: '/api/signals';
 };
 
-export type ListSignalsSignalsGetErrors = {
+export type ListSignalsApiSignalsGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListSignalsSignalsGetError = ListSignalsSignalsGetErrors[keyof ListSignalsSignalsGetErrors];
+export type ListSignalsApiSignalsGetError = ListSignalsApiSignalsGetErrors[keyof ListSignalsApiSignalsGetErrors];
 
-export type ListSignalsSignalsGetResponses = {
+export type ListSignalsApiSignalsGetResponses = {
     /**
-     * Response List Signals Signals Get
+     * Response List Signals Api Signals Get
      *
      * Successful Response
      */
     200: Array<SignalResponse>;
 };
 
-export type ListSignalsSignalsGetResponse = ListSignalsSignalsGetResponses[keyof ListSignalsSignalsGetResponses];
+export type ListSignalsApiSignalsGetResponse = ListSignalsApiSignalsGetResponses[keyof ListSignalsApiSignalsGetResponses];
 
-export type GetSignalSignalsSignalIdGetData = {
+export type GetSignalApiSignalsSignalIdGetData = {
     body?: never;
     path: {
         /**
@@ -2265,53 +2767,53 @@ export type GetSignalSignalsSignalIdGetData = {
         signal_id: string;
     };
     query?: never;
-    url: '/signals/{signal_id}';
+    url: '/api/signals/{signal_id}';
 };
 
-export type GetSignalSignalsSignalIdGetErrors = {
+export type GetSignalApiSignalsSignalIdGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetSignalSignalsSignalIdGetError = GetSignalSignalsSignalIdGetErrors[keyof GetSignalSignalsSignalIdGetErrors];
+export type GetSignalApiSignalsSignalIdGetError = GetSignalApiSignalsSignalIdGetErrors[keyof GetSignalApiSignalsSignalIdGetErrors];
 
-export type GetSignalSignalsSignalIdGetResponses = {
+export type GetSignalApiSignalsSignalIdGetResponses = {
     /**
      * Successful Response
      */
     200: SignalResponse;
 };
 
-export type GetSignalSignalsSignalIdGetResponse = GetSignalSignalsSignalIdGetResponses[keyof GetSignalSignalsSignalIdGetResponses];
+export type GetSignalApiSignalsSignalIdGetResponse = GetSignalApiSignalsSignalIdGetResponses[keyof GetSignalApiSignalsSignalIdGetResponses];
 
-export type RunAutoresearchAutoresearchRunPostData = {
+export type RunAutoresearchApiAutoresearchRunPostData = {
     body: AutoResearchRequest;
     path?: never;
     query?: never;
-    url: '/autoresearch/run';
+    url: '/api/autoresearch/run';
 };
 
-export type RunAutoresearchAutoresearchRunPostErrors = {
+export type RunAutoresearchApiAutoresearchRunPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type RunAutoresearchAutoresearchRunPostError = RunAutoresearchAutoresearchRunPostErrors[keyof RunAutoresearchAutoresearchRunPostErrors];
+export type RunAutoresearchApiAutoresearchRunPostError = RunAutoresearchApiAutoresearchRunPostErrors[keyof RunAutoresearchApiAutoresearchRunPostErrors];
 
-export type RunAutoresearchAutoresearchRunPostResponses = {
+export type RunAutoresearchApiAutoresearchRunPostResponses = {
     /**
      * Successful Response
      */
     202: MessageResponse;
 };
 
-export type RunAutoresearchAutoresearchRunPostResponse = RunAutoresearchAutoresearchRunPostResponses[keyof RunAutoresearchAutoresearchRunPostResponses];
+export type RunAutoresearchApiAutoresearchRunPostResponse = RunAutoresearchApiAutoresearchRunPostResponses[keyof RunAutoresearchApiAutoresearchRunPostResponses];
 
-export type GetTaskStatusAutoresearchStatusTaskIdGetData = {
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetData = {
     body?: never;
     path: {
         /**
@@ -2320,28 +2822,28 @@ export type GetTaskStatusAutoresearchStatusTaskIdGetData = {
         task_id: string;
     };
     query?: never;
-    url: '/autoresearch/status/{task_id}';
+    url: '/api/autoresearch/status/{task_id}';
 };
 
-export type GetTaskStatusAutoresearchStatusTaskIdGetErrors = {
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetTaskStatusAutoresearchStatusTaskIdGetError = GetTaskStatusAutoresearchStatusTaskIdGetErrors[keyof GetTaskStatusAutoresearchStatusTaskIdGetErrors];
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetError = GetTaskStatusApiAutoresearchStatusTaskIdGetErrors[keyof GetTaskStatusApiAutoresearchStatusTaskIdGetErrors];
 
-export type GetTaskStatusAutoresearchStatusTaskIdGetResponses = {
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetResponses = {
     /**
      * Successful Response
      */
     200: TaskStatusResponse;
 };
 
-export type GetTaskStatusAutoresearchStatusTaskIdGetResponse = GetTaskStatusAutoresearchStatusTaskIdGetResponses[keyof GetTaskStatusAutoresearchStatusTaskIdGetResponses];
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetResponse = GetTaskStatusApiAutoresearchStatusTaskIdGetResponses[keyof GetTaskStatusApiAutoresearchStatusTaskIdGetResponses];
 
-export type StopAutoresearchAutoresearchStopTaskIdPostData = {
+export type StopAutoresearchApiAutoresearchStopTaskIdPostData = {
     body?: never;
     path: {
         /**
@@ -2350,28 +2852,28 @@ export type StopAutoresearchAutoresearchStopTaskIdPostData = {
         task_id: string;
     };
     query?: never;
-    url: '/autoresearch/stop/{task_id}';
+    url: '/api/autoresearch/stop/{task_id}';
 };
 
-export type StopAutoresearchAutoresearchStopTaskIdPostErrors = {
+export type StopAutoresearchApiAutoresearchStopTaskIdPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type StopAutoresearchAutoresearchStopTaskIdPostError = StopAutoresearchAutoresearchStopTaskIdPostErrors[keyof StopAutoresearchAutoresearchStopTaskIdPostErrors];
+export type StopAutoresearchApiAutoresearchStopTaskIdPostError = StopAutoresearchApiAutoresearchStopTaskIdPostErrors[keyof StopAutoresearchApiAutoresearchStopTaskIdPostErrors];
 
-export type StopAutoresearchAutoresearchStopTaskIdPostResponses = {
+export type StopAutoresearchApiAutoresearchStopTaskIdPostResponses = {
     /**
      * Successful Response
      */
     200: MessageResponse;
 };
 
-export type StopAutoresearchAutoresearchStopTaskIdPostResponse = StopAutoresearchAutoresearchStopTaskIdPostResponses[keyof StopAutoresearchAutoresearchStopTaskIdPostResponses];
+export type StopAutoresearchApiAutoresearchStopTaskIdPostResponse = StopAutoresearchApiAutoresearchStopTaskIdPostResponses[keyof StopAutoresearchApiAutoresearchStopTaskIdPostResponses];
 
-export type ListExperimentsAutoresearchExperimentsGetData = {
+export type ListExperimentsApiAutoresearchExperimentsGetData = {
     body?: never;
     path?: never;
     query?: {
@@ -2388,28 +2890,28 @@ export type ListExperimentsAutoresearchExperimentsGetData = {
          */
         limit?: number;
     };
-    url: '/autoresearch/experiments';
+    url: '/api/autoresearch/experiments';
 };
 
-export type ListExperimentsAutoresearchExperimentsGetErrors = {
+export type ListExperimentsApiAutoresearchExperimentsGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListExperimentsAutoresearchExperimentsGetError = ListExperimentsAutoresearchExperimentsGetErrors[keyof ListExperimentsAutoresearchExperimentsGetErrors];
+export type ListExperimentsApiAutoresearchExperimentsGetError = ListExperimentsApiAutoresearchExperimentsGetErrors[keyof ListExperimentsApiAutoresearchExperimentsGetErrors];
 
-export type ListExperimentsAutoresearchExperimentsGetResponses = {
+export type ListExperimentsApiAutoresearchExperimentsGetResponses = {
     /**
-     * Response List Experiments Autoresearch Experiments Get
+     * Response List Experiments Api Autoresearch Experiments Get
      *
      * Successful Response
      */
     200: Array<ExperimentResponse>;
 };
 
-export type ListExperimentsAutoresearchExperimentsGetResponse = ListExperimentsAutoresearchExperimentsGetResponses[keyof ListExperimentsAutoresearchExperimentsGetResponses];
+export type ListExperimentsApiAutoresearchExperimentsGetResponse = ListExperimentsApiAutoresearchExperimentsGetResponses[keyof ListExperimentsApiAutoresearchExperimentsGetResponses];
 
 export type GetProviderHealthApiDataQualityProvidersGetData = {
     body?: never;
@@ -2588,6 +3090,22 @@ export type GetAlertsApiRiskAlertsGetResponses = {
 
 export type GetAlertsApiRiskAlertsGetResponse = GetAlertsApiRiskAlertsGetResponses[keyof GetAlertsApiRiskAlertsGetResponses];
 
+export type GetCorrelationApiRiskCorrelationGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/risk/correlation';
+};
+
+export type GetCorrelationApiRiskCorrelationGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: CorrelationResponse;
+};
+
+export type GetCorrelationApiRiskCorrelationGetResponse = GetCorrelationApiRiskCorrelationGetResponses[keyof GetCorrelationApiRiskCorrelationGetResponses];
+
 export type GetPerformanceApiPortfolioPerformanceGetData = {
     body?: never;
     path?: never;
@@ -2689,3 +3207,43 @@ export type GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses = {
 };
 
 export type GetPerpHoldingsApiPortfolioPerpHoldingsGetResponse = GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses[keyof GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses];
+
+export type GetNotificationsApiNotificationsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Offset
+         */
+        offset?: number;
+        /**
+         * Source
+         *
+         * Filter by source: risk, data_quality, autoresearch
+         */
+        source?: string | null;
+    };
+    url: '/api/notifications';
+};
+
+export type GetNotificationsApiNotificationsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetNotificationsApiNotificationsGetError = GetNotificationsApiNotificationsGetErrors[keyof GetNotificationsApiNotificationsGetErrors];
+
+export type GetNotificationsApiNotificationsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: NotificationsResponse;
+};
+
+export type GetNotificationsApiNotificationsGetResponse = GetNotificationsApiNotificationsGetResponses[keyof GetNotificationsApiNotificationsGetResponses];

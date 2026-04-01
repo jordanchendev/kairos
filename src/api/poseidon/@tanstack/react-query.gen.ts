@@ -3,8 +3,8 @@
 import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { activateModelModelsVersionIdActivatePost, activateStrategyStrategiesStrategyIdActivatePost, createRuleApiRiskRulesPost, createSentimentSentimentPost, createStrategyStrategiesPost, deactivateStrategyStrategiesStrategyIdDeactivatePost, deleteRuleApiRiskRulesRuleIdDelete, deleteStrategyStrategiesStrategyIdDelete, getAlertsApiRiskAlertsGet, getBackfillStatusDataBackfillStatusGet, getBacktestBacktestBacktestIdGet, getExposureApiRiskExposureGet, getHoldingsApiPortfolioHoldingsGet, getModelVersionModelsVersionIdGet, getOrdersApiPortfolioOrdersGet, getPerformanceApiPortfolioPerformanceGet, getPerpHoldingsApiPortfolioPerpHoldingsGet, getPortfolioApiRiskRulesPortfolioGet, getProviderHealthApiDataQualityProvidersGet, getQualityScoresApiDataQualityScoresGet, getRuleApiRiskRulesRuleIdGet, getSignalSignalsSignalIdGet, getStrategyStrategiesStrategyIdGet, getStressTestResultApiRiskStressTestTaskIdGet, getTaskStatusAutoresearchStatusTaskIdGet, getVarApiRiskVarGet, healthHealthGet, listBacktestsBacktestGet, listExperimentsAutoresearchExperimentsGet, listModelsModelsGet, listRulesApiRiskRulesGet, listRuleTypesApiRiskRulesTypesGet, listSentimentSentimentGet, listSignalsSignalsGet, listStrategiesStrategiesGet, type Options, predictModelsVersionIdPredictPost, runAutoresearchAutoresearchRunPost, runBacktestBacktestRunPost, runOptimizationBacktestOptimizePost, shadowModelModelsVersionIdShadowPost, startTrainingModelsTrainPost, stopAutoresearchAutoresearchStopTaskIdPost, triggerBackfillEndpointDataBackfillPost, triggerFetchDataFetchPost, triggerStressTestApiRiskStressTestRunPost, updateRuleApiRiskRulesRuleIdPatch, updateStrategyStrategiesStrategyIdPut } from '../sdk.gen';
-import type { ActivateModelModelsVersionIdActivatePostData, ActivateModelModelsVersionIdActivatePostError, ActivateModelModelsVersionIdActivatePostResponse, ActivateStrategyStrategiesStrategyIdActivatePostData, ActivateStrategyStrategiesStrategyIdActivatePostError, ActivateStrategyStrategiesStrategyIdActivatePostResponse, CreateRuleApiRiskRulesPostData, CreateRuleApiRiskRulesPostError, CreateRuleApiRiskRulesPostResponse, CreateSentimentSentimentPostData, CreateSentimentSentimentPostError, CreateSentimentSentimentPostResponse, CreateStrategyStrategiesPostData, CreateStrategyStrategiesPostError, CreateStrategyStrategiesPostResponse, DeactivateStrategyStrategiesStrategyIdDeactivatePostData, DeactivateStrategyStrategiesStrategyIdDeactivatePostError, DeactivateStrategyStrategiesStrategyIdDeactivatePostResponse, DeleteRuleApiRiskRulesRuleIdDeleteData, DeleteRuleApiRiskRulesRuleIdDeleteError, DeleteRuleApiRiskRulesRuleIdDeleteResponse, DeleteStrategyStrategiesStrategyIdDeleteData, DeleteStrategyStrategiesStrategyIdDeleteError, DeleteStrategyStrategiesStrategyIdDeleteResponse, GetAlertsApiRiskAlertsGetData, GetAlertsApiRiskAlertsGetError, GetAlertsApiRiskAlertsGetResponse, GetBackfillStatusDataBackfillStatusGetData, GetBackfillStatusDataBackfillStatusGetError, GetBackfillStatusDataBackfillStatusGetResponse, GetBacktestBacktestBacktestIdGetData, GetBacktestBacktestBacktestIdGetError, GetBacktestBacktestBacktestIdGetResponse, GetExposureApiRiskExposureGetData, GetExposureApiRiskExposureGetResponse, GetHoldingsApiPortfolioHoldingsGetData, GetHoldingsApiPortfolioHoldingsGetResponse, GetModelVersionModelsVersionIdGetData, GetModelVersionModelsVersionIdGetError, GetModelVersionModelsVersionIdGetResponse, GetOrdersApiPortfolioOrdersGetData, GetOrdersApiPortfolioOrdersGetError, GetOrdersApiPortfolioOrdersGetResponse, GetPerformanceApiPortfolioPerformanceGetData, GetPerformanceApiPortfolioPerformanceGetError, GetPerformanceApiPortfolioPerformanceGetResponse, GetPerpHoldingsApiPortfolioPerpHoldingsGetData, GetPerpHoldingsApiPortfolioPerpHoldingsGetResponse, GetPortfolioApiRiskRulesPortfolioGetData, GetPortfolioApiRiskRulesPortfolioGetError, GetPortfolioApiRiskRulesPortfolioGetResponse, GetProviderHealthApiDataQualityProvidersGetData, GetQualityScoresApiDataQualityScoresGetData, GetQualityScoresApiDataQualityScoresGetError, GetQualityScoresApiDataQualityScoresGetResponse, GetRuleApiRiskRulesRuleIdGetData, GetRuleApiRiskRulesRuleIdGetError, GetRuleApiRiskRulesRuleIdGetResponse, GetSignalSignalsSignalIdGetData, GetSignalSignalsSignalIdGetError, GetSignalSignalsSignalIdGetResponse, GetStrategyStrategiesStrategyIdGetData, GetStrategyStrategiesStrategyIdGetError, GetStrategyStrategiesStrategyIdGetResponse, GetStressTestResultApiRiskStressTestTaskIdGetData, GetStressTestResultApiRiskStressTestTaskIdGetError, GetStressTestResultApiRiskStressTestTaskIdGetResponse, GetTaskStatusAutoresearchStatusTaskIdGetData, GetTaskStatusAutoresearchStatusTaskIdGetError, GetTaskStatusAutoresearchStatusTaskIdGetResponse, GetVarApiRiskVarGetData, GetVarApiRiskVarGetResponse, HealthHealthGetData, ListBacktestsBacktestGetData, ListBacktestsBacktestGetError, ListBacktestsBacktestGetResponse, ListExperimentsAutoresearchExperimentsGetData, ListExperimentsAutoresearchExperimentsGetError, ListExperimentsAutoresearchExperimentsGetResponse, ListModelsModelsGetData, ListModelsModelsGetError, ListModelsModelsGetResponse, ListRulesApiRiskRulesGetData, ListRulesApiRiskRulesGetResponse, ListRuleTypesApiRiskRulesTypesGetData, ListRuleTypesApiRiskRulesTypesGetResponse, ListSentimentSentimentGetData, ListSentimentSentimentGetError, ListSentimentSentimentGetResponse, ListSignalsSignalsGetData, ListSignalsSignalsGetError, ListSignalsSignalsGetResponse, ListStrategiesStrategiesGetData, ListStrategiesStrategiesGetResponse, PredictModelsVersionIdPredictPostData, PredictModelsVersionIdPredictPostError, PredictModelsVersionIdPredictPostResponse, RunAutoresearchAutoresearchRunPostData, RunAutoresearchAutoresearchRunPostError, RunAutoresearchAutoresearchRunPostResponse, RunBacktestBacktestRunPostData, RunBacktestBacktestRunPostError, RunBacktestBacktestRunPostResponse, RunOptimizationBacktestOptimizePostData, RunOptimizationBacktestOptimizePostError, RunOptimizationBacktestOptimizePostResponse, ShadowModelModelsVersionIdShadowPostData, ShadowModelModelsVersionIdShadowPostError, ShadowModelModelsVersionIdShadowPostResponse, StartTrainingModelsTrainPostData, StartTrainingModelsTrainPostError, StartTrainingModelsTrainPostResponse, StopAutoresearchAutoresearchStopTaskIdPostData, StopAutoresearchAutoresearchStopTaskIdPostError, StopAutoresearchAutoresearchStopTaskIdPostResponse, TriggerBackfillEndpointDataBackfillPostData, TriggerBackfillEndpointDataBackfillPostError, TriggerBackfillEndpointDataBackfillPostResponse, TriggerFetchDataFetchPostData, TriggerFetchDataFetchPostError, TriggerFetchDataFetchPostResponse, TriggerStressTestApiRiskStressTestRunPostData, TriggerStressTestApiRiskStressTestRunPostError, TriggerStressTestApiRiskStressTestRunPostResponse, UpdateRuleApiRiskRulesRuleIdPatchData, UpdateRuleApiRiskRulesRuleIdPatchError, UpdateRuleApiRiskRulesRuleIdPatchResponse, UpdateStrategyStrategiesStrategyIdPutData, UpdateStrategyStrategiesStrategyIdPutError, UpdateStrategyStrategiesStrategyIdPutResponse } from '../types.gen';
+import { activateModelApiModelsVersionIdActivatePost, activateStrategyApiStrategiesStrategyIdActivatePost, createRuleApiRiskRulesPost, createSentimentApiSentimentPost, createStrategyApiStrategiesPost, deactivateStrategyApiStrategiesStrategyIdDeactivatePost, deleteRuleApiRiskRulesRuleIdDelete, deleteStrategyApiStrategiesStrategyIdDelete, getAlertsApiRiskAlertsGet, getBackfillStatusApiDataBackfillStatusGet, getBacktestApiBacktestBacktestIdGet, getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGet, getBacktestTradesApiBacktestBacktestIdTradesGet, getCorrelationApiRiskCorrelationGet, getExposureApiRiskExposureGet, getFundingRatesApiDataFundingRatesGet, getHoldingsApiPortfolioHoldingsGet, getModelVersionApiModelsVersionIdGet, getNotificationsApiNotificationsGet, getOhlcvApiDataOhlcvGet, getOrdersApiPortfolioOrdersGet, getPerformanceApiPortfolioPerformanceGet, getPerpHoldingsApiPortfolioPerpHoldingsGet, getPortfolioApiRiskRulesPortfolioGet, getProviderHealthApiDataQualityProvidersGet, getQualityScoresApiDataQualityScoresGet, getRuleApiRiskRulesRuleIdGet, getSignalApiSignalsSignalIdGet, getStrategyApiStrategiesStrategyIdGet, getStrategyPerformanceApiStrategiesStrategyIdPerformanceGet, getStressTestResultApiRiskStressTestTaskIdGet, getTaskStatusApiAutoresearchStatusTaskIdGet, getVarApiRiskVarGet, healthHealthGet, listBacktestsApiBacktestGet, listExperimentsApiAutoresearchExperimentsGet, listModelsApiModelsGet, listRulesApiRiskRulesGet, listRuleTypesApiRiskRulesTypesGet, listSentimentApiSentimentGet, listSignalsApiSignalsGet, listStrategiesApiStrategiesGet, type Options, predictApiModelsVersionIdPredictPost, runAutoresearchApiAutoresearchRunPost, runBacktestApiBacktestRunPost, runOptimizationApiBacktestOptimizePost, shadowModelApiModelsVersionIdShadowPost, startTrainingApiModelsTrainPost, stopAutoresearchApiAutoresearchStopTaskIdPost, triggerBackfillEndpointApiDataBackfillPost, triggerFetchApiDataFetchPost, triggerStressTestApiRiskStressTestRunPost, updateRuleApiRiskRulesRuleIdPatch, updateStrategyApiStrategiesStrategyIdPut } from '../sdk.gen';
+import type { ActivateModelApiModelsVersionIdActivatePostData, ActivateModelApiModelsVersionIdActivatePostError, ActivateModelApiModelsVersionIdActivatePostResponse, ActivateStrategyApiStrategiesStrategyIdActivatePostData, ActivateStrategyApiStrategiesStrategyIdActivatePostError, ActivateStrategyApiStrategiesStrategyIdActivatePostResponse, CreateRuleApiRiskRulesPostData, CreateRuleApiRiskRulesPostError, CreateRuleApiRiskRulesPostResponse, CreateSentimentApiSentimentPostData, CreateSentimentApiSentimentPostError, CreateSentimentApiSentimentPostResponse, CreateStrategyApiStrategiesPostData, CreateStrategyApiStrategiesPostError, CreateStrategyApiStrategiesPostResponse, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostError, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponse, DeleteRuleApiRiskRulesRuleIdDeleteData, DeleteRuleApiRiskRulesRuleIdDeleteError, DeleteRuleApiRiskRulesRuleIdDeleteResponse, DeleteStrategyApiStrategiesStrategyIdDeleteData, DeleteStrategyApiStrategiesStrategyIdDeleteError, DeleteStrategyApiStrategiesStrategyIdDeleteResponse, GetAlertsApiRiskAlertsGetData, GetAlertsApiRiskAlertsGetError, GetAlertsApiRiskAlertsGetResponse, GetBackfillStatusApiDataBackfillStatusGetData, GetBackfillStatusApiDataBackfillStatusGetError, GetBackfillStatusApiDataBackfillStatusGetResponse, GetBacktestApiBacktestBacktestIdGetData, GetBacktestApiBacktestBacktestIdGetError, GetBacktestApiBacktestBacktestIdGetResponse, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetError, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponse, GetBacktestTradesApiBacktestBacktestIdTradesGetData, GetBacktestTradesApiBacktestBacktestIdTradesGetError, GetBacktestTradesApiBacktestBacktestIdTradesGetResponse, GetCorrelationApiRiskCorrelationGetData, GetCorrelationApiRiskCorrelationGetResponse, GetExposureApiRiskExposureGetData, GetExposureApiRiskExposureGetResponse, GetFundingRatesApiDataFundingRatesGetData, GetFundingRatesApiDataFundingRatesGetError, GetFundingRatesApiDataFundingRatesGetResponse, GetHoldingsApiPortfolioHoldingsGetData, GetHoldingsApiPortfolioHoldingsGetResponse, GetModelVersionApiModelsVersionIdGetData, GetModelVersionApiModelsVersionIdGetError, GetModelVersionApiModelsVersionIdGetResponse, GetNotificationsApiNotificationsGetData, GetNotificationsApiNotificationsGetError, GetNotificationsApiNotificationsGetResponse, GetOhlcvApiDataOhlcvGetData, GetOhlcvApiDataOhlcvGetError, GetOhlcvApiDataOhlcvGetResponse, GetOrdersApiPortfolioOrdersGetData, GetOrdersApiPortfolioOrdersGetError, GetOrdersApiPortfolioOrdersGetResponse, GetPerformanceApiPortfolioPerformanceGetData, GetPerformanceApiPortfolioPerformanceGetError, GetPerformanceApiPortfolioPerformanceGetResponse, GetPerpHoldingsApiPortfolioPerpHoldingsGetData, GetPerpHoldingsApiPortfolioPerpHoldingsGetResponse, GetPortfolioApiRiskRulesPortfolioGetData, GetPortfolioApiRiskRulesPortfolioGetError, GetPortfolioApiRiskRulesPortfolioGetResponse, GetProviderHealthApiDataQualityProvidersGetData, GetQualityScoresApiDataQualityScoresGetData, GetQualityScoresApiDataQualityScoresGetError, GetQualityScoresApiDataQualityScoresGetResponse, GetRuleApiRiskRulesRuleIdGetData, GetRuleApiRiskRulesRuleIdGetError, GetRuleApiRiskRulesRuleIdGetResponse, GetSignalApiSignalsSignalIdGetData, GetSignalApiSignalsSignalIdGetError, GetSignalApiSignalsSignalIdGetResponse, GetStrategyApiStrategiesStrategyIdGetData, GetStrategyApiStrategiesStrategyIdGetError, GetStrategyApiStrategiesStrategyIdGetResponse, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetError, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse, GetStressTestResultApiRiskStressTestTaskIdGetData, GetStressTestResultApiRiskStressTestTaskIdGetError, GetStressTestResultApiRiskStressTestTaskIdGetResponse, GetTaskStatusApiAutoresearchStatusTaskIdGetData, GetTaskStatusApiAutoresearchStatusTaskIdGetError, GetTaskStatusApiAutoresearchStatusTaskIdGetResponse, GetVarApiRiskVarGetData, GetVarApiRiskVarGetResponse, HealthHealthGetData, ListBacktestsApiBacktestGetData, ListBacktestsApiBacktestGetError, ListBacktestsApiBacktestGetResponse, ListExperimentsApiAutoresearchExperimentsGetData, ListExperimentsApiAutoresearchExperimentsGetError, ListExperimentsApiAutoresearchExperimentsGetResponse, ListModelsApiModelsGetData, ListModelsApiModelsGetError, ListModelsApiModelsGetResponse, ListRulesApiRiskRulesGetData, ListRulesApiRiskRulesGetResponse, ListRuleTypesApiRiskRulesTypesGetData, ListRuleTypesApiRiskRulesTypesGetResponse, ListSentimentApiSentimentGetData, ListSentimentApiSentimentGetError, ListSentimentApiSentimentGetResponse, ListSignalsApiSignalsGetData, ListSignalsApiSignalsGetError, ListSignalsApiSignalsGetResponse, ListStrategiesApiStrategiesGetData, ListStrategiesApiStrategiesGetResponse, PredictApiModelsVersionIdPredictPostData, PredictApiModelsVersionIdPredictPostError, PredictApiModelsVersionIdPredictPostResponse, RunAutoresearchApiAutoresearchRunPostData, RunAutoresearchApiAutoresearchRunPostError, RunAutoresearchApiAutoresearchRunPostResponse, RunBacktestApiBacktestRunPostData, RunBacktestApiBacktestRunPostError, RunBacktestApiBacktestRunPostResponse, RunOptimizationApiBacktestOptimizePostData, RunOptimizationApiBacktestOptimizePostError, RunOptimizationApiBacktestOptimizePostResponse, ShadowModelApiModelsVersionIdShadowPostData, ShadowModelApiModelsVersionIdShadowPostError, ShadowModelApiModelsVersionIdShadowPostResponse, StartTrainingApiModelsTrainPostData, StartTrainingApiModelsTrainPostError, StartTrainingApiModelsTrainPostResponse, StopAutoresearchApiAutoresearchStopTaskIdPostData, StopAutoresearchApiAutoresearchStopTaskIdPostError, StopAutoresearchApiAutoresearchStopTaskIdPostResponse, TriggerBackfillEndpointApiDataBackfillPostData, TriggerBackfillEndpointApiDataBackfillPostError, TriggerBackfillEndpointApiDataBackfillPostResponse, TriggerFetchApiDataFetchPostData, TriggerFetchApiDataFetchPostError, TriggerFetchApiDataFetchPostResponse, TriggerStressTestApiRiskStressTestRunPostData, TriggerStressTestApiRiskStressTestRunPostError, TriggerStressTestApiRiskStressTestRunPostResponse, UpdateRuleApiRiskRulesRuleIdPatchData, UpdateRuleApiRiskRulesRuleIdPatchError, UpdateRuleApiRiskRulesRuleIdPatchResponse, UpdateStrategyApiStrategiesStrategyIdPutData, UpdateStrategyApiStrategiesStrategyIdPutError, UpdateStrategyApiStrategiesStrategyIdPutResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -77,10 +77,10 @@ export const healthHealthGetOptions = (options?: Options<HealthHealthGetData>) =
  *
  * Dispatches a Celery task to fetch latest data for all symbols in the market.
  */
-export const triggerFetchDataFetchPostMutation = (options?: Partial<Options<TriggerFetchDataFetchPostData>>): UseMutationOptions<TriggerFetchDataFetchPostResponse, TriggerFetchDataFetchPostError, Options<TriggerFetchDataFetchPostData>> => {
-    const mutationOptions: UseMutationOptions<TriggerFetchDataFetchPostResponse, TriggerFetchDataFetchPostError, Options<TriggerFetchDataFetchPostData>> = {
+export const triggerFetchApiDataFetchPostMutation = (options?: Partial<Options<TriggerFetchApiDataFetchPostData>>): UseMutationOptions<TriggerFetchApiDataFetchPostResponse, TriggerFetchApiDataFetchPostError, Options<TriggerFetchApiDataFetchPostData>> => {
+    const mutationOptions: UseMutationOptions<TriggerFetchApiDataFetchPostResponse, TriggerFetchApiDataFetchPostError, Options<TriggerFetchApiDataFetchPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await triggerFetchDataFetchPost({
+            const { data } = await triggerFetchApiDataFetchPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -99,10 +99,10 @@ export const triggerFetchDataFetchPostMutation = (options?: Partial<Options<Trig
  * If market is specified, backfills only that market.
  * If both market and symbol are None, backfills all configured symbols.
  */
-export const triggerBackfillEndpointDataBackfillPostMutation = (options?: Partial<Options<TriggerBackfillEndpointDataBackfillPostData>>): UseMutationOptions<TriggerBackfillEndpointDataBackfillPostResponse, TriggerBackfillEndpointDataBackfillPostError, Options<TriggerBackfillEndpointDataBackfillPostData>> => {
-    const mutationOptions: UseMutationOptions<TriggerBackfillEndpointDataBackfillPostResponse, TriggerBackfillEndpointDataBackfillPostError, Options<TriggerBackfillEndpointDataBackfillPostData>> = {
+export const triggerBackfillEndpointApiDataBackfillPostMutation = (options?: Partial<Options<TriggerBackfillEndpointApiDataBackfillPostData>>): UseMutationOptions<TriggerBackfillEndpointApiDataBackfillPostResponse, TriggerBackfillEndpointApiDataBackfillPostError, Options<TriggerBackfillEndpointApiDataBackfillPostData>> => {
+    const mutationOptions: UseMutationOptions<TriggerBackfillEndpointApiDataBackfillPostResponse, TriggerBackfillEndpointApiDataBackfillPostError, Options<TriggerBackfillEndpointApiDataBackfillPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await triggerBackfillEndpointDataBackfillPost({
+            const { data } = await triggerBackfillEndpointApiDataBackfillPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -113,16 +113,16 @@ export const triggerBackfillEndpointDataBackfillPostMutation = (options?: Partia
     return mutationOptions;
 };
 
-export const getBackfillStatusDataBackfillStatusGetQueryKey = (options?: Options<GetBackfillStatusDataBackfillStatusGetData>) => createQueryKey("getBackfillStatusDataBackfillStatusGet", options);
+export const getBackfillStatusApiDataBackfillStatusGetQueryKey = (options?: Options<GetBackfillStatusApiDataBackfillStatusGetData>) => createQueryKey("getBackfillStatusApiDataBackfillStatusGet", options);
 
 /**
  * Get Backfill Status
  *
  * Get backfill progress status for all symbols or a specific market.
  */
-export const getBackfillStatusDataBackfillStatusGetOptions = (options?: Options<GetBackfillStatusDataBackfillStatusGetData>) => queryOptions<GetBackfillStatusDataBackfillStatusGetResponse, GetBackfillStatusDataBackfillStatusGetError, GetBackfillStatusDataBackfillStatusGetResponse, ReturnType<typeof getBackfillStatusDataBackfillStatusGetQueryKey>>({
+export const getBackfillStatusApiDataBackfillStatusGetOptions = (options?: Options<GetBackfillStatusApiDataBackfillStatusGetData>) => queryOptions<GetBackfillStatusApiDataBackfillStatusGetResponse, GetBackfillStatusApiDataBackfillStatusGetError, GetBackfillStatusApiDataBackfillStatusGetResponse, ReturnType<typeof getBackfillStatusApiDataBackfillStatusGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getBackfillStatusDataBackfillStatusGet({
+        const { data } = await getBackfillStatusApiDataBackfillStatusGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -130,19 +130,152 @@ export const getBackfillStatusDataBackfillStatusGetOptions = (options?: Options<
         });
         return data;
     },
-    queryKey: getBackfillStatusDataBackfillStatusGetQueryKey(options)
+    queryKey: getBackfillStatusApiDataBackfillStatusGetQueryKey(options)
 });
 
-export const listSentimentSentimentGetQueryKey = (options: Options<ListSentimentSentimentGetData>) => createQueryKey("listSentimentSentimentGet", options);
+export const getOhlcvApiDataOhlcvGetQueryKey = (options: Options<GetOhlcvApiDataOhlcvGetData>) => createQueryKey("getOhlcvApiDataOhlcvGet", options);
+
+/**
+ * Get Ohlcv
+ *
+ * Return OHLCV candlestick data for a given symbol/market/interval/date range.
+ */
+export const getOhlcvApiDataOhlcvGetOptions = (options: Options<GetOhlcvApiDataOhlcvGetData>) => queryOptions<GetOhlcvApiDataOhlcvGetResponse, GetOhlcvApiDataOhlcvGetError, GetOhlcvApiDataOhlcvGetResponse, ReturnType<typeof getOhlcvApiDataOhlcvGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getOhlcvApiDataOhlcvGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getOhlcvApiDataOhlcvGetQueryKey(options)
+});
+
+const createInfiniteParams = <K extends Pick<QueryKey<Options>[0], 'body' | 'headers' | 'path' | 'query'>>(queryKey: QueryKey<Options>, page: K) => {
+    const params = {
+        ...queryKey[0]
+    };
+    if (page.body) {
+        params.body = {
+            ...queryKey[0].body as any,
+            ...page.body as any
+        };
+    }
+    if (page.headers) {
+        params.headers = {
+            ...queryKey[0].headers,
+            ...page.headers
+        };
+    }
+    if (page.path) {
+        params.path = {
+            ...queryKey[0].path as any,
+            ...page.path as any
+        };
+    }
+    if (page.query) {
+        params.query = {
+            ...queryKey[0].query as any,
+            ...page.query as any
+        };
+    }
+    return params as unknown as typeof page;
+};
+
+export const getOhlcvApiDataOhlcvGetInfiniteQueryKey = (options: Options<GetOhlcvApiDataOhlcvGetData>): QueryKey<Options<GetOhlcvApiDataOhlcvGetData>> => createQueryKey("getOhlcvApiDataOhlcvGet", options, true);
+
+/**
+ * Get Ohlcv
+ *
+ * Return OHLCV candlestick data for a given symbol/market/interval/date range.
+ */
+export const getOhlcvApiDataOhlcvGetInfiniteOptions = (options: Options<GetOhlcvApiDataOhlcvGetData>) => {
+    return infiniteQueryOptions<GetOhlcvApiDataOhlcvGetResponse, GetOhlcvApiDataOhlcvGetError, InfiniteData<GetOhlcvApiDataOhlcvGetResponse>, QueryKey<Options<GetOhlcvApiDataOhlcvGetData>>, string | null | Pick<QueryKey<Options<GetOhlcvApiDataOhlcvGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<GetOhlcvApiDataOhlcvGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await getOhlcvApiDataOhlcvGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: getOhlcvApiDataOhlcvGetInfiniteQueryKey(options)
+    });
+};
+
+export const getFundingRatesApiDataFundingRatesGetQueryKey = (options: Options<GetFundingRatesApiDataFundingRatesGetData>) => createQueryKey("getFundingRatesApiDataFundingRatesGet", options);
+
+/**
+ * Get Funding Rates
+ *
+ * Return funding rate history for a perpetual contract symbol.
+ */
+export const getFundingRatesApiDataFundingRatesGetOptions = (options: Options<GetFundingRatesApiDataFundingRatesGetData>) => queryOptions<GetFundingRatesApiDataFundingRatesGetResponse, GetFundingRatesApiDataFundingRatesGetError, GetFundingRatesApiDataFundingRatesGetResponse, ReturnType<typeof getFundingRatesApiDataFundingRatesGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getFundingRatesApiDataFundingRatesGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getFundingRatesApiDataFundingRatesGetQueryKey(options)
+});
+
+export const getFundingRatesApiDataFundingRatesGetInfiniteQueryKey = (options: Options<GetFundingRatesApiDataFundingRatesGetData>): QueryKey<Options<GetFundingRatesApiDataFundingRatesGetData>> => createQueryKey("getFundingRatesApiDataFundingRatesGet", options, true);
+
+/**
+ * Get Funding Rates
+ *
+ * Return funding rate history for a perpetual contract symbol.
+ */
+export const getFundingRatesApiDataFundingRatesGetInfiniteOptions = (options: Options<GetFundingRatesApiDataFundingRatesGetData>) => {
+    return infiniteQueryOptions<GetFundingRatesApiDataFundingRatesGetResponse, GetFundingRatesApiDataFundingRatesGetError, InfiniteData<GetFundingRatesApiDataFundingRatesGetResponse>, QueryKey<Options<GetFundingRatesApiDataFundingRatesGetData>>, string | null | Pick<QueryKey<Options<GetFundingRatesApiDataFundingRatesGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<GetFundingRatesApiDataFundingRatesGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await getFundingRatesApiDataFundingRatesGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: getFundingRatesApiDataFundingRatesGetInfiniteQueryKey(options)
+    });
+};
+
+export const listSentimentApiSentimentGetQueryKey = (options: Options<ListSentimentApiSentimentGetData>) => createQueryKey("listSentimentApiSentimentGet", options);
 
 /**
  * List Sentiment
  *
  * Get sentiment scores for a symbol, most recent first.
  */
-export const listSentimentSentimentGetOptions = (options: Options<ListSentimentSentimentGetData>) => queryOptions<ListSentimentSentimentGetResponse, ListSentimentSentimentGetError, ListSentimentSentimentGetResponse, ReturnType<typeof listSentimentSentimentGetQueryKey>>({
+export const listSentimentApiSentimentGetOptions = (options: Options<ListSentimentApiSentimentGetData>) => queryOptions<ListSentimentApiSentimentGetResponse, ListSentimentApiSentimentGetError, ListSentimentApiSentimentGetResponse, ReturnType<typeof listSentimentApiSentimentGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await listSentimentSentimentGet({
+        const { data } = await listSentimentApiSentimentGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -150,7 +283,7 @@ export const listSentimentSentimentGetOptions = (options: Options<ListSentimentS
         });
         return data;
     },
-    queryKey: listSentimentSentimentGetQueryKey(options)
+    queryKey: listSentimentApiSentimentGetQueryKey(options)
 });
 
 /**
@@ -160,10 +293,10 @@ export const listSentimentSentimentGetOptions = (options: Options<ListSentimentS
  *
  * The score must be between -1.0 (most negative) and 1.0 (most positive).
  */
-export const createSentimentSentimentPostMutation = (options?: Partial<Options<CreateSentimentSentimentPostData>>): UseMutationOptions<CreateSentimentSentimentPostResponse, CreateSentimentSentimentPostError, Options<CreateSentimentSentimentPostData>> => {
-    const mutationOptions: UseMutationOptions<CreateSentimentSentimentPostResponse, CreateSentimentSentimentPostError, Options<CreateSentimentSentimentPostData>> = {
+export const createSentimentApiSentimentPostMutation = (options?: Partial<Options<CreateSentimentApiSentimentPostData>>): UseMutationOptions<CreateSentimentApiSentimentPostResponse, CreateSentimentApiSentimentPostError, Options<CreateSentimentApiSentimentPostData>> => {
+    const mutationOptions: UseMutationOptions<CreateSentimentApiSentimentPostResponse, CreateSentimentApiSentimentPostError, Options<CreateSentimentApiSentimentPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await createSentimentSentimentPost({
+            const { data } = await createSentimentApiSentimentPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -318,16 +451,16 @@ export const updateRuleApiRiskRulesRuleIdPatchMutation = (options?: Partial<Opti
     return mutationOptions;
 };
 
-export const listStrategiesStrategiesGetQueryKey = (options?: Options<ListStrategiesStrategiesGetData>) => createQueryKey("listStrategiesStrategiesGet", options);
+export const listStrategiesApiStrategiesGetQueryKey = (options?: Options<ListStrategiesApiStrategiesGetData>) => createQueryKey("listStrategiesApiStrategiesGet", options);
 
 /**
  * List Strategies
  *
  * List all strategies ordered by creation time.
  */
-export const listStrategiesStrategiesGetOptions = (options?: Options<ListStrategiesStrategiesGetData>) => queryOptions<ListStrategiesStrategiesGetResponse, DefaultError, ListStrategiesStrategiesGetResponse, ReturnType<typeof listStrategiesStrategiesGetQueryKey>>({
+export const listStrategiesApiStrategiesGetOptions = (options?: Options<ListStrategiesApiStrategiesGetData>) => queryOptions<ListStrategiesApiStrategiesGetResponse, DefaultError, ListStrategiesApiStrategiesGetResponse, ReturnType<typeof listStrategiesApiStrategiesGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await listStrategiesStrategiesGet({
+        const { data } = await listStrategiesApiStrategiesGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -335,7 +468,7 @@ export const listStrategiesStrategiesGetOptions = (options?: Options<ListStrateg
         });
         return data;
     },
-    queryKey: listStrategiesStrategiesGetQueryKey(options)
+    queryKey: listStrategiesApiStrategiesGetQueryKey(options)
 });
 
 /**
@@ -346,10 +479,10 @@ export const listStrategiesStrategiesGetOptions = (options?: Options<ListStrateg
  * Validates that ``strategy_type`` is 'model' or 'rule'
  * and that ``name`` is unique.
  */
-export const createStrategyStrategiesPostMutation = (options?: Partial<Options<CreateStrategyStrategiesPostData>>): UseMutationOptions<CreateStrategyStrategiesPostResponse, CreateStrategyStrategiesPostError, Options<CreateStrategyStrategiesPostData>> => {
-    const mutationOptions: UseMutationOptions<CreateStrategyStrategiesPostResponse, CreateStrategyStrategiesPostError, Options<CreateStrategyStrategiesPostData>> = {
+export const createStrategyApiStrategiesPostMutation = (options?: Partial<Options<CreateStrategyApiStrategiesPostData>>): UseMutationOptions<CreateStrategyApiStrategiesPostResponse, CreateStrategyApiStrategiesPostError, Options<CreateStrategyApiStrategiesPostData>> => {
+    const mutationOptions: UseMutationOptions<CreateStrategyApiStrategiesPostResponse, CreateStrategyApiStrategiesPostError, Options<CreateStrategyApiStrategiesPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await createStrategyStrategiesPost({
+            const { data } = await createStrategyApiStrategiesPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -365,10 +498,10 @@ export const createStrategyStrategiesPostMutation = (options?: Partial<Options<C
  *
  * Delete a strategy.
  */
-export const deleteStrategyStrategiesStrategyIdDeleteMutation = (options?: Partial<Options<DeleteStrategyStrategiesStrategyIdDeleteData>>): UseMutationOptions<DeleteStrategyStrategiesStrategyIdDeleteResponse, DeleteStrategyStrategiesStrategyIdDeleteError, Options<DeleteStrategyStrategiesStrategyIdDeleteData>> => {
-    const mutationOptions: UseMutationOptions<DeleteStrategyStrategiesStrategyIdDeleteResponse, DeleteStrategyStrategiesStrategyIdDeleteError, Options<DeleteStrategyStrategiesStrategyIdDeleteData>> = {
+export const deleteStrategyApiStrategiesStrategyIdDeleteMutation = (options?: Partial<Options<DeleteStrategyApiStrategiesStrategyIdDeleteData>>): UseMutationOptions<DeleteStrategyApiStrategiesStrategyIdDeleteResponse, DeleteStrategyApiStrategiesStrategyIdDeleteError, Options<DeleteStrategyApiStrategiesStrategyIdDeleteData>> => {
+    const mutationOptions: UseMutationOptions<DeleteStrategyApiStrategiesStrategyIdDeleteResponse, DeleteStrategyApiStrategiesStrategyIdDeleteError, Options<DeleteStrategyApiStrategiesStrategyIdDeleteData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await deleteStrategyStrategiesStrategyIdDelete({
+            const { data } = await deleteStrategyApiStrategiesStrategyIdDelete({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -379,16 +512,16 @@ export const deleteStrategyStrategiesStrategyIdDeleteMutation = (options?: Parti
     return mutationOptions;
 };
 
-export const getStrategyStrategiesStrategyIdGetQueryKey = (options: Options<GetStrategyStrategiesStrategyIdGetData>) => createQueryKey("getStrategyStrategiesStrategyIdGet", options);
+export const getStrategyApiStrategiesStrategyIdGetQueryKey = (options: Options<GetStrategyApiStrategiesStrategyIdGetData>) => createQueryKey("getStrategyApiStrategiesStrategyIdGet", options);
 
 /**
  * Get Strategy
  *
  * Get a single strategy by ID.
  */
-export const getStrategyStrategiesStrategyIdGetOptions = (options: Options<GetStrategyStrategiesStrategyIdGetData>) => queryOptions<GetStrategyStrategiesStrategyIdGetResponse, GetStrategyStrategiesStrategyIdGetError, GetStrategyStrategiesStrategyIdGetResponse, ReturnType<typeof getStrategyStrategiesStrategyIdGetQueryKey>>({
+export const getStrategyApiStrategiesStrategyIdGetOptions = (options: Options<GetStrategyApiStrategiesStrategyIdGetData>) => queryOptions<GetStrategyApiStrategiesStrategyIdGetResponse, GetStrategyApiStrategiesStrategyIdGetError, GetStrategyApiStrategiesStrategyIdGetResponse, ReturnType<typeof getStrategyApiStrategiesStrategyIdGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getStrategyStrategiesStrategyIdGet({
+        const { data } = await getStrategyApiStrategiesStrategyIdGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -396,7 +529,7 @@ export const getStrategyStrategiesStrategyIdGetOptions = (options: Options<GetSt
         });
         return data;
     },
-    queryKey: getStrategyStrategiesStrategyIdGetQueryKey(options)
+    queryKey: getStrategyApiStrategiesStrategyIdGetQueryKey(options)
 });
 
 /**
@@ -404,10 +537,10 @@ export const getStrategyStrategiesStrategyIdGetOptions = (options: Options<GetSt
  *
  * Update a strategy. Only non-None fields are applied.
  */
-export const updateStrategyStrategiesStrategyIdPutMutation = (options?: Partial<Options<UpdateStrategyStrategiesStrategyIdPutData>>): UseMutationOptions<UpdateStrategyStrategiesStrategyIdPutResponse, UpdateStrategyStrategiesStrategyIdPutError, Options<UpdateStrategyStrategiesStrategyIdPutData>> => {
-    const mutationOptions: UseMutationOptions<UpdateStrategyStrategiesStrategyIdPutResponse, UpdateStrategyStrategiesStrategyIdPutError, Options<UpdateStrategyStrategiesStrategyIdPutData>> = {
+export const updateStrategyApiStrategiesStrategyIdPutMutation = (options?: Partial<Options<UpdateStrategyApiStrategiesStrategyIdPutData>>): UseMutationOptions<UpdateStrategyApiStrategiesStrategyIdPutResponse, UpdateStrategyApiStrategiesStrategyIdPutError, Options<UpdateStrategyApiStrategiesStrategyIdPutData>> => {
+    const mutationOptions: UseMutationOptions<UpdateStrategyApiStrategiesStrategyIdPutResponse, UpdateStrategyApiStrategiesStrategyIdPutError, Options<UpdateStrategyApiStrategiesStrategyIdPutData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await updateStrategyStrategiesStrategyIdPut({
+            const { data } = await updateStrategyApiStrategiesStrategyIdPut({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -423,10 +556,10 @@ export const updateStrategyStrategiesStrategyIdPutMutation = (options?: Partial<
  *
  * Activate a strategy (set active=True).
  */
-export const activateStrategyStrategiesStrategyIdActivatePostMutation = (options?: Partial<Options<ActivateStrategyStrategiesStrategyIdActivatePostData>>): UseMutationOptions<ActivateStrategyStrategiesStrategyIdActivatePostResponse, ActivateStrategyStrategiesStrategyIdActivatePostError, Options<ActivateStrategyStrategiesStrategyIdActivatePostData>> => {
-    const mutationOptions: UseMutationOptions<ActivateStrategyStrategiesStrategyIdActivatePostResponse, ActivateStrategyStrategiesStrategyIdActivatePostError, Options<ActivateStrategyStrategiesStrategyIdActivatePostData>> = {
+export const activateStrategyApiStrategiesStrategyIdActivatePostMutation = (options?: Partial<Options<ActivateStrategyApiStrategiesStrategyIdActivatePostData>>): UseMutationOptions<ActivateStrategyApiStrategiesStrategyIdActivatePostResponse, ActivateStrategyApiStrategiesStrategyIdActivatePostError, Options<ActivateStrategyApiStrategiesStrategyIdActivatePostData>> => {
+    const mutationOptions: UseMutationOptions<ActivateStrategyApiStrategiesStrategyIdActivatePostResponse, ActivateStrategyApiStrategiesStrategyIdActivatePostError, Options<ActivateStrategyApiStrategiesStrategyIdActivatePostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await activateStrategyStrategiesStrategyIdActivatePost({
+            const { data } = await activateStrategyApiStrategiesStrategyIdActivatePost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -442,10 +575,10 @@ export const activateStrategyStrategiesStrategyIdActivatePostMutation = (options
  *
  * Deactivate a strategy (set active=False).
  */
-export const deactivateStrategyStrategiesStrategyIdDeactivatePostMutation = (options?: Partial<Options<DeactivateStrategyStrategiesStrategyIdDeactivatePostData>>): UseMutationOptions<DeactivateStrategyStrategiesStrategyIdDeactivatePostResponse, DeactivateStrategyStrategiesStrategyIdDeactivatePostError, Options<DeactivateStrategyStrategiesStrategyIdDeactivatePostData>> => {
-    const mutationOptions: UseMutationOptions<DeactivateStrategyStrategiesStrategyIdDeactivatePostResponse, DeactivateStrategyStrategiesStrategyIdDeactivatePostError, Options<DeactivateStrategyStrategiesStrategyIdDeactivatePostData>> = {
+export const deactivateStrategyApiStrategiesStrategyIdDeactivatePostMutation = (options?: Partial<Options<DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData>>): UseMutationOptions<DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponse, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostError, Options<DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData>> => {
+    const mutationOptions: UseMutationOptions<DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponse, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostError, Options<DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await deactivateStrategyStrategiesStrategyIdDeactivatePost({
+            const { data } = await deactivateStrategyApiStrategiesStrategyIdDeactivatePost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -455,6 +588,30 @@ export const deactivateStrategyStrategiesStrategyIdDeactivatePostMutation = (opt
     };
     return mutationOptions;
 };
+
+export const getStrategyPerformanceApiStrategiesStrategyIdPerformanceGetQueryKey = (options: Options<GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData>) => createQueryKey("getStrategyPerformanceApiStrategiesStrategyIdPerformanceGet", options);
+
+/**
+ * Get Strategy Performance
+ *
+ * Get aggregated performance metrics for a strategy from its backtests.
+ *
+ * Returns both the 'best' backtest (highest composite score) and 'latest'
+ * backtest (most recent completed_at). Per D-04: backtest-only aggregation,
+ * live trade data deferred per D-06.
+ */
+export const getStrategyPerformanceApiStrategiesStrategyIdPerformanceGetOptions = (options: Options<GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData>) => queryOptions<GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetError, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse, ReturnType<typeof getStrategyPerformanceApiStrategiesStrategyIdPerformanceGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getStrategyPerformanceApiStrategiesStrategyIdPerformanceGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getStrategyPerformanceApiStrategiesStrategyIdPerformanceGetQueryKey(options)
+});
 
 /**
  * Start Training
@@ -464,10 +621,10 @@ export const deactivateStrategyStrategiesStrategyIdDeactivatePostMutation = (opt
  * Creates a new ModelVersion in ``training`` status and dispatches
  * a Celery task to the GPU queue for the actual training work.
  */
-export const startTrainingModelsTrainPostMutation = (options?: Partial<Options<StartTrainingModelsTrainPostData>>): UseMutationOptions<StartTrainingModelsTrainPostResponse, StartTrainingModelsTrainPostError, Options<StartTrainingModelsTrainPostData>> => {
-    const mutationOptions: UseMutationOptions<StartTrainingModelsTrainPostResponse, StartTrainingModelsTrainPostError, Options<StartTrainingModelsTrainPostData>> = {
+export const startTrainingApiModelsTrainPostMutation = (options?: Partial<Options<StartTrainingApiModelsTrainPostData>>): UseMutationOptions<StartTrainingApiModelsTrainPostResponse, StartTrainingApiModelsTrainPostError, Options<StartTrainingApiModelsTrainPostData>> => {
+    const mutationOptions: UseMutationOptions<StartTrainingApiModelsTrainPostResponse, StartTrainingApiModelsTrainPostError, Options<StartTrainingApiModelsTrainPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await startTrainingModelsTrainPost({
+            const { data } = await startTrainingApiModelsTrainPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -478,7 +635,7 @@ export const startTrainingModelsTrainPostMutation = (options?: Partial<Options<S
     return mutationOptions;
 };
 
-export const listModelsModelsGetQueryKey = (options?: Options<ListModelsModelsGetData>) => createQueryKey("listModelsModelsGet", options);
+export const listModelsApiModelsGetQueryKey = (options?: Options<ListModelsApiModelsGetData>) => createQueryKey("listModelsApiModelsGet", options);
 
 /**
  * List Models
@@ -488,9 +645,9 @@ export const listModelsModelsGetQueryKey = (options?: Options<ListModelsModelsGe
  * If ``name`` is provided, returns versions for that model name only.
  * Otherwise returns the most recent 50 model versions across all models.
  */
-export const listModelsModelsGetOptions = (options?: Options<ListModelsModelsGetData>) => queryOptions<ListModelsModelsGetResponse, ListModelsModelsGetError, ListModelsModelsGetResponse, ReturnType<typeof listModelsModelsGetQueryKey>>({
+export const listModelsApiModelsGetOptions = (options?: Options<ListModelsApiModelsGetData>) => queryOptions<ListModelsApiModelsGetResponse, ListModelsApiModelsGetError, ListModelsApiModelsGetResponse, ReturnType<typeof listModelsApiModelsGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await listModelsModelsGet({
+        const { data } = await listModelsApiModelsGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -498,19 +655,19 @@ export const listModelsModelsGetOptions = (options?: Options<ListModelsModelsGet
         });
         return data;
     },
-    queryKey: listModelsModelsGetQueryKey(options)
+    queryKey: listModelsApiModelsGetQueryKey(options)
 });
 
-export const getModelVersionModelsVersionIdGetQueryKey = (options: Options<GetModelVersionModelsVersionIdGetData>) => createQueryKey("getModelVersionModelsVersionIdGet", options);
+export const getModelVersionApiModelsVersionIdGetQueryKey = (options: Options<GetModelVersionApiModelsVersionIdGetData>) => createQueryKey("getModelVersionApiModelsVersionIdGet", options);
 
 /**
  * Get Model Version
  *
  * Get a single model version by ID.
  */
-export const getModelVersionModelsVersionIdGetOptions = (options: Options<GetModelVersionModelsVersionIdGetData>) => queryOptions<GetModelVersionModelsVersionIdGetResponse, GetModelVersionModelsVersionIdGetError, GetModelVersionModelsVersionIdGetResponse, ReturnType<typeof getModelVersionModelsVersionIdGetQueryKey>>({
+export const getModelVersionApiModelsVersionIdGetOptions = (options: Options<GetModelVersionApiModelsVersionIdGetData>) => queryOptions<GetModelVersionApiModelsVersionIdGetResponse, GetModelVersionApiModelsVersionIdGetError, GetModelVersionApiModelsVersionIdGetResponse, ReturnType<typeof getModelVersionApiModelsVersionIdGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getModelVersionModelsVersionIdGet({
+        const { data } = await getModelVersionApiModelsVersionIdGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -518,7 +675,7 @@ export const getModelVersionModelsVersionIdGetOptions = (options: Options<GetMod
         });
         return data;
     },
-    queryKey: getModelVersionModelsVersionIdGetQueryKey(options)
+    queryKey: getModelVersionApiModelsVersionIdGetQueryKey(options)
 });
 
 /**
@@ -526,10 +683,10 @@ export const getModelVersionModelsVersionIdGetOptions = (options: Options<GetMod
  *
  * Transition a model version to shadow mode.
  */
-export const shadowModelModelsVersionIdShadowPostMutation = (options?: Partial<Options<ShadowModelModelsVersionIdShadowPostData>>): UseMutationOptions<ShadowModelModelsVersionIdShadowPostResponse, ShadowModelModelsVersionIdShadowPostError, Options<ShadowModelModelsVersionIdShadowPostData>> => {
-    const mutationOptions: UseMutationOptions<ShadowModelModelsVersionIdShadowPostResponse, ShadowModelModelsVersionIdShadowPostError, Options<ShadowModelModelsVersionIdShadowPostData>> = {
+export const shadowModelApiModelsVersionIdShadowPostMutation = (options?: Partial<Options<ShadowModelApiModelsVersionIdShadowPostData>>): UseMutationOptions<ShadowModelApiModelsVersionIdShadowPostResponse, ShadowModelApiModelsVersionIdShadowPostError, Options<ShadowModelApiModelsVersionIdShadowPostData>> => {
+    const mutationOptions: UseMutationOptions<ShadowModelApiModelsVersionIdShadowPostResponse, ShadowModelApiModelsVersionIdShadowPostError, Options<ShadowModelApiModelsVersionIdShadowPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await shadowModelModelsVersionIdShadowPost({
+            const { data } = await shadowModelApiModelsVersionIdShadowPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -545,10 +702,10 @@ export const shadowModelModelsVersionIdShadowPostMutation = (options?: Partial<O
  *
  * Activate a model version (retires any previously active version of the same model).
  */
-export const activateModelModelsVersionIdActivatePostMutation = (options?: Partial<Options<ActivateModelModelsVersionIdActivatePostData>>): UseMutationOptions<ActivateModelModelsVersionIdActivatePostResponse, ActivateModelModelsVersionIdActivatePostError, Options<ActivateModelModelsVersionIdActivatePostData>> => {
-    const mutationOptions: UseMutationOptions<ActivateModelModelsVersionIdActivatePostResponse, ActivateModelModelsVersionIdActivatePostError, Options<ActivateModelModelsVersionIdActivatePostData>> = {
+export const activateModelApiModelsVersionIdActivatePostMutation = (options?: Partial<Options<ActivateModelApiModelsVersionIdActivatePostData>>): UseMutationOptions<ActivateModelApiModelsVersionIdActivatePostResponse, ActivateModelApiModelsVersionIdActivatePostError, Options<ActivateModelApiModelsVersionIdActivatePostData>> => {
+    const mutationOptions: UseMutationOptions<ActivateModelApiModelsVersionIdActivatePostResponse, ActivateModelApiModelsVersionIdActivatePostError, Options<ActivateModelApiModelsVersionIdActivatePostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await activateModelModelsVersionIdActivatePost({
+            const { data } = await activateModelApiModelsVersionIdActivatePost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -569,10 +726,10 @@ export const activateModelModelsVersionIdActivatePostMutation = (options?: Parti
  * filters predictions by confidence threshold, and pipes signals
  * through SignalPipeline (risk check -> persist -> deliver).
  */
-export const predictModelsVersionIdPredictPostMutation = (options?: Partial<Options<PredictModelsVersionIdPredictPostData>>): UseMutationOptions<PredictModelsVersionIdPredictPostResponse, PredictModelsVersionIdPredictPostError, Options<PredictModelsVersionIdPredictPostData>> => {
-    const mutationOptions: UseMutationOptions<PredictModelsVersionIdPredictPostResponse, PredictModelsVersionIdPredictPostError, Options<PredictModelsVersionIdPredictPostData>> = {
+export const predictApiModelsVersionIdPredictPostMutation = (options?: Partial<Options<PredictApiModelsVersionIdPredictPostData>>): UseMutationOptions<PredictApiModelsVersionIdPredictPostResponse, PredictApiModelsVersionIdPredictPostError, Options<PredictApiModelsVersionIdPredictPostData>> => {
+    const mutationOptions: UseMutationOptions<PredictApiModelsVersionIdPredictPostResponse, PredictApiModelsVersionIdPredictPostError, Options<PredictApiModelsVersionIdPredictPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await predictModelsVersionIdPredictPost({
+            const { data } = await predictApiModelsVersionIdPredictPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -590,10 +747,10 @@ export const predictModelsVersionIdPredictPostMutation = (options?: Partial<Opti
  *
  * Returns 202 with a Celery task_id for status polling.
  */
-export const runBacktestBacktestRunPostMutation = (options?: Partial<Options<RunBacktestBacktestRunPostData>>): UseMutationOptions<RunBacktestBacktestRunPostResponse, RunBacktestBacktestRunPostError, Options<RunBacktestBacktestRunPostData>> => {
-    const mutationOptions: UseMutationOptions<RunBacktestBacktestRunPostResponse, RunBacktestBacktestRunPostError, Options<RunBacktestBacktestRunPostData>> = {
+export const runBacktestApiBacktestRunPostMutation = (options?: Partial<Options<RunBacktestApiBacktestRunPostData>>): UseMutationOptions<RunBacktestApiBacktestRunPostResponse, RunBacktestApiBacktestRunPostError, Options<RunBacktestApiBacktestRunPostData>> => {
+    const mutationOptions: UseMutationOptions<RunBacktestApiBacktestRunPostResponse, RunBacktestApiBacktestRunPostError, Options<RunBacktestApiBacktestRunPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await runBacktestBacktestRunPost({
+            const { data } = await runBacktestApiBacktestRunPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -611,10 +768,10 @@ export const runBacktestBacktestRunPostMutation = (options?: Partial<Options<Run
  *
  * Returns 202 with a Celery task_id for status polling.
  */
-export const runOptimizationBacktestOptimizePostMutation = (options?: Partial<Options<RunOptimizationBacktestOptimizePostData>>): UseMutationOptions<RunOptimizationBacktestOptimizePostResponse, RunOptimizationBacktestOptimizePostError, Options<RunOptimizationBacktestOptimizePostData>> => {
-    const mutationOptions: UseMutationOptions<RunOptimizationBacktestOptimizePostResponse, RunOptimizationBacktestOptimizePostError, Options<RunOptimizationBacktestOptimizePostData>> = {
+export const runOptimizationApiBacktestOptimizePostMutation = (options?: Partial<Options<RunOptimizationApiBacktestOptimizePostData>>): UseMutationOptions<RunOptimizationApiBacktestOptimizePostResponse, RunOptimizationApiBacktestOptimizePostError, Options<RunOptimizationApiBacktestOptimizePostData>> => {
+    const mutationOptions: UseMutationOptions<RunOptimizationApiBacktestOptimizePostResponse, RunOptimizationApiBacktestOptimizePostError, Options<RunOptimizationApiBacktestOptimizePostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await runOptimizationBacktestOptimizePost({
+            const { data } = await runOptimizationApiBacktestOptimizePost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -625,16 +782,16 @@ export const runOptimizationBacktestOptimizePostMutation = (options?: Partial<Op
     return mutationOptions;
 };
 
-export const listBacktestsBacktestGetQueryKey = (options?: Options<ListBacktestsBacktestGetData>) => createQueryKey("listBacktestsBacktestGet", options);
+export const listBacktestsApiBacktestGetQueryKey = (options?: Options<ListBacktestsApiBacktestGetData>) => createQueryKey("listBacktestsApiBacktestGet", options);
 
 /**
  * List Backtests
  *
  * List completed backtests, optionally filtered by strategy_id.
  */
-export const listBacktestsBacktestGetOptions = (options?: Options<ListBacktestsBacktestGetData>) => queryOptions<ListBacktestsBacktestGetResponse, ListBacktestsBacktestGetError, ListBacktestsBacktestGetResponse, ReturnType<typeof listBacktestsBacktestGetQueryKey>>({
+export const listBacktestsApiBacktestGetOptions = (options?: Options<ListBacktestsApiBacktestGetData>) => queryOptions<ListBacktestsApiBacktestGetResponse, ListBacktestsApiBacktestGetError, ListBacktestsApiBacktestGetResponse, ReturnType<typeof listBacktestsApiBacktestGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await listBacktestsBacktestGet({
+        const { data } = await listBacktestsApiBacktestGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -642,19 +799,19 @@ export const listBacktestsBacktestGetOptions = (options?: Options<ListBacktestsB
         });
         return data;
     },
-    queryKey: listBacktestsBacktestGetQueryKey(options)
+    queryKey: listBacktestsApiBacktestGetQueryKey(options)
 });
 
-export const getBacktestBacktestBacktestIdGetQueryKey = (options: Options<GetBacktestBacktestBacktestIdGetData>) => createQueryKey("getBacktestBacktestBacktestIdGet", options);
+export const getBacktestApiBacktestBacktestIdGetQueryKey = (options: Options<GetBacktestApiBacktestBacktestIdGetData>) => createQueryKey("getBacktestApiBacktestBacktestIdGet", options);
 
 /**
  * Get Backtest
  *
  * Get a single backtest result by ID.
  */
-export const getBacktestBacktestBacktestIdGetOptions = (options: Options<GetBacktestBacktestBacktestIdGetData>) => queryOptions<GetBacktestBacktestBacktestIdGetResponse, GetBacktestBacktestBacktestIdGetError, GetBacktestBacktestBacktestIdGetResponse, ReturnType<typeof getBacktestBacktestBacktestIdGetQueryKey>>({
+export const getBacktestApiBacktestBacktestIdGetOptions = (options: Options<GetBacktestApiBacktestBacktestIdGetData>) => queryOptions<GetBacktestApiBacktestBacktestIdGetResponse, GetBacktestApiBacktestBacktestIdGetError, GetBacktestApiBacktestBacktestIdGetResponse, ReturnType<typeof getBacktestApiBacktestBacktestIdGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getBacktestBacktestBacktestIdGet({
+        const { data } = await getBacktestApiBacktestBacktestIdGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -662,10 +819,50 @@ export const getBacktestBacktestBacktestIdGetOptions = (options: Options<GetBack
         });
         return data;
     },
-    queryKey: getBacktestBacktestBacktestIdGetQueryKey(options)
+    queryKey: getBacktestApiBacktestBacktestIdGetQueryKey(options)
 });
 
-export const listSignalsSignalsGetQueryKey = (options?: Options<ListSignalsSignalsGetData>) => createQueryKey("listSignalsSignalsGet", options);
+export const getBacktestTradesApiBacktestBacktestIdTradesGetQueryKey = (options: Options<GetBacktestTradesApiBacktestBacktestIdTradesGetData>) => createQueryKey("getBacktestTradesApiBacktestBacktestIdTradesGet", options);
+
+/**
+ * Get Backtest Trades
+ *
+ * Get trade list for a completed backtest.
+ */
+export const getBacktestTradesApiBacktestBacktestIdTradesGetOptions = (options: Options<GetBacktestTradesApiBacktestBacktestIdTradesGetData>) => queryOptions<GetBacktestTradesApiBacktestBacktestIdTradesGetResponse, GetBacktestTradesApiBacktestBacktestIdTradesGetError, GetBacktestTradesApiBacktestBacktestIdTradesGetResponse, ReturnType<typeof getBacktestTradesApiBacktestBacktestIdTradesGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getBacktestTradesApiBacktestBacktestIdTradesGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getBacktestTradesApiBacktestBacktestIdTradesGetQueryKey(options)
+});
+
+export const getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetQueryKey = (options: Options<GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData>) => createQueryKey("getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGet", options);
+
+/**
+ * Get Backtest Equity Curve
+ *
+ * Get equity curve time-series for a completed backtest.
+ */
+export const getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetOptions = (options: Options<GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData>) => queryOptions<GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponse, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetError, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponse, ReturnType<typeof getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetQueryKey(options)
+});
+
+export const listSignalsApiSignalsGetQueryKey = (options?: Options<ListSignalsApiSignalsGetData>) => createQueryKey("listSignalsApiSignalsGet", options);
 
 /**
  * List Signals
@@ -674,9 +871,9 @@ export const listSignalsSignalsGetQueryKey = (options?: Options<ListSignalsSigna
  *
  * Results are ordered by creation time descending (newest first).
  */
-export const listSignalsSignalsGetOptions = (options?: Options<ListSignalsSignalsGetData>) => queryOptions<ListSignalsSignalsGetResponse, ListSignalsSignalsGetError, ListSignalsSignalsGetResponse, ReturnType<typeof listSignalsSignalsGetQueryKey>>({
+export const listSignalsApiSignalsGetOptions = (options?: Options<ListSignalsApiSignalsGetData>) => queryOptions<ListSignalsApiSignalsGetResponse, ListSignalsApiSignalsGetError, ListSignalsApiSignalsGetResponse, ReturnType<typeof listSignalsApiSignalsGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await listSignalsSignalsGet({
+        const { data } = await listSignalsApiSignalsGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -684,19 +881,19 @@ export const listSignalsSignalsGetOptions = (options?: Options<ListSignalsSignal
         });
         return data;
     },
-    queryKey: listSignalsSignalsGetQueryKey(options)
+    queryKey: listSignalsApiSignalsGetQueryKey(options)
 });
 
-export const getSignalSignalsSignalIdGetQueryKey = (options: Options<GetSignalSignalsSignalIdGetData>) => createQueryKey("getSignalSignalsSignalIdGet", options);
+export const getSignalApiSignalsSignalIdGetQueryKey = (options: Options<GetSignalApiSignalsSignalIdGetData>) => createQueryKey("getSignalApiSignalsSignalIdGet", options);
 
 /**
  * Get Signal
  *
  * Get a single signal by ID.
  */
-export const getSignalSignalsSignalIdGetOptions = (options: Options<GetSignalSignalsSignalIdGetData>) => queryOptions<GetSignalSignalsSignalIdGetResponse, GetSignalSignalsSignalIdGetError, GetSignalSignalsSignalIdGetResponse, ReturnType<typeof getSignalSignalsSignalIdGetQueryKey>>({
+export const getSignalApiSignalsSignalIdGetOptions = (options: Options<GetSignalApiSignalsSignalIdGetData>) => queryOptions<GetSignalApiSignalsSignalIdGetResponse, GetSignalApiSignalsSignalIdGetError, GetSignalApiSignalsSignalIdGetResponse, ReturnType<typeof getSignalApiSignalsSignalIdGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getSignalSignalsSignalIdGet({
+        const { data } = await getSignalApiSignalsSignalIdGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -704,7 +901,7 @@ export const getSignalSignalsSignalIdGetOptions = (options: Options<GetSignalSig
         });
         return data;
     },
-    queryKey: getSignalSignalsSignalIdGetQueryKey(options)
+    queryKey: getSignalApiSignalsSignalIdGetQueryKey(options)
 });
 
 /**
@@ -714,10 +911,10 @@ export const getSignalSignalsSignalIdGetOptions = (options: Options<GetSignalSig
  *
  * Returns 202 with a Celery task_id for status polling via GET /autoresearch/status/{task_id}.
  */
-export const runAutoresearchAutoresearchRunPostMutation = (options?: Partial<Options<RunAutoresearchAutoresearchRunPostData>>): UseMutationOptions<RunAutoresearchAutoresearchRunPostResponse, RunAutoresearchAutoresearchRunPostError, Options<RunAutoresearchAutoresearchRunPostData>> => {
-    const mutationOptions: UseMutationOptions<RunAutoresearchAutoresearchRunPostResponse, RunAutoresearchAutoresearchRunPostError, Options<RunAutoresearchAutoresearchRunPostData>> = {
+export const runAutoresearchApiAutoresearchRunPostMutation = (options?: Partial<Options<RunAutoresearchApiAutoresearchRunPostData>>): UseMutationOptions<RunAutoresearchApiAutoresearchRunPostResponse, RunAutoresearchApiAutoresearchRunPostError, Options<RunAutoresearchApiAutoresearchRunPostData>> => {
+    const mutationOptions: UseMutationOptions<RunAutoresearchApiAutoresearchRunPostResponse, RunAutoresearchApiAutoresearchRunPostError, Options<RunAutoresearchApiAutoresearchRunPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await runAutoresearchAutoresearchRunPost({
+            const { data } = await runAutoresearchApiAutoresearchRunPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -728,7 +925,7 @@ export const runAutoresearchAutoresearchRunPostMutation = (options?: Partial<Opt
     return mutationOptions;
 };
 
-export const getTaskStatusAutoresearchStatusTaskIdGetQueryKey = (options: Options<GetTaskStatusAutoresearchStatusTaskIdGetData>) => createQueryKey("getTaskStatusAutoresearchStatusTaskIdGet", options);
+export const getTaskStatusApiAutoresearchStatusTaskIdGetQueryKey = (options: Options<GetTaskStatusApiAutoresearchStatusTaskIdGetData>) => createQueryKey("getTaskStatusApiAutoresearchStatusTaskIdGet", options);
 
 /**
  * Get Task Status
@@ -737,9 +934,9 @@ export const getTaskStatusAutoresearchStatusTaskIdGetQueryKey = (options: Option
  *
  * States: PENDING -> PROGRESS -> SUCCESS / FAILURE
  */
-export const getTaskStatusAutoresearchStatusTaskIdGetOptions = (options: Options<GetTaskStatusAutoresearchStatusTaskIdGetData>) => queryOptions<GetTaskStatusAutoresearchStatusTaskIdGetResponse, GetTaskStatusAutoresearchStatusTaskIdGetError, GetTaskStatusAutoresearchStatusTaskIdGetResponse, ReturnType<typeof getTaskStatusAutoresearchStatusTaskIdGetQueryKey>>({
+export const getTaskStatusApiAutoresearchStatusTaskIdGetOptions = (options: Options<GetTaskStatusApiAutoresearchStatusTaskIdGetData>) => queryOptions<GetTaskStatusApiAutoresearchStatusTaskIdGetResponse, GetTaskStatusApiAutoresearchStatusTaskIdGetError, GetTaskStatusApiAutoresearchStatusTaskIdGetResponse, ReturnType<typeof getTaskStatusApiAutoresearchStatusTaskIdGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getTaskStatusAutoresearchStatusTaskIdGet({
+        const { data } = await getTaskStatusApiAutoresearchStatusTaskIdGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -747,7 +944,7 @@ export const getTaskStatusAutoresearchStatusTaskIdGetOptions = (options: Options
         });
         return data;
     },
-    queryKey: getTaskStatusAutoresearchStatusTaskIdGetQueryKey(options)
+    queryKey: getTaskStatusApiAutoresearchStatusTaskIdGetQueryKey(options)
 });
 
 /**
@@ -757,10 +954,10 @@ export const getTaskStatusAutoresearchStatusTaskIdGetOptions = (options: Options
  *
  * Sets Redis flag that the runner checks between markets.
  */
-export const stopAutoresearchAutoresearchStopTaskIdPostMutation = (options?: Partial<Options<StopAutoresearchAutoresearchStopTaskIdPostData>>): UseMutationOptions<StopAutoresearchAutoresearchStopTaskIdPostResponse, StopAutoresearchAutoresearchStopTaskIdPostError, Options<StopAutoresearchAutoresearchStopTaskIdPostData>> => {
-    const mutationOptions: UseMutationOptions<StopAutoresearchAutoresearchStopTaskIdPostResponse, StopAutoresearchAutoresearchStopTaskIdPostError, Options<StopAutoresearchAutoresearchStopTaskIdPostData>> = {
+export const stopAutoresearchApiAutoresearchStopTaskIdPostMutation = (options?: Partial<Options<StopAutoresearchApiAutoresearchStopTaskIdPostData>>): UseMutationOptions<StopAutoresearchApiAutoresearchStopTaskIdPostResponse, StopAutoresearchApiAutoresearchStopTaskIdPostError, Options<StopAutoresearchApiAutoresearchStopTaskIdPostData>> => {
+    const mutationOptions: UseMutationOptions<StopAutoresearchApiAutoresearchStopTaskIdPostResponse, StopAutoresearchApiAutoresearchStopTaskIdPostError, Options<StopAutoresearchApiAutoresearchStopTaskIdPostData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await stopAutoresearchAutoresearchStopTaskIdPost({
+            const { data } = await stopAutoresearchApiAutoresearchStopTaskIdPost({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -771,16 +968,16 @@ export const stopAutoresearchAutoresearchStopTaskIdPostMutation = (options?: Par
     return mutationOptions;
 };
 
-export const listExperimentsAutoresearchExperimentsGetQueryKey = (options?: Options<ListExperimentsAutoresearchExperimentsGetData>) => createQueryKey("listExperimentsAutoresearchExperimentsGet", options);
+export const listExperimentsApiAutoresearchExperimentsGetQueryKey = (options?: Options<ListExperimentsApiAutoresearchExperimentsGetData>) => createQueryKey("listExperimentsApiAutoresearchExperimentsGet", options);
 
 /**
  * List Experiments
  *
  * List experiment results, optionally filtered by study name and status.
  */
-export const listExperimentsAutoresearchExperimentsGetOptions = (options?: Options<ListExperimentsAutoresearchExperimentsGetData>) => queryOptions<ListExperimentsAutoresearchExperimentsGetResponse, ListExperimentsAutoresearchExperimentsGetError, ListExperimentsAutoresearchExperimentsGetResponse, ReturnType<typeof listExperimentsAutoresearchExperimentsGetQueryKey>>({
+export const listExperimentsApiAutoresearchExperimentsGetOptions = (options?: Options<ListExperimentsApiAutoresearchExperimentsGetData>) => queryOptions<ListExperimentsApiAutoresearchExperimentsGetResponse, ListExperimentsApiAutoresearchExperimentsGetError, ListExperimentsApiAutoresearchExperimentsGetResponse, ReturnType<typeof listExperimentsApiAutoresearchExperimentsGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await listExperimentsAutoresearchExperimentsGet({
+        const { data } = await listExperimentsApiAutoresearchExperimentsGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -788,7 +985,7 @@ export const listExperimentsAutoresearchExperimentsGetOptions = (options?: Optio
         });
         return data;
     },
-    queryKey: listExperimentsAutoresearchExperimentsGetQueryKey(options)
+    queryKey: listExperimentsApiAutoresearchExperimentsGetQueryKey(options)
 });
 
 export const getProviderHealthApiDataQualityProvidersGetQueryKey = (options?: Options<GetProviderHealthApiDataQualityProvidersGetData>) => createQueryKey("getProviderHealthApiDataQualityProvidersGet", options);
@@ -942,37 +1139,6 @@ export const getAlertsApiRiskAlertsGetOptions = (options?: Options<GetAlertsApiR
     queryKey: getAlertsApiRiskAlertsGetQueryKey(options)
 });
 
-const createInfiniteParams = <K extends Pick<QueryKey<Options>[0], 'body' | 'headers' | 'path' | 'query'>>(queryKey: QueryKey<Options>, page: K) => {
-    const params = {
-        ...queryKey[0]
-    };
-    if (page.body) {
-        params.body = {
-            ...queryKey[0].body as any,
-            ...page.body as any
-        };
-    }
-    if (page.headers) {
-        params.headers = {
-            ...queryKey[0].headers,
-            ...page.headers
-        };
-    }
-    if (page.path) {
-        params.path = {
-            ...queryKey[0].path as any,
-            ...page.path as any
-        };
-    }
-    if (page.query) {
-        params.query = {
-            ...queryKey[0].query as any,
-            ...page.query as any
-        };
-    }
-    return params as unknown as typeof page;
-};
-
 export const getAlertsApiRiskAlertsGetInfiniteQueryKey = (options?: Options<GetAlertsApiRiskAlertsGetData>): QueryKey<Options<GetAlertsApiRiskAlertsGetData>> => createQueryKey("getAlertsApiRiskAlertsGet", options, true);
 
 /**
@@ -1009,6 +1175,26 @@ export const getAlertsApiRiskAlertsGetInfiniteOptions = (options?: Options<GetAl
         queryKey: getAlertsApiRiskAlertsGetInfiniteQueryKey(options)
     });
 };
+
+export const getCorrelationApiRiskCorrelationGetQueryKey = (options?: Options<GetCorrelationApiRiskCorrelationGetData>) => createQueryKey("getCorrelationApiRiskCorrelationGet", options);
+
+/**
+ * Get Correlation
+ *
+ * Return cross-market correlation matrix from cached covariance data.
+ */
+export const getCorrelationApiRiskCorrelationGetOptions = (options?: Options<GetCorrelationApiRiskCorrelationGetData>) => queryOptions<GetCorrelationApiRiskCorrelationGetResponse, DefaultError, GetCorrelationApiRiskCorrelationGetResponse, ReturnType<typeof getCorrelationApiRiskCorrelationGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getCorrelationApiRiskCorrelationGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getCorrelationApiRiskCorrelationGetQueryKey(options)
+});
 
 export const getPerformanceApiPortfolioPerformanceGetQueryKey = (options?: Options<GetPerformanceApiPortfolioPerformanceGetData>) => createQueryKey("getPerformanceApiPortfolioPerformanceGet", options);
 
@@ -1092,3 +1278,64 @@ export const getPerpHoldingsApiPortfolioPerpHoldingsGetOptions = (options?: Opti
     },
     queryKey: getPerpHoldingsApiPortfolioPerpHoldingsGetQueryKey(options)
 });
+
+export const getNotificationsApiNotificationsGetQueryKey = (options?: Options<GetNotificationsApiNotificationsGetData>) => createQueryKey("getNotificationsApiNotificationsGet", options);
+
+/**
+ * Get Notifications
+ *
+ * Return unified notification feed from Redis streams.
+ *
+ * Aggregates alerts from:
+ * - poseidon:alerts:risk (risk alerts -- drawdown, VaR breach)
+ * - poseidon:alerts:data_quality (data quality events)
+ * - poseidon:alerts:autoresearch (autoresearch completions)
+ */
+export const getNotificationsApiNotificationsGetOptions = (options?: Options<GetNotificationsApiNotificationsGetData>) => queryOptions<GetNotificationsApiNotificationsGetResponse, GetNotificationsApiNotificationsGetError, GetNotificationsApiNotificationsGetResponse, ReturnType<typeof getNotificationsApiNotificationsGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getNotificationsApiNotificationsGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getNotificationsApiNotificationsGetQueryKey(options)
+});
+
+export const getNotificationsApiNotificationsGetInfiniteQueryKey = (options?: Options<GetNotificationsApiNotificationsGetData>): QueryKey<Options<GetNotificationsApiNotificationsGetData>> => createQueryKey("getNotificationsApiNotificationsGet", options, true);
+
+/**
+ * Get Notifications
+ *
+ * Return unified notification feed from Redis streams.
+ *
+ * Aggregates alerts from:
+ * - poseidon:alerts:risk (risk alerts -- drawdown, VaR breach)
+ * - poseidon:alerts:data_quality (data quality events)
+ * - poseidon:alerts:autoresearch (autoresearch completions)
+ */
+export const getNotificationsApiNotificationsGetInfiniteOptions = (options?: Options<GetNotificationsApiNotificationsGetData>) => {
+    return infiniteQueryOptions<GetNotificationsApiNotificationsGetResponse, GetNotificationsApiNotificationsGetError, InfiniteData<GetNotificationsApiNotificationsGetResponse>, QueryKey<Options<GetNotificationsApiNotificationsGetData>>, number | Pick<QueryKey<Options<GetNotificationsApiNotificationsGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<GetNotificationsApiNotificationsGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    offset: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await getNotificationsApiNotificationsGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: getNotificationsApiNotificationsGetInfiniteQueryKey(options)
+    });
+};

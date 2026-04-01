@@ -5,7 +5,7 @@ import {
   getHoldingsApiPortfolioHoldingsGetOptions,
   getPerformanceApiPortfolioPerformanceGetOptions,
   healthHealthGetOptions,
-  listSignalsSignalsGetOptions,
+  listSignalsApiSignalsGetOptions,
 } from "@/api/poseidon/@tanstack/react-query.gen";
 import { ErrorState } from "@/features/monitoring/error-state";
 import { PanelFrame } from "@/features/monitoring/panel-frame";
@@ -33,7 +33,7 @@ export function Component() {
     ...getMonitoringQueryOptions("overview"),
   });
   const signalsQuery = useQuery({
-    ...listSignalsSignalsGetOptions({
+    ...listSignalsApiSignalsGetOptions({
       query: {
         limit: 6,
         market: apiMarket,

@@ -12,8 +12,8 @@ const sharedPlugins = [
   },
 ] as const;
 
-const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? "http://localhost:8001/openapi.json";
-const tritonInput = process.env.OPENAPI_TRITON_INPUT ?? "http://localhost:8000/openapi.json";
+const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? "./.cache-specs/poseidon/openapi.json";
+const tritonInput = process.env.OPENAPI_TRITON_INPUT ?? "./.cache-specs/triton/openapi.json";
 
 export default defineConfig([
   {
