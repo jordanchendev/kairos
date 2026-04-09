@@ -55,6 +55,10 @@ export const router = createBrowserRouter([
         lazy: () => import("@/routes/data-quality"),
       },
       {
+        path: "data-health",
+        lazy: () => import("@/routes/data-health"),
+      },
+      {
         path: "infrastructure",
         lazy: () => import("@/routes/infrastructure"),
       },
