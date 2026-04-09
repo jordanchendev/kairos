@@ -3247,3 +3247,141 @@ export type GetNotificationsApiNotificationsGetResponses = {
 };
 
 export type GetNotificationsApiNotificationsGetResponse = GetNotificationsApiNotificationsGetResponses[keyof GetNotificationsApiNotificationsGetResponses];
+
+// --- Phase 40: Data Coverage / Gaps / Freshness (manually added; regen on stormtrooper deployment) ---
+
+/**
+ * DataCoverageResponse
+ *
+ * Per-(market, symbol, interval) coverage from data_coverage_mv (Phase 39).
+ */
+export type DataCoverageResponse = {
+    market: string;
+    symbol: string;
+    interval: string;
+    first_ts: string | null;
+    last_ts: string | null;
+    row_count: number;
+    expected_count: number;
+    gap_count: number;
+    completeness_pct: number;
+    staleness_seconds: number;
+    health: string;
+};
+
+/**
+ * DataGapResponse
+ *
+ * Per-gap window from data_gaps table (Phase 40 D-02, D-04).
+ */
+export type DataGapResponse = {
+    gap_id: string;
+    market: string;
+    symbol: string;
+    interval: string;
+    gap_start: string;
+    gap_end: string;
+    missing_bars: number;
+    detected_at: string;
+    healed_at: string | null;
+};
+
+/**
+ * DataFreshnessResponse
+ *
+ * Per-(market, interval) freshness snapshot (Phase 40 D-03, D-11, D-16).
+ */
+export type DataFreshnessResponse = {
+    market: string;
+    interval: string;
+    last_successful_ts: string | null;
+    expected_lag_seconds: number;
+    observed_lag_seconds: number;
+    status: string;
+};
+
+export type GetDataCoverageApiDataCoverageGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        market?: string | null;
+        symbol?: string | null;
+        interval?: string | null;
+    };
+    url: '/api/data/coverage';
+};
+
+export type GetDataCoverageApiDataCoverageGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetDataCoverageApiDataCoverageGetError = GetDataCoverageApiDataCoverageGetErrors[keyof GetDataCoverageApiDataCoverageGetErrors];
+
+export type GetDataCoverageApiDataCoverageGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: Array<DataCoverageResponse>;
+};
+
+export type GetDataCoverageApiDataCoverageGetResponse = GetDataCoverageApiDataCoverageGetResponses[keyof GetDataCoverageApiDataCoverageGetResponses];
+
+export type GetDataGapsApiDataGapsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        market?: string | null;
+        symbol?: string | null;
+        interval?: string | null;
+        open_only?: boolean;
+    };
+    url: '/api/data/gaps';
+};
+
+export type GetDataGapsApiDataGapsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetDataGapsApiDataGapsGetError = GetDataGapsApiDataGapsGetErrors[keyof GetDataGapsApiDataGapsGetErrors];
+
+export type GetDataGapsApiDataGapsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: Array<DataGapResponse>;
+};
+
+export type GetDataGapsApiDataGapsGetResponse = GetDataGapsApiDataGapsGetResponses[keyof GetDataGapsApiDataGapsGetResponses];
+
+export type GetDataFreshnessApiDataFreshnessGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        market?: string | null;
+    };
+    url: '/api/data/freshness';
+};
+
+export type GetDataFreshnessApiDataFreshnessGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetDataFreshnessApiDataFreshnessGetError = GetDataFreshnessApiDataFreshnessGetErrors[keyof GetDataFreshnessApiDataFreshnessGetErrors];
+
+export type GetDataFreshnessApiDataFreshnessGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: Array<DataFreshnessResponse>;
+};
+
+export type GetDataFreshnessApiDataFreshnessGetResponse = GetDataFreshnessApiDataFreshnessGetResponses[keyof GetDataFreshnessApiDataFreshnessGetResponses];
