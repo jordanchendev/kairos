@@ -70,6 +70,10 @@ export const router = createBrowserRouter([
         path: "indexed-data",
         lazy: () => import("@/routes/indexed-data"),
       },
+      {
+        path: "training-runs",
+        lazy: () => import("@/routes/training-runs"),
+      },
     ],
   },
 ], {
