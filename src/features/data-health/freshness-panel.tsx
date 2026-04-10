@@ -7,12 +7,12 @@ type FreshnessPanelProps = {
 
 export function FreshnessPanel({ records, onlyNonGreen }: FreshnessPanelProps) {
   const visible = onlyNonGreen
-    ? records.filter((r) => r.status !== "fresh")
+    ? records.filter((r) => r.status !== "ok")
     : records;
 
   const violations = visible.filter((r) => r.status === "violation");
   const unknown = visible.filter((r) => r.status === "unknown");
-  const ok = visible.filter((r) => r.status === "fresh");
+  const ok = visible.filter((r) => r.status === "ok");
 
   return (
     <section
