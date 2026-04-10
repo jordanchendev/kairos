@@ -149,8 +149,8 @@ function TrainingRunsPage() {
         />
       )}
 
-      {/* Run detail panel */}
-      {selectedRunId && runDetail && (
+      {/* Run detail panel — guard ensures stale cache doesn't flash wrong run */}
+      {selectedRunId && runDetail && runDetail.run_id === selectedRunId && (
         <RunDetailPanel onClose={() => setSelectedRunId(null)} run={runDetail} />
       )}
     </section>
