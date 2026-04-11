@@ -99,6 +99,13 @@ export const navigationGroups: NavigationGroup[] = [
         path: "/training-runs",
         title: "Training Runs",
       },
+      {
+        description: "Factor quality, SHAP importance, and sub-signal overlap research.",
+        icon: BarChart3,
+        pageId: "factor-analysis",
+        path: "/factor-analysis",
+        title: "Factor Analysis",
+      },
     ],
   },
   {

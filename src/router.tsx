@@ -74,6 +74,10 @@ export const router = createBrowserRouter([
         path: "training-runs",
         lazy: () => import("@/routes/training-runs"),
       },
+      {
+        path: "factor-analysis",
+        lazy: () => import("@/routes/factor-analysis"),
+      },
     ],
   },
 ], {
