@@ -10,9 +10,11 @@ const workspaceRoot = path.resolve(repoRoot, "..");
 
 const defaultPoseidonInput = "./.cache-specs/poseidon/openapi.json";
 const defaultTritonInput = "./.cache-specs/triton/openapi.json";
+const defaultThalassaInput = "./.cache-specs/thalassa/openapi.json";
 
 const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? defaultPoseidonInput;
 const tritonInput = process.env.OPENAPI_TRITON_INPUT ?? defaultTritonInput;
+const thalassaInput = process.env.OPENAPI_THALASSA_INPUT ?? defaultThalassaInput;
 
 async function ensureReadable(filePath) {
   await access(filePath);
@@ -58,14 +60,58 @@ sys.stdout.write("\\n")
   await writeFile(poseidonCachePath, result.stdout, "utf8");
 }
 
+async function syncThalassaSpec() {
+  if (thalassaInput !== defaultThalassaInput) {
+    return;
+  }
+
+  const thalassaRoot = path.join(workspaceRoot, "thalassa");
+  const thalassaPython = path.join(thalassaRoot, ".venv", "bin", "python");
+  const thalassaCacheDir = path.join(repoRoot, ".cache-specs", "thalassa");
+  const thalassaCachePath = path.join(thalassaCacheDir, "openapi.json");
+  const pythonCode = `
+import json
+import sys
+from thalassa.main import app
+
+json.dump(app.openapi(), sys.stdout, indent=2)
+sys.stdout.write("\\n")
+`.trim();
+
+  await mkdir(thalassaCacheDir, { recursive: true });
+
+  const result = spawnSync(thalassaPython, ["-c", pythonCode], {
+    cwd: thalassaRoot,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      PYTHONPATH: path.join(thalassaRoot, "src"),
+    },
+  });
+
+  if (result.status !== 0) {
+    throw new Error(result.stderr || "Failed to generate Thalassa OpenAPI spec");
+  }
+
+  if (!result.stdout.trim()) {
+    throw new Error("Generated Thalassa OpenAPI spec was empty");
+  }
+
+  await writeFile(thalassaCachePath, result.stdout, "utf8");
+}
+
 async function verifyInputs() {
   if (tritonInput === defaultTritonInput) {
     await ensureReadable(path.join(repoRoot, ".cache-specs", "triton", "openapi.json"));
+  }
+  if (thalassaInput === defaultThalassaInput) {
+    await ensureReadable(path.join(repoRoot, ".cache-specs", "thalassa", "openapi.json"));
   }
 }
 
 async function main() {
   await syncPoseidonSpec();
+  await syncThalassaSpec();
   await verifyInputs();
 }
 

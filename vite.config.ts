@@ -25,6 +25,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (requestPath) => requestPath.replace(/^\/triton/, ""),
       },
+      "/thalassa": {
+        target: "http://192.168.31.241:8001",
+        changeOrigin: true,
+        rewrite: (requestPath) => requestPath.replace(/^\/thalassa/, ""),
+      },
     },
   },
 });

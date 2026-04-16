@@ -14,6 +14,7 @@ const sharedPlugins = [
 
 const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? "./.cache-specs/poseidon/openapi.json";
 const tritonInput = process.env.OPENAPI_TRITON_INPUT ?? "./.cache-specs/triton/openapi.json";
+const thalassaInput = process.env.OPENAPI_THALASSA_INPUT ?? "./.cache-specs/thalassa/openapi.json";
 
 export default defineConfig([
   {
@@ -29,6 +30,14 @@ export default defineConfig([
     output: {
       lint: "eslint",
       path: "src/api/triton",
+    },
+    plugins: sharedPlugins,
+  },
+  {
+    input: thalassaInput,
+    output: {
+      lint: "eslint",
+      path: "src/api/thalassa",
     },
     plugins: sharedPlugins,
   },
