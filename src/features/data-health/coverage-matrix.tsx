@@ -1,4 +1,4 @@
-import type { DataCoverageResponse } from "@/api/poseidon/types.gen";
+import type { DataCoverageResponse } from "@/api/thalassa/types.gen";
 
 type CoverageMatrixProps = {
   rows: DataCoverageResponse[];

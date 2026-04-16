@@ -3,8 +3,8 @@
 import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { activateModelApiModelsVersionIdActivatePost, activateStrategyApiStrategiesStrategyIdActivatePost, createRuleApiRiskRulesPost, createSentimentApiSentimentPost, createStrategyApiStrategiesPost, deactivateStrategyApiStrategiesStrategyIdDeactivatePost, deleteRuleApiRiskRulesRuleIdDelete, deleteStrategyApiStrategiesStrategyIdDelete, getAlertsApiRiskAlertsGet, getBackfillStatusApiDataBackfillStatusGet, getBacktestApiBacktestBacktestIdGet, getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGet, getBacktestTradesApiBacktestBacktestIdTradesGet, getCorrelationApiRiskCorrelationGet, getDataCoverageApiDataCoverageGet, getDataFreshnessApiDataFreshnessGet, getDataGapsApiDataGapsGet, getExposureApiRiskExposureGet, getFundingRatesApiDataFundingRatesGet, getHoldingsApiPortfolioHoldingsGet, getModelVersionApiModelsVersionIdGet, getNotificationsApiNotificationsGet, getOhlcvApiDataOhlcvGet, getOrdersApiPortfolioOrdersGet, getPerformanceApiPortfolioPerformanceGet, getPerpHoldingsApiPortfolioPerpHoldingsGet, getPortfolioApiRiskRulesPortfolioGet, getProviderHealthApiDataQualityProvidersGet, getQualityScoresApiDataQualityScoresGet, getRuleApiRiskRulesRuleIdGet, getSignalApiSignalsSignalIdGet, getStrategyApiStrategiesStrategyIdGet, getStrategyPerformanceApiStrategiesStrategyIdPerformanceGet, getStressTestResultApiRiskStressTestTaskIdGet, getTaskStatusApiAutoresearchStatusTaskIdGet, getVarApiRiskVarGet, healthHealthGet, listBacktestsApiBacktestGet, listExperimentsApiAutoresearchExperimentsGet, listModelsApiModelsGet, listRulesApiRiskRulesGet, listRuleTypesApiRiskRulesTypesGet, listSentimentApiSentimentGet, listSignalsApiSignalsGet, listStrategiesApiStrategiesGet, type Options, predictApiModelsVersionIdPredictPost, runAutoresearchApiAutoresearchRunPost, runBacktestApiBacktestRunPost, runOptimizationApiBacktestOptimizePost, shadowModelApiModelsVersionIdShadowPost, startTrainingApiModelsTrainPost, stopAutoresearchApiAutoresearchStopTaskIdPost, triggerBackfillEndpointApiDataBackfillPost, triggerFetchApiDataFetchPost, triggerStressTestApiRiskStressTestRunPost, updateRuleApiRiskRulesRuleIdPatch, updateStrategyApiStrategiesStrategyIdPut } from '../sdk.gen';
-import type { ActivateModelApiModelsVersionIdActivatePostData, ActivateModelApiModelsVersionIdActivatePostError, ActivateModelApiModelsVersionIdActivatePostResponse, ActivateStrategyApiStrategiesStrategyIdActivatePostData, ActivateStrategyApiStrategiesStrategyIdActivatePostError, ActivateStrategyApiStrategiesStrategyIdActivatePostResponse, CreateRuleApiRiskRulesPostData, CreateRuleApiRiskRulesPostError, CreateRuleApiRiskRulesPostResponse, CreateSentimentApiSentimentPostData, CreateSentimentApiSentimentPostError, CreateSentimentApiSentimentPostResponse, CreateStrategyApiStrategiesPostData, CreateStrategyApiStrategiesPostError, CreateStrategyApiStrategiesPostResponse, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostError, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponse, DeleteRuleApiRiskRulesRuleIdDeleteData, DeleteRuleApiRiskRulesRuleIdDeleteError, DeleteRuleApiRiskRulesRuleIdDeleteResponse, DeleteStrategyApiStrategiesStrategyIdDeleteData, DeleteStrategyApiStrategiesStrategyIdDeleteError, DeleteStrategyApiStrategiesStrategyIdDeleteResponse, GetAlertsApiRiskAlertsGetData, GetAlertsApiRiskAlertsGetError, GetAlertsApiRiskAlertsGetResponse, GetBackfillStatusApiDataBackfillStatusGetData, GetBackfillStatusApiDataBackfillStatusGetError, GetBackfillStatusApiDataBackfillStatusGetResponse, GetDataCoverageApiDataCoverageGetData, GetDataCoverageApiDataCoverageGetError, GetDataCoverageApiDataCoverageGetResponse, GetDataFreshnessApiDataFreshnessGetData, GetDataFreshnessApiDataFreshnessGetError, GetDataFreshnessApiDataFreshnessGetResponse, GetDataGapsApiDataGapsGetData, GetDataGapsApiDataGapsGetError, GetDataGapsApiDataGapsGetResponse, GetBacktestApiBacktestBacktestIdGetData, GetBacktestApiBacktestBacktestIdGetError, GetBacktestApiBacktestBacktestIdGetResponse, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetError, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponse, GetBacktestTradesApiBacktestBacktestIdTradesGetData, GetBacktestTradesApiBacktestBacktestIdTradesGetError, GetBacktestTradesApiBacktestBacktestIdTradesGetResponse, GetCorrelationApiRiskCorrelationGetData, GetCorrelationApiRiskCorrelationGetResponse, GetExposureApiRiskExposureGetData, GetExposureApiRiskExposureGetResponse, GetFundingRatesApiDataFundingRatesGetData, GetFundingRatesApiDataFundingRatesGetError, GetFundingRatesApiDataFundingRatesGetResponse, GetHoldingsApiPortfolioHoldingsGetData, GetHoldingsApiPortfolioHoldingsGetResponse, GetModelVersionApiModelsVersionIdGetData, GetModelVersionApiModelsVersionIdGetError, GetModelVersionApiModelsVersionIdGetResponse, GetNotificationsApiNotificationsGetData, GetNotificationsApiNotificationsGetError, GetNotificationsApiNotificationsGetResponse, GetOhlcvApiDataOhlcvGetData, GetOhlcvApiDataOhlcvGetError, GetOhlcvApiDataOhlcvGetResponse, GetOrdersApiPortfolioOrdersGetData, GetOrdersApiPortfolioOrdersGetError, GetOrdersApiPortfolioOrdersGetResponse, GetPerformanceApiPortfolioPerformanceGetData, GetPerformanceApiPortfolioPerformanceGetError, GetPerformanceApiPortfolioPerformanceGetResponse, GetPerpHoldingsApiPortfolioPerpHoldingsGetData, GetPerpHoldingsApiPortfolioPerpHoldingsGetResponse, GetPortfolioApiRiskRulesPortfolioGetData, GetPortfolioApiRiskRulesPortfolioGetError, GetPortfolioApiRiskRulesPortfolioGetResponse, GetProviderHealthApiDataQualityProvidersGetData, GetQualityScoresApiDataQualityScoresGetData, GetQualityScoresApiDataQualityScoresGetError, GetQualityScoresApiDataQualityScoresGetResponse, GetRuleApiRiskRulesRuleIdGetData, GetRuleApiRiskRulesRuleIdGetError, GetRuleApiRiskRulesRuleIdGetResponse, GetSignalApiSignalsSignalIdGetData, GetSignalApiSignalsSignalIdGetError, GetSignalApiSignalsSignalIdGetResponse, GetStrategyApiStrategiesStrategyIdGetData, GetStrategyApiStrategiesStrategyIdGetError, GetStrategyApiStrategiesStrategyIdGetResponse, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetError, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse, GetStressTestResultApiRiskStressTestTaskIdGetData, GetStressTestResultApiRiskStressTestTaskIdGetError, GetStressTestResultApiRiskStressTestTaskIdGetResponse, GetTaskStatusApiAutoresearchStatusTaskIdGetData, GetTaskStatusApiAutoresearchStatusTaskIdGetError, GetTaskStatusApiAutoresearchStatusTaskIdGetResponse, GetVarApiRiskVarGetData, GetVarApiRiskVarGetResponse, HealthHealthGetData, ListBacktestsApiBacktestGetData, ListBacktestsApiBacktestGetError, ListBacktestsApiBacktestGetResponse, ListExperimentsApiAutoresearchExperimentsGetData, ListExperimentsApiAutoresearchExperimentsGetError, ListExperimentsApiAutoresearchExperimentsGetResponse, ListModelsApiModelsGetData, ListModelsApiModelsGetError, ListModelsApiModelsGetResponse, ListRulesApiRiskRulesGetData, ListRulesApiRiskRulesGetResponse, ListRuleTypesApiRiskRulesTypesGetData, ListRuleTypesApiRiskRulesTypesGetResponse, ListSentimentApiSentimentGetData, ListSentimentApiSentimentGetError, ListSentimentApiSentimentGetResponse, ListSignalsApiSignalsGetData, ListSignalsApiSignalsGetError, ListSignalsApiSignalsGetResponse, ListStrategiesApiStrategiesGetData, ListStrategiesApiStrategiesGetResponse, PredictApiModelsVersionIdPredictPostData, PredictApiModelsVersionIdPredictPostError, PredictApiModelsVersionIdPredictPostResponse, RunAutoresearchApiAutoresearchRunPostData, RunAutoresearchApiAutoresearchRunPostError, RunAutoresearchApiAutoresearchRunPostResponse, RunBacktestApiBacktestRunPostData, RunBacktestApiBacktestRunPostError, RunBacktestApiBacktestRunPostResponse, RunOptimizationApiBacktestOptimizePostData, RunOptimizationApiBacktestOptimizePostError, RunOptimizationApiBacktestOptimizePostResponse, ShadowModelApiModelsVersionIdShadowPostData, ShadowModelApiModelsVersionIdShadowPostError, ShadowModelApiModelsVersionIdShadowPostResponse, StartTrainingApiModelsTrainPostData, StartTrainingApiModelsTrainPostError, StartTrainingApiModelsTrainPostResponse, StopAutoresearchApiAutoresearchStopTaskIdPostData, StopAutoresearchApiAutoresearchStopTaskIdPostError, StopAutoresearchApiAutoresearchStopTaskIdPostResponse, TriggerBackfillEndpointApiDataBackfillPostData, TriggerBackfillEndpointApiDataBackfillPostError, TriggerBackfillEndpointApiDataBackfillPostResponse, TriggerFetchApiDataFetchPostData, TriggerFetchApiDataFetchPostError, TriggerFetchApiDataFetchPostResponse, TriggerStressTestApiRiskStressTestRunPostData, TriggerStressTestApiRiskStressTestRunPostError, TriggerStressTestApiRiskStressTestRunPostResponse, UpdateRuleApiRiskRulesRuleIdPatchData, UpdateRuleApiRiskRulesRuleIdPatchError, UpdateRuleApiRiskRulesRuleIdPatchResponse, UpdateStrategyApiStrategiesStrategyIdPutData, UpdateStrategyApiStrategiesStrategyIdPutError, UpdateStrategyApiStrategiesStrategyIdPutResponse } from '../types.gen';
+import { activateModelApiModelsVersionIdActivatePost, activateStrategyApiStrategiesStrategyIdActivatePost, cancelTrainingRunApiV1ModelsRunsRunIdCancelPost, createCentralityAnalysisRunApiV1FactorAnalysisCentralityPost, createIcAnalysisRunApiV1FactorAnalysisIcPost, createRuleApiRiskRulesPost, createSentimentApiSentimentPost, createShapleyAnalysisRunApiV1FactorAnalysisShapleyPost, createStrategyApiStrategiesPost, createTrainingRunApiV1ModelsTrainPost, deactivateStrategyApiStrategiesStrategyIdDeactivatePost, deleteModelApiV1ModelsModelIdDelete, deleteRuleApiRiskRulesRuleIdDelete, deleteStrategyApiStrategiesStrategyIdDelete, getActiveLocksApiV1ProtectionsLocksGet, getAlertsApiRiskAlertsGet, getBacktestApiBacktestBacktestIdGet, getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGet, getBacktestTradesApiBacktestBacktestIdTradesGet, getCapabilitiesApiV1CapabilitiesGet, getCorrelationApiRiskCorrelationGet, getExposureApiRiskExposureGet, getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGet, getHoldingsApiPortfolioHoldingsGet, getLockHistoryApiV1ProtectionsHistoryGet, getModelMetricsApiV1ModelsModelIdGet, getModelVersionApiModelsVersionIdGet, getNotificationsApiNotificationsGet, getOhlcvApiDataOhlcvGet, getOrdersApiPortfolioOrdersGet, getPerformanceApiPortfolioPerformanceGet, getPerpHoldingsApiPortfolioPerpHoldingsGet, getPortfolioApiRiskRulesPortfolioGet, getPredictionsApiV1ModelsModelIdPredictionsGet, getRuleApiRiskRulesRuleIdGet, getSignalApiSignalsSignalIdGet, getStrategyApiStrategiesStrategyIdGet, getStrategyPerformanceApiStrategiesStrategyIdPerformanceGet, getStressTestResultApiRiskStressTestTaskIdGet, getTaskStatusApiAutoresearchStatusTaskIdGet, getTrainingRunApiV1ModelsRunsRunIdGet, getVarApiRiskVarGet, healthHealthGet, listBacktestsApiBacktestGet, listExperimentsApiAutoresearchExperimentsGet, listFactorAnalysisRunsApiV1FactorAnalysisRunsGet, listModelsApiModelsGet, listRulesApiRiskRulesGet, listRuleTypesApiRiskRulesTypesGet, listSentimentApiSentimentGet, listSignalsApiSignalsGet, listStrategiesApiStrategiesGet, listTrainingRunsApiV1ModelsRunsGet, type Options, overrideLockApiV1ProtectionsLocksLockIdOverridePost, predictApiModelsVersionIdPredictPost, runAutoresearchApiAutoresearchRunPost, runBacktestApiBacktestRunPost, runDualModeApiBacktestDualModePost, runOptimizationApiBacktestOptimizePost, shadowModelApiModelsVersionIdShadowPost, startTrainingApiModelsTrainPost, stopAutoresearchApiAutoresearchStopTaskIdPost, triggerStressTestApiRiskStressTestRunPost, updateRuleApiRiskRulesRuleIdPatch, updateStrategyApiStrategiesStrategyIdPut } from '../sdk.gen';
+import type { ActivateModelApiModelsVersionIdActivatePostData, ActivateModelApiModelsVersionIdActivatePostError, ActivateModelApiModelsVersionIdActivatePostResponse, ActivateStrategyApiStrategiesStrategyIdActivatePostData, ActivateStrategyApiStrategiesStrategyIdActivatePostError, ActivateStrategyApiStrategiesStrategyIdActivatePostResponse, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostData, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostError, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostError, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponse, CreateIcAnalysisRunApiV1FactorAnalysisIcPostData, CreateIcAnalysisRunApiV1FactorAnalysisIcPostError, CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponse, CreateRuleApiRiskRulesPostData, CreateRuleApiRiskRulesPostError, CreateRuleApiRiskRulesPostResponse, CreateSentimentApiSentimentPostData, CreateSentimentApiSentimentPostError, CreateSentimentApiSentimentPostResponse, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostError, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponse, CreateStrategyApiStrategiesPostData, CreateStrategyApiStrategiesPostError, CreateStrategyApiStrategiesPostResponse, CreateTrainingRunApiV1ModelsTrainPostData, CreateTrainingRunApiV1ModelsTrainPostError, CreateTrainingRunApiV1ModelsTrainPostResponse, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostError, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponse, DeleteModelApiV1ModelsModelIdDeleteData, DeleteModelApiV1ModelsModelIdDeleteError, DeleteRuleApiRiskRulesRuleIdDeleteData, DeleteRuleApiRiskRulesRuleIdDeleteError, DeleteRuleApiRiskRulesRuleIdDeleteResponse, DeleteStrategyApiStrategiesStrategyIdDeleteData, DeleteStrategyApiStrategiesStrategyIdDeleteError, DeleteStrategyApiStrategiesStrategyIdDeleteResponse, GetActiveLocksApiV1ProtectionsLocksGetData, GetActiveLocksApiV1ProtectionsLocksGetError, GetActiveLocksApiV1ProtectionsLocksGetResponse, GetAlertsApiRiskAlertsGetData, GetAlertsApiRiskAlertsGetError, GetAlertsApiRiskAlertsGetResponse, GetBacktestApiBacktestBacktestIdGetData, GetBacktestApiBacktestBacktestIdGetError, GetBacktestApiBacktestBacktestIdGetResponse, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetError, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponse, GetBacktestTradesApiBacktestBacktestIdTradesGetData, GetBacktestTradesApiBacktestBacktestIdTradesGetError, GetBacktestTradesApiBacktestBacktestIdTradesGetResponse, GetCapabilitiesApiV1CapabilitiesGetData, GetCapabilitiesApiV1CapabilitiesGetError, GetCapabilitiesApiV1CapabilitiesGetResponse, GetCorrelationApiRiskCorrelationGetData, GetCorrelationApiRiskCorrelationGetResponse, GetExposureApiRiskExposureGetData, GetExposureApiRiskExposureGetResponse, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetData, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetError, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponse, GetHoldingsApiPortfolioHoldingsGetData, GetHoldingsApiPortfolioHoldingsGetResponse, GetLockHistoryApiV1ProtectionsHistoryGetData, GetLockHistoryApiV1ProtectionsHistoryGetError, GetLockHistoryApiV1ProtectionsHistoryGetResponse, GetModelMetricsApiV1ModelsModelIdGetData, GetModelMetricsApiV1ModelsModelIdGetError, GetModelMetricsApiV1ModelsModelIdGetResponse, GetModelVersionApiModelsVersionIdGetData, GetModelVersionApiModelsVersionIdGetError, GetModelVersionApiModelsVersionIdGetResponse, GetNotificationsApiNotificationsGetData, GetNotificationsApiNotificationsGetError, GetNotificationsApiNotificationsGetResponse, GetOhlcvApiDataOhlcvGetData, GetOhlcvApiDataOhlcvGetError, GetOhlcvApiDataOhlcvGetResponse, GetOrdersApiPortfolioOrdersGetData, GetOrdersApiPortfolioOrdersGetError, GetOrdersApiPortfolioOrdersGetResponse, GetPerformanceApiPortfolioPerformanceGetData, GetPerformanceApiPortfolioPerformanceGetError, GetPerformanceApiPortfolioPerformanceGetResponse, GetPerpHoldingsApiPortfolioPerpHoldingsGetData, GetPerpHoldingsApiPortfolioPerpHoldingsGetResponse, GetPortfolioApiRiskRulesPortfolioGetData, GetPortfolioApiRiskRulesPortfolioGetError, GetPortfolioApiRiskRulesPortfolioGetResponse, GetPredictionsApiV1ModelsModelIdPredictionsGetData, GetPredictionsApiV1ModelsModelIdPredictionsGetError, GetPredictionsApiV1ModelsModelIdPredictionsGetResponse, GetRuleApiRiskRulesRuleIdGetData, GetRuleApiRiskRulesRuleIdGetError, GetRuleApiRiskRulesRuleIdGetResponse, GetSignalApiSignalsSignalIdGetData, GetSignalApiSignalsSignalIdGetError, GetSignalApiSignalsSignalIdGetResponse, GetStrategyApiStrategiesStrategyIdGetData, GetStrategyApiStrategiesStrategyIdGetError, GetStrategyApiStrategiesStrategyIdGetResponse, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetError, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse, GetStressTestResultApiRiskStressTestTaskIdGetData, GetStressTestResultApiRiskStressTestTaskIdGetError, GetStressTestResultApiRiskStressTestTaskIdGetResponse, GetTaskStatusApiAutoresearchStatusTaskIdGetData, GetTaskStatusApiAutoresearchStatusTaskIdGetError, GetTaskStatusApiAutoresearchStatusTaskIdGetResponse, GetTrainingRunApiV1ModelsRunsRunIdGetData, GetTrainingRunApiV1ModelsRunsRunIdGetError, GetTrainingRunApiV1ModelsRunsRunIdGetResponse, GetVarApiRiskVarGetData, GetVarApiRiskVarGetResponse, HealthHealthGetData, HealthHealthGetError, ListBacktestsApiBacktestGetData, ListBacktestsApiBacktestGetError, ListBacktestsApiBacktestGetResponse, ListExperimentsApiAutoresearchExperimentsGetData, ListExperimentsApiAutoresearchExperimentsGetError, ListExperimentsApiAutoresearchExperimentsGetResponse, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetError, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponse, ListModelsApiModelsGetData, ListModelsApiModelsGetError, ListModelsApiModelsGetResponse, ListRulesApiRiskRulesGetData, ListRulesApiRiskRulesGetResponse, ListRuleTypesApiRiskRulesTypesGetData, ListRuleTypesApiRiskRulesTypesGetResponse, ListSentimentApiSentimentGetData, ListSentimentApiSentimentGetError, ListSentimentApiSentimentGetResponse, ListSignalsApiSignalsGetData, ListSignalsApiSignalsGetError, ListSignalsApiSignalsGetResponse, ListStrategiesApiStrategiesGetData, ListStrategiesApiStrategiesGetResponse, ListTrainingRunsApiV1ModelsRunsGetData, ListTrainingRunsApiV1ModelsRunsGetError, ListTrainingRunsApiV1ModelsRunsGetResponse, OverrideLockApiV1ProtectionsLocksLockIdOverridePostData, OverrideLockApiV1ProtectionsLocksLockIdOverridePostError, OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponse, PredictApiModelsVersionIdPredictPostData, PredictApiModelsVersionIdPredictPostError, PredictApiModelsVersionIdPredictPostResponse, RunAutoresearchApiAutoresearchRunPostData, RunAutoresearchApiAutoresearchRunPostError, RunAutoresearchApiAutoresearchRunPostResponse, RunBacktestApiBacktestRunPostData, RunBacktestApiBacktestRunPostError, RunBacktestApiBacktestRunPostResponse, RunDualModeApiBacktestDualModePostData, RunDualModeApiBacktestDualModePostError, RunDualModeApiBacktestDualModePostResponse, RunOptimizationApiBacktestOptimizePostData, RunOptimizationApiBacktestOptimizePostError, RunOptimizationApiBacktestOptimizePostResponse, ShadowModelApiModelsVersionIdShadowPostData, ShadowModelApiModelsVersionIdShadowPostError, ShadowModelApiModelsVersionIdShadowPostResponse, StartTrainingApiModelsTrainPostData, StartTrainingApiModelsTrainPostError, StartTrainingApiModelsTrainPostResponse, StopAutoresearchApiAutoresearchStopTaskIdPostData, StopAutoresearchApiAutoresearchStopTaskIdPostError, StopAutoresearchApiAutoresearchStopTaskIdPostResponse, TriggerStressTestApiRiskStressTestRunPostData, TriggerStressTestApiRiskStressTestRunPostError, TriggerStressTestApiRiskStressTestRunPostResponse, UpdateRuleApiRiskRulesRuleIdPatchData, UpdateRuleApiRiskRulesRuleIdPatchError, UpdateRuleApiRiskRulesRuleIdPatchResponse, UpdateStrategyApiStrategiesStrategyIdPutData, UpdateStrategyApiStrategiesStrategyIdPutError, UpdateStrategyApiStrategiesStrategyIdPutResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -48,16 +48,19 @@ export const healthHealthGetQueryKey = (options?: Options<HealthHealthGetData>) 
  *
  * Health check endpoint. No authentication required.
  *
- * Reports comprehensive system status including:
+ * Default mode stays lightweight for Docker liveness checks.
+ * Pass ``details=true`` to include Celery/GPU inspection.
+ *
+ * Reports system status including:
  * - Database connectivity and data freshness
  * - Redis connectivity
- * - Celery worker queue lengths
- * - GPU availability and memory
+ * - Optional Celery worker queue lengths
+ * - Optional GPU worker availability
  *
  * Returns ``{"status": "ok"}`` when all components are healthy,
  * ``{"status": "degraded"}`` when any component reports an error.
  */
-export const healthHealthGetOptions = (options?: Options<HealthHealthGetData>) => queryOptions<unknown, DefaultError, unknown, ReturnType<typeof healthHealthGetQueryKey>>({
+export const healthHealthGetOptions = (options?: Options<HealthHealthGetData>) => queryOptions<unknown, HealthHealthGetError, unknown, ReturnType<typeof healthHealthGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
         const { data } = await healthHealthGet({
             ...options,
@@ -68,69 +71,6 @@ export const healthHealthGetOptions = (options?: Options<HealthHealthGetData>) =
         return data;
     },
     queryKey: healthHealthGetQueryKey(options)
-});
-
-/**
- * Trigger Fetch
- *
- * Trigger data fetch for a market.
- *
- * Dispatches a Celery task to fetch latest data for all symbols in the market.
- */
-export const triggerFetchApiDataFetchPostMutation = (options?: Partial<Options<TriggerFetchApiDataFetchPostData>>): UseMutationOptions<TriggerFetchApiDataFetchPostResponse, TriggerFetchApiDataFetchPostError, Options<TriggerFetchApiDataFetchPostData>> => {
-    const mutationOptions: UseMutationOptions<TriggerFetchApiDataFetchPostResponse, TriggerFetchApiDataFetchPostError, Options<TriggerFetchApiDataFetchPostData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await triggerFetchApiDataFetchPost({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-/**
- * Trigger Backfill Endpoint
- *
- * Trigger historical data backfill.
- *
- * If market is specified, backfills only that market.
- * If both market and symbol are None, backfills all configured symbols.
- */
-export const triggerBackfillEndpointApiDataBackfillPostMutation = (options?: Partial<Options<TriggerBackfillEndpointApiDataBackfillPostData>>): UseMutationOptions<TriggerBackfillEndpointApiDataBackfillPostResponse, TriggerBackfillEndpointApiDataBackfillPostError, Options<TriggerBackfillEndpointApiDataBackfillPostData>> => {
-    const mutationOptions: UseMutationOptions<TriggerBackfillEndpointApiDataBackfillPostResponse, TriggerBackfillEndpointApiDataBackfillPostError, Options<TriggerBackfillEndpointApiDataBackfillPostData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await triggerBackfillEndpointApiDataBackfillPost({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-export const getBackfillStatusApiDataBackfillStatusGetQueryKey = (options?: Options<GetBackfillStatusApiDataBackfillStatusGetData>) => createQueryKey("getBackfillStatusApiDataBackfillStatusGet", options);
-
-/**
- * Get Backfill Status
- *
- * Get backfill progress status for all symbols or a specific market.
- */
-export const getBackfillStatusApiDataBackfillStatusGetOptions = (options?: Options<GetBackfillStatusApiDataBackfillStatusGetData>) => queryOptions<GetBackfillStatusApiDataBackfillStatusGetResponse, GetBackfillStatusApiDataBackfillStatusGetError, GetBackfillStatusApiDataBackfillStatusGetResponse, ReturnType<typeof getBackfillStatusApiDataBackfillStatusGetQueryKey>>({
-    queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getBackfillStatusApiDataBackfillStatusGet({
-            ...options,
-            ...queryKey[0],
-            signal,
-            throwOnError: true
-        });
-        return data;
-    },
-    queryKey: getBackfillStatusApiDataBackfillStatusGetQueryKey(options)
 });
 
 export const getOhlcvApiDataOhlcvGetQueryKey = (options: Options<GetOhlcvApiDataOhlcvGetData>) => createQueryKey("getOhlcvApiDataOhlcvGet", options);
@@ -212,57 +152,6 @@ export const getOhlcvApiDataOhlcvGetInfiniteOptions = (options: Options<GetOhlcv
             return data;
         },
         queryKey: getOhlcvApiDataOhlcvGetInfiniteQueryKey(options)
-    });
-};
-
-export const getFundingRatesApiDataFundingRatesGetQueryKey = (options: Options<GetFundingRatesApiDataFundingRatesGetData>) => createQueryKey("getFundingRatesApiDataFundingRatesGet", options);
-
-/**
- * Get Funding Rates
- *
- * Return funding rate history for a perpetual contract symbol.
- */
-export const getFundingRatesApiDataFundingRatesGetOptions = (options: Options<GetFundingRatesApiDataFundingRatesGetData>) => queryOptions<GetFundingRatesApiDataFundingRatesGetResponse, GetFundingRatesApiDataFundingRatesGetError, GetFundingRatesApiDataFundingRatesGetResponse, ReturnType<typeof getFundingRatesApiDataFundingRatesGetQueryKey>>({
-    queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getFundingRatesApiDataFundingRatesGet({
-            ...options,
-            ...queryKey[0],
-            signal,
-            throwOnError: true
-        });
-        return data;
-    },
-    queryKey: getFundingRatesApiDataFundingRatesGetQueryKey(options)
-});
-
-export const getFundingRatesApiDataFundingRatesGetInfiniteQueryKey = (options: Options<GetFundingRatesApiDataFundingRatesGetData>): QueryKey<Options<GetFundingRatesApiDataFundingRatesGetData>> => createQueryKey("getFundingRatesApiDataFundingRatesGet", options, true);
-
-/**
- * Get Funding Rates
- *
- * Return funding rate history for a perpetual contract symbol.
- */
-export const getFundingRatesApiDataFundingRatesGetInfiniteOptions = (options: Options<GetFundingRatesApiDataFundingRatesGetData>) => {
-    return infiniteQueryOptions<GetFundingRatesApiDataFundingRatesGetResponse, GetFundingRatesApiDataFundingRatesGetError, InfiniteData<GetFundingRatesApiDataFundingRatesGetResponse>, QueryKey<Options<GetFundingRatesApiDataFundingRatesGetData>>, string | null | Pick<QueryKey<Options<GetFundingRatesApiDataFundingRatesGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
-    // @ts-ignore
-    {
-        queryFn: async ({ pageParam, queryKey, signal }) => {
-            // @ts-ignore
-            const page: Pick<QueryKey<Options<GetFundingRatesApiDataFundingRatesGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
-                query: {
-                    start: pageParam
-                }
-            };
-            const params = createInfiniteParams(queryKey, page);
-            const { data } = await getFundingRatesApiDataFundingRatesGet({
-                ...options,
-                ...params,
-                signal,
-                throwOnError: true
-            });
-            return data;
-        },
-        queryKey: getFundingRatesApiDataFundingRatesGetInfiniteQueryKey(options)
     });
 };
 
@@ -762,6 +651,28 @@ export const runBacktestApiBacktestRunPostMutation = (options?: Partial<Options<
 };
 
 /**
+ * Run Dual Mode
+ *
+ * Dispatch dual-mode fill comparison to CPU worker queue (API-03).
+ *
+ * Runs same strategy with both OPTIMISTIC and PESSIMISTIC fill models.
+ * Returns 202 with Celery task_id for status polling.
+ */
+export const runDualModeApiBacktestDualModePostMutation = (options?: Partial<Options<RunDualModeApiBacktestDualModePostData>>): UseMutationOptions<RunDualModeApiBacktestDualModePostResponse, RunDualModeApiBacktestDualModePostError, Options<RunDualModeApiBacktestDualModePostData>> => {
+    const mutationOptions: UseMutationOptions<RunDualModeApiBacktestDualModePostResponse, RunDualModeApiBacktestDualModePostError, Options<RunDualModeApiBacktestDualModePostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await runDualModeApiBacktestDualModePost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
  * Run Optimization
  *
  * Dispatch a parameter optimization to the CPU worker queue.
@@ -986,49 +897,6 @@ export const listExperimentsApiAutoresearchExperimentsGetOptions = (options?: Op
         return data;
     },
     queryKey: listExperimentsApiAutoresearchExperimentsGetQueryKey(options)
-});
-
-export const getProviderHealthApiDataQualityProvidersGetQueryKey = (options?: Options<GetProviderHealthApiDataQualityProvidersGetData>) => createQueryKey("getProviderHealthApiDataQualityProvidersGet", options);
-
-/**
- * Get Provider Health
- *
- * Get health status for all data providers.
- *
- * Returns circuit breaker state, quota usage, and configured limits
- * for finmind, yfinance, and ccxt providers.
- */
-export const getProviderHealthApiDataQualityProvidersGetOptions = (options?: Options<GetProviderHealthApiDataQualityProvidersGetData>) => queryOptions<unknown, DefaultError, unknown, ReturnType<typeof getProviderHealthApiDataQualityProvidersGetQueryKey>>({
-    queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getProviderHealthApiDataQualityProvidersGet({
-            ...options,
-            ...queryKey[0],
-            signal,
-            throwOnError: true
-        });
-        return data;
-    },
-    queryKey: getProviderHealthApiDataQualityProvidersGetQueryKey(options)
-});
-
-export const getQualityScoresApiDataQualityScoresGetQueryKey = (options?: Options<GetQualityScoresApiDataQualityScoresGetData>) => createQueryKey("getQualityScoresApiDataQualityScoresGet", options);
-
-/**
- * Get Quality Scores
- *
- * Return data quality scores by symbol/interval (RAPI-05, per D-13).
- */
-export const getQualityScoresApiDataQualityScoresGetOptions = (options?: Options<GetQualityScoresApiDataQualityScoresGetData>) => queryOptions<GetQualityScoresApiDataQualityScoresGetResponse, GetQualityScoresApiDataQualityScoresGetError, GetQualityScoresApiDataQualityScoresGetResponse, ReturnType<typeof getQualityScoresApiDataQualityScoresGetQueryKey>>({
-    queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getQualityScoresApiDataQualityScoresGet({
-            ...options,
-            ...queryKey[0],
-            signal,
-            throwOnError: true
-        });
-        return data;
-    },
-    queryKey: getQualityScoresApiDataQualityScoresGetQueryKey(options)
 });
 
 export const getVarApiRiskVarGetQueryKey = (options?: Options<GetVarApiRiskVarGetData>) => createQueryKey("getVarApiRiskVarGet", options);
@@ -1340,18 +1208,19 @@ export const getNotificationsApiNotificationsGetInfiniteOptions = (options?: Opt
     });
 };
 
-// --- Phase 40: Data Coverage / Gaps / Freshness (manually added; regen on stormtrooper deployment) ---
-
-export const getDataCoverageApiDataCoverageGetQueryKey = (options?: Options<GetDataCoverageApiDataCoverageGetData>) => createQueryKey("getDataCoverageApiDataCoverageGet", options);
+export const getCapabilitiesApiV1CapabilitiesGetQueryKey = (options?: Options<GetCapabilitiesApiV1CapabilitiesGetData>) => createQueryKey("getCapabilitiesApiV1CapabilitiesGet", options);
 
 /**
- * Get Data Coverage
+ * Get Capabilities
  *
- * Return per-(market, symbol, interval) coverage from data_coverage_mv.
+ * Return capability flags matrix for all registered components.
+ *
+ * Per D-11: flat matrix grouped by component_type.
+ * Per D-13: supports optional query params for filtering.
  */
-export const getDataCoverageApiDataCoverageGetOptions = (options?: Options<GetDataCoverageApiDataCoverageGetData>) => queryOptions<GetDataCoverageApiDataCoverageGetResponse, GetDataCoverageApiDataCoverageGetError, GetDataCoverageApiDataCoverageGetResponse, ReturnType<typeof getDataCoverageApiDataCoverageGetQueryKey>>({
+export const getCapabilitiesApiV1CapabilitiesGetOptions = (options?: Options<GetCapabilitiesApiV1CapabilitiesGetData>) => queryOptions<GetCapabilitiesApiV1CapabilitiesGetResponse, GetCapabilitiesApiV1CapabilitiesGetError, GetCapabilitiesApiV1CapabilitiesGetResponse, ReturnType<typeof getCapabilitiesApiV1CapabilitiesGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getDataCoverageApiDataCoverageGet({
+        const { data } = await getCapabilitiesApiV1CapabilitiesGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -1359,19 +1228,19 @@ export const getDataCoverageApiDataCoverageGetOptions = (options?: Options<GetDa
         });
         return data;
     },
-    queryKey: getDataCoverageApiDataCoverageGetQueryKey(options)
+    queryKey: getCapabilitiesApiV1CapabilitiesGetQueryKey(options)
 });
 
-export const getDataGapsApiDataGapsGetQueryKey = (options?: Options<GetDataGapsApiDataGapsGetData>) => createQueryKey("getDataGapsApiDataGapsGet", options);
+export const getActiveLocksApiV1ProtectionsLocksGetQueryKey = (options?: Options<GetActiveLocksApiV1ProtectionsLocksGetData>) => createQueryKey("getActiveLocksApiV1ProtectionsLocksGet", options);
 
 /**
- * Get Data Gaps
+ * Get Active Locks
  *
- * Return detected gap windows from data_gaps (Phase 40 D-04..D-07).
+ * Return all active protection locks with optional filters (D-18).
  */
-export const getDataGapsApiDataGapsGetOptions = (options?: Options<GetDataGapsApiDataGapsGetData>) => queryOptions<GetDataGapsApiDataGapsGetResponse, GetDataGapsApiDataGapsGetError, GetDataGapsApiDataGapsGetResponse, ReturnType<typeof getDataGapsApiDataGapsGetQueryKey>>({
+export const getActiveLocksApiV1ProtectionsLocksGetOptions = (options?: Options<GetActiveLocksApiV1ProtectionsLocksGetData>) => queryOptions<GetActiveLocksApiV1ProtectionsLocksGetResponse, GetActiveLocksApiV1ProtectionsLocksGetError, GetActiveLocksApiV1ProtectionsLocksGetResponse, ReturnType<typeof getActiveLocksApiV1ProtectionsLocksGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getDataGapsApiDataGapsGet({
+        const { data } = await getActiveLocksApiV1ProtectionsLocksGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -1379,19 +1248,19 @@ export const getDataGapsApiDataGapsGetOptions = (options?: Options<GetDataGapsAp
         });
         return data;
     },
-    queryKey: getDataGapsApiDataGapsGetQueryKey(options)
+    queryKey: getActiveLocksApiV1ProtectionsLocksGetQueryKey(options)
 });
 
-export const getDataFreshnessApiDataFreshnessGetQueryKey = (options?: Options<GetDataFreshnessApiDataFreshnessGetData>) => createQueryKey("getDataFreshnessApiDataFreshnessGet", options);
+export const getLockHistoryApiV1ProtectionsHistoryGetQueryKey = (options?: Options<GetLockHistoryApiV1ProtectionsHistoryGetData>) => createQueryKey("getLockHistoryApiV1ProtectionsHistoryGet", options);
 
 /**
- * Get Data Freshness
+ * Get Lock History
  *
- * Return per-(market, interval) freshness vs SLA from ingest_state.
+ * Return expired/released protection locks with pagination (D-19).
  */
-export const getDataFreshnessApiDataFreshnessGetOptions = (options?: Options<GetDataFreshnessApiDataFreshnessGetData>) => queryOptions<GetDataFreshnessApiDataFreshnessGetResponse, GetDataFreshnessApiDataFreshnessGetError, GetDataFreshnessApiDataFreshnessGetResponse, ReturnType<typeof getDataFreshnessApiDataFreshnessGetQueryKey>>({
+export const getLockHistoryApiV1ProtectionsHistoryGetOptions = (options?: Options<GetLockHistoryApiV1ProtectionsHistoryGetData>) => queryOptions<GetLockHistoryApiV1ProtectionsHistoryGetResponse, GetLockHistoryApiV1ProtectionsHistoryGetError, GetLockHistoryApiV1ProtectionsHistoryGetResponse, ReturnType<typeof getLockHistoryApiV1ProtectionsHistoryGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getDataFreshnessApiDataFreshnessGet({
+        const { data } = await getLockHistoryApiV1ProtectionsHistoryGet({
             ...options,
             ...queryKey[0],
             signal,
@@ -1399,5 +1268,425 @@ export const getDataFreshnessApiDataFreshnessGetOptions = (options?: Options<Get
         });
         return data;
     },
-    queryKey: getDataFreshnessApiDataFreshnessGetQueryKey(options)
+    queryKey: getLockHistoryApiV1ProtectionsHistoryGetQueryKey(options)
 });
+
+export const getLockHistoryApiV1ProtectionsHistoryGetInfiniteQueryKey = (options?: Options<GetLockHistoryApiV1ProtectionsHistoryGetData>): QueryKey<Options<GetLockHistoryApiV1ProtectionsHistoryGetData>> => createQueryKey("getLockHistoryApiV1ProtectionsHistoryGet", options, true);
+
+/**
+ * Get Lock History
+ *
+ * Return expired/released protection locks with pagination (D-19).
+ */
+export const getLockHistoryApiV1ProtectionsHistoryGetInfiniteOptions = (options?: Options<GetLockHistoryApiV1ProtectionsHistoryGetData>) => {
+    return infiniteQueryOptions<GetLockHistoryApiV1ProtectionsHistoryGetResponse, GetLockHistoryApiV1ProtectionsHistoryGetError, InfiniteData<GetLockHistoryApiV1ProtectionsHistoryGetResponse>, QueryKey<Options<GetLockHistoryApiV1ProtectionsHistoryGetData>>, number | Pick<QueryKey<Options<GetLockHistoryApiV1ProtectionsHistoryGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<GetLockHistoryApiV1ProtectionsHistoryGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    offset: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await getLockHistoryApiV1ProtectionsHistoryGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: getLockHistoryApiV1ProtectionsHistoryGetInfiniteQueryKey(options)
+    });
+};
+
+/**
+ * Override Lock
+ *
+ * Manually release an active protection lock (D-20).
+ */
+export const overrideLockApiV1ProtectionsLocksLockIdOverridePostMutation = (options?: Partial<Options<OverrideLockApiV1ProtectionsLocksLockIdOverridePostData>>): UseMutationOptions<OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponse, OverrideLockApiV1ProtectionsLocksLockIdOverridePostError, Options<OverrideLockApiV1ProtectionsLocksLockIdOverridePostData>> => {
+    const mutationOptions: UseMutationOptions<OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponse, OverrideLockApiV1ProtectionsLocksLockIdOverridePostError, Options<OverrideLockApiV1ProtectionsLocksLockIdOverridePostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await overrideLockApiV1ProtectionsLocksLockIdOverridePost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create Ic Analysis Run
+ *
+ * Create an IC analysis run and dispatch it to the CPU worker.
+ */
+export const createIcAnalysisRunApiV1FactorAnalysisIcPostMutation = (options?: Partial<Options<CreateIcAnalysisRunApiV1FactorAnalysisIcPostData>>): UseMutationOptions<CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponse, CreateIcAnalysisRunApiV1FactorAnalysisIcPostError, Options<CreateIcAnalysisRunApiV1FactorAnalysisIcPostData>> => {
+    const mutationOptions: UseMutationOptions<CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponse, CreateIcAnalysisRunApiV1FactorAnalysisIcPostError, Options<CreateIcAnalysisRunApiV1FactorAnalysisIcPostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createIcAnalysisRunApiV1FactorAnalysisIcPost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create Shapley Analysis Run
+ *
+ * Create a SHAP analysis run and dispatch it to qlib-research.
+ */
+export const createShapleyAnalysisRunApiV1FactorAnalysisShapleyPostMutation = (options?: Partial<Options<CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData>>): UseMutationOptions<CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponse, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostError, Options<CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData>> => {
+    const mutationOptions: UseMutationOptions<CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponse, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostError, Options<CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createShapleyAnalysisRunApiV1FactorAnalysisShapleyPost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create Centrality Analysis Run
+ *
+ * Create a centrality analysis run and dispatch it to the CPU worker.
+ */
+export const createCentralityAnalysisRunApiV1FactorAnalysisCentralityPostMutation = (options?: Partial<Options<CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData>>): UseMutationOptions<CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponse, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostError, Options<CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData>> => {
+    const mutationOptions: UseMutationOptions<CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponse, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostError, Options<CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createCentralityAnalysisRunApiV1FactorAnalysisCentralityPost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const listFactorAnalysisRunsApiV1FactorAnalysisRunsGetQueryKey = (options?: Options<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData>) => createQueryKey("listFactorAnalysisRunsApiV1FactorAnalysisRunsGet", options);
+
+/**
+ * List Factor Analysis Runs
+ *
+ * List factor analysis runs with optional filters.
+ */
+export const listFactorAnalysisRunsApiV1FactorAnalysisRunsGetOptions = (options?: Options<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData>) => queryOptions<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponse, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetError, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponse, ReturnType<typeof listFactorAnalysisRunsApiV1FactorAnalysisRunsGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await listFactorAnalysisRunsApiV1FactorAnalysisRunsGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listFactorAnalysisRunsApiV1FactorAnalysisRunsGetQueryKey(options)
+});
+
+export const listFactorAnalysisRunsApiV1FactorAnalysisRunsGetInfiniteQueryKey = (options?: Options<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData>): QueryKey<Options<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData>> => createQueryKey("listFactorAnalysisRunsApiV1FactorAnalysisRunsGet", options, true);
+
+/**
+ * List Factor Analysis Runs
+ *
+ * List factor analysis runs with optional filters.
+ */
+export const listFactorAnalysisRunsApiV1FactorAnalysisRunsGetInfiniteOptions = (options?: Options<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData>) => {
+    return infiniteQueryOptions<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponse, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetError, InfiniteData<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponse>, QueryKey<Options<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData>>, number | Pick<QueryKey<Options<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    offset: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await listFactorAnalysisRunsApiV1FactorAnalysisRunsGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: listFactorAnalysisRunsApiV1FactorAnalysisRunsGetInfiniteQueryKey(options)
+    });
+};
+
+export const getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetQueryKey = (options: Options<GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetData>) => createQueryKey("getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGet", options);
+
+/**
+ * Get Factor Analysis Run
+ *
+ * Return full detail for a single factor analysis run.
+ */
+export const getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetOptions = (options: Options<GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetData>) => queryOptions<GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponse, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetError, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponse, ReturnType<typeof getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetQueryKey(options)
+});
+
+/**
+ * Create Training Run
+ *
+ * Create a training run and dispatch to qlib_queue (RESEARCH-API-01).
+ *
+ * Validates handler_class and model_class against the static allowlist
+ * (D-08/D-09). Unknown classes are rejected with 422 before any DB write.
+ * Uses ``send_task`` to dispatch -- the qlib_tasks module is NOT imported
+ * in this file to avoid pulling qlib/mlflow into the cp313 process.
+ */
+export const createTrainingRunApiV1ModelsTrainPostMutation = (options?: Partial<Options<CreateTrainingRunApiV1ModelsTrainPostData>>): UseMutationOptions<CreateTrainingRunApiV1ModelsTrainPostResponse, CreateTrainingRunApiV1ModelsTrainPostError, Options<CreateTrainingRunApiV1ModelsTrainPostData>> => {
+    const mutationOptions: UseMutationOptions<CreateTrainingRunApiV1ModelsTrainPostResponse, CreateTrainingRunApiV1ModelsTrainPostError, Options<CreateTrainingRunApiV1ModelsTrainPostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createTrainingRunApiV1ModelsTrainPost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const listTrainingRunsApiV1ModelsRunsGetQueryKey = (options?: Options<ListTrainingRunsApiV1ModelsRunsGetData>) => createQueryKey("listTrainingRunsApiV1ModelsRunsGet", options);
+
+/**
+ * List Training Runs
+ *
+ * List training runs with optional filters and pagination (RESEARCH-API-04).
+ *
+ * Query params: status, market, handler_class, limit (1-200, default 50),
+ * offset (default 0). Results ordered by created_at descending.
+ */
+export const listTrainingRunsApiV1ModelsRunsGetOptions = (options?: Options<ListTrainingRunsApiV1ModelsRunsGetData>) => queryOptions<ListTrainingRunsApiV1ModelsRunsGetResponse, ListTrainingRunsApiV1ModelsRunsGetError, ListTrainingRunsApiV1ModelsRunsGetResponse, ReturnType<typeof listTrainingRunsApiV1ModelsRunsGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await listTrainingRunsApiV1ModelsRunsGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listTrainingRunsApiV1ModelsRunsGetQueryKey(options)
+});
+
+export const listTrainingRunsApiV1ModelsRunsGetInfiniteQueryKey = (options?: Options<ListTrainingRunsApiV1ModelsRunsGetData>): QueryKey<Options<ListTrainingRunsApiV1ModelsRunsGetData>> => createQueryKey("listTrainingRunsApiV1ModelsRunsGet", options, true);
+
+/**
+ * List Training Runs
+ *
+ * List training runs with optional filters and pagination (RESEARCH-API-04).
+ *
+ * Query params: status, market, handler_class, limit (1-200, default 50),
+ * offset (default 0). Results ordered by created_at descending.
+ */
+export const listTrainingRunsApiV1ModelsRunsGetInfiniteOptions = (options?: Options<ListTrainingRunsApiV1ModelsRunsGetData>) => {
+    return infiniteQueryOptions<ListTrainingRunsApiV1ModelsRunsGetResponse, ListTrainingRunsApiV1ModelsRunsGetError, InfiniteData<ListTrainingRunsApiV1ModelsRunsGetResponse>, QueryKey<Options<ListTrainingRunsApiV1ModelsRunsGetData>>, number | Pick<QueryKey<Options<ListTrainingRunsApiV1ModelsRunsGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<ListTrainingRunsApiV1ModelsRunsGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    offset: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await listTrainingRunsApiV1ModelsRunsGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: listTrainingRunsApiV1ModelsRunsGetInfiniteQueryKey(options)
+    });
+};
+
+export const getTrainingRunApiV1ModelsRunsRunIdGetQueryKey = (options: Options<GetTrainingRunApiV1ModelsRunsRunIdGetData>) => createQueryKey("getTrainingRunApiV1ModelsRunsRunIdGet", options);
+
+/**
+ * Get Training Run
+ *
+ * Get full detail for a single training run (RESEARCH-API-04).
+ *
+ * Returns all fields including metrics, model_version_id, error text.
+ * Raises 404 if run_id does not exist.
+ */
+export const getTrainingRunApiV1ModelsRunsRunIdGetOptions = (options: Options<GetTrainingRunApiV1ModelsRunsRunIdGetData>) => queryOptions<GetTrainingRunApiV1ModelsRunsRunIdGetResponse, GetTrainingRunApiV1ModelsRunsRunIdGetError, GetTrainingRunApiV1ModelsRunsRunIdGetResponse, ReturnType<typeof getTrainingRunApiV1ModelsRunsRunIdGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getTrainingRunApiV1ModelsRunsRunIdGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getTrainingRunApiV1ModelsRunsRunIdGetQueryKey(options)
+});
+
+/**
+ * Cancel Training Run
+ *
+ * Cancel a pending or running training run (RESEARCH-API-05).
+ *
+ * Only pending/running runs can be cancelled. Already-terminal runs
+ * (succeeded, failed, cancelled) return 409.
+ */
+export const cancelTrainingRunApiV1ModelsRunsRunIdCancelPostMutation = (options?: Partial<Options<CancelTrainingRunApiV1ModelsRunsRunIdCancelPostData>>): UseMutationOptions<unknown, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostError, Options<CancelTrainingRunApiV1ModelsRunsRunIdCancelPostData>> => {
+    const mutationOptions: UseMutationOptions<unknown, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostError, Options<CancelTrainingRunApiV1ModelsRunsRunIdCancelPostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await cancelTrainingRunApiV1ModelsRunsRunIdCancelPost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Delete Model
+ *
+ * Delete a ModelVersion and its artifact files (per RESEARCH-API-09).
+ *
+ * Best-effort artifact cleanup: if the directory doesn't exist or fails
+ * to delete, the DB row is still removed. Training runs that reference
+ * this version have their FK set to NULL to prevent orphaned references.
+ */
+export const deleteModelApiV1ModelsModelIdDeleteMutation = (options?: Partial<Options<DeleteModelApiV1ModelsModelIdDeleteData>>): UseMutationOptions<unknown, DeleteModelApiV1ModelsModelIdDeleteError, Options<DeleteModelApiV1ModelsModelIdDeleteData>> => {
+    const mutationOptions: UseMutationOptions<unknown, DeleteModelApiV1ModelsModelIdDeleteError, Options<DeleteModelApiV1ModelsModelIdDeleteData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deleteModelApiV1ModelsModelIdDelete({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getModelMetricsApiV1ModelsModelIdGetQueryKey = (options: Options<GetModelMetricsApiV1ModelsModelIdGetData>) => createQueryKey("getModelMetricsApiV1ModelsModelIdGet", options);
+
+/**
+ * Get Model Metrics
+ *
+ * Return a ModelVersion with full metrics JSON (per RESEARCH-API-08).
+ */
+export const getModelMetricsApiV1ModelsModelIdGetOptions = (options: Options<GetModelMetricsApiV1ModelsModelIdGetData>) => queryOptions<GetModelMetricsApiV1ModelsModelIdGetResponse, GetModelMetricsApiV1ModelsModelIdGetError, GetModelMetricsApiV1ModelsModelIdGetResponse, ReturnType<typeof getModelMetricsApiV1ModelsModelIdGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getModelMetricsApiV1ModelsModelIdGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getModelMetricsApiV1ModelsModelIdGetQueryKey(options)
+});
+
+export const getPredictionsApiV1ModelsModelIdPredictionsGetQueryKey = (options: Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>) => createQueryKey("getPredictionsApiV1ModelsModelIdPredictionsGet", options);
+
+/**
+ * Get Predictions
+ *
+ * Return predictions with optional range filtering (per D-04, D-05, D-06, PRED-03).
+ *
+ * Query modes (backward compatible per D-04):
+ * - ``?segment=test`` -- return single segment Parquet (legacy behavior)
+ * - ``?start=...&end=...`` -- load all segments, concat, filter by date range
+ * - ``?symbol=...`` -- filter by instrument
+ * - Combine: ``?start=...&end=...&symbol=...`` for precise queries
+ *
+ * When no segment and no range params provided, defaults to loading test segment
+ * for backward compatibility.
+ *
+ * Response always includes training period metadata per D-06.
+ */
+export const getPredictionsApiV1ModelsModelIdPredictionsGetOptions = (options: Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>) => queryOptions<GetPredictionsApiV1ModelsModelIdPredictionsGetResponse, GetPredictionsApiV1ModelsModelIdPredictionsGetError, GetPredictionsApiV1ModelsModelIdPredictionsGetResponse, ReturnType<typeof getPredictionsApiV1ModelsModelIdPredictionsGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getPredictionsApiV1ModelsModelIdPredictionsGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getPredictionsApiV1ModelsModelIdPredictionsGetQueryKey(options)
+});
+
+export const getPredictionsApiV1ModelsModelIdPredictionsGetInfiniteQueryKey = (options: Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>): QueryKey<Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>> => createQueryKey("getPredictionsApiV1ModelsModelIdPredictionsGet", options, true);
+
+/**
+ * Get Predictions
+ *
+ * Return predictions with optional range filtering (per D-04, D-05, D-06, PRED-03).
+ *
+ * Query modes (backward compatible per D-04):
+ * - ``?segment=test`` -- return single segment Parquet (legacy behavior)
+ * - ``?start=...&end=...`` -- load all segments, concat, filter by date range
+ * - ``?symbol=...`` -- filter by instrument
+ * - Combine: ``?start=...&end=...&symbol=...`` for precise queries
+ *
+ * When no segment and no range params provided, defaults to loading test segment
+ * for backward compatibility.
+ *
+ * Response always includes training period metadata per D-06.
+ */
+export const getPredictionsApiV1ModelsModelIdPredictionsGetInfiniteOptions = (options: Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>) => {
+    return infiniteQueryOptions<GetPredictionsApiV1ModelsModelIdPredictionsGetResponse, GetPredictionsApiV1ModelsModelIdPredictionsGetError, InfiniteData<GetPredictionsApiV1ModelsModelIdPredictionsGetResponse>, QueryKey<Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>>, string | null | Pick<QueryKey<Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await getPredictionsApiV1ModelsModelIdPredictionsGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: getPredictionsApiV1ModelsModelIdPredictionsGetInfiniteQueryKey(options)
+    });
+};

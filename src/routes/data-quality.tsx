@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
 import {
-  getProviderHealthApiDataQualityProvidersGetOptions,
-  getQualityScoresApiDataQualityScoresGetOptions,
-} from "@/api/poseidon/@tanstack/react-query.gen";
-import type { QualityScoresResponse } from "@/api/poseidon/types.gen";
+  getProviderHealthApiV1DataQualityProvidersGetOptions,
+  getQualityScoresApiV1DataQualityScoresGetOptions,
+} from "@/api/thalassa/@tanstack/react-query.gen";
+import type { QualityScoresResponse } from "@/api/thalassa/types.gen";
 import { EmptyState } from "@/features/monitoring/empty-state";
 import { ErrorState } from "@/features/monitoring/error-state";
 import { MetricCard } from "@/features/monitoring/metric-card";
@@ -33,12 +33,12 @@ export function DataQualityPage({ providerHealth, scores }: DataQualityPageProps
           <div className="text-xs uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]">Risk Route</div>
           <h1 className="text-3xl font-semibold text-[hsl(var(--foreground))]">Data Quality</h1>
           <p className="max-w-3xl text-sm leading-6 text-[hsl(var(--muted-foreground))]">
-            Provider telemetry, score history, and data gap scans will surface here as Poseidon emits diagnostics.
+            Provider telemetry, score history, and data gap scans will surface here as Thalassa emits diagnostics.
           </p>
         </div>
 
         <EmptyState
-          message="Poseidon has not published provider health or quality score telemetry yet."
+          message="Thalassa has not published provider health or quality score telemetry yet."
           title="No quality telemetry"
         />
       </section>
@@ -77,11 +77,11 @@ export function DataQualityPage({ providerHealth, scores }: DataQualityPageProps
 
 export function Component() {
   const providerQuery = useQuery({
-    ...getProviderHealthApiDataQualityProvidersGetOptions(),
+    ...getProviderHealthApiV1DataQualityProvidersGetOptions(),
     ...getMonitoringQueryOptions("overview"),
   });
   const qualityQuery = useQuery({
-    ...getQualityScoresApiDataQualityScoresGetOptions({
+    ...getQualityScoresApiV1DataQualityScoresGetOptions({
       query: {
         limit: 24,
       },
@@ -92,7 +92,7 @@ export function Component() {
   const error = providerQuery.error ?? qualityQuery.error;
 
   if (error) {
-    return <ErrorState message={error instanceof Error ? error.message : "Data quality telemetry could not be loaded from Poseidon."} />;
+    return <ErrorState message={error instanceof Error ? error.message : "Data quality telemetry could not be loaded from Thalassa."} />;
   }
 
   if (providerQuery.isPending || qualityQuery.isPending) {

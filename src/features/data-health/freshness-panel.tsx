@@ -1,4 +1,4 @@
-import type { DataFreshnessResponse } from "@/api/poseidon/types.gen";
+import type { DataFreshnessResponse } from "@/api/thalassa/types.gen";
 
 type FreshnessPanelProps = {
   records: DataFreshnessResponse[];

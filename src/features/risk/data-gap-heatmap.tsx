@@ -2,11 +2,11 @@ import { Suspense } from "react";
 
 import type { EChartsOption } from "echarts";
 
-import type { QualityScoreResponse } from "@/api/poseidon/types.gen";
+import type { QualityScoreItem } from "@/api/thalassa/types.gen";
 import { EChartsShell, LazyECharts } from "@/features/risk/echarts-lazy";
 
 type DataGapHeatmapProps = {
-  scores: QualityScoreResponse[];
+  scores: QualityScoreItem[];
 };
 
 export function DataGapHeatmap({ scores }: DataGapHeatmapProps) {
@@ -54,7 +54,7 @@ export function DataGapHeatmap({ scores }: DataGapHeatmapProps) {
   );
 }
 
-function ServerGapGrid({ scores }: { scores: QualityScoreResponse[] }) {
+function ServerGapGrid({ scores }: { scores: QualityScoreItem[] }) {
   return (
     <div className="grid gap-3 md:grid-cols-2">
       {scores.map((score) => (
@@ -72,7 +72,7 @@ function ServerGapGrid({ scores }: { scores: QualityScoreResponse[] }) {
   );
 }
 
-function createGapHeatmapOption(scores: QualityScoreResponse[]): EChartsOption {
+function createGapHeatmapOption(scores: QualityScoreItem[]): EChartsOption {
   const metrics = ["completeness", "consistency", "anomaly_free", "timeliness"];
 
   return {

@@ -66,54 +66,12 @@ export type AutoResearchRequest = {
      * Strategy variant: bidirectional (default), long_only, or regime_gated
      */
     strategy_mode?: string;
-};
-
-/**
- * BackfillRequest
- *
- * Request body for triggering a backfill.
- */
-export type BackfillRequest = {
     /**
-     * Market
+     * Strategy Type
+     *
+     * Strategy factory: 'voting' (VotingStrategyFactory, default) or 'liquidity_sweep' (LiquiditySweepStrategyFactory)
      */
-    market?: string | null;
-    /**
-     * Symbol
-     */
-    symbol?: string | null;
-};
-
-/**
- * BackfillStatusResponse
- *
- * Response body for backfill status.
- */
-export type BackfillStatusResponse = {
-    /**
-     * Symbol
-     */
-    symbol: string;
-    /**
-     * Market
-     */
-    market: string;
-    /**
-     * Interval
-     */
-    interval: string;
-    /**
-     * Status
-     */
-    status: string;
-    /**
-     * Last Fetched Date
-     */
-    last_fetched_date: string | null;
-    /**
-     * Error Message
-     */
-    error_message: string | null;
+    strategy_type?: string;
 };
 
 /**
@@ -284,6 +242,24 @@ export type BacktestRunRequest = {
      * Initial Capital
      */
     initial_capital?: number;
+    /**
+     * Fill Model
+     */
+    fill_model?: string | null;
+    /**
+     * Include Funding
+     */
+    include_funding?: boolean;
+    /**
+     * Sizing Mode
+     */
+    sizing_mode?: string;
+    /**
+     * Sizing Params
+     */
+    sizing_params?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 /**
@@ -339,6 +315,98 @@ export type BacktestTradeResponse = {
 };
 
 /**
+ * CapabilitiesResponse
+ *
+ * Full capabilities matrix. Per D-11.
+ */
+export type CapabilitiesResponse = {
+    /**
+     * Components
+     */
+    components: Array<ComponentCapabilityResponse>;
+    /**
+     * Total
+     */
+    total: number;
+};
+
+/**
+ * CentralityAnalysisRequest
+ *
+ * Request body for triggering centrality analysis (D-22).
+ */
+export type CentralityAnalysisRequest = {
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Sub Signals
+     *
+     * VotingStrategy sub-signal configs to evaluate (D-11)
+     */
+    sub_signals: Array<{
+        [key: string]: unknown;
+    }>;
+    /**
+     * Symbols
+     *
+     * Optional symbol subset
+     */
+    symbols?: Array<string> | null;
+    /**
+     * Start Date
+     */
+    start_date: string;
+    /**
+     * End Date
+     */
+    end_date: string;
+    /**
+     * Interval
+     */
+    interval?: string;
+    /**
+     * Distance Threshold
+     *
+     * Clustering distance threshold (D-10)
+     */
+    distance_threshold?: number;
+};
+
+/**
+ * ComponentCapabilityResponse
+ *
+ * Single component capability entry. Per D-12.
+ */
+export type ComponentCapabilityResponse = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Component Type
+     */
+    component_type: string;
+    /**
+     * Supports Backtest
+     */
+    supports_backtest: boolean;
+    /**
+     * Supports Live
+     */
+    supports_live: boolean;
+    /**
+     * Bias Risk
+     */
+    bias_risk: Array<string>;
+    /**
+     * Stateful
+     */
+    stateful: boolean;
+};
+
+/**
  * CorrelationResponse
  */
 export type CorrelationResponse = {
@@ -358,6 +426,44 @@ export type CorrelationResponse = {
      * Computed At
      */
     computed_at?: string | null;
+};
+
+/**
+ * DualModeRequest
+ *
+ * Request body for dual-mode fill comparison (API-03).
+ */
+export type DualModeRequest = {
+    /**
+     * Strategy Id
+     */
+    strategy_id: string;
+    /**
+     * Start Date
+     */
+    start_date?: string | null;
+    /**
+     * End Date
+     */
+    end_date?: string | null;
+    /**
+     * Initial Capital
+     */
+    initial_capital?: number;
+    /**
+     * Include Funding
+     */
+    include_funding?: boolean;
+    /**
+     * Sizing Mode
+     */
+    sizing_mode?: string;
+    /**
+     * Sizing Params
+     */
+    sizing_params?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 /**
@@ -441,63 +547,91 @@ export type ExposureResponse = {
 };
 
 /**
- * FetchRequest
+ * FactorAnalysisRunListResponse
  *
- * Request body for triggering a data fetch.
+ * Paginated list response for factor analysis runs (D-23).
  */
-export type FetchRequest = {
+export type FactorAnalysisRunListResponse = {
+    /**
+     * Runs
+     */
+    runs: Array<FactorAnalysisRunResponse>;
+    /**
+     * Total
+     */
+    total: number;
+    /**
+     * Limit
+     */
+    limit: number;
+    /**
+     * Offset
+     */
+    offset: number;
+};
+
+/**
+ * FactorAnalysisRunResponse
+ *
+ * Response for a single factor analysis run.
+ */
+export type FactorAnalysisRunResponse = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Run Type
+     */
+    run_type: string;
+    /**
+     * Config Json
+     */
+    config_json: {
+        [key: string]: unknown;
+    };
+    /**
+     * Results Json
+     */
+    results_json: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Status
+     */
+    status: string;
     /**
      * Market
      */
     market: string;
     /**
-     * Symbol
+     * Error
      */
-    symbol?: string | null;
+    error: string | null;
     /**
-     * Interval
+     * Created At
      */
-    interval?: string;
+    created_at: string;
+    /**
+     * Updated At
+     */
+    updated_at: string;
 };
 
 /**
- * FundingRatePoint
+ * FactorAnalysisTriggerResponse
+ *
+ * Response for POST trigger endpoints (D-20, D-21, D-22).
  */
-export type FundingRatePoint = {
+export type FactorAnalysisTriggerResponse = {
     /**
-     * Time
+     * Id
      */
-    time: string;
+    id: string;
     /**
-     * Symbol
+     * Status
      */
-    symbol: string;
-    /**
-     * Funding Rate
-     */
-    funding_rate: number;
-    /**
-     * Mark Price
-     */
-    mark_price: number | null;
-    /**
-     * Index Price
-     */
-    index_price: number | null;
-};
-
-/**
- * FundingRateResponse
- */
-export type FundingRateResponse = {
-    /**
-     * Data
-     */
-    data: Array<FundingRatePoint>;
-    /**
-     * Count
-     */
-    count: number;
+    status: string;
 };
 
 /**
@@ -571,6 +705,52 @@ export type HoldingsResponse = {
 };
 
 /**
+ * ICAnalysisRequest
+ *
+ * Request body for triggering IC analysis (D-20).
+ */
+export type IcAnalysisRequest = {
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Symbols
+     *
+     * Optional symbol subset; None = all symbols in market
+     */
+    symbols?: Array<string> | null;
+    /**
+     * Start Date
+     *
+     * Start date YYYY-MM-DD
+     */
+    start_date: string;
+    /**
+     * End Date
+     *
+     * End date YYYY-MM-DD
+     */
+    end_date: string;
+    /**
+     * Horizons
+     *
+     * Forward return horizons in days (D-02)
+     */
+    horizons?: Array<number>;
+    /**
+     * Features
+     *
+     * Feature subset; None = all DEFAULT_FEATURES
+     */
+    features?: Array<string> | null;
+    /**
+     * Interval
+     */
+    interval?: string;
+};
+
+/**
  * MarketSpecSchema
  *
  * A single market to search.
@@ -604,6 +784,62 @@ export type MessageResponse = {
      * Task Id
      */
     task_id?: string | null;
+};
+
+/**
+ * ModelMetricsResponse
+ *
+ * Full metrics response for GET /models/{id} (per RESEARCH-API-08).
+ */
+export type ModelMetricsResponse = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Version
+     */
+    version: number;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Params
+     */
+    params: {
+        [key: string]: unknown;
+    };
+    /**
+     * Metrics
+     */
+    metrics?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Feature List
+     */
+    feature_list: Array<unknown>;
+    /**
+     * Train Start
+     */
+    train_start?: string | null;
+    /**
+     * Train End
+     */
+    train_end?: string | null;
+    /**
+     * Artifact Path
+     */
+    artifact_path?: string | null;
+    /**
+     * Created At
+     */
+    created_at: string;
 };
 
 /**
@@ -1007,51 +1243,140 @@ export type PredictRequest = {
 };
 
 /**
- * QualityScoreResponse
+ * PredictionResponse
+ *
+ * Response for GET /models/{id}/predictions with range query (per D-04, D-06, PRED-03).
+ *
+ * Includes training period metadata alongside prediction data so consumers
+ * know the model's temporal boundary.
  */
-export type QualityScoreResponse = {
+export type PredictionResponse = {
     /**
-     * Time
+     * Model Id
      */
-    time: string;
+    model_id: string;
     /**
-     * Symbol
+     * Segment
      */
-    symbol: string;
+    segment?: string | null;
     /**
-     * Interval
+     * Count
      */
-    interval: string;
+    count: number;
     /**
-     * Score
+     * Predictions
      */
-    score: number;
+    predictions: Array<{
+        [key: string]: unknown;
+    }>;
     /**
-     * Completeness
+     * Train Start
      */
-    completeness: number;
+    train_start?: string | null;
     /**
-     * Consistency
+     * Train End
      */
-    consistency: number;
+    train_end?: string | null;
     /**
-     * Anomaly Free
+     * Valid Start
      */
-    anomaly_free: number;
+    valid_start?: string | null;
     /**
-     * Timeliness
+     * Valid End
      */
-    timeliness: number;
+    valid_end?: string | null;
+    /**
+     * Test Start
+     */
+    test_start?: string | null;
+    /**
+     * Test End
+     */
+    test_end?: string | null;
 };
 
 /**
- * QualityScoresResponse
+ * ProtectionLockResponse
+ *
+ * Single protection lock record.
  */
-export type QualityScoresResponse = {
+export type ProtectionLockResponse = {
     /**
-     * Scores
+     * Id
      */
-    scores: Array<QualityScoreResponse>;
+    id: number;
+    /**
+     * Protection Type
+     */
+    protection_type: string;
+    /**
+     * Symbol
+     */
+    symbol: string | null;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Reason
+     */
+    reason: string;
+    /**
+     * Locked At
+     */
+    locked_at: string;
+    /**
+     * Expires At
+     */
+    expires_at: string | null;
+    /**
+     * Active
+     */
+    active: boolean;
+    /**
+     * Released At
+     */
+    released_at: string | null;
+    /**
+     * Released By
+     */
+    released_by: string | null;
+};
+
+/**
+ * ProtectionLocksListResponse
+ *
+ * List of protection locks with total count.
+ */
+export type ProtectionLocksListResponse = {
+    /**
+     * Locks
+     */
+    locks: Array<ProtectionLockResponse>;
+    /**
+     * Total
+     */
+    total: number;
+};
+
+/**
+ * ProtectionOverrideResponse
+ *
+ * Result of a manual lock override.
+ */
+export type ProtectionOverrideResponse = {
+    /**
+     * Success
+     */
+    success: boolean;
+    /**
+     * Message
+     */
+    message: string;
+    /**
+     * Lock Id
+     */
+    lock_id: number;
 };
 
 /**
@@ -1207,6 +1532,26 @@ export type SentimentResponse = {
 };
 
 /**
+ * ShapleyAnalysisRequest
+ *
+ * Request body for triggering Shapley analysis (D-21).
+ */
+export type ShapleyAnalysisRequest = {
+    /**
+     * Model Version Id
+     *
+     * UUID of trained ModelVersion (D-07)
+     */
+    model_version_id: string;
+    /**
+     * Max Samples
+     *
+     * Max samples for SHAP; None = all (capped at 500 default)
+     */
+    max_samples?: number | null;
+};
+
+/**
  * SignalResponse
  *
  * Response model for a signal record.
@@ -1266,6 +1611,22 @@ export type SignalResponse = {
     params: {
         [key: string]: unknown;
     };
+    /**
+     * Order Type
+     */
+    order_type?: string | null;
+    /**
+     * Order Price
+     */
+    order_price?: number | null;
+    /**
+     * Stop Loss Price
+     */
+    stop_loss_price?: number | null;
+    /**
+     * Take Profit Price
+     */
+    take_profit_price?: number | null;
     /**
      * Status
      */
@@ -1403,6 +1764,10 @@ export type StrategyUpdate = {
      */
     name?: string | null;
     /**
+     * Strategy Type
+     */
+    strategy_type?: string | null;
+    /**
      * Config
      */
     config?: {
@@ -1505,49 +1870,169 @@ export type TaskStatusResponse = {
 };
 
 /**
- * TrainRequest
+ * TrainingRunDetailResponse
  *
- * Request body for dispatching a model training job.
+ * Full detail response for GET /runs/{run_id} (per RESEARCH-API-04).
  */
-export type TrainRequest = {
+export type TrainingRunDetailResponse = {
     /**
-     * Model Name
+     * Run Id
      */
-    model_name: string;
+    run_id: string;
     /**
-     * Symbol
+     * Handler Class
      */
-    symbol: string;
+    handler_class: string;
+    /**
+     * Handler Params
+     */
+    handler_params: {
+        [key: string]: unknown;
+    };
+    /**
+     * Model Class
+     */
+    model_class: string;
+    /**
+     * Model Params
+     */
+    model_params: {
+        [key: string]: unknown;
+    };
     /**
      * Market
      */
     market: string;
     /**
+     * Symbols
+     */
+    symbols: Array<string>;
+    /**
      * Interval
      */
-    interval?: string;
+    interval: string;
     /**
-     * Params
+     * Segments
      */
-    params?: {
+    segments: {
         [key: string]: unknown;
     };
     /**
-     * Feature List
+     * Lookback
      */
-    feature_list?: Array<string>;
+    lookback?: string | null;
     /**
-     * Start Date
+     * Status
      */
-    start_date?: string | null;
+    status: string;
     /**
-     * End Date
+     * Metrics
      */
-    end_date?: string | null;
+    metrics?: {
+        [key: string]: unknown;
+    } | null;
     /**
-     * Label Mode
+     * Model Version Id
      */
-    label_mode?: string;
+    model_version_id?: string | null;
+    /**
+     * Mlflow Run Id
+     */
+    mlflow_run_id?: string | null;
+    /**
+     * Error
+     */
+    error?: string | null;
+    /**
+     * Requested By
+     */
+    requested_by: string;
+    /**
+     * Started At
+     */
+    started_at?: string | null;
+    /**
+     * Finished At
+     */
+    finished_at?: string | null;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Updated At
+     */
+    updated_at: string;
+};
+
+/**
+ * TrainingRunListResponse
+ *
+ * Paginated list response for GET /runs (per D-23).
+ */
+export type TrainingRunListResponse = {
+    /**
+     * Runs
+     */
+    runs: Array<TrainingRunResponse>;
+    /**
+     * Total
+     */
+    total: number;
+    /**
+     * Limit
+     */
+    limit: number;
+    /**
+     * Offset
+     */
+    offset: number;
+};
+
+/**
+ * TrainingRunResponse
+ *
+ * Short response for run creation and list items.
+ */
+export type TrainingRunResponse = {
+    /**
+     * Run Id
+     */
+    run_id: string;
+    /**
+     * Handler Class
+     */
+    handler_class: string;
+    /**
+     * Model Class
+     */
+    model_class: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Started At
+     */
+    started_at?: string | null;
+    /**
+     * Finished At
+     */
+    finished_at?: string | null;
+    /**
+     * Metrics
+     */
+    metrics?: {
+        [key: string]: unknown;
+    } | null;
 };
 
 /**
@@ -1680,12 +2165,122 @@ export type VirtualPositionResponse = {
     entry_time: string;
 };
 
+/**
+ * TrainRequest
+ *
+ * Request body for dispatching a model training job.
+ */
+export type PoseidonApiModelsTrainRequest = {
+    /**
+     * Model Name
+     */
+    model_name: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Interval
+     */
+    interval?: string;
+    /**
+     * Params
+     */
+    params?: {
+        [key: string]: unknown;
+    };
+    /**
+     * Feature List
+     */
+    feature_list?: Array<string>;
+    /**
+     * Start Date
+     */
+    start_date?: string | null;
+    /**
+     * End Date
+     */
+    end_date?: string | null;
+    /**
+     * Label Mode
+     */
+    label_mode?: string;
+};
+
+/**
+ * TrainRequest
+ *
+ * Request body for POST /api/v1/models/train (per D-01, RESEARCH-API-01).
+ */
+export type PoseidonCoreSchemasTrainRequest = {
+    /**
+     * Handler Class
+     */
+    handler_class: string;
+    /**
+     * Handler Params
+     */
+    handler_params?: {
+        [key: string]: unknown;
+    };
+    /**
+     * Model Class
+     */
+    model_class: string;
+    /**
+     * Model Params
+     */
+    model_params?: {
+        [key: string]: unknown;
+    };
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Symbols
+     */
+    symbols: Array<string>;
+    /**
+     * Interval
+     */
+    interval: string;
+    /**
+     * Segments
+     */
+    segments?: {
+        [key: string]: unknown;
+    };
+    /**
+     * Lookback
+     */
+    lookback?: string | null;
+};
+
 export type HealthHealthGetData = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: {
+        /**
+         * Details
+         */
+        details?: boolean;
+    };
     url: '/health';
 };
+
+export type HealthHealthGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type HealthHealthGetError = HealthHealthGetErrors[keyof HealthHealthGetErrors];
 
 export type HealthHealthGetResponses = {
     /**
@@ -1693,88 +2288,6 @@ export type HealthHealthGetResponses = {
      */
     200: unknown;
 };
-
-export type TriggerFetchApiDataFetchPostData = {
-    body: FetchRequest;
-    path?: never;
-    query?: never;
-    url: '/api/data/fetch';
-};
-
-export type TriggerFetchApiDataFetchPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type TriggerFetchApiDataFetchPostError = TriggerFetchApiDataFetchPostErrors[keyof TriggerFetchApiDataFetchPostErrors];
-
-export type TriggerFetchApiDataFetchPostResponses = {
-    /**
-     * Successful Response
-     */
-    202: MessageResponse;
-};
-
-export type TriggerFetchApiDataFetchPostResponse = TriggerFetchApiDataFetchPostResponses[keyof TriggerFetchApiDataFetchPostResponses];
-
-export type TriggerBackfillEndpointApiDataBackfillPostData = {
-    body: BackfillRequest;
-    path?: never;
-    query?: never;
-    url: '/api/data/backfill';
-};
-
-export type TriggerBackfillEndpointApiDataBackfillPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type TriggerBackfillEndpointApiDataBackfillPostError = TriggerBackfillEndpointApiDataBackfillPostErrors[keyof TriggerBackfillEndpointApiDataBackfillPostErrors];
-
-export type TriggerBackfillEndpointApiDataBackfillPostResponses = {
-    /**
-     * Successful Response
-     */
-    202: MessageResponse;
-};
-
-export type TriggerBackfillEndpointApiDataBackfillPostResponse = TriggerBackfillEndpointApiDataBackfillPostResponses[keyof TriggerBackfillEndpointApiDataBackfillPostResponses];
-
-export type GetBackfillStatusApiDataBackfillStatusGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Market
-         */
-        market?: string | null;
-    };
-    url: '/api/data/backfill/status';
-};
-
-export type GetBackfillStatusApiDataBackfillStatusGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetBackfillStatusApiDataBackfillStatusGetError = GetBackfillStatusApiDataBackfillStatusGetErrors[keyof GetBackfillStatusApiDataBackfillStatusGetErrors];
-
-export type GetBackfillStatusApiDataBackfillStatusGetResponses = {
-    /**
-     * Response Get Backfill Status Api Data Backfill Status Get
-     *
-     * Successful Response
-     */
-    200: Array<BackfillStatusResponse>;
-};
-
-export type GetBackfillStatusApiDataBackfillStatusGetResponse = GetBackfillStatusApiDataBackfillStatusGetResponses[keyof GetBackfillStatusApiDataBackfillStatusGetResponses];
 
 export type GetOhlcvApiDataOhlcvGetData = {
     body?: never;
@@ -1831,50 +2344,6 @@ export type GetOhlcvApiDataOhlcvGetResponses = {
 };
 
 export type GetOhlcvApiDataOhlcvGetResponse = GetOhlcvApiDataOhlcvGetResponses[keyof GetOhlcvApiDataOhlcvGetResponses];
-
-export type GetFundingRatesApiDataFundingRatesGetData = {
-    body?: never;
-    path?: never;
-    query: {
-        /**
-         * Symbol
-         *
-         * Perp symbol, e.g. BTC/USDT:USDT
-         */
-        symbol: string;
-        /**
-         * Start
-         */
-        start?: string | null;
-        /**
-         * End
-         */
-        end?: string | null;
-        /**
-         * Limit
-         */
-        limit?: number;
-    };
-    url: '/api/data/funding-rates';
-};
-
-export type GetFundingRatesApiDataFundingRatesGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetFundingRatesApiDataFundingRatesGetError = GetFundingRatesApiDataFundingRatesGetErrors[keyof GetFundingRatesApiDataFundingRatesGetErrors];
-
-export type GetFundingRatesApiDataFundingRatesGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: FundingRateResponse;
-};
-
-export type GetFundingRatesApiDataFundingRatesGetResponse = GetFundingRatesApiDataFundingRatesGetResponses[keyof GetFundingRatesApiDataFundingRatesGetResponses];
 
 export type ListSentimentApiSentimentGetData = {
     body?: never;
@@ -2354,7 +2823,7 @@ export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses
 export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse = GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses[keyof GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses];
 
 export type StartTrainingApiModelsTrainPostData = {
-    body: TrainRequest;
+    body: PoseidonApiModelsTrainRequest;
     path?: never;
     query?: never;
     url: '/api/models/train';
@@ -2560,6 +3029,31 @@ export type RunBacktestApiBacktestRunPostResponses = {
 };
 
 export type RunBacktestApiBacktestRunPostResponse = RunBacktestApiBacktestRunPostResponses[keyof RunBacktestApiBacktestRunPostResponses];
+
+export type RunDualModeApiBacktestDualModePostData = {
+    body: DualModeRequest;
+    path?: never;
+    query?: never;
+    url: '/api/backtest/dual-mode';
+};
+
+export type RunDualModeApiBacktestDualModePostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type RunDualModeApiBacktestDualModePostError = RunDualModeApiBacktestDualModePostErrors[keyof RunDualModeApiBacktestDualModePostErrors];
+
+export type RunDualModeApiBacktestDualModePostResponses = {
+    /**
+     * Successful Response
+     */
+    202: MessageResponse;
+};
+
+export type RunDualModeApiBacktestDualModePostResponse = RunDualModeApiBacktestDualModePostResponses[keyof RunDualModeApiBacktestDualModePostResponses];
 
 export type RunOptimizationApiBacktestOptimizePostData = {
     body: OptimizeRequest;
@@ -2913,62 +3407,6 @@ export type ListExperimentsApiAutoresearchExperimentsGetResponses = {
 
 export type ListExperimentsApiAutoresearchExperimentsGetResponse = ListExperimentsApiAutoresearchExperimentsGetResponses[keyof ListExperimentsApiAutoresearchExperimentsGetResponses];
 
-export type GetProviderHealthApiDataQualityProvidersGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/data-quality/providers';
-};
-
-export type GetProviderHealthApiDataQualityProvidersGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: unknown;
-};
-
-export type GetQualityScoresApiDataQualityScoresGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Symbol
-         *
-         * Filter by symbol
-         */
-        symbol?: string | null;
-        /**
-         * Interval
-         *
-         * Filter by interval
-         */
-        interval?: string | null;
-        /**
-         * Limit
-         */
-        limit?: number;
-    };
-    url: '/api/data-quality/scores';
-};
-
-export type GetQualityScoresApiDataQualityScoresGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetQualityScoresApiDataQualityScoresGetError = GetQualityScoresApiDataQualityScoresGetErrors[keyof GetQualityScoresApiDataQualityScoresGetErrors];
-
-export type GetQualityScoresApiDataQualityScoresGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: QualityScoresResponse;
-};
-
-export type GetQualityScoresApiDataQualityScoresGetResponse = GetQualityScoresApiDataQualityScoresGetResponses[keyof GetQualityScoresApiDataQualityScoresGetResponses];
-
 export type GetVarApiRiskVarGetData = {
     body?: never;
     path?: never;
@@ -3248,140 +3686,551 @@ export type GetNotificationsApiNotificationsGetResponses = {
 
 export type GetNotificationsApiNotificationsGetResponse = GetNotificationsApiNotificationsGetResponses[keyof GetNotificationsApiNotificationsGetResponses];
 
-// --- Phase 40: Data Coverage / Gaps / Freshness (manually added; regen on stormtrooper deployment) ---
-
-/**
- * DataCoverageResponse
- *
- * Per-(market, symbol, interval) coverage from data_coverage_mv (Phase 39).
- */
-export type DataCoverageResponse = {
-    market: string;
-    symbol: string;
-    interval: string;
-    first_ts: string | null;
-    last_ts: string | null;
-    row_count: number;
-    expected_count: number;
-    gap_count: number;
-    completeness_pct: number;
-    staleness_seconds: number;
-    health: string;
-};
-
-/**
- * DataGapResponse
- *
- * Per-gap window from data_gaps table (Phase 40 D-02, D-04).
- */
-export type DataGapResponse = {
-    gap_id: string;
-    market: string;
-    symbol: string;
-    interval: string;
-    gap_start: string;
-    gap_end: string;
-    missing_bars: number;
-    detected_at: string;
-    healed_at: string | null;
-};
-
-/**
- * DataFreshnessResponse
- *
- * Per-(market, interval) freshness snapshot (Phase 40 D-03, D-11, D-16).
- */
-export type DataFreshnessResponse = {
-    market: string;
-    interval: string;
-    last_successful_ts: string | null;
-    expected_lag_seconds: number;
-    observed_lag_seconds: number;
-    status: string;
-};
-
-export type GetDataCoverageApiDataCoverageGetData = {
+export type GetCapabilitiesApiV1CapabilitiesGetData = {
     body?: never;
     path?: never;
     query?: {
-        market?: string | null;
+        /**
+         * Live Safe
+         *
+         * Filter to live-safe components only
+         */
+        live_safe?: boolean | null;
+        /**
+         * Component Type
+         *
+         * Filter by type: feature|strategy|model|rule|portfolio_strategy
+         */
+        component_type?: string | null;
+    };
+    url: '/api/v1/capabilities';
+};
+
+export type GetCapabilitiesApiV1CapabilitiesGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetCapabilitiesApiV1CapabilitiesGetError = GetCapabilitiesApiV1CapabilitiesGetErrors[keyof GetCapabilitiesApiV1CapabilitiesGetErrors];
+
+export type GetCapabilitiesApiV1CapabilitiesGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: CapabilitiesResponse;
+};
+
+export type GetCapabilitiesApiV1CapabilitiesGetResponse = GetCapabilitiesApiV1CapabilitiesGetResponses[keyof GetCapabilitiesApiV1CapabilitiesGetResponses];
+
+export type GetActiveLocksApiV1ProtectionsLocksGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Symbol
+         *
+         * Filter by symbol
+         */
         symbol?: string | null;
-        interval?: string | null;
+        /**
+         * Market
+         *
+         * Filter by market
+         */
+        market?: string | null;
+        /**
+         * Type
+         *
+         * Filter by protection type
+         */
+        type?: string | null;
     };
-    url: '/api/data/coverage';
+    url: '/api/v1/protections/locks';
 };
 
-export type GetDataCoverageApiDataCoverageGetErrors = {
+export type GetActiveLocksApiV1ProtectionsLocksGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetDataCoverageApiDataCoverageGetError = GetDataCoverageApiDataCoverageGetErrors[keyof GetDataCoverageApiDataCoverageGetErrors];
+export type GetActiveLocksApiV1ProtectionsLocksGetError = GetActiveLocksApiV1ProtectionsLocksGetErrors[keyof GetActiveLocksApiV1ProtectionsLocksGetErrors];
 
-export type GetDataCoverageApiDataCoverageGetResponses = {
+export type GetActiveLocksApiV1ProtectionsLocksGetResponses = {
     /**
      * Successful Response
      */
-    200: Array<DataCoverageResponse>;
+    200: ProtectionLocksListResponse;
 };
 
-export type GetDataCoverageApiDataCoverageGetResponse = GetDataCoverageApiDataCoverageGetResponses[keyof GetDataCoverageApiDataCoverageGetResponses];
+export type GetActiveLocksApiV1ProtectionsLocksGetResponse = GetActiveLocksApiV1ProtectionsLocksGetResponses[keyof GetActiveLocksApiV1ProtectionsLocksGetResponses];
 
-export type GetDataGapsApiDataGapsGetData = {
+export type GetLockHistoryApiV1ProtectionsHistoryGetData = {
     body?: never;
     path?: never;
     query?: {
-        market?: string | null;
+        /**
+         * Symbol
+         *
+         * Filter by symbol
+         */
         symbol?: string | null;
-        interval?: string | null;
-        open_only?: boolean;
+        /**
+         * Market
+         *
+         * Filter by market
+         */
+        market?: string | null;
+        /**
+         * Type
+         *
+         * Filter by protection type
+         */
+        type?: string | null;
+        /**
+         * Limit
+         *
+         * Max results
+         */
+        limit?: number;
+        /**
+         * Offset
+         *
+         * Pagination offset
+         */
+        offset?: number;
     };
-    url: '/api/data/gaps';
+    url: '/api/v1/protections/history';
 };
 
-export type GetDataGapsApiDataGapsGetErrors = {
+export type GetLockHistoryApiV1ProtectionsHistoryGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetDataGapsApiDataGapsGetError = GetDataGapsApiDataGapsGetErrors[keyof GetDataGapsApiDataGapsGetErrors];
+export type GetLockHistoryApiV1ProtectionsHistoryGetError = GetLockHistoryApiV1ProtectionsHistoryGetErrors[keyof GetLockHistoryApiV1ProtectionsHistoryGetErrors];
 
-export type GetDataGapsApiDataGapsGetResponses = {
+export type GetLockHistoryApiV1ProtectionsHistoryGetResponses = {
     /**
      * Successful Response
      */
-    200: Array<DataGapResponse>;
+    200: ProtectionLocksListResponse;
 };
 
-export type GetDataGapsApiDataGapsGetResponse = GetDataGapsApiDataGapsGetResponses[keyof GetDataGapsApiDataGapsGetResponses];
+export type GetLockHistoryApiV1ProtectionsHistoryGetResponse = GetLockHistoryApiV1ProtectionsHistoryGetResponses[keyof GetLockHistoryApiV1ProtectionsHistoryGetResponses];
 
-export type GetDataFreshnessApiDataFreshnessGetData = {
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostData = {
+    body?: never;
+    path: {
+        /**
+         * Lock Id
+         */
+        lock_id: number;
+    };
+    query?: never;
+    url: '/api/v1/protections/locks/{lock_id}/override';
+};
+
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostError = OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors[keyof OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors];
+
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ProtectionOverrideResponse;
+};
+
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponse = OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses[keyof OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses];
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostData = {
+    body: IcAnalysisRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/factor-analysis/ic';
+};
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostError = CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors[keyof CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors];
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: FactorAnalysisTriggerResponse;
+};
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponse = CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses[keyof CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses];
+
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData = {
+    body: ShapleyAnalysisRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/factor-analysis/shapley';
+};
+
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostError = CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors[keyof CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors];
+
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: FactorAnalysisTriggerResponse;
+};
+
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponse = CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses[keyof CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses];
+
+export type CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData = {
+    body: CentralityAnalysisRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/factor-analysis/centrality';
+};
+
+export type CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostError = CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostErrors[keyof CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostErrors];
+
+export type CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: FactorAnalysisTriggerResponse;
+};
+
+export type CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponse = CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponses[keyof CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponses];
+
+export type ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData = {
     body?: never;
     path?: never;
     query?: {
+        /**
+         * Run Type
+         */
+        run_type?: string | null;
+        /**
+         * Market
+         */
         market?: string | null;
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Offset
+         */
+        offset?: number;
     };
-    url: '/api/data/freshness';
+    url: '/api/v1/factor-analysis/runs';
 };
 
-export type GetDataFreshnessApiDataFreshnessGetErrors = {
+export type ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetDataFreshnessApiDataFreshnessGetError = GetDataFreshnessApiDataFreshnessGetErrors[keyof GetDataFreshnessApiDataFreshnessGetErrors];
+export type ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetError = ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetErrors[keyof ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetErrors];
 
-export type GetDataFreshnessApiDataFreshnessGetResponses = {
+export type ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponses = {
     /**
      * Successful Response
      */
-    200: Array<DataFreshnessResponse>;
+    200: FactorAnalysisRunListResponse;
 };
 
-export type GetDataFreshnessApiDataFreshnessGetResponse = GetDataFreshnessApiDataFreshnessGetResponses[keyof GetDataFreshnessApiDataFreshnessGetResponses];
+export type ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponse = ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponses[keyof ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponses];
+
+export type GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/api/v1/factor-analysis/runs/{run_id}';
+};
+
+export type GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetError = GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetErrors[keyof GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetErrors];
+
+export type GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: FactorAnalysisRunResponse;
+};
+
+export type GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponse = GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses[keyof GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses];
+
+export type CreateTrainingRunApiV1ModelsTrainPostData = {
+    body: PoseidonCoreSchemasTrainRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/models/train';
+};
+
+export type CreateTrainingRunApiV1ModelsTrainPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateTrainingRunApiV1ModelsTrainPostError = CreateTrainingRunApiV1ModelsTrainPostErrors[keyof CreateTrainingRunApiV1ModelsTrainPostErrors];
+
+export type CreateTrainingRunApiV1ModelsTrainPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: TrainingRunResponse;
+};
+
+export type CreateTrainingRunApiV1ModelsTrainPostResponse = CreateTrainingRunApiV1ModelsTrainPostResponses[keyof CreateTrainingRunApiV1ModelsTrainPostResponses];
+
+export type ListTrainingRunsApiV1ModelsRunsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Status
+         */
+        status?: string | null;
+        /**
+         * Market
+         */
+        market?: string | null;
+        /**
+         * Handler Class
+         */
+        handler_class?: string | null;
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Offset
+         */
+        offset?: number;
+    };
+    url: '/api/v1/models/runs';
+};
+
+export type ListTrainingRunsApiV1ModelsRunsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListTrainingRunsApiV1ModelsRunsGetError = ListTrainingRunsApiV1ModelsRunsGetErrors[keyof ListTrainingRunsApiV1ModelsRunsGetErrors];
+
+export type ListTrainingRunsApiV1ModelsRunsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TrainingRunListResponse;
+};
+
+export type ListTrainingRunsApiV1ModelsRunsGetResponse = ListTrainingRunsApiV1ModelsRunsGetResponses[keyof ListTrainingRunsApiV1ModelsRunsGetResponses];
+
+export type GetTrainingRunApiV1ModelsRunsRunIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/api/v1/models/runs/{run_id}';
+};
+
+export type GetTrainingRunApiV1ModelsRunsRunIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetTrainingRunApiV1ModelsRunsRunIdGetError = GetTrainingRunApiV1ModelsRunsRunIdGetErrors[keyof GetTrainingRunApiV1ModelsRunsRunIdGetErrors];
+
+export type GetTrainingRunApiV1ModelsRunsRunIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TrainingRunDetailResponse;
+};
+
+export type GetTrainingRunApiV1ModelsRunsRunIdGetResponse = GetTrainingRunApiV1ModelsRunsRunIdGetResponses[keyof GetTrainingRunApiV1ModelsRunsRunIdGetResponses];
+
+export type CancelTrainingRunApiV1ModelsRunsRunIdCancelPostData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/api/v1/models/runs/{run_id}/cancel';
+};
+
+export type CancelTrainingRunApiV1ModelsRunsRunIdCancelPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CancelTrainingRunApiV1ModelsRunsRunIdCancelPostError = CancelTrainingRunApiV1ModelsRunsRunIdCancelPostErrors[keyof CancelTrainingRunApiV1ModelsRunsRunIdCancelPostErrors];
+
+export type CancelTrainingRunApiV1ModelsRunsRunIdCancelPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type DeleteModelApiV1ModelsModelIdDeleteData = {
+    body?: never;
+    path: {
+        /**
+         * Model Id
+         */
+        model_id: string;
+    };
+    query?: never;
+    url: '/api/v1/models/{model_id}';
+};
+
+export type DeleteModelApiV1ModelsModelIdDeleteErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type DeleteModelApiV1ModelsModelIdDeleteError = DeleteModelApiV1ModelsModelIdDeleteErrors[keyof DeleteModelApiV1ModelsModelIdDeleteErrors];
+
+export type DeleteModelApiV1ModelsModelIdDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type GetModelMetricsApiV1ModelsModelIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Model Id
+         */
+        model_id: string;
+    };
+    query?: never;
+    url: '/api/v1/models/{model_id}';
+};
+
+export type GetModelMetricsApiV1ModelsModelIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetModelMetricsApiV1ModelsModelIdGetError = GetModelMetricsApiV1ModelsModelIdGetErrors[keyof GetModelMetricsApiV1ModelsModelIdGetErrors];
+
+export type GetModelMetricsApiV1ModelsModelIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: ModelMetricsResponse;
+};
+
+export type GetModelMetricsApiV1ModelsModelIdGetResponse = GetModelMetricsApiV1ModelsModelIdGetResponses[keyof GetModelMetricsApiV1ModelsModelIdGetResponses];
+
+export type GetPredictionsApiV1ModelsModelIdPredictionsGetData = {
+    body?: never;
+    path: {
+        /**
+         * Model Id
+         */
+        model_id: string;
+    };
+    query?: {
+        /**
+         * Segment
+         */
+        segment?: string | null;
+        /**
+         * Start
+         */
+        start?: string | null;
+        /**
+         * End
+         */
+        end?: string | null;
+        /**
+         * Symbol
+         */
+        symbol?: string | null;
+    };
+    url: '/api/v1/models/{model_id}/predictions';
+};
+
+export type GetPredictionsApiV1ModelsModelIdPredictionsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetPredictionsApiV1ModelsModelIdPredictionsGetError = GetPredictionsApiV1ModelsModelIdPredictionsGetErrors[keyof GetPredictionsApiV1ModelsModelIdPredictionsGetErrors];
+
+export type GetPredictionsApiV1ModelsModelIdPredictionsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PredictionResponse;
+};
+
+export type GetPredictionsApiV1ModelsModelIdPredictionsGetResponse = GetPredictionsApiV1ModelsModelIdPredictionsGetResponses[keyof GetPredictionsApiV1ModelsModelIdPredictionsGetResponses];

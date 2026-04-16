@@ -2,11 +2,11 @@ import { Suspense } from "react";
 
 import type { EChartsOption } from "echarts";
 
-import type { QualityScoreResponse } from "@/api/poseidon/types.gen";
+import type { QualityScoreItem } from "@/api/thalassa/types.gen";
 import { EChartsShell, LazyECharts } from "@/features/risk/echarts-lazy";
 
 type QualityScoreTrendProps = {
-  scores: QualityScoreResponse[];
+  scores: QualityScoreItem[];
 };
 
 export function QualityScoreTrend({ scores }: QualityScoreTrendProps) {
@@ -29,7 +29,7 @@ export function QualityScoreTrend({ scores }: QualityScoreTrendProps) {
   );
 }
 
-function ServerQualityTrend({ scores }: { scores: QualityScoreResponse[] }) {
+function ServerQualityTrend({ scores }: { scores: QualityScoreItem[] }) {
   return (
     <div className="grid gap-3 sm:grid-cols-2">
       {scores.slice(0, 4).map((score) => (
@@ -44,7 +44,7 @@ function ServerQualityTrend({ scores }: { scores: QualityScoreResponse[] }) {
   );
 }
 
-function createQualityTrendOption(scores: QualityScoreResponse[]): EChartsOption {
+function createQualityTrendOption(scores: QualityScoreItem[]): EChartsOption {
   const ordered = scores.slice().reverse();
 
   return {
@@ -96,7 +96,7 @@ function createQualityTrendOption(scores: QualityScoreResponse[]): EChartsOption
   };
 }
 
-function buildSeries(scores: QualityScoreResponse[]) {
+function buildSeries(scores: QualityScoreItem[]) {
   const grouped = new Map<string, Array<[string, number]>>();
 
   scores.forEach((score) => {

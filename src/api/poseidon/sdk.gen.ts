@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { ActivateModelApiModelsVersionIdActivatePostData, ActivateModelApiModelsVersionIdActivatePostErrors, ActivateModelApiModelsVersionIdActivatePostResponses, ActivateStrategyApiStrategiesStrategyIdActivatePostData, ActivateStrategyApiStrategiesStrategyIdActivatePostErrors, ActivateStrategyApiStrategiesStrategyIdActivatePostResponses, CreateRuleApiRiskRulesPostData, CreateRuleApiRiskRulesPostErrors, CreateRuleApiRiskRulesPostResponses, CreateSentimentApiSentimentPostData, CreateSentimentApiSentimentPostErrors, CreateSentimentApiSentimentPostResponses, CreateStrategyApiStrategiesPostData, CreateStrategyApiStrategiesPostErrors, CreateStrategyApiStrategiesPostResponses, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostErrors, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponses, DeleteRuleApiRiskRulesRuleIdDeleteData, DeleteRuleApiRiskRulesRuleIdDeleteErrors, DeleteRuleApiRiskRulesRuleIdDeleteResponses, DeleteStrategyApiStrategiesStrategyIdDeleteData, DeleteStrategyApiStrategiesStrategyIdDeleteErrors, DeleteStrategyApiStrategiesStrategyIdDeleteResponses, GetAlertsApiRiskAlertsGetData, GetAlertsApiRiskAlertsGetErrors, GetAlertsApiRiskAlertsGetResponses, GetBackfillStatusApiDataBackfillStatusGetData, GetBackfillStatusApiDataBackfillStatusGetErrors, GetBackfillStatusApiDataBackfillStatusGetResponses, GetDataCoverageApiDataCoverageGetData, GetDataCoverageApiDataCoverageGetErrors, GetDataCoverageApiDataCoverageGetResponses, GetDataGapsApiDataGapsGetData, GetDataGapsApiDataGapsGetErrors, GetDataGapsApiDataGapsGetResponses, GetDataFreshnessApiDataFreshnessGetData, GetDataFreshnessApiDataFreshnessGetErrors, GetDataFreshnessApiDataFreshnessGetResponses, GetBacktestApiBacktestBacktestIdGetData, GetBacktestApiBacktestBacktestIdGetErrors, GetBacktestApiBacktestBacktestIdGetResponses, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses, GetBacktestTradesApiBacktestBacktestIdTradesGetData, GetBacktestTradesApiBacktestBacktestIdTradesGetErrors, GetBacktestTradesApiBacktestBacktestIdTradesGetResponses, GetCorrelationApiRiskCorrelationGetData, GetCorrelationApiRiskCorrelationGetResponses, GetExposureApiRiskExposureGetData, GetExposureApiRiskExposureGetResponses, GetFundingRatesApiDataFundingRatesGetData, GetFundingRatesApiDataFundingRatesGetErrors, GetFundingRatesApiDataFundingRatesGetResponses, GetHoldingsApiPortfolioHoldingsGetData, GetHoldingsApiPortfolioHoldingsGetResponses, GetModelVersionApiModelsVersionIdGetData, GetModelVersionApiModelsVersionIdGetErrors, GetModelVersionApiModelsVersionIdGetResponses, GetNotificationsApiNotificationsGetData, GetNotificationsApiNotificationsGetErrors, GetNotificationsApiNotificationsGetResponses, GetOhlcvApiDataOhlcvGetData, GetOhlcvApiDataOhlcvGetErrors, GetOhlcvApiDataOhlcvGetResponses, GetOrdersApiPortfolioOrdersGetData, GetOrdersApiPortfolioOrdersGetErrors, GetOrdersApiPortfolioOrdersGetResponses, GetPerformanceApiPortfolioPerformanceGetData, GetPerformanceApiPortfolioPerformanceGetErrors, GetPerformanceApiPortfolioPerformanceGetResponses, GetPerpHoldingsApiPortfolioPerpHoldingsGetData, GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses, GetPortfolioApiRiskRulesPortfolioGetData, GetPortfolioApiRiskRulesPortfolioGetErrors, GetPortfolioApiRiskRulesPortfolioGetResponses, GetProviderHealthApiDataQualityProvidersGetData, GetProviderHealthApiDataQualityProvidersGetResponses, GetQualityScoresApiDataQualityScoresGetData, GetQualityScoresApiDataQualityScoresGetErrors, GetQualityScoresApiDataQualityScoresGetResponses, GetRuleApiRiskRulesRuleIdGetData, GetRuleApiRiskRulesRuleIdGetErrors, GetRuleApiRiskRulesRuleIdGetResponses, GetSignalApiSignalsSignalIdGetData, GetSignalApiSignalsSignalIdGetErrors, GetSignalApiSignalsSignalIdGetResponses, GetStrategyApiStrategiesStrategyIdGetData, GetStrategyApiStrategiesStrategyIdGetErrors, GetStrategyApiStrategiesStrategyIdGetResponses, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetErrors, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses, GetStressTestResultApiRiskStressTestTaskIdGetData, GetStressTestResultApiRiskStressTestTaskIdGetErrors, GetStressTestResultApiRiskStressTestTaskIdGetResponses, GetTaskStatusApiAutoresearchStatusTaskIdGetData, GetTaskStatusApiAutoresearchStatusTaskIdGetErrors, GetTaskStatusApiAutoresearchStatusTaskIdGetResponses, GetVarApiRiskVarGetData, GetVarApiRiskVarGetResponses, HealthHealthGetData, HealthHealthGetResponses, ListBacktestsApiBacktestGetData, ListBacktestsApiBacktestGetErrors, ListBacktestsApiBacktestGetResponses, ListExperimentsApiAutoresearchExperimentsGetData, ListExperimentsApiAutoresearchExperimentsGetErrors, ListExperimentsApiAutoresearchExperimentsGetResponses, ListModelsApiModelsGetData, ListModelsApiModelsGetErrors, ListModelsApiModelsGetResponses, ListRulesApiRiskRulesGetData, ListRulesApiRiskRulesGetResponses, ListRuleTypesApiRiskRulesTypesGetData, ListRuleTypesApiRiskRulesTypesGetResponses, ListSentimentApiSentimentGetData, ListSentimentApiSentimentGetErrors, ListSentimentApiSentimentGetResponses, ListSignalsApiSignalsGetData, ListSignalsApiSignalsGetErrors, ListSignalsApiSignalsGetResponses, ListStrategiesApiStrategiesGetData, ListStrategiesApiStrategiesGetResponses, PredictApiModelsVersionIdPredictPostData, PredictApiModelsVersionIdPredictPostErrors, PredictApiModelsVersionIdPredictPostResponses, RunAutoresearchApiAutoresearchRunPostData, RunAutoresearchApiAutoresearchRunPostErrors, RunAutoresearchApiAutoresearchRunPostResponses, RunBacktestApiBacktestRunPostData, RunBacktestApiBacktestRunPostErrors, RunBacktestApiBacktestRunPostResponses, RunOptimizationApiBacktestOptimizePostData, RunOptimizationApiBacktestOptimizePostErrors, RunOptimizationApiBacktestOptimizePostResponses, ShadowModelApiModelsVersionIdShadowPostData, ShadowModelApiModelsVersionIdShadowPostErrors, ShadowModelApiModelsVersionIdShadowPostResponses, StartTrainingApiModelsTrainPostData, StartTrainingApiModelsTrainPostErrors, StartTrainingApiModelsTrainPostResponses, StopAutoresearchApiAutoresearchStopTaskIdPostData, StopAutoresearchApiAutoresearchStopTaskIdPostErrors, StopAutoresearchApiAutoresearchStopTaskIdPostResponses, TriggerBackfillEndpointApiDataBackfillPostData, TriggerBackfillEndpointApiDataBackfillPostErrors, TriggerBackfillEndpointApiDataBackfillPostResponses, TriggerFetchApiDataFetchPostData, TriggerFetchApiDataFetchPostErrors, TriggerFetchApiDataFetchPostResponses, TriggerStressTestApiRiskStressTestRunPostData, TriggerStressTestApiRiskStressTestRunPostErrors, TriggerStressTestApiRiskStressTestRunPostResponses, UpdateRuleApiRiskRulesRuleIdPatchData, UpdateRuleApiRiskRulesRuleIdPatchErrors, UpdateRuleApiRiskRulesRuleIdPatchResponses, UpdateStrategyApiStrategiesStrategyIdPutData, UpdateStrategyApiStrategiesStrategyIdPutErrors, UpdateStrategyApiStrategiesStrategyIdPutResponses } from './types.gen';
+import type { ActivateModelApiModelsVersionIdActivatePostData, ActivateModelApiModelsVersionIdActivatePostErrors, ActivateModelApiModelsVersionIdActivatePostResponses, ActivateStrategyApiStrategiesStrategyIdActivatePostData, ActivateStrategyApiStrategiesStrategyIdActivatePostErrors, ActivateStrategyApiStrategiesStrategyIdActivatePostResponses, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostData, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostErrors, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostResponses, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostErrors, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponses, CreateIcAnalysisRunApiV1FactorAnalysisIcPostData, CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors, CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses, CreateRuleApiRiskRulesPostData, CreateRuleApiRiskRulesPostErrors, CreateRuleApiRiskRulesPostResponses, CreateSentimentApiSentimentPostData, CreateSentimentApiSentimentPostErrors, CreateSentimentApiSentimentPostResponses, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses, CreateStrategyApiStrategiesPostData, CreateStrategyApiStrategiesPostErrors, CreateStrategyApiStrategiesPostResponses, CreateTrainingRunApiV1ModelsTrainPostData, CreateTrainingRunApiV1ModelsTrainPostErrors, CreateTrainingRunApiV1ModelsTrainPostResponses, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostErrors, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponses, DeleteModelApiV1ModelsModelIdDeleteData, DeleteModelApiV1ModelsModelIdDeleteErrors, DeleteModelApiV1ModelsModelIdDeleteResponses, DeleteRuleApiRiskRulesRuleIdDeleteData, DeleteRuleApiRiskRulesRuleIdDeleteErrors, DeleteRuleApiRiskRulesRuleIdDeleteResponses, DeleteStrategyApiStrategiesStrategyIdDeleteData, DeleteStrategyApiStrategiesStrategyIdDeleteErrors, DeleteStrategyApiStrategiesStrategyIdDeleteResponses, GetActiveLocksApiV1ProtectionsLocksGetData, GetActiveLocksApiV1ProtectionsLocksGetErrors, GetActiveLocksApiV1ProtectionsLocksGetResponses, GetAlertsApiRiskAlertsGetData, GetAlertsApiRiskAlertsGetErrors, GetAlertsApiRiskAlertsGetResponses, GetBacktestApiBacktestBacktestIdGetData, GetBacktestApiBacktestBacktestIdGetErrors, GetBacktestApiBacktestBacktestIdGetResponses, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses, GetBacktestTradesApiBacktestBacktestIdTradesGetData, GetBacktestTradesApiBacktestBacktestIdTradesGetErrors, GetBacktestTradesApiBacktestBacktestIdTradesGetResponses, GetCapabilitiesApiV1CapabilitiesGetData, GetCapabilitiesApiV1CapabilitiesGetErrors, GetCapabilitiesApiV1CapabilitiesGetResponses, GetCorrelationApiRiskCorrelationGetData, GetCorrelationApiRiskCorrelationGetResponses, GetExposureApiRiskExposureGetData, GetExposureApiRiskExposureGetResponses, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetData, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetErrors, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses, GetHoldingsApiPortfolioHoldingsGetData, GetHoldingsApiPortfolioHoldingsGetResponses, GetLockHistoryApiV1ProtectionsHistoryGetData, GetLockHistoryApiV1ProtectionsHistoryGetErrors, GetLockHistoryApiV1ProtectionsHistoryGetResponses, GetModelMetricsApiV1ModelsModelIdGetData, GetModelMetricsApiV1ModelsModelIdGetErrors, GetModelMetricsApiV1ModelsModelIdGetResponses, GetModelVersionApiModelsVersionIdGetData, GetModelVersionApiModelsVersionIdGetErrors, GetModelVersionApiModelsVersionIdGetResponses, GetNotificationsApiNotificationsGetData, GetNotificationsApiNotificationsGetErrors, GetNotificationsApiNotificationsGetResponses, GetOhlcvApiDataOhlcvGetData, GetOhlcvApiDataOhlcvGetErrors, GetOhlcvApiDataOhlcvGetResponses, GetOrdersApiPortfolioOrdersGetData, GetOrdersApiPortfolioOrdersGetErrors, GetOrdersApiPortfolioOrdersGetResponses, GetPerformanceApiPortfolioPerformanceGetData, GetPerformanceApiPortfolioPerformanceGetErrors, GetPerformanceApiPortfolioPerformanceGetResponses, GetPerpHoldingsApiPortfolioPerpHoldingsGetData, GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses, GetPortfolioApiRiskRulesPortfolioGetData, GetPortfolioApiRiskRulesPortfolioGetErrors, GetPortfolioApiRiskRulesPortfolioGetResponses, GetPredictionsApiV1ModelsModelIdPredictionsGetData, GetPredictionsApiV1ModelsModelIdPredictionsGetErrors, GetPredictionsApiV1ModelsModelIdPredictionsGetResponses, GetRuleApiRiskRulesRuleIdGetData, GetRuleApiRiskRulesRuleIdGetErrors, GetRuleApiRiskRulesRuleIdGetResponses, GetSignalApiSignalsSignalIdGetData, GetSignalApiSignalsSignalIdGetErrors, GetSignalApiSignalsSignalIdGetResponses, GetStrategyApiStrategiesStrategyIdGetData, GetStrategyApiStrategiesStrategyIdGetErrors, GetStrategyApiStrategiesStrategyIdGetResponses, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetErrors, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses, GetStressTestResultApiRiskStressTestTaskIdGetData, GetStressTestResultApiRiskStressTestTaskIdGetErrors, GetStressTestResultApiRiskStressTestTaskIdGetResponses, GetTaskStatusApiAutoresearchStatusTaskIdGetData, GetTaskStatusApiAutoresearchStatusTaskIdGetErrors, GetTaskStatusApiAutoresearchStatusTaskIdGetResponses, GetTrainingRunApiV1ModelsRunsRunIdGetData, GetTrainingRunApiV1ModelsRunsRunIdGetErrors, GetTrainingRunApiV1ModelsRunsRunIdGetResponses, GetVarApiRiskVarGetData, GetVarApiRiskVarGetResponses, HealthHealthGetData, HealthHealthGetErrors, HealthHealthGetResponses, ListBacktestsApiBacktestGetData, ListBacktestsApiBacktestGetErrors, ListBacktestsApiBacktestGetResponses, ListExperimentsApiAutoresearchExperimentsGetData, ListExperimentsApiAutoresearchExperimentsGetErrors, ListExperimentsApiAutoresearchExperimentsGetResponses, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetErrors, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponses, ListModelsApiModelsGetData, ListModelsApiModelsGetErrors, ListModelsApiModelsGetResponses, ListRulesApiRiskRulesGetData, ListRulesApiRiskRulesGetResponses, ListRuleTypesApiRiskRulesTypesGetData, ListRuleTypesApiRiskRulesTypesGetResponses, ListSentimentApiSentimentGetData, ListSentimentApiSentimentGetErrors, ListSentimentApiSentimentGetResponses, ListSignalsApiSignalsGetData, ListSignalsApiSignalsGetErrors, ListSignalsApiSignalsGetResponses, ListStrategiesApiStrategiesGetData, ListStrategiesApiStrategiesGetResponses, ListTrainingRunsApiV1ModelsRunsGetData, ListTrainingRunsApiV1ModelsRunsGetErrors, ListTrainingRunsApiV1ModelsRunsGetResponses, OverrideLockApiV1ProtectionsLocksLockIdOverridePostData, OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors, OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses, PredictApiModelsVersionIdPredictPostData, PredictApiModelsVersionIdPredictPostErrors, PredictApiModelsVersionIdPredictPostResponses, RunAutoresearchApiAutoresearchRunPostData, RunAutoresearchApiAutoresearchRunPostErrors, RunAutoresearchApiAutoresearchRunPostResponses, RunBacktestApiBacktestRunPostData, RunBacktestApiBacktestRunPostErrors, RunBacktestApiBacktestRunPostResponses, RunDualModeApiBacktestDualModePostData, RunDualModeApiBacktestDualModePostErrors, RunDualModeApiBacktestDualModePostResponses, RunOptimizationApiBacktestOptimizePostData, RunOptimizationApiBacktestOptimizePostErrors, RunOptimizationApiBacktestOptimizePostResponses, ShadowModelApiModelsVersionIdShadowPostData, ShadowModelApiModelsVersionIdShadowPostErrors, ShadowModelApiModelsVersionIdShadowPostResponses, StartTrainingApiModelsTrainPostData, StartTrainingApiModelsTrainPostErrors, StartTrainingApiModelsTrainPostResponses, StopAutoresearchApiAutoresearchStopTaskIdPostData, StopAutoresearchApiAutoresearchStopTaskIdPostErrors, StopAutoresearchApiAutoresearchStopTaskIdPostResponses, TriggerStressTestApiRiskStressTestRunPostData, TriggerStressTestApiRiskStressTestRunPostErrors, TriggerStressTestApiRiskStressTestRunPostResponses, UpdateRuleApiRiskRulesRuleIdPatchData, UpdateRuleApiRiskRulesRuleIdPatchErrors, UpdateRuleApiRiskRulesRuleIdPatchResponses, UpdateStrategyApiStrategiesStrategyIdPutData, UpdateStrategyApiStrategiesStrategyIdPutErrors, UpdateStrategyApiStrategiesStrategyIdPutResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -23,85 +23,21 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
  *
  * Health check endpoint. No authentication required.
  *
- * Reports comprehensive system status including:
+ * Default mode stays lightweight for Docker liveness checks.
+ * Pass ``details=true`` to include Celery/GPU inspection.
+ *
+ * Reports system status including:
  * - Database connectivity and data freshness
  * - Redis connectivity
- * - Celery worker queue lengths
- * - GPU availability and memory
+ * - Optional Celery worker queue lengths
+ * - Optional GPU worker availability
  *
  * Returns ``{"status": "ok"}`` when all components are healthy,
  * ``{"status": "degraded"}`` when any component reports an error.
  */
 export const healthHealthGet = <ThrowOnError extends boolean = false>(options?: Options<HealthHealthGetData, ThrowOnError>) => {
-    return (options?.client ?? client).get<HealthHealthGetResponses, unknown, ThrowOnError>({
+    return (options?.client ?? client).get<HealthHealthGetResponses, HealthHealthGetErrors, ThrowOnError>({
         url: '/health',
-        ...options
-    });
-};
-
-/**
- * Trigger Fetch
- *
- * Trigger data fetch for a market.
- *
- * Dispatches a Celery task to fetch latest data for all symbols in the market.
- */
-export const triggerFetchApiDataFetchPost = <ThrowOnError extends boolean = false>(options: Options<TriggerFetchApiDataFetchPostData, ThrowOnError>) => {
-    return (options.client ?? client).post<TriggerFetchApiDataFetchPostResponses, TriggerFetchApiDataFetchPostErrors, ThrowOnError>({
-        security: [
-            {
-                name: 'X-API-Key',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/data/fetch',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
-
-/**
- * Trigger Backfill Endpoint
- *
- * Trigger historical data backfill.
- *
- * If market is specified, backfills only that market.
- * If both market and symbol are None, backfills all configured symbols.
- */
-export const triggerBackfillEndpointApiDataBackfillPost = <ThrowOnError extends boolean = false>(options: Options<TriggerBackfillEndpointApiDataBackfillPostData, ThrowOnError>) => {
-    return (options.client ?? client).post<TriggerBackfillEndpointApiDataBackfillPostResponses, TriggerBackfillEndpointApiDataBackfillPostErrors, ThrowOnError>({
-        security: [
-            {
-                name: 'X-API-Key',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/data/backfill',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
-
-/**
- * Get Backfill Status
- *
- * Get backfill progress status for all symbols or a specific market.
- */
-export const getBackfillStatusApiDataBackfillStatusGet = <ThrowOnError extends boolean = false>(options?: Options<GetBackfillStatusApiDataBackfillStatusGetData, ThrowOnError>) => {
-    return (options?.client ?? client).get<GetBackfillStatusApiDataBackfillStatusGetResponses, GetBackfillStatusApiDataBackfillStatusGetErrors, ThrowOnError>({
-        security: [
-            {
-                name: 'X-API-Key',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/data/backfill/status',
         ...options
     });
 };
@@ -120,24 +56,6 @@ export const getOhlcvApiDataOhlcvGet = <ThrowOnError extends boolean = false>(op
             }
         ],
         url: '/api/data/ohlcv',
-        ...options
-    });
-};
-
-/**
- * Get Funding Rates
- *
- * Return funding rate history for a perpetual contract symbol.
- */
-export const getFundingRatesApiDataFundingRatesGet = <ThrowOnError extends boolean = false>(options: Options<GetFundingRatesApiDataFundingRatesGetData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetFundingRatesApiDataFundingRatesGetResponses, GetFundingRatesApiDataFundingRatesGetErrors, ThrowOnError>({
-        security: [
-            {
-                name: 'X-API-Key',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/data/funding-rates',
         ...options
     });
 };
@@ -644,6 +562,31 @@ export const runBacktestApiBacktestRunPost = <ThrowOnError extends boolean = fal
 };
 
 /**
+ * Run Dual Mode
+ *
+ * Dispatch dual-mode fill comparison to CPU worker queue (API-03).
+ *
+ * Runs same strategy with both OPTIMISTIC and PESSIMISTIC fill models.
+ * Returns 202 with Celery task_id for status polling.
+ */
+export const runDualModeApiBacktestDualModePost = <ThrowOnError extends boolean = false>(options: Options<RunDualModeApiBacktestDualModePostData, ThrowOnError>) => {
+    return (options.client ?? client).post<RunDualModeApiBacktestDualModePostResponses, RunDualModeApiBacktestDualModePostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/backtest/dual-mode',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
  * Run Optimization
  *
  * Dispatch a parameter optimization to the CPU worker queue.
@@ -855,45 +798,6 @@ export const listExperimentsApiAutoresearchExperimentsGet = <ThrowOnError extend
             }
         ],
         url: '/api/autoresearch/experiments',
-        ...options
-    });
-};
-
-/**
- * Get Provider Health
- *
- * Get health status for all data providers.
- *
- * Returns circuit breaker state, quota usage, and configured limits
- * for finmind, yfinance, and ccxt providers.
- */
-export const getProviderHealthApiDataQualityProvidersGet = <ThrowOnError extends boolean = false>(options?: Options<GetProviderHealthApiDataQualityProvidersGetData, ThrowOnError>) => {
-    return (options?.client ?? client).get<GetProviderHealthApiDataQualityProvidersGetResponses, unknown, ThrowOnError>({
-        security: [
-            {
-                name: 'X-API-Key',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/data-quality/providers',
-        ...options
-    });
-};
-
-/**
- * Get Quality Scores
- *
- * Return data quality scores by symbol/interval (RAPI-05, per D-13).
- */
-export const getQualityScoresApiDataQualityScoresGet = <ThrowOnError extends boolean = false>(options?: Options<GetQualityScoresApiDataQualityScoresGetData, ThrowOnError>) => {
-    return (options?.client ?? client).get<GetQualityScoresApiDataQualityScoresGetResponses, GetQualityScoresApiDataQualityScoresGetErrors, ThrowOnError>({
-        security: [
-            {
-                name: 'X-API-Key',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/data-quality/scores',
         ...options
     });
 };
@@ -1117,58 +1021,338 @@ export const getNotificationsApiNotificationsGet = <ThrowOnError extends boolean
     });
 };
 
-// --- Phase 40: Data Coverage / Gaps / Freshness (manually added; regen on stormtrooper deployment) ---
-
 /**
- * Get Data Coverage
+ * Get Capabilities
  *
- * Return per-(market, symbol, interval) coverage from data_coverage_mv.
+ * Return capability flags matrix for all registered components.
+ *
+ * Per D-11: flat matrix grouped by component_type.
+ * Per D-13: supports optional query params for filtering.
  */
-export const getDataCoverageApiDataCoverageGet = <ThrowOnError extends boolean = false>(options?: Options<GetDataCoverageApiDataCoverageGetData, ThrowOnError>) => {
-    return (options?.client ?? client).get<GetDataCoverageApiDataCoverageGetResponses, GetDataCoverageApiDataCoverageGetErrors, ThrowOnError>({
+export const getCapabilitiesApiV1CapabilitiesGet = <ThrowOnError extends boolean = false>(options?: Options<GetCapabilitiesApiV1CapabilitiesGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<GetCapabilitiesApiV1CapabilitiesGetResponses, GetCapabilitiesApiV1CapabilitiesGetErrors, ThrowOnError>({
         security: [
             {
                 name: 'X-API-Key',
                 type: 'apiKey'
             }
         ],
-        url: '/api/data/coverage',
+        url: '/api/v1/capabilities',
         ...options
     });
 };
 
 /**
- * Get Data Gaps
+ * Get Active Locks
  *
- * Return detected gap windows from data_gaps (Phase 40 D-04..D-07).
+ * Return all active protection locks with optional filters (D-18).
  */
-export const getDataGapsApiDataGapsGet = <ThrowOnError extends boolean = false>(options?: Options<GetDataGapsApiDataGapsGetData, ThrowOnError>) => {
-    return (options?.client ?? client).get<GetDataGapsApiDataGapsGetResponses, GetDataGapsApiDataGapsGetErrors, ThrowOnError>({
+export const getActiveLocksApiV1ProtectionsLocksGet = <ThrowOnError extends boolean = false>(options?: Options<GetActiveLocksApiV1ProtectionsLocksGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<GetActiveLocksApiV1ProtectionsLocksGetResponses, GetActiveLocksApiV1ProtectionsLocksGetErrors, ThrowOnError>({
         security: [
             {
                 name: 'X-API-Key',
                 type: 'apiKey'
             }
         ],
-        url: '/api/data/gaps',
+        url: '/api/v1/protections/locks',
         ...options
     });
 };
 
 /**
- * Get Data Freshness
+ * Get Lock History
  *
- * Return per-(market, interval) freshness vs SLA from ingest_state.
+ * Return expired/released protection locks with pagination (D-19).
  */
-export const getDataFreshnessApiDataFreshnessGet = <ThrowOnError extends boolean = false>(options?: Options<GetDataFreshnessApiDataFreshnessGetData, ThrowOnError>) => {
-    return (options?.client ?? client).get<GetDataFreshnessApiDataFreshnessGetResponses, GetDataFreshnessApiDataFreshnessGetErrors, ThrowOnError>({
+export const getLockHistoryApiV1ProtectionsHistoryGet = <ThrowOnError extends boolean = false>(options?: Options<GetLockHistoryApiV1ProtectionsHistoryGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<GetLockHistoryApiV1ProtectionsHistoryGetResponses, GetLockHistoryApiV1ProtectionsHistoryGetErrors, ThrowOnError>({
         security: [
             {
                 name: 'X-API-Key',
                 type: 'apiKey'
             }
         ],
-        url: '/api/data/freshness',
+        url: '/api/v1/protections/history',
+        ...options
+    });
+};
+
+/**
+ * Override Lock
+ *
+ * Manually release an active protection lock (D-20).
+ */
+export const overrideLockApiV1ProtectionsLocksLockIdOverridePost = <ThrowOnError extends boolean = false>(options: Options<OverrideLockApiV1ProtectionsLocksLockIdOverridePostData, ThrowOnError>) => {
+    return (options.client ?? client).post<OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses, OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/protections/locks/{lock_id}/override',
+        ...options
+    });
+};
+
+/**
+ * Create Ic Analysis Run
+ *
+ * Create an IC analysis run and dispatch it to the CPU worker.
+ */
+export const createIcAnalysisRunApiV1FactorAnalysisIcPost = <ThrowOnError extends boolean = false>(options: Options<CreateIcAnalysisRunApiV1FactorAnalysisIcPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses, CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/factor-analysis/ic',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * Create Shapley Analysis Run
+ *
+ * Create a SHAP analysis run and dispatch it to qlib-research.
+ */
+export const createShapleyAnalysisRunApiV1FactorAnalysisShapleyPost = <ThrowOnError extends boolean = false>(options: Options<CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/factor-analysis/shapley',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * Create Centrality Analysis Run
+ *
+ * Create a centrality analysis run and dispatch it to the CPU worker.
+ */
+export const createCentralityAnalysisRunApiV1FactorAnalysisCentralityPost = <ThrowOnError extends boolean = false>(options: Options<CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponses, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/factor-analysis/centrality',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * List Factor Analysis Runs
+ *
+ * List factor analysis runs with optional filters.
+ */
+export const listFactorAnalysisRunsApiV1FactorAnalysisRunsGet = <ThrowOnError extends boolean = false>(options?: Options<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponses, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/factor-analysis/runs',
+        ...options
+    });
+};
+
+/**
+ * Get Factor Analysis Run
+ *
+ * Return full detail for a single factor analysis run.
+ */
+export const getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGet = <ThrowOnError extends boolean = false>(options: Options<GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/factor-analysis/runs/{run_id}',
+        ...options
+    });
+};
+
+/**
+ * Create Training Run
+ *
+ * Create a training run and dispatch to qlib_queue (RESEARCH-API-01).
+ *
+ * Validates handler_class and model_class against the static allowlist
+ * (D-08/D-09). Unknown classes are rejected with 422 before any DB write.
+ * Uses ``send_task`` to dispatch -- the qlib_tasks module is NOT imported
+ * in this file to avoid pulling qlib/mlflow into the cp313 process.
+ */
+export const createTrainingRunApiV1ModelsTrainPost = <ThrowOnError extends boolean = false>(options: Options<CreateTrainingRunApiV1ModelsTrainPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<CreateTrainingRunApiV1ModelsTrainPostResponses, CreateTrainingRunApiV1ModelsTrainPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/models/train',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * List Training Runs
+ *
+ * List training runs with optional filters and pagination (RESEARCH-API-04).
+ *
+ * Query params: status, market, handler_class, limit (1-200, default 50),
+ * offset (default 0). Results ordered by created_at descending.
+ */
+export const listTrainingRunsApiV1ModelsRunsGet = <ThrowOnError extends boolean = false>(options?: Options<ListTrainingRunsApiV1ModelsRunsGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<ListTrainingRunsApiV1ModelsRunsGetResponses, ListTrainingRunsApiV1ModelsRunsGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/models/runs',
+        ...options
+    });
+};
+
+/**
+ * Get Training Run
+ *
+ * Get full detail for a single training run (RESEARCH-API-04).
+ *
+ * Returns all fields including metrics, model_version_id, error text.
+ * Raises 404 if run_id does not exist.
+ */
+export const getTrainingRunApiV1ModelsRunsRunIdGet = <ThrowOnError extends boolean = false>(options: Options<GetTrainingRunApiV1ModelsRunsRunIdGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetTrainingRunApiV1ModelsRunsRunIdGetResponses, GetTrainingRunApiV1ModelsRunsRunIdGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/models/runs/{run_id}',
+        ...options
+    });
+};
+
+/**
+ * Cancel Training Run
+ *
+ * Cancel a pending or running training run (RESEARCH-API-05).
+ *
+ * Only pending/running runs can be cancelled. Already-terminal runs
+ * (succeeded, failed, cancelled) return 409.
+ */
+export const cancelTrainingRunApiV1ModelsRunsRunIdCancelPost = <ThrowOnError extends boolean = false>(options: Options<CancelTrainingRunApiV1ModelsRunsRunIdCancelPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<CancelTrainingRunApiV1ModelsRunsRunIdCancelPostResponses, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/models/runs/{run_id}/cancel',
+        ...options
+    });
+};
+
+/**
+ * Delete Model
+ *
+ * Delete a ModelVersion and its artifact files (per RESEARCH-API-09).
+ *
+ * Best-effort artifact cleanup: if the directory doesn't exist or fails
+ * to delete, the DB row is still removed. Training runs that reference
+ * this version have their FK set to NULL to prevent orphaned references.
+ */
+export const deleteModelApiV1ModelsModelIdDelete = <ThrowOnError extends boolean = false>(options: Options<DeleteModelApiV1ModelsModelIdDeleteData, ThrowOnError>) => {
+    return (options.client ?? client).delete<DeleteModelApiV1ModelsModelIdDeleteResponses, DeleteModelApiV1ModelsModelIdDeleteErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/models/{model_id}',
+        ...options
+    });
+};
+
+/**
+ * Get Model Metrics
+ *
+ * Return a ModelVersion with full metrics JSON (per RESEARCH-API-08).
+ */
+export const getModelMetricsApiV1ModelsModelIdGet = <ThrowOnError extends boolean = false>(options: Options<GetModelMetricsApiV1ModelsModelIdGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetModelMetricsApiV1ModelsModelIdGetResponses, GetModelMetricsApiV1ModelsModelIdGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/models/{model_id}',
+        ...options
+    });
+};
+
+/**
+ * Get Predictions
+ *
+ * Return predictions with optional range filtering (per D-04, D-05, D-06, PRED-03).
+ *
+ * Query modes (backward compatible per D-04):
+ * - ``?segment=test`` -- return single segment Parquet (legacy behavior)
+ * - ``?start=...&end=...`` -- load all segments, concat, filter by date range
+ * - ``?symbol=...`` -- filter by instrument
+ * - Combine: ``?start=...&end=...&symbol=...`` for precise queries
+ *
+ * When no segment and no range params provided, defaults to loading test segment
+ * for backward compatibility.
+ *
+ * Response always includes training period metadata per D-06.
+ */
+export const getPredictionsApiV1ModelsModelIdPredictionsGet = <ThrowOnError extends boolean = false>(options: Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetPredictionsApiV1ModelsModelIdPredictionsGetResponses, GetPredictionsApiV1ModelsModelIdPredictionsGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/models/{model_id}/predictions',
         ...options
     });
 };

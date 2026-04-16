@@ -2,7 +2,7 @@ import { Suspense } from "react";
 
 import type { EChartsOption } from "echarts";
 
-import type { DataGapResponse } from "@/api/poseidon/types.gen";
+import type { DataGapResponse } from "@/api/thalassa/types.gen";
 import { EChartsShell, LazyECharts } from "@/features/risk/echarts-lazy";
 
 type GapHeatmapProps = {

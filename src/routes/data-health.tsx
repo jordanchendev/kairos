@@ -3,15 +3,15 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import {
-  getDataCoverageApiDataCoverageGetOptions,
-  getDataFreshnessApiDataFreshnessGetOptions,
-  getDataGapsApiDataGapsGetOptions,
-} from "@/api/poseidon/@tanstack/react-query.gen";
+  getCoverageApiV1CoverageGetOptions,
+  getFreshnessApiV1FreshnessGetOptions,
+  getGapsApiV1GapsGetOptions,
+} from "@/api/thalassa/@tanstack/react-query.gen";
 import type {
   DataCoverageResponse,
   DataFreshnessResponse,
   DataGapResponse,
-} from "@/api/poseidon/types.gen";
+} from "@/api/thalassa/types.gen";
 import { CoverageMatrix } from "@/features/data-health/coverage-matrix";
 import { FilterBar } from "@/features/data-health/filter-bar";
 import { FreshnessPanel } from "@/features/data-health/freshness-panel";
@@ -59,7 +59,7 @@ export function DataHealthPage({
       />
       {empty ? (
         <EmptyState
-          message="Poseidon has not published freshness, coverage, or gap telemetry yet. Wait for the next data_gap_audit / ingest_freshness_watchdog beat tick or relax your filter."
+          message="Thalassa has not published freshness, coverage, or gap telemetry yet. Wait for the next data_gap_audit / ingest_freshness_watchdog beat tick or relax your filter."
           title="No data health telemetry"
         />
       ) : (
@@ -107,15 +107,15 @@ export function Component() {
   };
 
   const freshnessQuery = useQuery({
-    ...getDataFreshnessApiDataFreshnessGetOptions({ query: queryParams }),
+    ...getFreshnessApiV1FreshnessGetOptions({ query: queryParams }),
     ...getMonitoringQueryOptions("overview"),
   });
   const coverageQuery = useQuery({
-    ...getDataCoverageApiDataCoverageGetOptions({ query: queryParams }),
+    ...getCoverageApiV1CoverageGetOptions({ query: queryParams }),
     ...getMonitoringQueryOptions("overview"),
   });
   const gapsQuery = useQuery({
-    ...getDataGapsApiDataGapsGetOptions({ query: queryParams }),
+    ...getGapsApiV1GapsGetOptions({ query: queryParams }),
     ...getMonitoringQueryOptions("overview"),
   });
 
@@ -126,7 +126,7 @@ export function Component() {
         message={
           error instanceof Error
             ? error.message
-            : "Data health telemetry could not be loaded from Poseidon."
+            : "Data health telemetry could not be loaded from Thalassa."
         }
       />
     );
