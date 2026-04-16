@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     environment:
       POSEIDON_API_KEY: ${POSEIDON_API_KEY}
+      THALASSA_API_KEY: ${THALASSA_API_KEY}
     ports:
       - "80:80"
     extra_hosts:
