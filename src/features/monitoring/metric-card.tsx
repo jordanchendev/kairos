@@ -29,11 +29,11 @@ export function MetricCard({
   value,
 }: MetricCardProps) {
   return (
-    <article className={cn("panel-surface rounded-[24px] p-4 lg:p-5", className)}>
+    <article className={cn("panel-surface overflow-hidden rounded-[24px] p-4 lg:p-5", className)}>
       <div className="flex items-start justify-between gap-4">
-        <div className="space-y-2">
+        <div className="min-w-0 flex-1 space-y-2">
           <div className="text-[11px] uppercase tracking-[0.26em] text-[hsl(var(--muted-foreground))]">{label}</div>
-          <div className="text-3xl font-semibold tracking-tight text-[hsl(var(--foreground))]">{value}</div>
+          <div className="truncate text-3xl font-semibold tracking-tight text-[hsl(var(--foreground))]">{value}</div>
         </div>
         {icon ? (
           <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsla(0,0%,100%,0.03)] p-3 text-[hsl(var(--foreground))]">
