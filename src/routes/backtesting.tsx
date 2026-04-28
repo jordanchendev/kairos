@@ -77,17 +77,15 @@ export function BacktestingPage({
 
       <BacktestSummary backtest={activeBacktest} tradesCount={trades.length} />
 
-      <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
-        <PanelFrame
-          description="Click into a run to keep the page focused while rotating between completed and failed backtests."
-          eyebrow="Run Selector"
-          title="Backtest Catalog"
-        >
-          <BacktestSelector backtests={backtests} onSelectBacktest={onSelectBacktest} selectedBacktestId={activeBacktest.id} />
-        </PanelFrame>
+      <PanelFrame
+        description="Click into a run to keep the page focused while rotating between completed and failed backtests."
+        eyebrow="Run Selector"
+        title="Backtest Catalog"
+      >
+        <BacktestSelector backtests={backtests} onSelectBacktest={onSelectBacktest} selectedBacktestId={activeBacktest.id} />
+      </PanelFrame>
 
-        <BacktestDetailPanel backtest={activeBacktest} trades={trades} />
-      </div>
+      <BacktestDetailPanel backtest={activeBacktest} trades={trades} />
 
       <BacktestChartPanel backtest={activeBacktest} equityCurve={equityCurve} trades={trades} />
     </section>

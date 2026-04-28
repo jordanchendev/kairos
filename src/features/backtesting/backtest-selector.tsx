@@ -32,21 +32,23 @@ export function BacktestSelector({ backtests, onSelectBacktest, selectedBacktest
         Recent Runs
       </div>
 
-      <div className="divide-y divide-[hsl(var(--border))]">
+      <div className="grid grid-cols-1 divide-y divide-[hsl(var(--border))] md:grid-cols-2 md:divide-y-0 md:[&>*:nth-child(n+3)]:border-t md:[&>*:nth-child(n+3)]:border-[hsl(var(--border))] md:[&>*:nth-child(odd)]:border-r md:[&>*:nth-child(odd)]:border-[hsl(var(--border))] xl:grid-cols-3 xl:[&>*:nth-child(n+4)]:border-t xl:[&>*:nth-child(n+1)]:border-r xl:[&>*:nth-child(3n)]:border-r-0">
         {backtests.map((backtest) => (
           <button
             className={cn(
-              "w-full cursor-pointer px-4 py-4 text-left transition-colors duration-200 hover:bg-[hsla(190,91%,37%,0.08)]",
+              "min-w-0 cursor-pointer px-4 py-4 text-left transition-colors duration-200 hover:bg-[hsla(190,91%,37%,0.08)]",
               selectedBacktestId === backtest.id && "bg-[hsla(190,91%,37%,0.12)]",
             )}
             key={backtest.id}
             onClick={() => onSelectBacktest(backtest.id)}
             type="button"
           >
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <div className="text-base font-semibold text-[hsl(var(--foreground))]">{backtest.symbol}</div>
-                <div className="mt-1 font-mono text-xs uppercase tracking-[0.18em] text-[hsl(var(--muted-foreground))]">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-base font-semibold text-[hsl(var(--foreground))]" title={backtest.symbol || backtest.id}>
+                  {backtest.symbol || "—"}
+                </div>
+                <div className="mt-1 truncate font-mono text-xs uppercase tracking-[0.18em] text-[hsl(var(--muted-foreground))]">
                   {backtest.strategy_type}
                 </div>
               </div>
@@ -54,9 +56,9 @@ export function BacktestSelector({ backtests, onSelectBacktest, selectedBacktest
             </div>
 
             <div className="mt-3 grid gap-2 text-xs uppercase tracking-[0.18em] text-[hsl(var(--muted-foreground))] sm:grid-cols-3">
-              <span>{getMarketLabel(backtest.market)}</span>
-              <span>{backtest.interval}</span>
-              <span>{backtest.completed_at ?? backtest.created_at}</span>
+              <span className="truncate">{getMarketLabel(backtest.market)}</span>
+              <span className="truncate">{backtest.interval}</span>
+              <span className="truncate">{backtest.completed_at ?? backtest.created_at}</span>
             </div>
           </button>
         ))}
