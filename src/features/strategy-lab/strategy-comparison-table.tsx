@@ -47,7 +47,7 @@ function HeaderButton({
   return (
     <button
       className={cn(
-        "inline-flex cursor-pointer items-center gap-2 uppercase tracking-[0.22em] transition-colors duration-200 hover:text-[hsl(var(--foreground))]",
+        "inline-flex cursor-pointer items-center gap-2 whitespace-nowrap uppercase tracking-[0.22em] transition-colors duration-200 hover:text-[hsl(var(--foreground))]",
         active && "text-[hsl(var(--foreground))]",
       )}
       onClick={onClick}
@@ -99,9 +99,11 @@ export function StrategyComparisonTable({
             onClick={() => onSelectStrategy(row.strategy.id)}
             type="button"
           >
-            <div>
+            <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-3">
-                <div className="text-base font-semibold text-[hsl(var(--foreground))]">{row.strategy.name}</div>
+                <div className="break-all text-base font-semibold text-[hsl(var(--foreground))]" title={row.strategy.name}>
+                  {row.strategy.name}
+                </div>
                 <StatusBadge label={row.strategy.active ? "active" : "paused"} status={row.strategy.active ? "up" : "idle"} />
               </div>
               <div className="mt-1 font-mono text-xs uppercase tracking-[0.18em] text-[hsl(var(--muted-foreground))]">
