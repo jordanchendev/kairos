@@ -144,6 +144,7 @@ export function StrategyLabPage({
 
       <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
         <PanelFrame
+          className="min-w-0"
           description="Sortable comparison table with row highlighting and click-driven selection, aligned with the shared data-dense Phase 31 language."
           eyebrow="Comparison Surface"
           title="Ranked Strategy Grid"
