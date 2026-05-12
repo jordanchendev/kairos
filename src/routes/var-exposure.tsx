@@ -18,6 +18,7 @@ import { ExposureTreemapPanel } from "@/features/risk/exposure-treemap-panel";
 import { summarizeVarSnapshots } from "@/features/risk/var-model";
 import { VarDistributionPanel } from "@/features/risk/var-distribution-panel";
 import { VarMethodSwitcher } from "@/features/risk/var-method-switcher";
+import { isPoseidonNotFoundError } from "@/lib/api/poseidon-compat";
 import { useUiStore } from "@/stores/ui-store";
 
 type VarExposurePageProps = {
@@ -192,7 +193,10 @@ export function Component() {
 
   const summary = useMemo(() => summarizeVarSnapshots(varQuery.data ?? null), [varQuery.data]);
   const activeMethod = selectedMethod && summary.methodOptions.includes(selectedMethod) ? selectedMethod : (summary.methodOptions[0] ?? null);
-  const error = varQuery.error ?? exposureQuery.error ?? correlationQuery.error;
+  const error =
+    varQuery.error ??
+    exposureQuery.error ??
+    (isPoseidonNotFoundError(correlationQuery.error) ? null : correlationQuery.error);
 
   if (error) {
     return <ErrorState message={error instanceof Error ? error.message : "Risk metrics could not be loaded from Poseidon."} />;
