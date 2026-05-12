@@ -2,7 +2,7 @@ import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 import type { ExperimentResponse } from "@/api/poseidon/types.gen";
 import { StatusBadge } from "@/features/monitoring/status-badge";
-import { formatRatio, getMarketLabel } from "@/features/portfolio/portfolio-view-model";
+import { formatDateLabel, formatRatio, getMarketLabel } from "@/features/portfolio/portfolio-view-model";
 import { cn } from "@/lib/cn";
 
 export type ExperimentSortKey = "compositeScore" | "createdAt" | "wfeScore";
@@ -97,8 +97,10 @@ export function ExperimentTable({
             onClick={() => onSelectExperiment(experiment.id)}
             type="button"
           >
-            <div>
-              <div className="text-base font-semibold text-[hsl(var(--foreground))]">{experiment.study_name}</div>
+            <div className="min-w-0">
+              <div className="truncate text-base font-semibold text-[hsl(var(--foreground))]" title={experiment.study_name}>
+                {experiment.study_name}
+              </div>
               <div className="mt-1 font-mono text-xs uppercase tracking-[0.18em] text-[hsl(var(--muted-foreground))]">
                 {getMarketLabel(experiment.market)} · {experiment.interval}
               </div>
@@ -106,7 +108,7 @@ export function ExperimentTable({
 
             <div className="text-sm text-[hsl(var(--foreground))]">{formatRatio(experiment.composite_score)}</div>
             <div className="text-sm text-[hsl(var(--foreground))]">{formatRatio(experiment.wfe_score)}</div>
-            <div className="text-sm text-[hsl(var(--foreground))]">{experiment.created_at}</div>
+            <div className="text-sm text-[hsl(var(--foreground))]">{formatDateLabel(experiment.created_at)}</div>
             <div>
               <StatusBadge label={experiment.status} status={getExperimentStatusTone(experiment.status)} />
             </div>

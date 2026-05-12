@@ -76,7 +76,17 @@ export function HoldingsTable({ holdings }: HoldingsTableProps) {
           return (
             <article className="grid gap-4 px-4 py-4 lg:grid-cols-[1.2fr_1fr_0.8fr_1fr_1fr_0.9fr_0.9fr]" key={`${holding.market}:${holding.symbol}`}>
               <div>
-                <div className="text-base font-semibold text-[hsl(var(--foreground))]">{holding.symbol}</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-base font-semibold text-[hsl(var(--foreground))]">{holding.symbol}</span>
+                  <span
+                    className={cn(
+                      "inline-flex rounded-full px-2 py-0.5 text-[10px] uppercase tracking-[0.2em]",
+                      holding.side === "short" ? "bg-rose-500/12 text-rose-200" : "bg-emerald-500/12 text-emerald-200",
+                    )}
+                  >
+                    {holding.side ?? "long"}
+                  </span>
+                </div>
                 <div className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">Opened {formatDateLabel(holding.entry_date)}</div>
               </div>
               <div className="flex items-center">

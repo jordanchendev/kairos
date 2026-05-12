@@ -36,7 +36,7 @@ function formatDuration(startedAt: string | null, finishedAt: string | null): st
 }
 
 function formatMetricValue(value: number): string {
-  return value.toFixed(4);
+  return value.toFixed(6);
 }
 
 function formatRelativeTime(iso: string): string {

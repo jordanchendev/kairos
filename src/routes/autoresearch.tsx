@@ -86,24 +86,22 @@ export function AutoResearchPage({
         </p>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-        <PanelFrame
-          description="Sortable experiment scanning surface with row highlighting and explicit click selection."
-          eyebrow="Experiment Review"
-          title="Experiment Grid"
-        >
-          <ExperimentTable
-            experiments={experiments}
-            onSelectExperiment={onSelectExperiment}
-            onSortChange={onSortChange}
-            selectedExperimentId={selectedExperimentId}
-            sortDirection={sortDirection}
-            sortKey={sortKey}
-          />
-        </PanelFrame>
+      <PanelFrame
+        description="Sortable experiment scanning surface with row highlighting and explicit click selection."
+        eyebrow="Experiment Review"
+        title="Experiment Grid"
+      >
+        <ExperimentTable
+          experiments={experiments}
+          onSelectExperiment={onSelectExperiment}
+          onSortChange={onSortChange}
+          selectedExperimentId={selectedExperimentId}
+          sortDirection={sortDirection}
+          sortKey={sortKey}
+        />
+      </PanelFrame>
 
-        <ExperimentDetailPanel experiment={selectedExperiment} />
-      </div>
+      <ExperimentDetailPanel experiment={selectedExperiment} />
 
       <ParameterScatter experiments={experiments} selectedExperimentId={selectedExperimentId} />
     </section>

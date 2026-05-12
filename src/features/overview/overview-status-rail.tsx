@@ -58,7 +58,7 @@ export function OverviewStatusRail({
       value: formatCompactCurrency(holdingsSummary.totalUnrealizedPnl),
     },
     {
-      detail: `${performance.total_trades} realized trades`,
+      detail: `${performance.total_trades} realized trades · ${(performance.total_return_pct * 100).toFixed(2)}% return`,
       label: "Signal Rate",
       value: `${signalsCount}`,
     },
