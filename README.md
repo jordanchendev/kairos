@@ -20,10 +20,12 @@ npm run api:generate
 npm run dev
 ```
 
-The dev server runs on `http://localhost:5173` and proxies:
+The dev server runs on `http://localhost:5173` and the frontend runtime talks to same-origin proxy bases:
 
-- `/api/poseidon/*` -> `http://localhost:8001/*`
-- `/api/triton/*` -> `http://localhost:8000/*`
+- `/poseidon/*`
+- `/triton/*`
+
+The exact local proxy wiring is handled by the generated client runtime and Vite config; generated clients remain the only approved API access path.
 
 Generated clients are the only approved API access path. Raw `fetch()` and `axios` imports are lint-blocked outside generated code.
 
@@ -32,12 +34,18 @@ Generated clients are the only approved API access path. Raw `fetch()` and `axio
 - `src/app/` - shell, nav model, command menu
 - `src/routes/` - lazy placeholder routes for the Phase 29 view map
 - `src/lib/` - shared runtime, query client, utilities
-- `deploy/nginx/` - stormtrooper Nginx site config
+- `deploy/nginx/` - optional Nginx site config matching the production proxy namespaces
+- `deploy/stormtrooper/` - production Caddy + Compose deployment files
 - `scripts/` - repeatable deploy and smoke-check entrypoints
 
 ## Production Deployment
 
-Build the SPA locally or on CI, sync `dist/` to the stormtrooper frontend directory, then install `deploy/nginx/kairos.conf` as the site definition on the host. The config keeps the same `/api/poseidon` and `/api/triton` namespaces used in local development, so production stays same-origin and does not rely on CORS.
+Production on `stormtrooper` currently uses the Caddy-based deployment in `deploy/stormtrooper/`. It serves the SPA at `/` and proxies backend traffic through the same-origin namespaces:
+
+- `/poseidon/*` -> Poseidon
+- `/triton/*` -> Triton
+
+`deploy/nginx/kairos.conf` is kept as an alternative host config and follows the same proxy contract.
 
 Typical flow:
 
@@ -54,4 +62,4 @@ After deployment, run:
 BASE_URL=https://your-kairos-host.example.com npm run smoke:prod
 ```
 
-The deploy script prints or syncs the Nginx site path, and the smoke script checks `/`, `/api/poseidon/health`, and `/api/triton/health`.
+The smoke script checks `/`, `/portfolio`, `/poseidon/api/portfolio/performance`, and `/triton/health`.
