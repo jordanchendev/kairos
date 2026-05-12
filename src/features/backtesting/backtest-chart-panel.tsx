@@ -53,7 +53,7 @@ export function BacktestChartPanel({ backtest, equityCurve, trades }: BacktestCh
     price: trade.exit_price ?? trade.entry_price,
     time: trade.exit_time ?? trade.entry_time,
   }));
-  const maxDrawdown = Math.min(...equityCurve.data.map((point) => point.drawdown));
+  const maxDrawdown = Math.max(...equityCurve.data.map((point) => point.drawdown));
   const latestEquity = equityCurve.data.at(-1)?.equity ?? 0;
 
   return (
