@@ -486,8 +486,8 @@ export const getStrategyPerformanceApiStrategiesStrategyIdPerformanceGetQueryKey
  * Get aggregated performance metrics for a strategy from its backtests.
  *
  * Returns both the 'best' backtest (highest composite score) and 'latest'
- * backtest (most recent completed_at). Per D-04: backtest-only aggregation,
- * live trade data deferred per D-06.
+ * backtest (most recent completed_at). Backtest-only aggregation; live trade
+ * data deferred.
  */
 export const getStrategyPerformanceApiStrategiesStrategyIdPerformanceGetOptions = (options: Options<GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData>) => queryOptions<GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetError, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse, ReturnType<typeof getStrategyPerformanceApiStrategiesStrategyIdPerformanceGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -904,7 +904,7 @@ export const getVarApiRiskVarGetQueryKey = (options?: Options<GetVarApiRiskVarGe
 /**
  * Get Var
  *
- * Return current VaR snapshots from all methods (per D-13).
+ * Return current VaR snapshots from all methods.
  */
 export const getVarApiRiskVarGetOptions = (options?: Options<GetVarApiRiskVarGetData>) => queryOptions<GetVarApiRiskVarGetResponse, DefaultError, GetVarApiRiskVarGetResponse, ReturnType<typeof getVarApiRiskVarGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -924,7 +924,7 @@ export const getExposureApiRiskExposureGetQueryKey = (options?: Options<GetExpos
 /**
  * Get Exposure
  *
- * Return portfolio exposure breakdown by market and total (per D-13).
+ * Return portfolio exposure breakdown by market and total.
  *
  * Rebuilds VirtualPortfolio from DB signals, then aggregates
  * quantity_pct by market.
@@ -945,7 +945,7 @@ export const getExposureApiRiskExposureGetOptions = (options?: Options<GetExposu
 /**
  * Trigger Stress Test
  *
- * Trigger async stress test (per D-12). Returns task_id for polling.
+ * Trigger async stress test. Returns task_id for polling.
  */
 export const triggerStressTestApiRiskStressTestRunPostMutation = (options?: Partial<Options<TriggerStressTestApiRiskStressTestRunPostData>>): UseMutationOptions<TriggerStressTestApiRiskStressTestRunPostResponse, TriggerStressTestApiRiskStressTestRunPostError, Options<TriggerStressTestApiRiskStressTestRunPostData>> => {
     const mutationOptions: UseMutationOptions<TriggerStressTestApiRiskStressTestRunPostResponse, TriggerStressTestApiRiskStressTestRunPostError, Options<TriggerStressTestApiRiskStressTestRunPostData>> = {
@@ -966,7 +966,7 @@ export const getStressTestResultApiRiskStressTestTaskIdGetQueryKey = (options: O
 /**
  * Get Stress Test Result
  *
- * Poll stress test result by task_id (per D-12).
+ * Poll stress test result by task_id.
  */
 export const getStressTestResultApiRiskStressTestTaskIdGetOptions = (options: Options<GetStressTestResultApiRiskStressTestTaskIdGetData>) => queryOptions<GetStressTestResultApiRiskStressTestTaskIdGetResponse, GetStressTestResultApiRiskStressTestTaskIdGetError, GetStressTestResultApiRiskStressTestTaskIdGetResponse, ReturnType<typeof getStressTestResultApiRiskStressTestTaskIdGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -986,7 +986,7 @@ export const getAlertsApiRiskAlertsGetQueryKey = (options?: Options<GetAlertsApi
 /**
  * Get Alerts
  *
- * Return risk alert history from Redis Stream with limit/offset pagination (per D-14).
+ * Return risk alert history from Redis Stream with limit/offset pagination.
  *
  * Reads from poseidon:alerts:risk stream using XREVRANGE (newest first).
  * Offset implemented by skipping first ``offset`` entries from the reversed stream.
@@ -1012,7 +1012,7 @@ export const getAlertsApiRiskAlertsGetInfiniteQueryKey = (options?: Options<GetA
 /**
  * Get Alerts
  *
- * Return risk alert history from Redis Stream with limit/offset pagination (per D-14).
+ * Return risk alert history from Redis Stream with limit/offset pagination.
  *
  * Reads from poseidon:alerts:risk stream using XREVRANGE (newest first).
  * Offset implemented by skipping first ``offset`` entries from the reversed stream.
@@ -1132,7 +1132,7 @@ export const getPerpHoldingsApiPortfolioPerpHoldingsGetQueryKey = (options?: Opt
 /**
  * Get Perp Holdings
  *
- * Return perp-specific holdings with leverage, liquidation, and margin detail (D-09).
+ * Return perp-specific holdings with leverage, liquidation, and margin detail.
  */
 export const getPerpHoldingsApiPortfolioPerpHoldingsGetOptions = (options?: Options<GetPerpHoldingsApiPortfolioPerpHoldingsGetData>) => queryOptions<GetPerpHoldingsApiPortfolioPerpHoldingsGetResponse, DefaultError, GetPerpHoldingsApiPortfolioPerpHoldingsGetResponse, ReturnType<typeof getPerpHoldingsApiPortfolioPerpHoldingsGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -1215,8 +1215,8 @@ export const getCapabilitiesApiV1CapabilitiesGetQueryKey = (options?: Options<Ge
  *
  * Return capability flags matrix for all registered components.
  *
- * Per D-11: flat matrix grouped by component_type.
- * Per D-13: supports optional query params for filtering.
+ * Flat matrix grouped by component_type. Supports optional query params for
+ * filtering.
  */
 export const getCapabilitiesApiV1CapabilitiesGetOptions = (options?: Options<GetCapabilitiesApiV1CapabilitiesGetData>) => queryOptions<GetCapabilitiesApiV1CapabilitiesGetResponse, GetCapabilitiesApiV1CapabilitiesGetError, GetCapabilitiesApiV1CapabilitiesGetResponse, ReturnType<typeof getCapabilitiesApiV1CapabilitiesGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -1236,7 +1236,7 @@ export const getActiveLocksApiV1ProtectionsLocksGetQueryKey = (options?: Options
 /**
  * Get Active Locks
  *
- * Return all active protection locks with optional filters (D-18).
+ * Return all active protection locks with optional filters.
  */
 export const getActiveLocksApiV1ProtectionsLocksGetOptions = (options?: Options<GetActiveLocksApiV1ProtectionsLocksGetData>) => queryOptions<GetActiveLocksApiV1ProtectionsLocksGetResponse, GetActiveLocksApiV1ProtectionsLocksGetError, GetActiveLocksApiV1ProtectionsLocksGetResponse, ReturnType<typeof getActiveLocksApiV1ProtectionsLocksGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -1256,7 +1256,7 @@ export const getLockHistoryApiV1ProtectionsHistoryGetQueryKey = (options?: Optio
 /**
  * Get Lock History
  *
- * Return expired/released protection locks with pagination (D-19).
+ * Return expired/released protection locks with pagination.
  */
 export const getLockHistoryApiV1ProtectionsHistoryGetOptions = (options?: Options<GetLockHistoryApiV1ProtectionsHistoryGetData>) => queryOptions<GetLockHistoryApiV1ProtectionsHistoryGetResponse, GetLockHistoryApiV1ProtectionsHistoryGetError, GetLockHistoryApiV1ProtectionsHistoryGetResponse, ReturnType<typeof getLockHistoryApiV1ProtectionsHistoryGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -1276,7 +1276,7 @@ export const getLockHistoryApiV1ProtectionsHistoryGetInfiniteQueryKey = (options
 /**
  * Get Lock History
  *
- * Return expired/released protection locks with pagination (D-19).
+ * Return expired/released protection locks with pagination.
  */
 export const getLockHistoryApiV1ProtectionsHistoryGetInfiniteOptions = (options?: Options<GetLockHistoryApiV1ProtectionsHistoryGetData>) => {
     return infiniteQueryOptions<GetLockHistoryApiV1ProtectionsHistoryGetResponse, GetLockHistoryApiV1ProtectionsHistoryGetError, InfiniteData<GetLockHistoryApiV1ProtectionsHistoryGetResponse>, QueryKey<Options<GetLockHistoryApiV1ProtectionsHistoryGetData>>, number | Pick<QueryKey<Options<GetLockHistoryApiV1ProtectionsHistoryGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
@@ -1305,7 +1305,7 @@ export const getLockHistoryApiV1ProtectionsHistoryGetInfiniteOptions = (options?
 /**
  * Override Lock
  *
- * Manually release an active protection lock (D-20).
+ * Manually release an active protection lock.
  */
 export const overrideLockApiV1ProtectionsLocksLockIdOverridePostMutation = (options?: Partial<Options<OverrideLockApiV1ProtectionsLocksLockIdOverridePostData>>): UseMutationOptions<OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponse, OverrideLockApiV1ProtectionsLocksLockIdOverridePostError, Options<OverrideLockApiV1ProtectionsLocksLockIdOverridePostData>> => {
     const mutationOptions: UseMutationOptions<OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponse, OverrideLockApiV1ProtectionsLocksLockIdOverridePostError, Options<OverrideLockApiV1ProtectionsLocksLockIdOverridePostData>> = {
@@ -1454,8 +1454,8 @@ export const getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetOptions = (optio
  *
  * Create a training run and dispatch to qlib_queue (RESEARCH-API-01).
  *
- * Validates handler_class and model_class against the static allowlist
- * (D-08/D-09). Unknown classes are rejected with 422 before any DB write.
+ * Validates handler_class and model_class against the static allowlist.
+ * Unknown classes are rejected with 422 before any DB write.
  * Uses ``send_task`` to dispatch -- the qlib_tasks module is NOT imported
  * in this file to avoid pulling qlib/mlflow into the cp313 process.
  */
@@ -1623,9 +1623,9 @@ export const getPredictionsApiV1ModelsModelIdPredictionsGetQueryKey = (options: 
 /**
  * Get Predictions
  *
- * Return predictions with optional range filtering (per D-04, D-05, D-06, PRED-03).
+ * Return predictions with optional range filtering (PRED-03).
  *
- * Query modes (backward compatible per D-04):
+ * Query modes (backward compatible):
  * - ``?segment=test`` -- return single segment Parquet (legacy behavior)
  * - ``?start=...&end=...`` -- load all segments, concat, filter by date range
  * - ``?symbol=...`` -- filter by instrument
@@ -1634,7 +1634,7 @@ export const getPredictionsApiV1ModelsModelIdPredictionsGetQueryKey = (options: 
  * When no segment and no range params provided, defaults to loading test segment
  * for backward compatibility.
  *
- * Response always includes training period metadata per D-06.
+ * Response always includes training period metadata.
  */
 export const getPredictionsApiV1ModelsModelIdPredictionsGetOptions = (options: Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>) => queryOptions<GetPredictionsApiV1ModelsModelIdPredictionsGetResponse, GetPredictionsApiV1ModelsModelIdPredictionsGetError, GetPredictionsApiV1ModelsModelIdPredictionsGetResponse, ReturnType<typeof getPredictionsApiV1ModelsModelIdPredictionsGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -1654,9 +1654,9 @@ export const getPredictionsApiV1ModelsModelIdPredictionsGetInfiniteQueryKey = (o
 /**
  * Get Predictions
  *
- * Return predictions with optional range filtering (per D-04, D-05, D-06, PRED-03).
+ * Return predictions with optional range filtering (PRED-03).
  *
- * Query modes (backward compatible per D-04):
+ * Query modes (backward compatible):
  * - ``?segment=test`` -- return single segment Parquet (legacy behavior)
  * - ``?start=...&end=...`` -- load all segments, concat, filter by date range
  * - ``?symbol=...`` -- filter by instrument
@@ -1665,7 +1665,7 @@ export const getPredictionsApiV1ModelsModelIdPredictionsGetInfiniteQueryKey = (o
  * When no segment and no range params provided, defaults to loading test segment
  * for backward compatibility.
  *
- * Response always includes training period metadata per D-06.
+ * Response always includes training period metadata.
  */
 export const getPredictionsApiV1ModelsModelIdPredictionsGetInfiniteOptions = (options: Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>) => {
     return infiniteQueryOptions<GetPredictionsApiV1ModelsModelIdPredictionsGetResponse, GetPredictionsApiV1ModelsModelIdPredictionsGetError, InfiniteData<GetPredictionsApiV1ModelsModelIdPredictionsGetResponse>, QueryKey<Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>>, string | null | Pick<QueryKey<Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(

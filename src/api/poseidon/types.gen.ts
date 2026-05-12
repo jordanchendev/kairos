@@ -317,7 +317,7 @@ export type BacktestTradeResponse = {
 /**
  * CapabilitiesResponse
  *
- * Full capabilities matrix. Per D-11.
+ * Full capabilities matrix.
  */
 export type CapabilitiesResponse = {
     /**
@@ -333,7 +333,7 @@ export type CapabilitiesResponse = {
 /**
  * CentralityAnalysisRequest
  *
- * Request body for triggering centrality analysis (D-22).
+ * Request body for triggering centrality analysis.
  */
 export type CentralityAnalysisRequest = {
     /**
@@ -343,7 +343,7 @@ export type CentralityAnalysisRequest = {
     /**
      * Sub Signals
      *
-     * VotingStrategy sub-signal configs to evaluate (D-11)
+     * VotingStrategy sub-signal configs to evaluate
      */
     sub_signals: Array<{
         [key: string]: unknown;
@@ -369,7 +369,7 @@ export type CentralityAnalysisRequest = {
     /**
      * Distance Threshold
      *
-     * Clustering distance threshold (D-10)
+     * Clustering distance threshold
      */
     distance_threshold?: number;
 };
@@ -377,7 +377,7 @@ export type CentralityAnalysisRequest = {
 /**
  * ComponentCapabilityResponse
  *
- * Single component capability entry. Per D-12.
+ * Single component capability entry.
  */
 export type ComponentCapabilityResponse = {
     /**
@@ -549,7 +549,7 @@ export type ExposureResponse = {
 /**
  * FactorAnalysisRunListResponse
  *
- * Paginated list response for factor analysis runs (D-23).
+ * Paginated list response for factor analysis runs.
  */
 export type FactorAnalysisRunListResponse = {
     /**
@@ -621,7 +621,7 @@ export type FactorAnalysisRunResponse = {
 /**
  * FactorAnalysisTriggerResponse
  *
- * Response for POST trigger endpoints (D-20, D-21, D-22).
+ * Response for POST trigger endpoints.
  */
 export type FactorAnalysisTriggerResponse = {
     /**
@@ -707,7 +707,7 @@ export type HoldingsResponse = {
 /**
  * ICAnalysisRequest
  *
- * Request body for triggering IC analysis (D-20).
+ * Request body for triggering IC analysis.
  */
 export type IcAnalysisRequest = {
     /**
@@ -735,7 +735,7 @@ export type IcAnalysisRequest = {
     /**
      * Horizons
      *
-     * Forward return horizons in days (D-02)
+     * Forward return horizons in days
      */
     horizons?: Array<number>;
     /**
@@ -1245,7 +1245,7 @@ export type PredictRequest = {
 /**
  * PredictionResponse
  *
- * Response for GET /models/{id}/predictions with range query (per D-04, D-06, PRED-03).
+ * Response for GET /models/{id}/predictions with range query (PRED-03).
  *
  * Includes training period metadata alongside prediction data so consumers
  * know the model's temporal boundary.
@@ -1534,13 +1534,13 @@ export type SentimentResponse = {
 /**
  * ShapleyAnalysisRequest
  *
- * Request body for triggering Shapley analysis (D-21).
+ * Request body for triggering Shapley analysis.
  */
 export type ShapleyAnalysisRequest = {
     /**
      * Model Version Id
      *
-     * UUID of trained ModelVersion (D-07)
+     * UUID of trained ModelVersion
      */
     model_version_id: string;
     /**
@@ -1968,7 +1968,7 @@ export type TrainingRunDetailResponse = {
 /**
  * TrainingRunListResponse
  *
- * Paginated list response for GET /runs (per D-23).
+ * Paginated list response for GET /runs.
  */
 export type TrainingRunListResponse = {
     /**
@@ -2214,7 +2214,7 @@ export type PoseidonApiModelsTrainRequest = {
 /**
  * TrainRequest
  *
- * Request body for POST /api/v1/models/train (per D-01, RESEARCH-API-01).
+ * Request body for POST /api/v1/models/train (RESEARCH-API-01).
  */
 export type PoseidonCoreSchemasTrainRequest = {
     /**

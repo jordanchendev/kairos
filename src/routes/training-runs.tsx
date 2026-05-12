@@ -161,7 +161,7 @@ function PageHeader() {
   return (
     <div className="space-y-2">
       <div className="text-xs uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]">
-        Research Route &middot; Phase 41
+        Research Route
       </div>
       <h1 className="text-3xl font-semibold text-[hsl(var(--foreground))]">
         Training Runs

@@ -143,7 +143,7 @@ export function StrategyLabPage({
       </div>
 
       <PanelFrame
-        description="Sortable comparison table with row highlighting and click-driven selection, aligned with the shared data-dense Phase 31 language."
+        description="Sortable comparison table with row highlighting and click-driven selection, aligned with the shared data-dense visual language."
         eyebrow="Comparison Surface"
         title="Ranked Strategy Grid"
       >

@@ -77,7 +77,7 @@ function PageHeader() {
   return (
     <div className="space-y-2">
       <div className="text-xs uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]">
-        System Route &middot; Phase 40
+        System Route
       </div>
       <h1 className="text-3xl font-semibold text-[hsl(var(--foreground))]">
         Data Health

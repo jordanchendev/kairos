@@ -1,5 +1,5 @@
 // TODO: regen from live API on deploy — replace with generated SDK hooks
-// once Poseidon API is deployed with Phase 41 endpoints.
+// once Poseidon API is deployed with the training-run endpoints.
 
 import { client } from "@/api/poseidon/client.gen";
 

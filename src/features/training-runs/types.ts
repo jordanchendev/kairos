@@ -1,5 +1,5 @@
 // TODO: regen from live API on deploy — these types mirror the Pydantic schemas
-// from poseidon/src/poseidon/api/research_api.py (Phase 41 Plan 01).
+// from poseidon/src/poseidon/api/research_api.py.
 // Once the Poseidon API is deployed with the new endpoints and the OpenAPI spec
 // is regenerated via `npm run api:generate`, replace these with the generated types.
 

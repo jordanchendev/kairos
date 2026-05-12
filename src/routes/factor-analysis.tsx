@@ -71,7 +71,7 @@ export function FactorAnalysisPage({
     <section className="space-y-6" data-page-id="factor-analysis">
       <div className="space-y-2">
         <div className="text-xs uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]">
-          Research Route &middot; Phase 47
+          Research Route
         </div>
         <h1 className="text-3xl font-semibold text-[hsl(var(--foreground))]">Factor Analysis</h1>
         <p className="max-w-3xl text-sm leading-6 text-[hsl(var(--muted-foreground))]">

@@ -15,7 +15,7 @@ export function CoverageMatrix({ rows, onlyNonGreen }: CoverageMatrixProps) {
     >
       <header className="space-y-1">
         <div className="text-xs uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]">
-          Phase 39 / COVERAGE-01..02
+          COVERAGE-01..02
         </div>
         <h2 className="text-xl font-semibold text-[hsl(var(--foreground))]">
           Coverage matrix

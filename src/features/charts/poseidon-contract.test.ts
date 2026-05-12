@@ -19,13 +19,13 @@ const requiredResearchPaths = [
 ];
 
 describe("Poseidon research API contract", () => {
-  it("includes Phase 31 chart endpoints in the cached OpenAPI spec", () => {
+  it("includes chart endpoints in the cached OpenAPI spec", () => {
     const spec = JSON.parse(readFileSync(poseidonSpecPath, "utf8")) as { paths: Record<string, unknown> };
 
     expect(Object.keys(spec.paths)).toEqual(expect.arrayContaining(requiredResearchPaths));
   });
 
-  it("exposes Phase 31 chart endpoints through the generated SDK", () => {
+  it("exposes chart endpoints through the generated SDK", () => {
     const sdkSource = readFileSync(poseidonSdkPath, "utf8");
     const typesSource = readFileSync(poseidonTypesPath, "utf8");
 

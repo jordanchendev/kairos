@@ -20,7 +20,7 @@ export function GapHeatmap({ gaps, onlyNonGreen }: GapHeatmapProps) {
   return (
     <EChartsShell
       description="Each cell shows missing_bars for one (symbol, interval) gap window. Darker red = more missing bars."
-      eyebrow="Phase 40 / COVERAGE-04"
+      eyebrow="COVERAGE-04"
       title="Gap heatmap"
     >
       <div className="space-y-4">

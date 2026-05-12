@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
-describe("phase 32 risk foundation", () => {
+describe("risk foundation", () => {
   it("normalizes provider health and risk payloads into route-safe models", async () => {
     const providerModule = await import("./provider-health-model").catch(() => null);
     const riskModule = await import("./var-model").catch(() => null);
@@ -92,13 +92,13 @@ describe("phase 32 risk foundation", () => {
     }
 
     const markup = renderToStaticMarkup(
-      <chartsModule.EChartsShell description="Phase 32 chart boundary" title="Risk Histogram">
+      <chartsModule.EChartsShell description="chart boundary" title="Risk Histogram">
         <div>chart payload</div>
       </chartsModule.EChartsShell>,
     );
 
     expect(markup).toContain("Risk Histogram");
-    expect(markup).toContain("Phase 32 chart boundary");
+    expect(markup).toContain("chart boundary");
     expect(markup).toContain("chart payload");
     expect(markup).toContain("data-echarts-shell");
     expect("LazyECharts" in chartsModule).toBe(true);

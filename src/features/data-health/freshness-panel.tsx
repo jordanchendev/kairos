@@ -21,7 +21,7 @@ export function FreshnessPanel({ records, onlyNonGreen }: FreshnessPanelProps) {
     >
       <header className="space-y-1">
         <div className="text-xs uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]">
-          Phase 40 / FRESH-01..04
+          FRESH-01..04
         </div>
         <h2 className="text-xl font-semibold text-[hsl(var(--foreground))]">
           Ingest freshness

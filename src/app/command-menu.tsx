@@ -54,7 +54,7 @@ export function CommandMenu({ items }: CommandMenuProps) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Command Menu</DialogTitle>
-            <DialogDescription>Phase 29 ships a navigation-first command palette stub for the full route map.</DialogDescription>
+            <DialogDescription>Navigation-first command palette stub for the full route map.</DialogDescription>
           </DialogHeader>
           <div className="mt-4 space-y-4">
             <label className="flex items-center gap-3 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-4 py-3 text-sm text-[hsl(var(--muted-foreground))]">

@@ -386,8 +386,8 @@ export const deactivateStrategyApiStrategiesStrategyIdDeactivatePost = <ThrowOnE
  * Get aggregated performance metrics for a strategy from its backtests.
  *
  * Returns both the 'best' backtest (highest composite score) and 'latest'
- * backtest (most recent completed_at). Per D-04: backtest-only aggregation,
- * live trade data deferred per D-06.
+ * backtest (most recent completed_at). Backtest-only aggregation; live trade
+ * data deferred.
  */
 export const getStrategyPerformanceApiStrategiesStrategyIdPerformanceGet = <ThrowOnError extends boolean = false>(options: Options<GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData, ThrowOnError>) => {
     return (options.client ?? client).get<GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetErrors, ThrowOnError>({
@@ -805,7 +805,7 @@ export const listExperimentsApiAutoresearchExperimentsGet = <ThrowOnError extend
 /**
  * Get Var
  *
- * Return current VaR snapshots from all methods (per D-13).
+ * Return current VaR snapshots from all methods.
  */
 export const getVarApiRiskVarGet = <ThrowOnError extends boolean = false>(options?: Options<GetVarApiRiskVarGetData, ThrowOnError>) => {
     return (options?.client ?? client).get<GetVarApiRiskVarGetResponses, unknown, ThrowOnError>({
@@ -823,7 +823,7 @@ export const getVarApiRiskVarGet = <ThrowOnError extends boolean = false>(option
 /**
  * Get Exposure
  *
- * Return portfolio exposure breakdown by market and total (per D-13).
+ * Return portfolio exposure breakdown by market and total.
  *
  * Rebuilds VirtualPortfolio from DB signals, then aggregates
  * quantity_pct by market.
@@ -844,7 +844,7 @@ export const getExposureApiRiskExposureGet = <ThrowOnError extends boolean = fal
 /**
  * Trigger Stress Test
  *
- * Trigger async stress test (per D-12). Returns task_id for polling.
+ * Trigger async stress test. Returns task_id for polling.
  */
 export const triggerStressTestApiRiskStressTestRunPost = <ThrowOnError extends boolean = false>(options: Options<TriggerStressTestApiRiskStressTestRunPostData, ThrowOnError>) => {
     return (options.client ?? client).post<TriggerStressTestApiRiskStressTestRunPostResponses, TriggerStressTestApiRiskStressTestRunPostErrors, ThrowOnError>({
@@ -866,7 +866,7 @@ export const triggerStressTestApiRiskStressTestRunPost = <ThrowOnError extends b
 /**
  * Get Stress Test Result
  *
- * Poll stress test result by task_id (per D-12).
+ * Poll stress test result by task_id.
  */
 export const getStressTestResultApiRiskStressTestTaskIdGet = <ThrowOnError extends boolean = false>(options: Options<GetStressTestResultApiRiskStressTestTaskIdGetData, ThrowOnError>) => {
     return (options.client ?? client).get<GetStressTestResultApiRiskStressTestTaskIdGetResponses, GetStressTestResultApiRiskStressTestTaskIdGetErrors, ThrowOnError>({
@@ -884,7 +884,7 @@ export const getStressTestResultApiRiskStressTestTaskIdGet = <ThrowOnError exten
 /**
  * Get Alerts
  *
- * Return risk alert history from Redis Stream with limit/offset pagination (per D-14).
+ * Return risk alert history from Redis Stream with limit/offset pagination.
  *
  * Reads from poseidon:alerts:risk stream using XREVRANGE (newest first).
  * Offset implemented by skipping first ``offset`` entries from the reversed stream.
@@ -983,7 +983,7 @@ export const getOrdersApiPortfolioOrdersGet = <ThrowOnError extends boolean = fa
 /**
  * Get Perp Holdings
  *
- * Return perp-specific holdings with leverage, liquidation, and margin detail (D-09).
+ * Return perp-specific holdings with leverage, liquidation, and margin detail.
  */
 export const getPerpHoldingsApiPortfolioPerpHoldingsGet = <ThrowOnError extends boolean = false>(options?: Options<GetPerpHoldingsApiPortfolioPerpHoldingsGetData, ThrowOnError>) => {
     return (options?.client ?? client).get<GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses, unknown, ThrowOnError>({
@@ -1026,8 +1026,8 @@ export const getNotificationsApiNotificationsGet = <ThrowOnError extends boolean
  *
  * Return capability flags matrix for all registered components.
  *
- * Per D-11: flat matrix grouped by component_type.
- * Per D-13: supports optional query params for filtering.
+ * Flat matrix grouped by component_type. Supports optional query params for
+ * filtering.
  */
 export const getCapabilitiesApiV1CapabilitiesGet = <ThrowOnError extends boolean = false>(options?: Options<GetCapabilitiesApiV1CapabilitiesGetData, ThrowOnError>) => {
     return (options?.client ?? client).get<GetCapabilitiesApiV1CapabilitiesGetResponses, GetCapabilitiesApiV1CapabilitiesGetErrors, ThrowOnError>({
@@ -1045,7 +1045,7 @@ export const getCapabilitiesApiV1CapabilitiesGet = <ThrowOnError extends boolean
 /**
  * Get Active Locks
  *
- * Return all active protection locks with optional filters (D-18).
+ * Return all active protection locks with optional filters.
  */
 export const getActiveLocksApiV1ProtectionsLocksGet = <ThrowOnError extends boolean = false>(options?: Options<GetActiveLocksApiV1ProtectionsLocksGetData, ThrowOnError>) => {
     return (options?.client ?? client).get<GetActiveLocksApiV1ProtectionsLocksGetResponses, GetActiveLocksApiV1ProtectionsLocksGetErrors, ThrowOnError>({
@@ -1063,7 +1063,7 @@ export const getActiveLocksApiV1ProtectionsLocksGet = <ThrowOnError extends bool
 /**
  * Get Lock History
  *
- * Return expired/released protection locks with pagination (D-19).
+ * Return expired/released protection locks with pagination.
  */
 export const getLockHistoryApiV1ProtectionsHistoryGet = <ThrowOnError extends boolean = false>(options?: Options<GetLockHistoryApiV1ProtectionsHistoryGetData, ThrowOnError>) => {
     return (options?.client ?? client).get<GetLockHistoryApiV1ProtectionsHistoryGetResponses, GetLockHistoryApiV1ProtectionsHistoryGetErrors, ThrowOnError>({
@@ -1081,7 +1081,7 @@ export const getLockHistoryApiV1ProtectionsHistoryGet = <ThrowOnError extends bo
 /**
  * Override Lock
  *
- * Manually release an active protection lock (D-20).
+ * Manually release an active protection lock.
  */
 export const overrideLockApiV1ProtectionsLocksLockIdOverridePost = <ThrowOnError extends boolean = false>(options: Options<OverrideLockApiV1ProtectionsLocksLockIdOverridePostData, ThrowOnError>) => {
     return (options.client ?? client).post<OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses, OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors, ThrowOnError>({
@@ -1203,8 +1203,8 @@ export const getFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGet = <ThrowOnError
  *
  * Create a training run and dispatch to qlib_queue (RESEARCH-API-01).
  *
- * Validates handler_class and model_class against the static allowlist
- * (D-08/D-09). Unknown classes are rejected with 422 before any DB write.
+ * Validates handler_class and model_class against the static allowlist.
+ * Unknown classes are rejected with 422 before any DB write.
  * Uses ``send_task`` to dispatch -- the qlib_tasks module is NOT imported
  * in this file to avoid pulling qlib/mlflow into the cp313 process.
  */
@@ -1331,9 +1331,9 @@ export const getModelMetricsApiV1ModelsModelIdGet = <ThrowOnError extends boolea
 /**
  * Get Predictions
  *
- * Return predictions with optional range filtering (per D-04, D-05, D-06, PRED-03).
+ * Return predictions with optional range filtering (PRED-03).
  *
- * Query modes (backward compatible per D-04):
+ * Query modes (backward compatible):
  * - ``?segment=test`` -- return single segment Parquet (legacy behavior)
  * - ``?start=...&end=...`` -- load all segments, concat, filter by date range
  * - ``?symbol=...`` -- filter by instrument
@@ -1342,7 +1342,7 @@ export const getModelMetricsApiV1ModelsModelIdGet = <ThrowOnError extends boolea
  * When no segment and no range params provided, defaults to loading test segment
  * for backward compatibility.
  *
- * Response always includes training period metadata per D-06.
+ * Response always includes training period metadata.
  */
 export const getPredictionsApiV1ModelsModelIdPredictionsGet = <ThrowOnError extends boolean = false>(options: Options<GetPredictionsApiV1ModelsModelIdPredictionsGetData, ThrowOnError>) => {
     return (options.client ?? client).get<GetPredictionsApiV1ModelsModelIdPredictionsGetResponses, GetPredictionsApiV1ModelsModelIdPredictionsGetErrors, ThrowOnError>({

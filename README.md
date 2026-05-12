@@ -32,7 +32,7 @@ Generated clients are the only approved API access path. Raw `fetch()` and `axio
 ## Project Layout
 
 - `src/app/` - shell, nav model, command menu
-- `src/routes/` - lazy placeholder routes for the Phase 29 view map
+- `src/routes/` - lazy placeholder routes for the view map
 - `src/lib/` - shared runtime, query client, utilities
 - `deploy/nginx/` - optional Nginx site config matching the production proxy namespaces
 - `deploy/stormtrooper/` - production Caddy + Compose deployment files
