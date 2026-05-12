@@ -64,10 +64,10 @@ function deriveComparisonRows(strategies: StrategyResponse[], backtests: Backtes
     return {
       backtestCount: strategyBacktests.length,
       latestSharpe: readMetricNumber(latest?.metrics ?? null, ["sharpe_ratio"]),
-      latestTradeCount: readMetricNumber(latest?.metrics ?? null, ["trade_count", "total_trades"]),
+      latestTotalReturn: readMetricNumber(latest?.metrics ?? null, ["total_return"]),
+      latestTradeCount: readMetricNumber(latest?.metrics ?? null, ["closed_trade_count", "trade_count", "total_trades"]),
       latestWinRate: readMetricNumber(latest?.metrics ?? null, ["win_rate"]),
       strategy,
-      totalPnl: readMetricNumber(latest?.metrics ?? null, ["total_pnl", "total_realized_pnl", "net_profit"]),
     };
   });
 }

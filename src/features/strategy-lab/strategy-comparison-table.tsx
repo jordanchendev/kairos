@@ -2,18 +2,18 @@ import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 import type { StrategyResponse } from "@/api/poseidon/types.gen";
 import { StatusBadge } from "@/features/monitoring/status-badge";
-import { formatCompactCurrency, formatPercent, formatRatio, getMarketLabel } from "@/features/portfolio/portfolio-view-model";
+import { formatPercent, formatRatio, getMarketLabel } from "@/features/portfolio/portfolio-view-model";
 import { cn } from "@/lib/cn";
 
-export type StrategySortKey = "backtestCount" | "latestSharpe" | "latestTradeCount" | "latestWinRate" | "totalPnl";
+export type StrategySortKey = "backtestCount" | "latestSharpe" | "latestTotalReturn" | "latestTradeCount" | "latestWinRate";
 
 export type StrategyComparisonRow = {
   backtestCount: number;
   latestSharpe: number | null;
+  latestTotalReturn: number | null;
   latestTradeCount: number | null;
   latestWinRate: number | null;
   strategy: StrategyResponse;
-  totalPnl: number | null;
 };
 
 type StrategyComparisonTableProps = {
@@ -80,8 +80,8 @@ export function StrategyComparisonTable({
         <HeaderButton active={sortKey === "latestTradeCount"} direction={sortDirection} onClick={() => onSortChange("latestTradeCount")}>
           Trades
         </HeaderButton>
-        <HeaderButton active={sortKey === "totalPnl"} direction={sortDirection} onClick={() => onSortChange("totalPnl")}>
-          P&amp;L
+        <HeaderButton active={sortKey === "latestTotalReturn"} direction={sortDirection} onClick={() => onSortChange("latestTotalReturn")}>
+          Total Return
         </HeaderButton>
         <HeaderButton active={sortKey === "backtestCount"} direction={sortDirection} onClick={() => onSortChange("backtestCount")}>
           Backtests
@@ -114,7 +114,7 @@ export function StrategyComparisonTable({
             <div className="text-sm text-[hsl(var(--foreground))]">{formatRatio(row.latestSharpe)}</div>
             <div className="text-sm text-[hsl(var(--foreground))]">{formatPercent(row.latestWinRate)}</div>
             <div className="text-sm text-[hsl(var(--foreground))]">{row.latestTradeCount ?? 0}</div>
-            <div className="text-sm text-[hsl(var(--foreground))]">{formatCompactCurrency(row.totalPnl)}</div>
+            <div className="text-sm text-[hsl(var(--foreground))]">{formatPercent(row.latestTotalReturn)}</div>
             <div className="text-sm text-[hsl(var(--foreground))]">{row.backtestCount}</div>
           </button>
         ))}

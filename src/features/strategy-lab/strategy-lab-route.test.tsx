@@ -120,7 +120,7 @@ describe("strategy lab route", () => {
             latestTradeCount: 28,
             latestWinRate: 0.58,
             strategy: strategies[0],
-            totalPnl: 19840,
+            latestTotalReturn: 0.198,
           },
           {
             backtestCount: 1,
@@ -128,7 +128,7 @@ describe("strategy lab route", () => {
             latestTradeCount: 12,
             latestWinRate: 0.45,
             strategy: strategies[1],
-            totalPnl: 4120,
+            latestTotalReturn: 0.041,
           },
         ]}
         onSelectStrategy={() => {}}
