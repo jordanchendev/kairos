@@ -145,6 +145,13 @@ export const navigationGroups: NavigationGroup[] = [
         title: "Data Quality",
       },
       {
+        description: "Freshness, coverage, and gap audit telemetry from Thalassa.",
+        icon: Activity,
+        pageId: "data-health",
+        path: "/data-health",
+        title: "Data Health",
+      },
+      {
         description: "Service health, workers, and deployment posture.",
         icon: Server,
         pageId: "infrastructure",
