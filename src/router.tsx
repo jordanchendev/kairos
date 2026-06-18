@@ -35,6 +35,10 @@ export const router = createBrowserRouter([
         lazy: () => import("@/routes/strategy-lab"),
       },
       {
+        path: "etf-rotation",
+        lazy: () => import("@/routes/etf-rotation"),
+      },
+      {
         path: "autoresearch",
         lazy: () => import("@/routes/autoresearch"),
       },

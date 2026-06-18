@@ -86,6 +86,13 @@ export const navigationGroups: NavigationGroup[] = [
         title: "Strategy Lab",
       },
       {
+        description: "ETF rotation research, projections, and validation surfaces.",
+        icon: LineChart,
+        pageId: "etf-rotation",
+        path: "/etf-rotation",
+        title: "ETF Rotation",
+      },
+      {
         description: "AutoResearch outputs and model iteration queue.",
         icon: Bot,
         pageId: "autoresearch",
