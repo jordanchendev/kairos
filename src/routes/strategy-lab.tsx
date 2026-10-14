@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -21,6 +21,7 @@ import {
   type StrategyComparisonRow,
   type StrategySortKey,
 } from "@/features/strategy-lab/strategy-comparison-table";
+import { ReleaseGatePanel } from "@/features/strategy-lab/release-gate-panel";
 import { StrategyDetailPanel } from "@/features/strategy-lab/strategy-detail-panel";
 import { getApiMarket } from "@/features/portfolio/portfolio-view-model";
 import { isPoseidonNotFoundError } from "@/lib/api/poseidon-compat";
@@ -98,6 +99,7 @@ export type StrategyLabPageProps = {
   sortDirection: "asc" | "desc";
   sortKey: StrategySortKey;
   onSortChange?: (sortKey: StrategySortKey) => void;
+  releaseGate?: ReactNode;
 };
 
 export function StrategyLabPage({
@@ -111,6 +113,7 @@ export function StrategyLabPage({
   sortDirection,
   sortKey,
   onSortChange = () => {},
+  releaseGate = null,
 }: StrategyLabPageProps) {
   if (comparisonRows.length === 0) {
     return (
@@ -158,6 +161,8 @@ export function StrategyLabPage({
       </PanelFrame>
 
       <StrategyDetailPanel performance={selectedPerformance} strategy={selectedStrategy} />
+
+      {releaseGate}
 
       <RollingMetricsChart backtests={selectedBacktests} strategyName={selectedStrategy.name} />
     </section>
@@ -267,6 +272,11 @@ export function Component() {
         setSortKey(nextSortKey);
         setSortDirection("desc");
       }}
+      releaseGate={
+        activeStrategyId && selectedStrategy ? (
+          <ReleaseGatePanel key={activeStrategyId} strategyId={activeStrategyId} strategyName={selectedStrategy.name} />
+        ) : null
+      }
       selectedBacktests={selectedBacktests}
       selectedMarket={selectedMarket}
       selectedPerformance={selectedPerformanceQuery.data ?? null}

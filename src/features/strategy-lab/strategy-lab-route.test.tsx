@@ -1,7 +1,38 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
-import type { BacktestResponse, StrategyPerformanceResponse, StrategyResponse } from "@/api/poseidon/types.gen";
+import type {
+  BacktestResponse,
+  PrincipalResponse,
+  ReleaseEventResponse,
+  ReleaseGateResponse,
+  ReleasePredicateResponse,
+  ReleaseStateCandidate,
+  ReleaseStateResponse,
+  ReleaseStateVersionIdentity,
+  StrategyPerformanceResponse,
+  StrategyResponse,
+} from "@/api/poseidon/types.gen";
+import { Dialog } from "@/components/ui/dialog";
+import {
+  GATE_ROWS,
+  RELEASE_COPY,
+  ReleaseDialogBody,
+  ReleaseGateView,
+  ReleaseHistory,
+  buildPauseBody,
+  buildRejectBody,
+  buildReleaseBody,
+  buildRollbackBody,
+  holdoutDisplay,
+  isReleaseScopeNotFound,
+  releaseConsequence,
+  sortEventsNewestFirst,
+  type ReleaseGateViewProps,
+} from "@/features/strategy-lab/release-gate-panel";
 
 const strategies: StrategyResponse[] = [
   {
@@ -175,5 +206,268 @@ describe("strategy lab route", () => {
 
     expect(markup).toContain("No strategies");
     expect(markup).toContain("No strategies match the current market scope yet.");
+  });
+});
+
+const uuid = (n: number) => `00000000-0000-4000-8000-${String(n).padStart(12, "0")}`;
+const version = (n: number, no: number): ReleaseStateVersionIdentity => ({
+  account_scope: "paper-main",
+  content_sha256: `content-${n}`.padEnd(64, "c"),
+  created_at: "2026-10-01T00:00:00Z",
+  policy_sha256: `policy-${n}`.padEnd(64, "p"),
+  status: "released",
+  strategy_version_id: uuid(n),
+  version_no: no,
+});
+
+const candidate: ReleaseStateCandidate = {
+  account_generation: "g1",
+  account_scope: "paper-main",
+  campaign_created_at: "2026-10-05T00:00:00Z",
+  campaign_id: uuid(30),
+  candidate: version(2, 2),
+  contract_sha256: "contract".padEnd(64, "k"),
+  declared_trial_count: 6,
+  holdout_reuse_denials: [],
+  hypothesis: "Regime filter lifts net Sharpe",
+  incumbent_content_sha256: "inc".padEnd(64, "i"),
+  incumbent_version_id: uuid(1),
+  reconciliation: {
+    account_generation: "g1",
+    account_scope: "paper-main",
+    as_of: "2026-10-06T00:00:00Z",
+    policy_sha256: "p".repeat(64),
+    reconciliation_id: uuid(40),
+    status: "clean",
+  },
+  reviews: [
+    {
+      created_at: "2026-10-06T00:00:00Z",
+      holdout: { holdout_identity_sha256: null, holdout_use_id: null, owner_campaign_id: null, state: "consumed_by_this_campaign" },
+      input_sha256: "input".padEnd(64, "n"),
+      result_sha256: "result".padEnd(64, "r"),
+      review_id: uuid(50),
+      status: "passed",
+    },
+  ],
+  terminal_trial_count: 6,
+  trials: [],
+};
+
+const releaseState: ReleaseStateResponse = {
+  active_version: version(1, 1),
+  active_version_id: uuid(1),
+  authority_reconciliation: candidate.reconciliation,
+  authority_version: version(1, 1),
+  candidates: [candidate],
+  latest_event_id: null,
+  latest_event_type: null,
+  pointer_state: "active",
+  release_revision: 4,
+  strategy_id: uuid(99),
+};
+
+const pred = (code: ReleasePredicateResponse["code"], state: ReleasePredicateResponse["state"], reason: string): ReleasePredicateResponse => ({
+  code,
+  evidence: {},
+  reason,
+  state,
+});
+const allCodes: ReleasePredicateResponse["code"][] = GATE_ROWS.flatMap((r) => r.codes);
+const eligibleGate: ReleaseGateResponse = { allowed: true, predicates: allCodes.map((c) => pred(c, "passed", `${c} ok`)) };
+const blockedGate: ReleaseGateResponse = {
+  allowed: false,
+  predicates: allCodes.map((c) => pred(c, c === "reconciliation" ? "blocked" : c === "review_identity" ? "inconclusive" : "passed", `${c} reason`)),
+};
+const releaser: PrincipalResponse = { account_scopes: ["paper-main"], actor_id: "mgr", can_approve: true, can_release: true, kind: "human", roles: ["release_manager"] };
+const events: ReleaseEventResponse[] = [
+  {
+    account_scope: "paper-main",
+    actor_id: "mgr",
+    campaign_id: uuid(30),
+    candidate_version_id: uuid(2),
+    created_at: "2026-10-07T00:00:00Z",
+    event_type: "release",
+    expected_revision: 3,
+    from_version_id: uuid(1),
+    gate_json: eligibleGate,
+    holdout_use_id: null,
+    id: uuid(60),
+    reason: "newest release " + "long-reason-".repeat(20),
+    reconciliation_id: uuid(40),
+    resulting_revision: 4,
+    review_id: uuid(50),
+    source_release_event_id: null,
+    strategy_id: uuid(99),
+    to_version_id: uuid(2),
+  },
+  { ...({} as ReleaseEventResponse), ...{ account_scope: "paper-main", actor_id: "mgr", campaign_id: null, candidate_version_id: null, created_at: "2026-10-01T00:00:00Z", event_type: "pause", expected_revision: 1, from_version_id: null, gate_json: eligibleGate, holdout_use_id: null, id: uuid(61), reason: "older pause", reconciliation_id: null, resulting_revision: 2, review_id: null, source_release_event_id: null, strategy_id: uuid(99), to_version_id: null } },
+];
+
+function gateView(overrides: Partial<ReleaseGateViewProps> = {}) {
+  const props: ReleaseGateViewProps = {
+    busy: false,
+    events,
+    gate: eligibleGate,
+    gateError: false,
+    notFound: false,
+    notice: null,
+    onAction: () => {},
+    onRefresh: () => {},
+    onSelectCandidate: () => {},
+    onSelectTarget: () => {},
+    principal: releaser,
+    selectedCampaignId: null,
+    selectedTargetId: null,
+    state: releaseState,
+    stateError: false,
+    stateLoading: false,
+    targets: [
+      {
+        content_sha256: "t".repeat(64),
+        eligible: true,
+        predicates: [
+          pred("rollback_holdings", "passed", "2 holdings"),
+          pred("rollback_outstanding_work", "passed", "none outstanding"),
+          pred("rollback_reconciliation", "passed", "clean"),
+          pred("rollback_policy", "passed", "protective exits continue"),
+        ],
+        released_revision: 2,
+        source_release_event_id: uuid(70),
+        strategy_version_id: uuid(1),
+        version_no: 1,
+      },
+    ],
+    ...overrides,
+  };
+  return renderToStaticMarkup(<ReleaseGateView {...props} />);
+}
+
+describe("release gate panel", () => {
+  it("shows incumbent/candidate identity, frozen campaign and all eight predicate rows", () => {
+    const markup = gateView();
+    for (const text of ["Incumbent (active pointer)", "Candidate", uuid(1), uuid(2), "Frozen campaign", uuid(30), "Regime filter lifts net Sharpe", "contract".padEnd(64, "k"), "input".padEnd(64, "n"), "Terminal trials", "Coverage", "100%"]) {
+      expect(markup).toContain(text);
+    }
+    for (const row of GATE_ROWS) expect(markup).toContain(row.title);
+    expect(GATE_ROWS).toHaveLength(8);
+    expect(markup).toContain("Eligible");
+  });
+
+  it("renders every blocker without computing eligibility client-side and hides Release when not allowed", () => {
+    const markup = gateView({ gate: blockedGate });
+    expect(markup).toContain(RELEASE_COPY.gateFailure);
+    expect(markup).toContain("Blocked");
+    expect(markup).toContain("Inconclusive");
+    expect(markup).toContain("reconciliation reason");
+    expect(markup).not.toContain("Release Candidate");
+    expect(markup).toContain("Not eligible");
+    const source = readFileSync(path.resolve(__dirname, "release-gate-panel.tsx"), "utf8");
+    expect(source).not.toMatch(/sharpe|threshold/i);
+    expect(source).not.toMatch(/\bfetch\(|setQueryData|onMutate/);
+  });
+
+  it("marks missing predicates as Unavailable instead of passing", () => {
+    const markup = gateView({ gate: { allowed: false, predicates: [] } });
+    expect(markup).toContain("Poseidon did not return this predicate.");
+  });
+
+  it("maps holdout states to the three exact labels and explicit states otherwise", () => {
+    expect(holdoutDisplay("consumed_by_this_campaign")).toEqual({ label: "Consumed by this campaign", state: "Passed" });
+    expect(holdoutDisplay("consumed_by_another_campaign")).toEqual({ label: "Consumed by another campaign", state: "Blocked" });
+    expect(holdoutDisplay("reuse_denied")).toEqual({ label: "Reuse denied", state: "Blocked" });
+    expect(holdoutDisplay("ownership_mismatch")).toEqual({ label: null, state: "Blocked" });
+    expect(holdoutDisplay("unavailable")).toEqual({ label: null, state: "Unavailable" });
+    expect(gateView()).toContain("Consumed by this campaign");
+  });
+
+  it("renders all four controls only for can_release and Read-only access otherwise", () => {
+    const full = gateView();
+    for (const label of ["Release Candidate", "Pause Strategy", "Roll Back Strategy", "Reject Candidate"]) expect(full).toContain(label);
+    const viewer = gateView({ principal: { ...releaser, can_release: false } });
+    expect(viewer).toContain("Read-only access");
+    for (const label of ["Release Candidate", "Pause Strategy", "Roll Back Strategy", "Reject Candidate"]) expect(viewer).not.toContain(label);
+    const paused = gateView({ state: { ...releaseState, pointer_state: "paused" } });
+    expect(paused).not.toContain("Pause Strategy");
+  });
+
+  it("shows server-provided rollback context and no order submit or replay control", () => {
+    const markup = gateView();
+    for (const text of ["Rollback target", "Current holdings", "Outstanding intents/orders", "Reconciliation", "Takeover/exit policy", "protective exits continue"]) {
+      expect(markup).toContain(text);
+    }
+    expect(markup).not.toMatch(/submit order|replay orders/i);
+    expect(gateView({ targets: [] })).not.toContain("Roll Back Strategy");
+  });
+
+  it("renders exact empty states for legacy (404) and loading/error", () => {
+    const empty = gateView({ events: [], notFound: true, state: undefined });
+    expect(empty).toContain("No frozen campaign");
+    expect(empty).toContain(RELEASE_COPY.emptyCampaignBody);
+    expect(empty).toContain("No release events");
+    expect(empty).toContain(RELEASE_COPY.emptyHistoryBody);
+    expect(gateView({ state: undefined, stateLoading: true })).toContain("Loading…");
+    expect(gateView({ state: undefined, stateError: true })).toContain(RELEASE_COPY.loadError);
+    expect(isReleaseScopeNotFound({ detail: "Strategy release scope not found" })).toBe(true);
+    expect(isReleaseScopeNotFound({ response: { status: 404 } })).toBe(true);
+    expect(isReleaseScopeNotFound({ detail: "boom" })).toBe(false);
+  });
+
+  it("history is newest-first, immutable, with desktop table and sub-1024 cards", () => {
+    expect(sortEventsNewestFirst(events).map((e) => e.event_type)).toEqual(["release", "pause"]);
+    const markup = renderToStaticMarkup(<ReleaseHistory events={events} />);
+    expect(markup.indexOf("newest release")).toBeLessThan(markup.indexOf("older pause"));
+    expect(markup).toContain("hidden w-full");
+    expect(markup).toContain("lg:table");
+    expect(markup).toContain("lg:hidden");
+    expect(markup).toContain("[overflow-wrap:anywhere]");
+    expect(markup).not.toMatch(/Edit|Delete/);
+  });
+
+  it("uses exact confirmation copy, requires a reason, and shows Refresh Record/Retry", () => {
+    const base = { incumbent: "v1", candidate: "v2", current: "v1", target: "v1", accountScope: "paper-main", strategyName: "Momentum Core" };
+    expect(releaseConsequence("release", base)).toBe("Replace active version v1 with v2 for paper-main. Poseidon will atomically write the pointer and release event.");
+    expect(releaseConsequence("pause", base)).toContain("Clear the active version for Momentum Core.");
+    expect(releaseConsequence("rollback", base)).toContain("No target orders will be emitted and no old orders will be replayed.");
+    expect(releaseConsequence("reject", base)).toBe("Record a terminal rejection for v2. Active version v1 will not change.");
+    const dialog = (kind: "release" | "pause" | "rollback" | "reject", extra = {}) =>
+      renderToStaticMarkup(
+        <Dialog open>
+          <ReleaseDialogBody consequence="c" errorMessage={null} kind={kind} onNeutral={() => {}} onReasonChange={() => {}} onRefresh={() => {}} onSubmit={() => {}} pending={false} reason="" showRefresh={false} showRetry={false} {...extra} />
+        </Dialog>,
+      );
+    expect(dialog("release")).toContain("Release candidate?");
+    expect(dialog("release")).toContain("Keep Incumbent Active");
+    expect(dialog("pause")).toContain("Keep Strategy Active");
+    expect(dialog("rollback")).toContain("Keep Current Version");
+    expect(dialog("reject")).toContain("Keep Candidate");
+    expect(dialog("reject")).toMatch(/<button[^>]*disabled[^>]*>[^<]*Reject Candidate/);
+    expect(dialog("release", { pending: true })).toContain("Releasing…");
+    expect(dialog("release", { showRefresh: true, errorMessage: RELEASE_COPY.conflict })).toContain("Refresh Record");
+    expect(dialog("release", { showRetry: true })).toContain("Retry");
+  });
+
+  it("builds payloads with expected revision/pointer from release-state and no actor fields", () => {
+    const rel = buildReleaseBody(releaseState, candidate, uuid(50), uuid(40), "why");
+    expect(rel).toEqual({
+      campaign_id: uuid(30),
+      candidate_version_id: uuid(2),
+      expected_active_version_id: uuid(1),
+      expected_revision: 4,
+      reason: "why",
+      reconciliation_id: uuid(40),
+      review_id: uuid(50),
+    });
+    expect(buildPauseBody(releaseState, "r")).toEqual({ expected_active_version_id: uuid(1), expected_revision: 4, reason: "r" });
+    expect(buildRollbackBody(releaseState, uuid(1), uuid(40), "r")).toMatchObject({ target_version_id: uuid(1), reconciliation_id: uuid(40), expected_revision: 4 });
+    expect(buildRejectBody(releaseState, candidate, "r")).toMatchObject({ candidate_version_id: uuid(2), expected_revision: 4 });
+    expect(JSON.stringify([rel])).not.toMatch(/actor/);
+  });
+
+  it("is mounted after the existing strategy detail without a new route or store", () => {
+    const source = readFileSync(path.resolve(__dirname, "../../routes/strategy-lab.tsx"), "utf8");
+    expect(source.indexOf("<StrategyComparisonTable")).toBeLessThan(source.indexOf("<StrategyDetailPanel"));
+    expect(source.indexOf("<StrategyDetailPanel")).toBeLessThan(source.indexOf("{releaseGate}"));
+    expect(source).not.toMatch(/create\(|zustand/);
   });
 });

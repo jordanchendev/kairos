@@ -88,6 +88,9 @@ describe("strategy lab route compatibility", () => {
         useQuery,
       };
     });
+    vi.doMock("@/features/strategy-lab/release-gate-panel", () => ({
+      ReleaseGatePanel: ({ strategyId }: { strategyId: string }) => <div data-release-gate-for={strategyId} />,
+    }));
     vi.doMock("@/stores/ui-store", () => ({
       useUiStore: (selector: (state: { selectedMarket: string }) => string) =>
         selector({ selectedMarket: "all" }),
@@ -100,5 +103,7 @@ describe("strategy lab route compatibility", () => {
     expect(markup).toContain("Momentum Core");
     expect(markup).toContain("N/A");
     expect(markup).not.toContain("Monitoring data unavailable");
+    // ranked grid first, release evidence after the existing detail flow
+    expect(markup.indexOf("Ranked Strategy Grid")).toBeLessThan(markup.indexOf('data-release-gate-for="strategy-001"'));
   });
 });
