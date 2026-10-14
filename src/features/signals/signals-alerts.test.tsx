@@ -6,7 +6,12 @@ import type { AlertItem, SignalResponse } from "@/api/poseidon/types.gen";
 import { AlertsFeed } from "@/features/alerts/alerts-feed";
 import { deriveAlertSeverity, getAlertFreshnessLabel, getAlertTimestamp } from "@/features/alerts/alerts-model";
 
-import { SignalDrawer } from "./signal-drawer";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
+import type { TraceResponse, TraceStage } from "@/api/poseidon/types.gen";
+
+import { SignalDrawer, SignalTraceStages, TRACE_STAGE_TITLES, defaultExpandedPositions } from "./signal-drawer";
 import { SignalFilters } from "./signal-filters";
 import { filterSignals } from "./signals-model";
 import { SignalsTable } from "./signals-table";
@@ -119,5 +124,146 @@ describe("signals and alerts monitoring", () => {
     expect(alertsMarkup).toContain("severity");
     expect(alertsMarkup).toContain("timestamp");
     expect(alertsMarkup).toContain("fresh");
+  });
+});
+
+const stageNames: TraceStage["name"][] = [
+  "signal_or_no_trade",
+  "manifest",
+  "research_revision",
+  "evaluation",
+  "decision_events",
+  "execution",
+  "outcomes",
+  "campaign_review",
+  "release",
+];
+const orderedTitles = [
+  "Signal or no-trade",
+  "Manifest",
+  "Research revision",
+  "Evaluation snapshot/run",
+  "Decision and decision events",
+  "Orders, fills, and reconciliation",
+  "Outcomes",
+  "Campaign and paired review",
+  "Release version/event",
+];
+
+function makeTrace(overrides: Record<number, Partial<TraceStage>> = {}): TraceResponse {
+  return {
+    account_scope: "paper-main",
+    anchor_id: "11111111-1111-4111-8111-111111111111",
+    anchor_type: "signal",
+    stages: stageNames.map((name, index) => ({
+      name,
+      position: index + 1,
+      reason: `reason-${name}`,
+      state: "Available" as const,
+      timestamp: "2026-03-31T08:00:00Z",
+      ...overrides[index + 1],
+    })) as TraceResponse["stages"],
+  };
+}
+
+const render = (trace: TraceResponse, extra: { narrativeConfidence?: number | null } = {}) =>
+  renderToStaticMarkup(<SignalTraceStages trace={trace} {...extra} />);
+
+describe("SignalDrawer nine-stage trace", () => {
+  it("renders the exact nine stage headings in order for filled and no-trade traces", () => {
+    for (const trace of [makeTrace(), makeTrace({ 1: { state: "No trade" } })]) {
+      const markup = render(trace);
+      let cursor = -1;
+      orderedTitles.forEach((title, index) => {
+        const at = markup.indexOf(`${index + 1}. ${title}`);
+        expect(at).toBeGreaterThan(cursor);
+        cursor = at;
+      });
+    }
+    expect(Object.values(TRACE_STAGE_TITLES)).toEqual(expect.arrayContaining(orderedTitles));
+  });
+
+  it("renders every explicit evidence state as a label", () => {
+    const states = ["No trade", "Not required", "Unavailable", "Provisional", "Inconclusive", "Legacy unresolved"] as const;
+    const trace = makeTrace(Object.fromEntries(states.map((state, i) => [i + 1, { state }])));
+    const markup = render(trace);
+    for (const state of states) expect(markup).toContain(state);
+  });
+
+  it("expands the signal stage and first blocked/unavailable stage by default; others collapsed", () => {
+    const trace = makeTrace({ 4: { state: "Unavailable" }, 7: { state: "Blocked" } });
+    expect([...defaultExpandedPositions(trace.stages)].sort()).toEqual([1, 4]);
+    const markup = render(trace);
+    expect(markup).toContain('id="trace-stage-1"');
+    expect(markup).toContain('id="trace-stage-4"');
+    expect(markup).not.toContain('id="trace-stage-7"');
+    expect(markup).toContain('aria-expanded="true"');
+    expect(markup).toContain('aria-expanded="false"');
+    expect(markup).toMatch(/<button[^>]*aria-controls="trace-stage-2"/);
+  });
+
+  it("separates actual and counterfactual rows with the full assumption version", () => {
+    const trace = makeTrace({
+      7: {
+        rows: [
+          { label: "Return", state: "Available", values: { value: 0.02 } },
+          { label: "Return", state: "Provisional", values: { assumption_version: "slippage-v3.2", kind: "counterfactual", value: 0.01 } },
+        ],
+        state: "Provisional",
+      },
+    });
+    const markup = renderToStaticMarkup(<SignalTraceStages initialExpanded={new Set([7])} trace={trace} />);
+    expect(markup).toContain("Actual — Return");
+    expect(markup).toContain("Counterfactual · slippage-v3.2");
+    expect(markup).toContain("border-dashed");
+    expect(markup).toContain("border-solid");
+  });
+
+  it("qualifies narrative confidence and renders DSH as disabled without controls", () => {
+    const trace = makeTrace({
+      3: { rows: [{ label: "DSH", state: "Not required", values: { reasons: "provider_disabled" } }] },
+    });
+    const markup = renderToStaticMarkup(
+      <SignalTraceStages initialExpanded={new Set([3])} narrativeConfidence={0.7} trace={trace} />,
+    );
+    expect(markup).toContain("Narrative confidence");
+    expect(markup).toContain("Not a probability of profit");
+    expect(markup).toContain("DSH: Disabled");
+    expect(markup).toContain("provider_disabled");
+    expect(markup).not.toMatch(/enable|retry provider|approve|release candidate|submit order/i);
+  });
+
+  it("wraps long identities and raw payloads and shows legacy unresolved", () => {
+    const long = "x".repeat(200);
+    const trace = makeTrace({ 2: { identities: { digest: long }, raw_payload: { k: long }, state: "Legacy unresolved" } });
+    const markup = renderToStaticMarkup(<SignalTraceStages initialExpanded={new Set([2])} trace={trace} />);
+    expect(markup).toContain(long);
+    expect(markup).toContain("whitespace-pre-wrap");
+    expect(markup).toContain("[overflow-wrap:anywhere]");
+    expect(markup).toContain("Legacy unresolved");
+  });
+
+  it("drawer shows trace loading (aria-busy), error and loaded states; no handwritten client", () => {
+    const loading = renderToStaticMarkup(
+      <SignalDrawer isLoading={false} signal={signals[0]} trace={{ isError: false, isLoading: true }} />,
+    );
+    expect(loading).toContain('aria-busy="true"');
+    expect(loading).toContain("Loading…");
+    const failed = renderToStaticMarkup(
+      <SignalDrawer isLoading={false} signal={signals[0]} trace={{ isError: true, isLoading: false }} />,
+    );
+    expect(failed).toContain("Retry; no state was changed.");
+    const loaded = renderToStaticMarkup(
+      <SignalDrawer
+        isLoading={false}
+        signal={{ ...signals[0], metadata: { narrative_confidence: 0.6 } }}
+        trace={{ data: makeTrace(), isError: false, isLoading: false }}
+      />,
+    );
+    expect(loaded).toContain("End-to-end trace");
+    expect(loaded).toContain("Narrative confidence");
+
+    const source = readFileSync(path.resolve(__dirname, "signal-drawer.tsx"), "utf8");
+    expect(source).not.toMatch(/\bfetch\(|overflow-x-auto|useMutation|Idempotency/);
   });
 });

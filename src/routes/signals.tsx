@@ -5,6 +5,7 @@ import { RefreshCw } from "lucide-react";
 
 import {
   getSignalApiSignalsSignalIdGetOptions,
+  getSignalTraceApiV1TracesSignalsSignalIdGetOptions,
   listSignalsApiSignalsGetOptions,
 } from "@/api/poseidon/@tanstack/react-query.gen";
 import { Button } from "@/components/ui/button";
@@ -72,10 +73,17 @@ export function Component() {
     enabled: Boolean(activeSignalId),
   });
 
+  const signalTraceQuery = useQuery({
+    ...getSignalTraceApiV1TracesSignalsSignalIdGetOptions({ path: { signal_id: activeSignalId ?? "pending" } }),
+    ...getMonitoringQueryOptions("overview"),
+    enabled: Boolean(activeSignalId),
+  });
+
   const refresh = () => {
     void signalsQuery.refetch();
     if (activeSignalId) {
       void signalDetailQuery.refetch();
+      void signalTraceQuery.refetch();
     }
   };
 
@@ -130,7 +138,15 @@ export function Component() {
           <SignalsTable onSelectSignal={setSelectedSignalId} selectedSignalId={activeSignalId} signals={filteredSignals} />
         </PanelFrame>
 
-        <SignalDrawer isLoading={signalDetailQuery.isFetching && !signalDetailQuery.data} signal={signalDetailQuery.data ?? null} />
+        <SignalDrawer
+          isLoading={signalDetailQuery.isFetching && !signalDetailQuery.data}
+          signal={signalDetailQuery.data ?? null}
+          trace={{
+            data: signalTraceQuery.data,
+            isError: signalTraceQuery.isError,
+            isLoading: signalTraceQuery.isPending && Boolean(activeSignalId),
+          }}
+        />
       </div>
 
       <div className="panel-surface rounded-[24px] p-4">
