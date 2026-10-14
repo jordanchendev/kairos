@@ -351,6 +351,7 @@ describe("release gate panel", () => {
     }
     for (const row of GATE_ROWS) expect(markup).toContain(row.title);
     expect(GATE_ROWS).toHaveLength(8);
+    expect(GATE_ROWS.flatMap((row) => row.codes)).toHaveLength(9);
     expect(markup).toContain("Eligible");
   });
 
@@ -367,9 +368,42 @@ describe("release gate panel", () => {
     expect(source).not.toMatch(/\bfetch\(|setQueryData|onMutate/);
   });
 
-  it("marks missing predicates as Unavailable instead of passing", () => {
-    const markup = gateView({ gate: { allowed: false, predicates: [] } });
-    expect(markup).toContain("Poseidon did not return this predicate.");
+  it("renders every returned predicate code as its own row with Poseidon's state verbatim", () => {
+    const codes = [
+      "candidate_identity",
+      "policy_identity",
+      "campaign_identity",
+      "incumbent_pointer",
+      "six_cell_evidence",
+      "review_identity",
+      "holdout_ownership",
+      "reconciliation",
+      "release_authority",
+    ] as const;
+    const states = ["passed", "blocked", "inconclusive", "unavailable", "passed", "blocked", "inconclusive", "unavailable", "passed"] as const;
+    const gate: ReleaseGateResponse = {
+      allowed: false,
+      predicates: codes.map((code, i) => pred(code, states[i], `reason for ${code}`)),
+    };
+    const markup = gateView({ gate });
+    const labels = { blocked: "Blocked", inconclusive: "Inconclusive", passed: "Passed", unavailable: "Unavailable" };
+    codes.forEach((code, i) => {
+      const row = markup.match(new RegExp(`<li[^>]*data-predicate-code="${code}"[^>]*>(.*?)</li>`))?.[1] ?? "";
+      expect(row).toContain(`reason for ${code}`);
+      expect(row).toContain(labels[states[i]]);
+    });
+    expect(markup.match(/data-predicate-code=/g)).toHaveLength(9);
+    // rollback-only codes never appear as release gate rows
+    expect(markup).not.toMatch(/data-predicate-code="rollback_/);
+  });
+
+  it("renders a missing predicate as Unavailable without invented reason text and never aggregates state", () => {
+    const markup = gateView({ gate: { allowed: false, predicates: [pred("candidate_identity", "passed", "ok")] } });
+    const missing = markup.match(/<li[^>]*data-predicate-code="policy_identity"[^>]*>(.*?)<\/li>/)?.[1] ?? "";
+    expect(missing).toContain("Unavailable");
+    expect(missing).not.toMatch(/<div class="mt-2/);
+    const source = readFileSync(path.resolve(__dirname, "release-gate-panel.tsx"), "utf8");
+    expect(source).not.toMatch(/STATE_RANK|worst|reduce\(/);
   });
 
   it("maps holdout states to the three exact labels and explicit states otherwise", () => {

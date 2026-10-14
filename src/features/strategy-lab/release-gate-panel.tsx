@@ -129,15 +129,13 @@ export function holdoutDisplay(state: string): HoldoutDisplay {
   }
 }
 
-type PredicateState = ReleasePredicateResponse["state"] | "missing";
+type PredicateState = ReleasePredicateResponse["state"];
 const STATE_LABEL: Record<PredicateState, string> = {
   blocked: "Blocked",
   inconclusive: "Inconclusive",
-  missing: "Unavailable",
   passed: "Passed",
   unavailable: "Unavailable",
 };
-const STATE_RANK: Record<PredicateState, number> = { blocked: 4, inconclusive: 3, missing: 2, passed: 0, unavailable: 2 };
 
 function tone(state: PredicateState) {
   return state === "passed" ? ("up" as const) : state === "blocked" ? ("down" as const) : state === "inconclusive" ? ("degraded" as const) : ("idle" as const);
@@ -164,39 +162,43 @@ function evidenceEntries(predicate: ReleasePredicateResponse) {
 
 export function PredicateRows({ gate }: { gate: ReleaseGateResponse | undefined }) {
   return (
-    <ul aria-label="Release gate predicates" className="space-y-3">
-      {GATE_ROWS.map((row) => {
-        const found = row.codes
-          .map((code) => gate?.predicates.find((predicate) => predicate.code === code))
-          .filter((predicate): predicate is ReleasePredicateResponse => Boolean(predicate));
-        const worst: PredicateState = found.length === 0 ? "missing" : found.reduce<PredicateState>((acc, p) => (STATE_RANK[p.state] > STATE_RANK[acc] ? p.state : acc), "passed");
-        return (
-          <li className="rounded-[20px] border border-[hsl(var(--border))] p-4" key={row.title}>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-semibold">{row.title}</span>
-              <StatusBadge className="text-xs font-semibold" label={STATE_LABEL[worst]} status={tone(worst)} />
-            </div>
-            {found.length === 0 ? (
-              <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))]">Poseidon did not return this predicate.</p>
-            ) : (
-              found.map((predicate) => (
-                <div className="mt-2 space-y-1 text-sm [overflow-wrap:anywhere]" key={predicate.code}>
-                  <div>{predicate.reason}</div>
-                  <dl className="grid gap-x-3 gap-y-1 sm:grid-cols-[auto_1fr]">
-                    {evidenceEntries(predicate).map(([key, value]) => (
-                      <div className="contents" key={key}>
-                        <dt className="text-[hsl(var(--muted-foreground))]">{key}</dt>
-                        <dd className={monoClass}>{Array.isArray(value) ? value.join(", ") : String(value)}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              ))
-            )}
-          </li>
-        );
-      })}
-    </ul>
+    <div aria-label="Release gate predicates" className="space-y-4" role="group">
+      {GATE_ROWS.map((group) => (
+        <section aria-label={group.title} className="space-y-2" key={group.title}>
+          <h4 className="text-xs font-semibold uppercase tracking-[0.22em] text-[hsl(var(--muted-foreground))]">{group.title}</h4>
+          <ul className="space-y-3">
+            {group.codes.map((code) => {
+              const predicate = gate?.predicates.find((candidate) => candidate.code === code);
+              return (
+                <li className="rounded-[20px] border border-[hsl(var(--border))] p-4" data-predicate-code={code} key={code}>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-sm font-semibold">{code}</span>
+                    {predicate ? (
+                      <StatusBadge className="text-xs font-semibold" label={STATE_LABEL[predicate.state]} status={tone(predicate.state)} />
+                    ) : (
+                      <StatusBadge className="text-xs font-semibold" label="Unavailable" status="idle" />
+                    )}
+                  </div>
+                  {predicate ? (
+                    <div className="mt-2 space-y-1 text-sm [overflow-wrap:anywhere]">
+                      <div>{predicate.reason}</div>
+                      <dl className="grid gap-x-3 gap-y-1 sm:grid-cols-[auto_1fr]">
+                        {evidenceEntries(predicate).map(([key, value]) => (
+                          <div className="contents" key={key}>
+                            <dt className="text-[hsl(var(--muted-foreground))]">{key}</dt>
+                            <dd className={monoClass}>{Array.isArray(value) ? value.join(", ") : String(value)}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </div>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ))}
+    </div>
   );
 }
 
