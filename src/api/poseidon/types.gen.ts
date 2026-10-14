@@ -2504,6 +2504,282 @@ export type ReleaseRequest = {
 };
 
 /**
+ * ReleaseStateCandidate
+ */
+export type ReleaseStateCandidate = {
+    /**
+     * Account Generation
+     */
+    account_generation: string | null;
+    /**
+     * Account Scope
+     */
+    account_scope: string | null;
+    /**
+     * Campaign Created At
+     */
+    campaign_created_at: string;
+    /**
+     * Campaign Id
+     */
+    campaign_id: string;
+    candidate: ReleaseStateVersionIdentity;
+    /**
+     * Contract Sha256
+     */
+    contract_sha256: string;
+    /**
+     * Declared Trial Count
+     */
+    declared_trial_count: number | null;
+    /**
+     * Holdout Reuse Denials
+     */
+    holdout_reuse_denials: Array<ReleaseStateHoldoutDenial>;
+    /**
+     * Hypothesis
+     */
+    hypothesis: string;
+    /**
+     * Incumbent Content Sha256
+     */
+    incumbent_content_sha256: string;
+    /**
+     * Incumbent Version Id
+     */
+    incumbent_version_id: string;
+    reconciliation: ReleaseStateReconciliation | null;
+    /**
+     * Reviews
+     */
+    reviews: Array<ReleaseStateReview>;
+    /**
+     * Terminal Trial Count
+     */
+    terminal_trial_count: number;
+    /**
+     * Trials
+     */
+    trials: Array<ReleaseStateTrial>;
+};
+
+/**
+ * ReleaseStateHoldout
+ */
+export type ReleaseStateHoldout = {
+    /**
+     * Holdout Identity Sha256
+     */
+    holdout_identity_sha256: string | null;
+    /**
+     * Holdout Use Id
+     */
+    holdout_use_id: string | null;
+    /**
+     * Owner Campaign Id
+     */
+    owner_campaign_id: string | null;
+    /**
+     * State
+     */
+    state: 'consumed_by_this_campaign' | 'consumed_by_another_campaign' | 'reuse_denied' | 'ownership_mismatch' | 'unavailable';
+};
+
+/**
+ * ReleaseStateHoldoutDenial
+ */
+export type ReleaseStateHoldoutDenial = {
+    /**
+     * Campaign Event Id
+     */
+    campaign_event_id: string;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Holdout Identity Sha256
+     */
+    holdout_identity_sha256: string | null;
+    /**
+     * Owner Campaign Id
+     */
+    owner_campaign_id: string | null;
+};
+
+/**
+ * ReleaseStateReconciliation
+ *
+ * Latest stored reconciliation for an account identity, as the gate resolves it.
+ */
+export type ReleaseStateReconciliation = {
+    /**
+     * Account Generation
+     */
+    account_generation: string;
+    /**
+     * Account Scope
+     */
+    account_scope: string;
+    /**
+     * As Of
+     */
+    as_of: string;
+    /**
+     * Policy Sha256
+     */
+    policy_sha256: string;
+    /**
+     * Reconciliation Id
+     */
+    reconciliation_id: string;
+    /**
+     * Status
+     */
+    status: string;
+};
+
+/**
+ * ReleaseStateResponse
+ *
+ * Read-only stored release identities; eligibility remains the release gate's decision.
+ */
+export type ReleaseStateResponse = {
+    active_version: ReleaseStateVersionIdentity | null;
+    /**
+     * Active Version Id
+     */
+    active_version_id: string | null;
+    authority_reconciliation: ReleaseStateReconciliation | null;
+    authority_version: ReleaseStateVersionIdentity | null;
+    /**
+     * Candidates
+     */
+    candidates: Array<ReleaseStateCandidate>;
+    /**
+     * Latest Event Id
+     */
+    latest_event_id: string | null;
+    /**
+     * Latest Event Type
+     */
+    latest_event_type: 'release' | 'pause' | 'rollback' | 'reject' | null;
+    /**
+     * Pointer State
+     */
+    pointer_state: 'unreleased' | 'active' | 'paused';
+    /**
+     * Release Revision
+     */
+    release_revision: number;
+    /**
+     * Strategy Id
+     */
+    strategy_id: string;
+};
+
+/**
+ * ReleaseStateReview
+ */
+export type ReleaseStateReview = {
+    /**
+     * Created At
+     */
+    created_at: string;
+    holdout: ReleaseStateHoldout;
+    /**
+     * Input Sha256
+     */
+    input_sha256: string;
+    /**
+     * Result Sha256
+     */
+    result_sha256: string;
+    /**
+     * Review Id
+     */
+    review_id: string;
+    /**
+     * Status
+     */
+    status: 'passed' | 'failed' | 'inconclusive' | 'unavailable';
+};
+
+/**
+ * ReleaseStateTrial
+ */
+export type ReleaseStateTrial = {
+    /**
+     * Ablation Arm
+     */
+    ablation_arm: string | null;
+    /**
+     * Experiment Id
+     */
+    experiment_id: string;
+    /**
+     * Original Trial Id
+     */
+    original_trial_id: string | null;
+    /**
+     * Result Sha256
+     */
+    result_sha256: string | null;
+    /**
+     * Strategy Version Id
+     */
+    strategy_version_id: string | null;
+    /**
+     * Terminal State
+     */
+    terminal_state: string | null;
+    /**
+     * Trial Role
+     */
+    trial_role: string | null;
+    /**
+     * Version Role
+     */
+    version_role: 'incumbent' | 'candidate' | null;
+};
+
+/**
+ * ReleaseStateVersionIdentity
+ *
+ * Stored immutable identity of one strategy version.
+ */
+export type ReleaseStateVersionIdentity = {
+    /**
+     * Account Scope
+     */
+    account_scope: string | null;
+    /**
+     * Content Sha256
+     */
+    content_sha256: string;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Policy Sha256
+     */
+    policy_sha256: string;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Strategy Version Id
+     */
+    strategy_version_id: string;
+    /**
+     * Version No
+     */
+    version_no: number;
+};
+
+/**
  * ReleaseUnprocessableResponse
  */
 export type ReleaseUnprocessableResponse = {
@@ -6155,6 +6431,50 @@ export type GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponses = {
 };
 
 export type GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponse = GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponses[keyof GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponses];
+
+export type GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetData = {
+    body?: never;
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query?: never;
+    url: '/api/v1/strategies/{strategy_id}/release-state';
+};
+
+export type GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: ReleaseApiError;
+    /**
+     * Not Found
+     */
+    404: ReleaseApiError;
+    /**
+     * Conflict
+     */
+    409: ReleaseApiError;
+    /**
+     * Response 422 Get Release State Api V1 Strategies  Strategy Id  Release State Get
+     *
+     * Unprocessable Entity
+     */
+    422: ReleaseUnprocessableResponse | RequestValidationResponse;
+};
+
+export type GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetError = GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetErrors[keyof GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetErrors];
+
+export type GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: ReleaseStateResponse;
+};
+
+export type GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetResponse = GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetResponses[keyof GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetResponses];
 
 export type RollbackStrategyApiV1StrategiesStrategyIdRollbackPostData = {
     body: RollbackRequest;
