@@ -206,22 +206,24 @@ describe("SignalDrawer nine-stage trace", () => {
     const trace = makeTrace({
       7: {
         rows: [
-          { label: "Return", state: "Available", values: { value: 0.02 } },
-          { label: "Return", state: "Provisional", values: { assumption_version: "slippage-v3.2", kind: "counterfactual", value: 0.01 } },
+          { label: "Return", state: "Available", values: { kind: "trade", value: 0.02 } },
+          { label: "Counterfactual \u00b7 slippage-v3.2", state: "Provisional", values: { assumption_version: "slippage-v3.2", kind: "trade", value: 0.01 } },
         ],
         state: "Provisional",
       },
     });
     const markup = renderToStaticMarkup(<SignalTraceStages initialExpanded={new Set([7])} trace={trace} />);
     expect(markup).toContain("Actual — Return");
+    // outcome kind alone never tags a row as counterfactual
+    expect(markup.match(/border-dashed/g)).toHaveLength(1);
     expect(markup).toContain("Counterfactual · slippage-v3.2");
     expect(markup).toContain("border-dashed");
     expect(markup).toContain("border-solid");
   });
 
-  it("qualifies narrative confidence and renders DSH as disabled without controls", () => {
+  it("forward-compatible contract (not current Poseidon output): DSH renders only from explicit dsh_status data, without controls", () => {
     const trace = makeTrace({
-      3: { rows: [{ label: "DSH", state: "Not required", values: { reasons: "provider_disabled" } }] },
+      3: { rows: [{ label: "DSH", state: "Not required", values: { dsh_status: "disabled", reasons: "provider_disabled" } }] },
     });
     const markup = renderToStaticMarkup(
       <SignalTraceStages initialExpanded={new Set([3])} narrativeConfidence={0.7} trace={trace} />,
@@ -231,6 +233,35 @@ describe("SignalDrawer nine-stage trace", () => {
     expect(markup).toContain("DSH: Disabled");
     expect(markup).toContain("provider_disabled");
     expect(markup).not.toMatch(/enable|retry provider|approve|release candidate|submit order/i);
+  });
+
+  it("renders nothing DSH-related when no row carries DSH data", () => {
+    expect(render(makeTrace())).not.toMatch(/DSH/);
+  });
+
+  it("prefers per-row Narrative confidence over signal metadata and keeps the qualification", () => {
+    const trace = makeTrace({
+      1: {
+        rows: [
+          {
+            label: "Signal",
+            state: "Available",
+            values: { "Narrative confidence": 0.81, confidence_note: "Not a probability of profit" },
+          },
+        ],
+      },
+    });
+    const markup = render(trace, { narrativeConfidence: 0.2 });
+    expect(markup).toContain("Narrative confidence: 0.81 — Not a probability of profit");
+    expect(markup).not.toContain("20%");
+  });
+
+  it("renders the exact Legacy unresolved label for legacy signals with other stages Unavailable", () => {
+    const overrides: Record<number, Partial<TraceStage>> = { 1: { state: "Legacy unresolved" } };
+    for (let i = 2; i <= 9; i++) overrides[i] = { state: "Unavailable" };
+    const markup = render(makeTrace(overrides));
+    expect(markup).toContain("Legacy unresolved");
+    expect(markup).toContain("Unavailable");
   });
 
   it("wraps long identities and raw payloads and shows legacy unresolved", () => {

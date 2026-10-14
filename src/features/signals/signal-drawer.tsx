@@ -56,9 +56,18 @@ function stateTone(state: TraceStage["state"]) {
 
 const monoClass = "font-mono text-xs tabular-nums [overflow-wrap:anywhere]";
 
+function counterfactualAssumption(row: TraceRow) {
+  const version = (row.values ?? {}).assumption_version;
+  return typeof version === "string" && version.trim() !== "" ? version : null;
+}
+
 function isCounterfactualRow(row: TraceRow) {
-  const values = row.values ?? {};
-  return values.kind === "counterfactual" || values.counterfactual === true || /^counterfactual/i.test(row.label);
+  return counterfactualAssumption(row) !== null || row.label.startsWith("Counterfactual \u00b7");
+}
+
+function rowConfidence(row: TraceRow) {
+  const value = (row.values ?? {})["Narrative confidence"];
+  return value === undefined || value === null ? null : renderValue(value);
 }
 
 function isDshRow(row: TraceRow) {
@@ -85,7 +94,9 @@ function TraceRowView({ row }: { row: TraceRow }) {
     );
   }
   const counterfactual = isCounterfactualRow(row);
-  const assumption = typeof values.assumption_version === "string" ? values.assumption_version : null;
+  const assumption = counterfactualAssumption(row);
+  const confidence = rowConfidence(row);
+  const confidenceNote = typeof values.confidence_note === "string" ? values.confidence_note : "Not a probability of profit";
   return (
     <li
       className={cn(
@@ -94,15 +105,20 @@ function TraceRowView({ row }: { row: TraceRow }) {
       )}
     >
       <div className="font-semibold">
-        {counterfactual ? `Counterfactual · ${assumption ?? "assumption version unavailable"}` : "Actual"} — {row.label}
+        {counterfactual ? (assumption ? `Counterfactual · ${assumption}` : row.label) : `Actual — ${row.label}`}
       </div>
       <div>
         State: {row.state}
         {row.timestamp ? ` · ${formatSignalTimestamp(row.timestamp)}` : ""}
       </div>
+      {confidence !== null ? (
+        <div>
+          Narrative confidence: {confidence} — {confidenceNote}
+        </div>
+      ) : null}
       <dl className="mt-1 grid gap-x-3 gap-y-1 sm:grid-cols-[auto_1fr]">
         {Object.entries(values)
-          .filter(([key]) => key !== "assumption_version")
+          .filter(([key]) => !["assumption_version", "Narrative confidence", "confidence_note"].includes(key))
           .map(([key, value]) => (
             <div className="contents" key={key}>
               <dt className="text-[hsl(var(--muted-foreground))]">{key}</dt>
@@ -150,7 +166,7 @@ export function SignalTraceStages({
 
   return (
     <div>
-      {typeof narrativeConfidence === "number" ? (
+      {typeof narrativeConfidence === "number" && !stages.some((stage) => (stage.rows ?? []).some((row) => rowConfidence(row) !== null)) ? (
         <p className="mb-3 text-sm">
           Narrative confidence: {formatPercent(narrativeConfidence)} — Not a probability of profit
         </p>
