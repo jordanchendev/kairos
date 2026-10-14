@@ -349,6 +349,120 @@ export type BatchBacktestQueryRequest = {
 };
 
 /**
+ * CampaignAPIError
+ */
+export type CampaignApiError = {
+    /**
+     * Detail
+     */
+    detail: string;
+};
+
+/**
+ * CampaignCreateRequest
+ *
+ * Frozen campaign contract; ``created_by`` always comes from the principal.
+ */
+export type CampaignCreateRequest = {
+    /**
+     * Candidate Content Sha256
+     */
+    candidate_content_sha256: string;
+    /**
+     * Candidate Strategy Version Id
+     */
+    candidate_strategy_version_id: string;
+    /**
+     * Contract Json
+     */
+    contract_json: {
+        [key: string]: JsonValue;
+    };
+    /**
+     * Declared Difference Json
+     */
+    declared_difference_json: {
+        [key: string]: JsonValue;
+    };
+    /**
+     * Hypothesis
+     */
+    hypothesis: string;
+    /**
+     * Incumbent Content Sha256
+     */
+    incumbent_content_sha256: string;
+    /**
+     * Incumbent Strategy Version Id
+     */
+    incumbent_strategy_version_id: string;
+};
+
+/**
+ * CampaignResponse
+ */
+export type CampaignResponse = {
+    /**
+     * Candidate Strategy Version Id
+     */
+    candidate_strategy_version_id: string;
+    /**
+     * Contract Sha256
+     */
+    contract_sha256: string;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Created By
+     */
+    created_by: string;
+    /**
+     * Hypothesis
+     */
+    hypothesis: string;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Incumbent Strategy Version Id
+     */
+    incumbent_strategy_version_id: string;
+};
+
+/**
+ * CampaignReviewEnqueuedResponse
+ */
+export type CampaignReviewEnqueuedResponse = {
+    /**
+     * Campaign Id
+     */
+    campaign_id: string;
+    /**
+     * Holdout Identity Sha256
+     */
+    holdout_identity_sha256: string;
+    /**
+     * Task Id
+     */
+    task_id: string;
+};
+
+/**
+ * CampaignReviewRequest
+ */
+export type CampaignReviewRequest = {
+    /**
+     * Holdout Identity
+     */
+    holdout_identity: {
+        [key: string]: JsonValue;
+    };
+};
+
+/**
  * CapabilitiesResponse
  *
  * Full capabilities matrix.
@@ -1084,6 +1198,102 @@ export type IcAnalysisRequest = {
 };
 
 export type JsonValue = unknown;
+
+/**
+ * ManifestFreezeRequest
+ */
+export type ManifestFreezeRequest = {
+    /**
+     * As Of
+     */
+    as_of?: string | null;
+    /**
+     * Request
+     */
+    request: {
+        [key: string]: JsonValue;
+    };
+};
+
+/**
+ * ManifestIdentityResponse
+ */
+export type ManifestIdentityResponse = {
+    /**
+     * Account Scope
+     */
+    account_scope: string;
+    /**
+     * As Of
+     */
+    as_of: string;
+    /**
+     * Content Sha256
+     */
+    content_sha256: string;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Interval
+     */
+    interval: string;
+    /**
+     * Market
+     */
+    market: string;
+};
+
+/**
+ * ManifestResponse
+ */
+export type ManifestResponse = {
+    /**
+     * Account Scope
+     */
+    account_scope: string;
+    /**
+     * As Of
+     */
+    as_of: string;
+    /**
+     * Capability Json
+     */
+    capability_json: {
+        [key: string]: JsonValue;
+    };
+    /**
+     * Content Sha256
+     */
+    content_sha256: string;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Interval
+     */
+    interval: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Payload Json
+     */
+    payload_json: {
+        [key: string]: JsonValue;
+    };
+    /**
+     * Sources Json
+     */
+    sources_json: Array<JsonValue>;
+};
 
 /**
  * MarketSpecSchema
@@ -2852,6 +3062,140 @@ export type RequestValidationResponse = {
      * Status Code
      */
     status_code: 422;
+};
+
+/**
+ * ResearchAPIError
+ */
+export type ResearchApiError = {
+    /**
+     * Detail
+     */
+    detail: string;
+};
+
+/**
+ * RevisionCompleteRequest
+ */
+export type RevisionCompleteRequest = {
+    /**
+     * Account Scope
+     */
+    account_scope: string;
+    /**
+     * Request Sha256
+     */
+    request_sha256: string;
+    /**
+     * Research
+     */
+    research: {
+        [key: string]: JsonValue;
+    };
+};
+
+/**
+ * RevisionPrepareRequest
+ */
+export type RevisionPrepareRequest = {
+    /**
+     * Expected Previous Revision Id
+     */
+    expected_previous_revision_id?: string | null;
+    /**
+     * Manifest Id
+     */
+    manifest_id: string;
+    /**
+     * Model
+     */
+    model: string;
+    /**
+     * Policy Version
+     */
+    policy_version: string;
+    /**
+     * Provider
+     */
+    provider: string;
+    /**
+     * Runtime Digest
+     */
+    runtime_digest: string;
+    /**
+     * Scope Key
+     */
+    scope_key: string;
+};
+
+/**
+ * RevisionProviderFailedRequest
+ */
+export type RevisionProviderFailedRequest = {
+    /**
+     * Reason Code
+     */
+    reason_code: string;
+};
+
+/**
+ * RevisionResponse
+ */
+export type RevisionResponse = {
+    /**
+     * Content Sha256
+     */
+    content_sha256: string | null;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Manifest Id
+     */
+    manifest_id: string;
+    /**
+     * Model
+     */
+    model: string;
+    /**
+     * Policy Version
+     */
+    policy_version: string;
+    /**
+     * Previous Revision Id
+     */
+    previous_revision_id: string | null;
+    /**
+     * Provider
+     */
+    provider: string;
+    /**
+     * Request Sha256
+     */
+    request_sha256: string;
+    /**
+     * Research Json
+     */
+    research_json: {
+        [key: string]: JsonValue;
+    };
+    /**
+     * Runtime Digest
+     */
+    runtime_digest: string;
+    /**
+     * Scope Key
+     */
+    scope_key: string;
+    /**
+     * Status
+     */
+    status: 'prepared' | 'completed' | 'needs_review';
 };
 
 /**
@@ -5363,6 +5707,85 @@ export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses
 
 export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse = GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses[keyof GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses];
 
+export type CreateCampaignApiV1CampaignsPostData = {
+    body: CampaignCreateRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/campaigns/';
+};
+
+export type CreateCampaignApiV1CampaignsPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: CampaignApiError;
+    /**
+     * Not Found
+     */
+    404: CampaignApiError;
+    /**
+     * Conflict
+     */
+    409: CampaignApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: CampaignApiError;
+};
+
+export type CreateCampaignApiV1CampaignsPostError = CreateCampaignApiV1CampaignsPostErrors[keyof CreateCampaignApiV1CampaignsPostErrors];
+
+export type CreateCampaignApiV1CampaignsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: CampaignResponse;
+};
+
+export type CreateCampaignApiV1CampaignsPostResponse = CreateCampaignApiV1CampaignsPostResponses[keyof CreateCampaignApiV1CampaignsPostResponses];
+
+export type EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostData = {
+    body: CampaignReviewRequest;
+    path: {
+        /**
+         * Campaign Id
+         */
+        campaign_id: string;
+    };
+    query?: never;
+    url: '/api/v1/campaigns/{campaign_id}/review';
+};
+
+export type EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: CampaignApiError;
+    /**
+     * Not Found
+     */
+    404: CampaignApiError;
+    /**
+     * Conflict
+     */
+    409: CampaignApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: CampaignApiError;
+};
+
+export type EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostError = EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostErrors[keyof EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostErrors];
+
+export type EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: CampaignReviewEnqueuedResponse;
+};
+
+export type EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostResponse = EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostResponses[keyof EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostResponses];
+
 export type GetCapabilitiesApiV1CapabilitiesGetData = {
     body?: never;
     path?: never;
@@ -6174,6 +6597,296 @@ export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses = {
 };
 
 export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponse = OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses[keyof OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses];
+
+export type FreezeManifestApiV1ResearchManifestsPostData = {
+    body: ManifestFreezeRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/research/manifests';
+};
+
+export type FreezeManifestApiV1ResearchManifestsPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: ResearchApiError;
+    /**
+     * Not Found
+     */
+    404: ResearchApiError;
+    /**
+     * Conflict
+     */
+    409: ResearchApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: ResearchApiError;
+};
+
+export type FreezeManifestApiV1ResearchManifestsPostError = FreezeManifestApiV1ResearchManifestsPostErrors[keyof FreezeManifestApiV1ResearchManifestsPostErrors];
+
+export type FreezeManifestApiV1ResearchManifestsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ManifestIdentityResponse;
+};
+
+export type FreezeManifestApiV1ResearchManifestsPostResponse = FreezeManifestApiV1ResearchManifestsPostResponses[keyof FreezeManifestApiV1ResearchManifestsPostResponses];
+
+export type GetManifestApiV1ResearchManifestsManifestIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Manifest Id
+         */
+        manifest_id: string;
+    };
+    query?: never;
+    url: '/api/v1/research/manifests/{manifest_id}';
+};
+
+export type GetManifestApiV1ResearchManifestsManifestIdGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: ResearchApiError;
+    /**
+     * Not Found
+     */
+    404: ResearchApiError;
+    /**
+     * Conflict
+     */
+    409: ResearchApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: ResearchApiError;
+};
+
+export type GetManifestApiV1ResearchManifestsManifestIdGetError = GetManifestApiV1ResearchManifestsManifestIdGetErrors[keyof GetManifestApiV1ResearchManifestsManifestIdGetErrors];
+
+export type GetManifestApiV1ResearchManifestsManifestIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: ManifestResponse;
+};
+
+export type GetManifestApiV1ResearchManifestsManifestIdGetResponse = GetManifestApiV1ResearchManifestsManifestIdGetResponses[keyof GetManifestApiV1ResearchManifestsManifestIdGetResponses];
+
+export type ListRevisionsApiV1ResearchRevisionsGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Scope Key
+         */
+        scope_key: string;
+        /**
+         * Status
+         */
+        status?: 'prepared' | 'completed' | 'needs_review' | null;
+    };
+    url: '/api/v1/research/revisions';
+};
+
+export type ListRevisionsApiV1ResearchRevisionsGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: ResearchApiError;
+    /**
+     * Not Found
+     */
+    404: ResearchApiError;
+    /**
+     * Conflict
+     */
+    409: ResearchApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: ResearchApiError;
+};
+
+export type ListRevisionsApiV1ResearchRevisionsGetError = ListRevisionsApiV1ResearchRevisionsGetErrors[keyof ListRevisionsApiV1ResearchRevisionsGetErrors];
+
+export type ListRevisionsApiV1ResearchRevisionsGetResponses = {
+    /**
+     * Response List Revisions Api V1 Research Revisions Get
+     *
+     * Successful Response
+     */
+    200: Array<RevisionResponse>;
+};
+
+export type ListRevisionsApiV1ResearchRevisionsGetResponse = ListRevisionsApiV1ResearchRevisionsGetResponses[keyof ListRevisionsApiV1ResearchRevisionsGetResponses];
+
+export type PrepareRevisionApiV1ResearchRevisionsPostData = {
+    body: RevisionPrepareRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/research/revisions';
+};
+
+export type PrepareRevisionApiV1ResearchRevisionsPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: ResearchApiError;
+    /**
+     * Not Found
+     */
+    404: ResearchApiError;
+    /**
+     * Conflict
+     */
+    409: ResearchApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: ResearchApiError;
+};
+
+export type PrepareRevisionApiV1ResearchRevisionsPostError = PrepareRevisionApiV1ResearchRevisionsPostErrors[keyof PrepareRevisionApiV1ResearchRevisionsPostErrors];
+
+export type PrepareRevisionApiV1ResearchRevisionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: RevisionResponse;
+};
+
+export type PrepareRevisionApiV1ResearchRevisionsPostResponse = PrepareRevisionApiV1ResearchRevisionsPostResponses[keyof PrepareRevisionApiV1ResearchRevisionsPostResponses];
+
+export type GetRevisionApiV1ResearchRevisionsRevisionIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Revision Id
+         */
+        revision_id: string;
+    };
+    query?: never;
+    url: '/api/v1/research/revisions/{revision_id}';
+};
+
+export type GetRevisionApiV1ResearchRevisionsRevisionIdGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: ResearchApiError;
+    /**
+     * Not Found
+     */
+    404: ResearchApiError;
+    /**
+     * Conflict
+     */
+    409: ResearchApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: ResearchApiError;
+};
+
+export type GetRevisionApiV1ResearchRevisionsRevisionIdGetError = GetRevisionApiV1ResearchRevisionsRevisionIdGetErrors[keyof GetRevisionApiV1ResearchRevisionsRevisionIdGetErrors];
+
+export type GetRevisionApiV1ResearchRevisionsRevisionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: RevisionResponse;
+};
+
+export type GetRevisionApiV1ResearchRevisionsRevisionIdGetResponse = GetRevisionApiV1ResearchRevisionsRevisionIdGetResponses[keyof GetRevisionApiV1ResearchRevisionsRevisionIdGetResponses];
+
+export type CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostData = {
+    body: RevisionCompleteRequest;
+    path: {
+        /**
+         * Revision Id
+         */
+        revision_id: string;
+    };
+    query?: never;
+    url: '/api/v1/research/revisions/{revision_id}/complete';
+};
+
+export type CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostErrors = {
+    /**
+     * Forbidden
+     */
+    403: ResearchApiError;
+    /**
+     * Not Found
+     */
+    404: ResearchApiError;
+    /**
+     * Conflict
+     */
+    409: ResearchApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: ResearchApiError;
+};
+
+export type CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostError = CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostErrors[keyof CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostErrors];
+
+export type CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: RevisionResponse;
+};
+
+export type CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostResponse = CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostResponses[keyof CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostResponses];
+
+export type MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostData = {
+    body: RevisionProviderFailedRequest;
+    path: {
+        /**
+         * Revision Id
+         */
+        revision_id: string;
+    };
+    query?: never;
+    url: '/api/v1/research/revisions/{revision_id}/provider-failed';
+};
+
+export type MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: ResearchApiError;
+    /**
+     * Not Found
+     */
+    404: ResearchApiError;
+    /**
+     * Conflict
+     */
+    409: ResearchApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: ResearchApiError;
+};
+
+export type MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostError = MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostErrors[keyof MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostErrors];
+
+export type MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: RevisionResponse;
+};
+
+export type MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostResponse = MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostResponses[keyof MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostResponses];
 
 export type PauseStrategyApiV1StrategiesStrategyIdPausePostData = {
     body: PauseRequest;

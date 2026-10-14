@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { ActivateModelApiModelsVersionIdActivatePostData, ActivateModelApiModelsVersionIdActivatePostErrors, ActivateModelApiModelsVersionIdActivatePostResponses, ActivateStrategyApiStrategiesStrategyIdActivatePostData, ActivateStrategyApiStrategiesStrategyIdActivatePostErrors, ActivateStrategyApiStrategiesStrategyIdActivatePostResponses, ApproveDecisionApiV1DecisionsDecisionIdApprovePostData, ApproveDecisionApiV1DecisionsDecisionIdApprovePostErrors, ApproveDecisionApiV1DecisionsDecisionIdApprovePostResponses, CancelRdagentRunResearchRdAgentRunsRunIdCancelPostData, CancelRdagentRunResearchRdAgentRunsRunIdCancelPostErrors, CancelRdagentRunResearchRdAgentRunsRunIdCancelPostResponses, CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostData, CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostErrors, CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostResponses, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostData, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostErrors, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostResponses, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostErrors, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponses, CreateDecisionApiV1DecisionsPostData, CreateDecisionApiV1DecisionsPostErrors, CreateDecisionApiV1DecisionsPostResponses, CreateIcAnalysisRunApiV1FactorAnalysisIcPostData, CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors, CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses, CreateRdagentRunResearchRdAgentRunPostData, CreateRdagentRunResearchRdAgentRunPostErrors, CreateRdagentRunResearchRdAgentRunPostResponses, CreateRlExecutionRunResearchRlExecutionRunPostData, CreateRlExecutionRunResearchRlExecutionRunPostErrors, CreateRlExecutionRunResearchRlExecutionRunPostResponses, CreateRuleApiRiskRulesPostData, CreateRuleApiRiskRulesPostErrors, CreateRuleApiRiskRulesPostResponses, CreateSentimentApiSentimentPostData, CreateSentimentApiSentimentPostErrors, CreateSentimentApiSentimentPostResponses, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses, CreateStrategyApiStrategiesPostData, CreateStrategyApiStrategiesPostErrors, CreateStrategyApiStrategiesPostResponses, CreateTrainingRunApiV1ModelsTrainPostData, CreateTrainingRunApiV1ModelsTrainPostErrors, CreateTrainingRunApiV1ModelsTrainPostResponses, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostErrors, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponses, DeleteModelApiV1ModelsModelIdDeleteData, DeleteModelApiV1ModelsModelIdDeleteErrors, DeleteModelApiV1ModelsModelIdDeleteResponses, DeleteRuleApiRiskRulesRuleIdDeleteData, DeleteRuleApiRiskRulesRuleIdDeleteErrors, DeleteRuleApiRiskRulesRuleIdDeleteResponses, DeleteStrategyApiStrategiesStrategyIdDeleteData, DeleteStrategyApiStrategiesStrategyIdDeleteErrors, DeleteStrategyApiStrategiesStrategyIdDeleteResponses, GetActiveLocksApiV1ProtectionsLocksGetData, GetActiveLocksApiV1ProtectionsLocksGetErrors, GetActiveLocksApiV1ProtectionsLocksGetResponses, GetAlertsApiRiskAlertsGetData, GetAlertsApiRiskAlertsGetErrors, GetAlertsApiRiskAlertsGetResponses, GetBacktestApiBacktestBacktestIdGetData, GetBacktestApiBacktestBacktestIdGetErrors, GetBacktestApiBacktestBacktestIdGetResponses, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses, GetBacktestTradesApiBacktestBacktestIdTradesGetData, GetBacktestTradesApiBacktestBacktestIdTradesGetErrors, GetBacktestTradesApiBacktestBacktestIdTradesGetResponses, GetCapabilitiesApiV1CapabilitiesGetData, GetCapabilitiesApiV1CapabilitiesGetErrors, GetCapabilitiesApiV1CapabilitiesGetResponses, GetCorrelationApiRiskCorrelationGetData, GetCorrelationApiRiskCorrelationGetResponses, GetDecisionApiV1DecisionsDecisionIdGetData, GetDecisionApiV1DecisionsDecisionIdGetErrors, GetDecisionApiV1DecisionsDecisionIdGetResponses, GetDecisionTraceApiV1DecisionsDecisionIdTraceGetData, GetDecisionTraceApiV1DecisionsDecisionIdTraceGetErrors, GetDecisionTraceApiV1DecisionsDecisionIdTraceGetResponses, GetDecisionTraceApiV1TracesDecisionsDecisionIdGetData, GetDecisionTraceApiV1TracesDecisionsDecisionIdGetErrors, GetDecisionTraceApiV1TracesDecisionsDecisionIdGetResponses, GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetData, GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetErrors, GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetResponses, GetExposureApiRiskExposureGetData, GetExposureApiRiskExposureGetResponses, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetData, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetErrors, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses, GetHoldingsApiPortfolioHoldingsGetData, GetHoldingsApiPortfolioHoldingsGetResponses, GetLockHistoryApiV1ProtectionsHistoryGetData, GetLockHistoryApiV1ProtectionsHistoryGetErrors, GetLockHistoryApiV1ProtectionsHistoryGetResponses, GetModelMetricsApiV1ModelsModelIdGetData, GetModelMetricsApiV1ModelsModelIdGetErrors, GetModelMetricsApiV1ModelsModelIdGetResponses, GetModelVersionApiModelsVersionIdGetData, GetModelVersionApiModelsVersionIdGetErrors, GetModelVersionApiModelsVersionIdGetResponses, GetNotificationsApiNotificationsGetData, GetNotificationsApiNotificationsGetErrors, GetNotificationsApiNotificationsGetResponses, GetOhlcvApiDataOhlcvGetData, GetOhlcvApiDataOhlcvGetErrors, GetOhlcvApiDataOhlcvGetResponses, GetOrdersApiPortfolioOrdersGetData, GetOrdersApiPortfolioOrdersGetErrors, GetOrdersApiPortfolioOrdersGetResponses, GetPerformanceApiPortfolioPerformanceGetData, GetPerformanceApiPortfolioPerformanceGetErrors, GetPerformanceApiPortfolioPerformanceGetResponses, GetPerpHoldingsApiPortfolioPerpHoldingsGetData, GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses, GetPortfolioApiRiskRulesPortfolioGetData, GetPortfolioApiRiskRulesPortfolioGetErrors, GetPortfolioApiRiskRulesPortfolioGetResponses, GetPredictionsApiV1ModelsModelIdPredictionsGetData, GetPredictionsApiV1ModelsModelIdPredictionsGetErrors, GetPredictionsApiV1ModelsModelIdPredictionsGetResponses, GetPrincipalApiV1PrincipalGetData, GetPrincipalApiV1PrincipalGetResponses, GetRdagentRunResearchRdAgentRunsRunIdGetData, GetRdagentRunResearchRdAgentRunsRunIdGetErrors, GetRdagentRunResearchRdAgentRunsRunIdGetResponses, GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetData, GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetErrors, GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponses, GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetData, GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetErrors, GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetResponses, GetRlExecutionRunResearchRlExecutionRunsRunIdGetData, GetRlExecutionRunResearchRlExecutionRunsRunIdGetErrors, GetRlExecutionRunResearchRlExecutionRunsRunIdGetResponses, GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetData, GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetErrors, GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetResponses, GetRuleApiRiskRulesRuleIdGetData, GetRuleApiRiskRulesRuleIdGetErrors, GetRuleApiRiskRulesRuleIdGetResponses, GetSignalApiSignalsSignalIdGetData, GetSignalApiSignalsSignalIdGetErrors, GetSignalApiSignalsSignalIdGetResponses, GetSignalTraceApiV1TracesSignalsSignalIdGetData, GetSignalTraceApiV1TracesSignalsSignalIdGetErrors, GetSignalTraceApiV1TracesSignalsSignalIdGetResponses, GetStrategyApiStrategiesStrategyIdGetData, GetStrategyApiStrategiesStrategyIdGetErrors, GetStrategyApiStrategiesStrategyIdGetResponses, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetErrors, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses, GetStressTestResultApiRiskStressTestTaskIdGetData, GetStressTestResultApiRiskStressTestTaskIdGetErrors, GetStressTestResultApiRiskStressTestTaskIdGetResponses, GetTaskStatusApiAutoresearchStatusTaskIdGetData, GetTaskStatusApiAutoresearchStatusTaskIdGetErrors, GetTaskStatusApiAutoresearchStatusTaskIdGetResponses, GetTrainingRunApiV1ModelsRunsRunIdGetData, GetTrainingRunApiV1ModelsRunsRunIdGetErrors, GetTrainingRunApiV1ModelsRunsRunIdGetResponses, GetVarApiRiskVarGetData, GetVarApiRiskVarGetResponses, HealthHealthGetData, HealthHealthGetErrors, HealthHealthGetResponses, ListBacktestsApiBacktestGetData, ListBacktestsApiBacktestGetErrors, ListBacktestsApiBacktestGetResponses, ListDecisionsApiV1DecisionsGetData, ListDecisionsApiV1DecisionsGetErrors, ListDecisionsApiV1DecisionsGetResponses, ListExperimentsApiAutoresearchExperimentsGetData, ListExperimentsApiAutoresearchExperimentsGetErrors, ListExperimentsApiAutoresearchExperimentsGetResponses, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetErrors, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponses, ListModelsApiModelsGetData, ListModelsApiModelsGetErrors, ListModelsApiModelsGetResponses, ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetData, ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetErrors, ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetResponses, ListRdagentRunsResearchRdAgentRunsGetData, ListRdagentRunsResearchRdAgentRunsGetErrors, ListRdagentRunsResearchRdAgentRunsGetResponses, ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetData, ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetErrors, ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetResponses, ListRlExecutionRunsResearchRlExecutionRunsGetData, ListRlExecutionRunsResearchRlExecutionRunsGetErrors, ListRlExecutionRunsResearchRlExecutionRunsGetResponses, ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetData, ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetErrors, ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetResponses, ListRulesApiRiskRulesGetData, ListRulesApiRiskRulesGetResponses, ListRuleTypesApiRiskRulesTypesGetData, ListRuleTypesApiRiskRulesTypesGetResponses, ListSentimentApiSentimentGetData, ListSentimentApiSentimentGetErrors, ListSentimentApiSentimentGetResponses, ListSignalsApiSignalsGetData, ListSignalsApiSignalsGetErrors, ListSignalsApiSignalsGetResponses, ListStrategiesApiStrategiesGetData, ListStrategiesApiStrategiesGetResponses, ListTrainingRunsApiV1ModelsRunsGetData, ListTrainingRunsApiV1ModelsRunsGetErrors, ListTrainingRunsApiV1ModelsRunsGetResponses, OverrideLockApiV1ProtectionsLocksLockIdOverridePostData, OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors, OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses, PauseStrategyApiV1StrategiesStrategyIdPausePostData, PauseStrategyApiV1StrategiesStrategyIdPausePostErrors, PauseStrategyApiV1StrategiesStrategyIdPausePostResponses, PredictApiModelsVersionIdPredictPostData, PredictApiModelsVersionIdPredictPostErrors, PredictApiModelsVersionIdPredictPostResponses, QueryBacktestsApiBacktestQueryPostData, QueryBacktestsApiBacktestQueryPostErrors, QueryBacktestsApiBacktestQueryPostResponses, RejectDecisionApiV1DecisionsDecisionIdRejectPostData, RejectDecisionApiV1DecisionsDecisionIdRejectPostErrors, RejectDecisionApiV1DecisionsDecisionIdRejectPostResponses, RejectStrategyApiV1StrategiesStrategyIdRejectPostData, RejectStrategyApiV1StrategiesStrategyIdRejectPostErrors, RejectStrategyApiV1StrategiesStrategyIdRejectPostResponses, ReleaseStrategyApiV1StrategiesStrategyIdReleasePostData, ReleaseStrategyApiV1StrategiesStrategyIdReleasePostErrors, ReleaseStrategyApiV1StrategiesStrategyIdReleasePostResponses, RollbackStrategyApiV1StrategiesStrategyIdRollbackPostData, RollbackStrategyApiV1StrategiesStrategyIdRollbackPostErrors, RollbackStrategyApiV1StrategiesStrategyIdRollbackPostResponses, RunAutoresearchApiAutoresearchRunPostData, RunAutoresearchApiAutoresearchRunPostErrors, RunAutoresearchApiAutoresearchRunPostResponses, RunBacktestApiBacktestRunPostData, RunBacktestApiBacktestRunPostErrors, RunBacktestApiBacktestRunPostResponses, RunDualModeApiBacktestDualModePostData, RunDualModeApiBacktestDualModePostErrors, RunDualModeApiBacktestDualModePostResponses, RunOptimizationApiBacktestOptimizePostData, RunOptimizationApiBacktestOptimizePostErrors, RunOptimizationApiBacktestOptimizePostResponses, ShadowModelApiModelsVersionIdShadowPostData, ShadowModelApiModelsVersionIdShadowPostErrors, ShadowModelApiModelsVersionIdShadowPostResponses, StartTrainingApiModelsTrainPostData, StartTrainingApiModelsTrainPostErrors, StartTrainingApiModelsTrainPostResponses, StopAutoresearchApiAutoresearchStopTaskIdPostData, StopAutoresearchApiAutoresearchStopTaskIdPostErrors, StopAutoresearchApiAutoresearchStopTaskIdPostResponses, TriggerStressTestApiRiskStressTestRunPostData, TriggerStressTestApiRiskStressTestRunPostErrors, TriggerStressTestApiRiskStressTestRunPostResponses, UpdateRuleApiRiskRulesRuleIdPatchData, UpdateRuleApiRiskRulesRuleIdPatchErrors, UpdateRuleApiRiskRulesRuleIdPatchResponses, UpdateStrategyApiStrategiesStrategyIdPutData, UpdateStrategyApiStrategiesStrategyIdPutErrors, UpdateStrategyApiStrategiesStrategyIdPutResponses } from './types.gen';
+import type { ActivateModelApiModelsVersionIdActivatePostData, ActivateModelApiModelsVersionIdActivatePostErrors, ActivateModelApiModelsVersionIdActivatePostResponses, ActivateStrategyApiStrategiesStrategyIdActivatePostData, ActivateStrategyApiStrategiesStrategyIdActivatePostErrors, ActivateStrategyApiStrategiesStrategyIdActivatePostResponses, ApproveDecisionApiV1DecisionsDecisionIdApprovePostData, ApproveDecisionApiV1DecisionsDecisionIdApprovePostErrors, ApproveDecisionApiV1DecisionsDecisionIdApprovePostResponses, CancelRdagentRunResearchRdAgentRunsRunIdCancelPostData, CancelRdagentRunResearchRdAgentRunsRunIdCancelPostErrors, CancelRdagentRunResearchRdAgentRunsRunIdCancelPostResponses, CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostData, CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostErrors, CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostResponses, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostData, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostErrors, CancelTrainingRunApiV1ModelsRunsRunIdCancelPostResponses, CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostData, CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostErrors, CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostResponses, CreateCampaignApiV1CampaignsPostData, CreateCampaignApiV1CampaignsPostErrors, CreateCampaignApiV1CampaignsPostResponses, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostErrors, CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponses, CreateDecisionApiV1DecisionsPostData, CreateDecisionApiV1DecisionsPostErrors, CreateDecisionApiV1DecisionsPostResponses, CreateIcAnalysisRunApiV1FactorAnalysisIcPostData, CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors, CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses, CreateRdagentRunResearchRdAgentRunPostData, CreateRdagentRunResearchRdAgentRunPostErrors, CreateRdagentRunResearchRdAgentRunPostResponses, CreateRlExecutionRunResearchRlExecutionRunPostData, CreateRlExecutionRunResearchRlExecutionRunPostErrors, CreateRlExecutionRunResearchRlExecutionRunPostResponses, CreateRuleApiRiskRulesPostData, CreateRuleApiRiskRulesPostErrors, CreateRuleApiRiskRulesPostResponses, CreateSentimentApiSentimentPostData, CreateSentimentApiSentimentPostErrors, CreateSentimentApiSentimentPostResponses, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors, CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses, CreateStrategyApiStrategiesPostData, CreateStrategyApiStrategiesPostErrors, CreateStrategyApiStrategiesPostResponses, CreateTrainingRunApiV1ModelsTrainPostData, CreateTrainingRunApiV1ModelsTrainPostErrors, CreateTrainingRunApiV1ModelsTrainPostResponses, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostData, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostErrors, DeactivateStrategyApiStrategiesStrategyIdDeactivatePostResponses, DeleteModelApiV1ModelsModelIdDeleteData, DeleteModelApiV1ModelsModelIdDeleteErrors, DeleteModelApiV1ModelsModelIdDeleteResponses, DeleteRuleApiRiskRulesRuleIdDeleteData, DeleteRuleApiRiskRulesRuleIdDeleteErrors, DeleteRuleApiRiskRulesRuleIdDeleteResponses, DeleteStrategyApiStrategiesStrategyIdDeleteData, DeleteStrategyApiStrategiesStrategyIdDeleteErrors, DeleteStrategyApiStrategiesStrategyIdDeleteResponses, EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostData, EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostErrors, EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostResponses, FreezeManifestApiV1ResearchManifestsPostData, FreezeManifestApiV1ResearchManifestsPostErrors, FreezeManifestApiV1ResearchManifestsPostResponses, GetActiveLocksApiV1ProtectionsLocksGetData, GetActiveLocksApiV1ProtectionsLocksGetErrors, GetActiveLocksApiV1ProtectionsLocksGetResponses, GetAlertsApiRiskAlertsGetData, GetAlertsApiRiskAlertsGetErrors, GetAlertsApiRiskAlertsGetResponses, GetBacktestApiBacktestBacktestIdGetData, GetBacktestApiBacktestBacktestIdGetErrors, GetBacktestApiBacktestBacktestIdGetResponses, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors, GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses, GetBacktestTradesApiBacktestBacktestIdTradesGetData, GetBacktestTradesApiBacktestBacktestIdTradesGetErrors, GetBacktestTradesApiBacktestBacktestIdTradesGetResponses, GetCapabilitiesApiV1CapabilitiesGetData, GetCapabilitiesApiV1CapabilitiesGetErrors, GetCapabilitiesApiV1CapabilitiesGetResponses, GetCorrelationApiRiskCorrelationGetData, GetCorrelationApiRiskCorrelationGetResponses, GetDecisionApiV1DecisionsDecisionIdGetData, GetDecisionApiV1DecisionsDecisionIdGetErrors, GetDecisionApiV1DecisionsDecisionIdGetResponses, GetDecisionTraceApiV1DecisionsDecisionIdTraceGetData, GetDecisionTraceApiV1DecisionsDecisionIdTraceGetErrors, GetDecisionTraceApiV1DecisionsDecisionIdTraceGetResponses, GetDecisionTraceApiV1TracesDecisionsDecisionIdGetData, GetDecisionTraceApiV1TracesDecisionsDecisionIdGetErrors, GetDecisionTraceApiV1TracesDecisionsDecisionIdGetResponses, GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetData, GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetErrors, GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetResponses, GetExposureApiRiskExposureGetData, GetExposureApiRiskExposureGetResponses, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetData, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetErrors, GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses, GetHoldingsApiPortfolioHoldingsGetData, GetHoldingsApiPortfolioHoldingsGetResponses, GetLockHistoryApiV1ProtectionsHistoryGetData, GetLockHistoryApiV1ProtectionsHistoryGetErrors, GetLockHistoryApiV1ProtectionsHistoryGetResponses, GetManifestApiV1ResearchManifestsManifestIdGetData, GetManifestApiV1ResearchManifestsManifestIdGetErrors, GetManifestApiV1ResearchManifestsManifestIdGetResponses, GetModelMetricsApiV1ModelsModelIdGetData, GetModelMetricsApiV1ModelsModelIdGetErrors, GetModelMetricsApiV1ModelsModelIdGetResponses, GetModelVersionApiModelsVersionIdGetData, GetModelVersionApiModelsVersionIdGetErrors, GetModelVersionApiModelsVersionIdGetResponses, GetNotificationsApiNotificationsGetData, GetNotificationsApiNotificationsGetErrors, GetNotificationsApiNotificationsGetResponses, GetOhlcvApiDataOhlcvGetData, GetOhlcvApiDataOhlcvGetErrors, GetOhlcvApiDataOhlcvGetResponses, GetOrdersApiPortfolioOrdersGetData, GetOrdersApiPortfolioOrdersGetErrors, GetOrdersApiPortfolioOrdersGetResponses, GetPerformanceApiPortfolioPerformanceGetData, GetPerformanceApiPortfolioPerformanceGetErrors, GetPerformanceApiPortfolioPerformanceGetResponses, GetPerpHoldingsApiPortfolioPerpHoldingsGetData, GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses, GetPortfolioApiRiskRulesPortfolioGetData, GetPortfolioApiRiskRulesPortfolioGetErrors, GetPortfolioApiRiskRulesPortfolioGetResponses, GetPredictionsApiV1ModelsModelIdPredictionsGetData, GetPredictionsApiV1ModelsModelIdPredictionsGetErrors, GetPredictionsApiV1ModelsModelIdPredictionsGetResponses, GetPrincipalApiV1PrincipalGetData, GetPrincipalApiV1PrincipalGetResponses, GetRdagentRunResearchRdAgentRunsRunIdGetData, GetRdagentRunResearchRdAgentRunsRunIdGetErrors, GetRdagentRunResearchRdAgentRunsRunIdGetResponses, GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetData, GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetErrors, GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponses, GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetData, GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetErrors, GetReleaseStateApiV1StrategiesStrategyIdReleaseStateGetResponses, GetRevisionApiV1ResearchRevisionsRevisionIdGetData, GetRevisionApiV1ResearchRevisionsRevisionIdGetErrors, GetRevisionApiV1ResearchRevisionsRevisionIdGetResponses, GetRlExecutionRunResearchRlExecutionRunsRunIdGetData, GetRlExecutionRunResearchRlExecutionRunsRunIdGetErrors, GetRlExecutionRunResearchRlExecutionRunsRunIdGetResponses, GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetData, GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetErrors, GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetResponses, GetRuleApiRiskRulesRuleIdGetData, GetRuleApiRiskRulesRuleIdGetErrors, GetRuleApiRiskRulesRuleIdGetResponses, GetSignalApiSignalsSignalIdGetData, GetSignalApiSignalsSignalIdGetErrors, GetSignalApiSignalsSignalIdGetResponses, GetSignalTraceApiV1TracesSignalsSignalIdGetData, GetSignalTraceApiV1TracesSignalsSignalIdGetErrors, GetSignalTraceApiV1TracesSignalsSignalIdGetResponses, GetStrategyApiStrategiesStrategyIdGetData, GetStrategyApiStrategiesStrategyIdGetErrors, GetStrategyApiStrategiesStrategyIdGetResponses, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetData, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetErrors, GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses, GetStressTestResultApiRiskStressTestTaskIdGetData, GetStressTestResultApiRiskStressTestTaskIdGetErrors, GetStressTestResultApiRiskStressTestTaskIdGetResponses, GetTaskStatusApiAutoresearchStatusTaskIdGetData, GetTaskStatusApiAutoresearchStatusTaskIdGetErrors, GetTaskStatusApiAutoresearchStatusTaskIdGetResponses, GetTrainingRunApiV1ModelsRunsRunIdGetData, GetTrainingRunApiV1ModelsRunsRunIdGetErrors, GetTrainingRunApiV1ModelsRunsRunIdGetResponses, GetVarApiRiskVarGetData, GetVarApiRiskVarGetResponses, HealthHealthGetData, HealthHealthGetErrors, HealthHealthGetResponses, ListBacktestsApiBacktestGetData, ListBacktestsApiBacktestGetErrors, ListBacktestsApiBacktestGetResponses, ListDecisionsApiV1DecisionsGetData, ListDecisionsApiV1DecisionsGetErrors, ListDecisionsApiV1DecisionsGetResponses, ListExperimentsApiAutoresearchExperimentsGetData, ListExperimentsApiAutoresearchExperimentsGetErrors, ListExperimentsApiAutoresearchExperimentsGetResponses, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetErrors, ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetResponses, ListModelsApiModelsGetData, ListModelsApiModelsGetErrors, ListModelsApiModelsGetResponses, ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetData, ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetErrors, ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetResponses, ListRdagentRunsResearchRdAgentRunsGetData, ListRdagentRunsResearchRdAgentRunsGetErrors, ListRdagentRunsResearchRdAgentRunsGetResponses, ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetData, ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetErrors, ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetResponses, ListRevisionsApiV1ResearchRevisionsGetData, ListRevisionsApiV1ResearchRevisionsGetErrors, ListRevisionsApiV1ResearchRevisionsGetResponses, ListRlExecutionRunsResearchRlExecutionRunsGetData, ListRlExecutionRunsResearchRlExecutionRunsGetErrors, ListRlExecutionRunsResearchRlExecutionRunsGetResponses, ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetData, ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetErrors, ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetResponses, ListRulesApiRiskRulesGetData, ListRulesApiRiskRulesGetResponses, ListRuleTypesApiRiskRulesTypesGetData, ListRuleTypesApiRiskRulesTypesGetResponses, ListSentimentApiSentimentGetData, ListSentimentApiSentimentGetErrors, ListSentimentApiSentimentGetResponses, ListSignalsApiSignalsGetData, ListSignalsApiSignalsGetErrors, ListSignalsApiSignalsGetResponses, ListStrategiesApiStrategiesGetData, ListStrategiesApiStrategiesGetResponses, ListTrainingRunsApiV1ModelsRunsGetData, ListTrainingRunsApiV1ModelsRunsGetErrors, ListTrainingRunsApiV1ModelsRunsGetResponses, MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostData, MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostErrors, MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostResponses, OverrideLockApiV1ProtectionsLocksLockIdOverridePostData, OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors, OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses, PauseStrategyApiV1StrategiesStrategyIdPausePostData, PauseStrategyApiV1StrategiesStrategyIdPausePostErrors, PauseStrategyApiV1StrategiesStrategyIdPausePostResponses, PredictApiModelsVersionIdPredictPostData, PredictApiModelsVersionIdPredictPostErrors, PredictApiModelsVersionIdPredictPostResponses, PrepareRevisionApiV1ResearchRevisionsPostData, PrepareRevisionApiV1ResearchRevisionsPostErrors, PrepareRevisionApiV1ResearchRevisionsPostResponses, QueryBacktestsApiBacktestQueryPostData, QueryBacktestsApiBacktestQueryPostErrors, QueryBacktestsApiBacktestQueryPostResponses, RejectDecisionApiV1DecisionsDecisionIdRejectPostData, RejectDecisionApiV1DecisionsDecisionIdRejectPostErrors, RejectDecisionApiV1DecisionsDecisionIdRejectPostResponses, RejectStrategyApiV1StrategiesStrategyIdRejectPostData, RejectStrategyApiV1StrategiesStrategyIdRejectPostErrors, RejectStrategyApiV1StrategiesStrategyIdRejectPostResponses, ReleaseStrategyApiV1StrategiesStrategyIdReleasePostData, ReleaseStrategyApiV1StrategiesStrategyIdReleasePostErrors, ReleaseStrategyApiV1StrategiesStrategyIdReleasePostResponses, RollbackStrategyApiV1StrategiesStrategyIdRollbackPostData, RollbackStrategyApiV1StrategiesStrategyIdRollbackPostErrors, RollbackStrategyApiV1StrategiesStrategyIdRollbackPostResponses, RunAutoresearchApiAutoresearchRunPostData, RunAutoresearchApiAutoresearchRunPostErrors, RunAutoresearchApiAutoresearchRunPostResponses, RunBacktestApiBacktestRunPostData, RunBacktestApiBacktestRunPostErrors, RunBacktestApiBacktestRunPostResponses, RunDualModeApiBacktestDualModePostData, RunDualModeApiBacktestDualModePostErrors, RunDualModeApiBacktestDualModePostResponses, RunOptimizationApiBacktestOptimizePostData, RunOptimizationApiBacktestOptimizePostErrors, RunOptimizationApiBacktestOptimizePostResponses, ShadowModelApiModelsVersionIdShadowPostData, ShadowModelApiModelsVersionIdShadowPostErrors, ShadowModelApiModelsVersionIdShadowPostResponses, StartTrainingApiModelsTrainPostData, StartTrainingApiModelsTrainPostErrors, StartTrainingApiModelsTrainPostResponses, StopAutoresearchApiAutoresearchStopTaskIdPostData, StopAutoresearchApiAutoresearchStopTaskIdPostErrors, StopAutoresearchApiAutoresearchStopTaskIdPostResponses, TriggerStressTestApiRiskStressTestRunPostData, TriggerStressTestApiRiskStressTestRunPostErrors, TriggerStressTestApiRiskStressTestRunPostResponses, UpdateRuleApiRiskRulesRuleIdPatchData, UpdateRuleApiRiskRulesRuleIdPatchErrors, UpdateRuleApiRiskRulesRuleIdPatchResponses, UpdateStrategyApiStrategiesStrategyIdPutData, UpdateStrategyApiStrategiesStrategyIdPutErrors, UpdateStrategyApiStrategiesStrategyIdPutResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -1025,6 +1025,46 @@ export const getStrategyPerformanceApiStrategiesStrategyIdPerformanceGet = <Thro
 };
 
 /**
+ * Create Campaign
+ */
+export const createCampaignApiV1CampaignsPost = <ThrowOnError extends boolean = false>(options: Options<CreateCampaignApiV1CampaignsPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<CreateCampaignApiV1CampaignsPostResponses, CreateCampaignApiV1CampaignsPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/campaigns/',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * Enqueue Campaign Review
+ */
+export const enqueueCampaignReviewApiV1CampaignsCampaignIdReviewPost = <ThrowOnError extends boolean = false>(options: Options<EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostResponses, EnqueueCampaignReviewApiV1CampaignsCampaignIdReviewPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/campaigns/{campaign_id}/review',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
  * Get Capabilities
  *
  * Return capability flags matrix for all registered components.
@@ -1481,6 +1521,134 @@ export const overrideLockApiV1ProtectionsLocksLockIdOverridePost = <ThrowOnError
         ],
         url: '/api/v1/protections/locks/{lock_id}/override',
         ...options
+    });
+};
+
+/**
+ * Freeze Manifest
+ */
+export const freezeManifestApiV1ResearchManifestsPost = <ThrowOnError extends boolean = false>(options: Options<FreezeManifestApiV1ResearchManifestsPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<FreezeManifestApiV1ResearchManifestsPostResponses, FreezeManifestApiV1ResearchManifestsPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/research/manifests',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * Get Manifest
+ */
+export const getManifestApiV1ResearchManifestsManifestIdGet = <ThrowOnError extends boolean = false>(options: Options<GetManifestApiV1ResearchManifestsManifestIdGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetManifestApiV1ResearchManifestsManifestIdGetResponses, GetManifestApiV1ResearchManifestsManifestIdGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/research/manifests/{manifest_id}',
+        ...options
+    });
+};
+
+/**
+ * List Revisions
+ */
+export const listRevisionsApiV1ResearchRevisionsGet = <ThrowOnError extends boolean = false>(options: Options<ListRevisionsApiV1ResearchRevisionsGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<ListRevisionsApiV1ResearchRevisionsGetResponses, ListRevisionsApiV1ResearchRevisionsGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/research/revisions',
+        ...options
+    });
+};
+
+/**
+ * Prepare Revision
+ */
+export const prepareRevisionApiV1ResearchRevisionsPost = <ThrowOnError extends boolean = false>(options: Options<PrepareRevisionApiV1ResearchRevisionsPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<PrepareRevisionApiV1ResearchRevisionsPostResponses, PrepareRevisionApiV1ResearchRevisionsPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/research/revisions',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * Get Revision
+ */
+export const getRevisionApiV1ResearchRevisionsRevisionIdGet = <ThrowOnError extends boolean = false>(options: Options<GetRevisionApiV1ResearchRevisionsRevisionIdGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetRevisionApiV1ResearchRevisionsRevisionIdGetResponses, GetRevisionApiV1ResearchRevisionsRevisionIdGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/research/revisions/{revision_id}',
+        ...options
+    });
+};
+
+/**
+ * Complete Revision
+ */
+export const completeRevisionApiV1ResearchRevisionsRevisionIdCompletePost = <ThrowOnError extends boolean = false>(options: Options<CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostData, ThrowOnError>) => {
+    return (options.client ?? client).post<CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostResponses, CompleteRevisionApiV1ResearchRevisionsRevisionIdCompletePostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/research/revisions/{revision_id}/complete',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * Mark Provider Failed
+ */
+export const markProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPost = <ThrowOnError extends boolean = false>(options: Options<MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostResponses, MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/research/revisions/{revision_id}/provider-failed',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
     });
 };
 
