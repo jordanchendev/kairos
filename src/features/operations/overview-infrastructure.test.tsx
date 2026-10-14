@@ -52,6 +52,7 @@ const signals: SignalResponse[] = [
     instrument: "spot",
     interval: "1h",
     market: "us_stock",
+    metadata: {},
     model_id: null,
     params: { strategy_name: "Momentum Core" },
     quantity_pct: 0.25,

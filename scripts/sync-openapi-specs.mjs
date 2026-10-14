@@ -12,6 +12,13 @@ const defaultPoseidonInput = "./.cache-specs/poseidon/openapi.json";
 const defaultTritonInput = "./.cache-specs/triton/openapi.json";
 const defaultThalassaInput = "./.cache-specs/thalassa/openapi.json";
 
+const openapiService = process.env.OPENAPI_SERVICE ?? "";
+if (openapiService !== "" && openapiService !== "poseidon") {
+  console.error(`Unsupported OPENAPI_SERVICE: ${openapiService}`);
+  process.exit(1);
+}
+const poseidonOnly = openapiService === "poseidon";
+
 const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? defaultPoseidonInput;
 const tritonInput = process.env.OPENAPI_TRITON_INPUT ?? defaultTritonInput;
 const thalassaInput = process.env.OPENAPI_THALASSA_INPUT ?? defaultThalassaInput;
@@ -109,7 +116,18 @@ async function verifyInputs() {
   }
 }
 
+async function verifyPoseidonOnlyInput() {
+  if (!process.env.OPENAPI_POSEIDON_INPUT?.trim()) {
+    throw new Error("OPENAPI_SERVICE=poseidon requires an explicit OPENAPI_POSEIDON_INPUT");
+  }
+  await ensureReadable(process.env.OPENAPI_POSEIDON_INPUT);
+}
+
 async function main() {
+  if (poseidonOnly) {
+    await verifyPoseidonOnlyInput();
+    return;
+  }
   await syncPoseidonSpec();
   await syncThalassaSpec();
   await verifyInputs();

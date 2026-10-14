@@ -9,19 +9,19 @@ export type ClientOptions = {
  */
 export type AlertItem = {
     /**
-     * Id
-     */
-    id: string;
-    /**
-     * Event Type
-     */
-    event_type: string;
-    /**
      * Data
      */
     data: {
         [key: string]: unknown;
     };
+    /**
+     * Event Type
+     */
+    event_type: string;
+    /**
+     * Id
+     */
+    id: string;
 };
 
 /**
@@ -45,17 +45,31 @@ export type AlertsResponse = {
  */
 export type AutoResearchRequest = {
     /**
+     * Base Config Json
+     *
+     * Base VotingStrategy config dict for RegimeRouter search (used when strategy_type='regime_router')
+     */
+    base_config_json?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Feature Names
+     *
+     * Feature column names for RuleStrategyFactory conditions (required when strategy_type='rule')
+     */
+    feature_names?: Array<string> | null;
+    /**
      * Markets
      */
     markets: Array<MarketSpecSchema>;
     /**
-     * N Trials
-     */
-    n_trials?: number;
-    /**
      * Min Wfe
      */
     min_wfe?: number;
+    /**
+     * N Trials
+     */
+    n_trials?: number;
     /**
      * Seed
      */
@@ -69,7 +83,7 @@ export type AutoResearchRequest = {
     /**
      * Strategy Type
      *
-     * Strategy factory: 'voting' (VotingStrategyFactory, default) or 'liquidity_sweep' (LiquiditySweepStrategyFactory)
+     * Strategy factory: 'voting' (default), 'rule' (RuleStrategyFactory), 'model' (ModelStrategyFactory), or 'regime_router' (RegimeSearchPipeline)
      */
     strategy_type?: string;
 };
@@ -81,17 +95,17 @@ export type AutoResearchRequest = {
  */
 export type BacktestEquityPointResponse = {
     /**
-     * Time
+     * Drawdown
      */
-    time: string;
+    drawdown: number;
     /**
      * Equity
      */
     equity: number;
     /**
-     * Drawdown
+     * Time
      */
-    drawdown: number;
+    time: string;
 };
 
 /**
@@ -105,13 +119,13 @@ export type BacktestEquityResponse = {
      */
     backtest_id: string;
     /**
-     * Data
-     */
-    data: Array<BacktestEquityPointResponse>;
-    /**
      * Count
      */
     count: number;
+    /**
+     * Data
+     */
+    data: Array<BacktestEquityPointResponse>;
 };
 
 /**
@@ -129,13 +143,17 @@ export type BacktestMetricsSummary = {
      */
     completed_at: string | null;
     /**
+     * Composite Score
+     */
+    composite_score: number | null;
+    /**
+     * Max Drawdown
+     */
+    max_drawdown: number | null;
+    /**
      * Sharpe Ratio
      */
     sharpe_ratio: number | null;
-    /**
-     * Win Rate
-     */
-    win_rate: number | null;
     /**
      * Total Pnl
      */
@@ -145,13 +163,9 @@ export type BacktestMetricsSummary = {
      */
     trade_count: number | null;
     /**
-     * Max Drawdown
+     * Win Rate
      */
-    max_drawdown: number | null;
-    /**
-     * Composite Score
-     */
-    composite_score: number | null;
+    win_rate: number | null;
 };
 
 /**
@@ -161,9 +175,45 @@ export type BacktestMetricsSummary = {
  */
 export type BacktestResponse = {
     /**
+     * Completed At
+     */
+    completed_at: string | null;
+    /**
+     * Config
+     */
+    config: {
+        [key: string]: unknown;
+    };
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Error Message
+     */
+    error_message: string | null;
+    /**
      * Id
      */
     id: string;
+    /**
+     * Interval
+     */
+    interval: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Metrics
+     */
+    metrics: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Status
+     */
+    status: string;
     /**
      * Strategy Id
      */
@@ -177,47 +227,11 @@ export type BacktestResponse = {
      */
     symbol: string;
     /**
-     * Market
-     */
-    market: string;
-    /**
-     * Interval
-     */
-    interval: string;
-    /**
-     * Config
-     */
-    config: {
-        [key: string]: unknown;
-    };
-    /**
-     * Metrics
-     */
-    metrics: {
-        [key: string]: unknown;
-    } | null;
-    /**
      * Walk Forward
      */
     walk_forward: {
         [key: string]: unknown;
     } | null;
-    /**
-     * Status
-     */
-    status: string;
-    /**
-     * Error Message
-     */
-    error_message: string | null;
-    /**
-     * Created At
-     */
-    created_at: string;
-    /**
-     * Completed At
-     */
-    completed_at: string | null;
 };
 
 /**
@@ -227,21 +241,9 @@ export type BacktestResponse = {
  */
 export type BacktestRunRequest = {
     /**
-     * Strategy Id
-     */
-    strategy_id: string;
-    /**
-     * Start Date
-     */
-    start_date?: string | null;
-    /**
      * End Date
      */
     end_date?: string | null;
-    /**
-     * Initial Capital
-     */
-    initial_capital?: number;
     /**
      * Fill Model
      */
@@ -250,6 +252,10 @@ export type BacktestRunRequest = {
      * Include Funding
      */
     include_funding?: boolean;
+    /**
+     * Initial Capital
+     */
+    initial_capital?: number;
     /**
      * Sizing Mode
      */
@@ -260,6 +266,14 @@ export type BacktestRunRequest = {
     sizing_params?: {
         [key: string]: unknown;
     } | null;
+    /**
+     * Start Date
+     */
+    start_date?: string | null;
+    /**
+     * Strategy Id
+     */
+    strategy_id: string;
 };
 
 /**
@@ -269,49 +283,69 @@ export type BacktestRunRequest = {
  */
 export type BacktestTradeResponse = {
     /**
-     * Id
+     * Action
      */
-    id: string;
+    action: string;
     /**
      * Backtest Id
      */
     backtest_id: string;
     /**
-     * Symbol
+     * Entry Price
      */
-    symbol: string;
-    /**
-     * Action
-     */
-    action: string;
+    entry_price: number;
     /**
      * Entry Time
      */
     entry_time: string;
     /**
-     * Exit Time
-     */
-    exit_time: string | null;
-    /**
-     * Entry Price
-     */
-    entry_price: number;
-    /**
      * Exit Price
      */
     exit_price: number | null;
     /**
-     * Quantity
+     * Exit Time
      */
-    quantity: number;
+    exit_time: string | null;
+    /**
+     * Fees
+     */
+    fees: number;
+    /**
+     * Id
+     */
+    id: string;
     /**
      * Pnl
      */
     pnl: number | null;
     /**
-     * Fees
+     * Quantity
      */
-    fees: number;
+    quantity: number;
+    /**
+     * Symbol
+     */
+    symbol: string;
+};
+
+/**
+ * BatchBacktestQueryRequest
+ *
+ * Request body for batch querying backtests by strategy IDs.
+ */
+export type BatchBacktestQueryRequest = {
+    /**
+     * Latest Only
+     */
+    latest_only?: boolean;
+    /**
+     * Limit
+     */
+    limit?: number;
+    /**
+     * Strategy Ids
+     */
+    strategy_ids: Array<string>;
 };
 
 /**
@@ -337,9 +371,27 @@ export type CapabilitiesResponse = {
  */
 export type CentralityAnalysisRequest = {
     /**
+     * Distance Threshold
+     *
+     * Clustering distance threshold
+     */
+    distance_threshold?: number;
+    /**
+     * End Date
+     */
+    end_date: string;
+    /**
+     * Interval
+     */
+    interval?: string;
+    /**
      * Market
      */
     market: string;
+    /**
+     * Start Date
+     */
+    start_date: string;
     /**
      * Sub Signals
      *
@@ -354,24 +406,6 @@ export type CentralityAnalysisRequest = {
      * Optional symbol subset
      */
     symbols?: Array<string> | null;
-    /**
-     * Start Date
-     */
-    start_date: string;
-    /**
-     * End Date
-     */
-    end_date: string;
-    /**
-     * Interval
-     */
-    interval?: string;
-    /**
-     * Distance Threshold
-     *
-     * Clustering distance threshold
-     */
-    distance_threshold?: number;
 };
 
 /**
@@ -381,13 +415,21 @@ export type CentralityAnalysisRequest = {
  */
 export type ComponentCapabilityResponse = {
     /**
-     * Name
+     * Bias Risk
      */
-    name: string;
+    bias_risk: Array<string>;
     /**
      * Component Type
      */
     component_type: string;
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Stateful
+     */
+    stateful: boolean;
     /**
      * Supports Backtest
      */
@@ -396,28 +438,12 @@ export type ComponentCapabilityResponse = {
      * Supports Live
      */
     supports_live: boolean;
-    /**
-     * Bias Risk
-     */
-    bias_risk: Array<string>;
-    /**
-     * Stateful
-     */
-    stateful: boolean;
 };
 
 /**
  * CorrelationResponse
  */
 export type CorrelationResponse = {
-    /**
-     * Symbols
-     */
-    symbols: Array<string>;
-    /**
-     * Matrix
-     */
-    matrix: Array<Array<number>>;
     /**
      * As Of
      */
@@ -426,6 +452,313 @@ export type CorrelationResponse = {
      * Computed At
      */
     computed_at?: string | null;
+    /**
+     * Matrix
+     */
+    matrix: Array<Array<number>>;
+    /**
+     * Symbols
+     */
+    symbols: Array<string>;
+};
+
+/**
+ * DecisionAPIError
+ */
+export type DecisionApiError = {
+    /**
+     * Detail
+     */
+    detail: string;
+};
+
+/**
+ * DecisionApprovalRequest
+ */
+export type DecisionApprovalRequest = {
+    /**
+     * Expected Revision
+     */
+    expected_revision: number;
+    /**
+     * Final Action
+     */
+    final_action?: 'watch' | 'hold' | 'enter' | 'add' | 'reduce' | 'exit' | 'reject' | null;
+    /**
+     * Override Reason
+     */
+    override_reason?: string | null;
+};
+
+/**
+ * DecisionCapabilityMetadata
+ */
+export type DecisionCapabilityMetadata = {
+    /**
+     * Approve Reason
+     */
+    approve_reason: 'available' | 'status_not_pending' | 'decision_expired' | 'role_not_authorized' | 'account_scope_not_authorized';
+    /**
+     * Can Approve
+     */
+    can_approve: boolean;
+    /**
+     * Can Modify
+     */
+    can_modify: boolean;
+    /**
+     * Can Reject
+     */
+    can_reject: boolean;
+    /**
+     * Modify Reason
+     */
+    modify_reason: 'available' | 'status_not_pending' | 'decision_expired' | 'role_not_authorized' | 'account_scope_not_authorized';
+    /**
+     * Reject Reason
+     */
+    reject_reason: 'available' | 'status_not_pending' | 'decision_expired' | 'role_not_authorized' | 'account_scope_not_authorized';
+};
+
+/**
+ * DecisionCreateRequest
+ */
+export type DecisionCreateRequest = {
+    /**
+     * Account Scope
+     */
+    account_scope: string;
+    /**
+     * Evaluation Run Id
+     */
+    evaluation_run_id: string;
+    original_json: DecisionDocumentResponse;
+    /**
+     * Portfolio Snapshot Json
+     */
+    portfolio_snapshot_json: {
+        [key: string]: JsonValue;
+    };
+    risk_snapshot_json: DecisionRiskSnapshotResponse;
+};
+
+/**
+ * DecisionDocumentResponse
+ */
+export type DecisionDocumentResponse = {
+    /**
+     * Final Action
+     */
+    final_action: 'watch' | 'hold' | 'enter' | 'add' | 'reduce' | 'exit' | 'reject';
+    /**
+     * Order Intents
+     */
+    order_intents?: Array<DecisionIntentResponse>;
+    /**
+     * Override Reason
+     */
+    override_reason?: string | null;
+    /**
+     * Selected Evaluation Ids
+     */
+    selected_evaluation_ids: Array<string>;
+    [key: string]: unknown | 'watch' | 'hold' | 'enter' | 'add' | 'reduce' | 'exit' | 'reject' | Array<DecisionIntentResponse> | string | null | Array<string> | undefined;
+};
+
+/**
+ * DecisionEventHistoryResponse
+ */
+export type DecisionEventHistoryResponse = {
+    /**
+     * Actor Id
+     */
+    actor_id: string;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Event Type
+     */
+    event_type: string;
+    /**
+     * Expected Revision
+     */
+    expected_revision: number;
+    /**
+     * Id
+     */
+    id: string;
+};
+
+/**
+ * DecisionIntentResponse
+ */
+export type DecisionIntentResponse = {
+    /**
+     * Action
+     */
+    action: 'enter' | 'add' | 'reduce' | 'exit';
+    /**
+     * Evaluation Snapshot Id
+     */
+    evaluation_snapshot_id: string;
+    /**
+     * Instrument
+     */
+    instrument: string;
+    /**
+     * Market
+     */
+    market: 'tw_stock' | 'crypto_perp';
+    /**
+     * Order Type
+     */
+    order_type?: 'market';
+    /**
+     * Side
+     */
+    side: 'long' | 'short';
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Target Weight
+     */
+    target_weight: number;
+};
+
+/**
+ * DecisionMutationResponse
+ */
+export type DecisionMutationResponse = {
+    final_json: DecisionDocumentResponse;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Status
+     */
+    status: 'pending_approval' | 'approved' | 'rejected' | 'superseded' | 'expired' | 'execution_claimed' | 'risk_blocked';
+};
+
+/**
+ * DecisionRejectionRequest
+ */
+export type DecisionRejectionRequest = {
+    /**
+     * Expected Revision
+     */
+    expected_revision: number;
+    /**
+     * Reason
+     */
+    reason: string;
+};
+
+/**
+ * DecisionResponse
+ */
+export type DecisionResponse = {
+    /**
+     * Account Scope
+     */
+    account_scope: string;
+    action_metadata: DecisionCapabilityMetadata;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Creation Sha256
+     */
+    creation_sha256: string;
+    /**
+     * Decision As Of
+     */
+    decision_as_of: string;
+    /**
+     * Evaluation Run Id
+     */
+    evaluation_run_id: string;
+    /**
+     * Event History
+     */
+    event_history: Array<DecisionEventHistoryResponse>;
+    /**
+     * Execution Status
+     */
+    execution_status: 'not_started' | 'pending' | 'pending_submit' | 'submitted' | 'partially_filled' | 'filled' | 'rejected' | 'cancelled' | 'reconciliation_required' | 'mixed';
+    /**
+     * Final Action
+     */
+    final_action: 'watch' | 'hold' | 'enter' | 'add' | 'reduce' | 'exit' | 'reject';
+    final_json: DecisionDocumentResponse;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Original Action
+     */
+    original_action: 'watch' | 'hold' | 'enter' | 'add' | 'reduce' | 'exit' | 'reject';
+    original_json: DecisionDocumentResponse;
+    /**
+     * Policy Sha256
+     */
+    policy_sha256: string;
+    /**
+     * Portfolio Snapshot Json
+     */
+    portfolio_snapshot_json: {
+        [key: string]: JsonValue;
+    };
+    /**
+     * Reconciliation Status
+     */
+    reconciliation_status: 'not_required' | 'pending' | 'required' | 'resolved' | 'mixed';
+    /**
+     * Revision
+     */
+    revision: number;
+    risk_snapshot_json: DecisionRiskSnapshotResponse;
+    /**
+     * Status
+     */
+    status: 'pending_approval' | 'approved' | 'rejected' | 'superseded' | 'expired' | 'execution_claimed' | 'risk_blocked';
+    /**
+     * Strategy Version Id
+     */
+    strategy_version_id: string;
+    /**
+     * Updated At
+     */
+    updated_at: string;
+    /**
+     * Valid Until
+     */
+    valid_until: string;
+};
+
+/**
+ * DecisionRiskSnapshotResponse
+ */
+export type DecisionRiskSnapshotResponse = {
+    /**
+     * Allowed Actions
+     */
+    allowed_actions: Array<'watch' | 'hold' | 'enter' | 'add' | 'reduce' | 'exit' | 'reject'>;
+    /**
+     * Hard Failures
+     */
+    hard_failures: Array<string>;
+    [key: string]: unknown | Array<'watch' | 'hold' | 'enter' | 'add' | 'reduce' | 'exit' | 'reject'> | Array<string>;
 };
 
 /**
@@ -435,25 +768,17 @@ export type CorrelationResponse = {
  */
 export type DualModeRequest = {
     /**
-     * Strategy Id
-     */
-    strategy_id: string;
-    /**
-     * Start Date
-     */
-    start_date?: string | null;
-    /**
      * End Date
      */
     end_date?: string | null;
     /**
-     * Initial Capital
-     */
-    initial_capital?: number;
-    /**
      * Include Funding
      */
     include_funding?: boolean;
+    /**
+     * Initial Capital
+     */
+    initial_capital?: number;
     /**
      * Sizing Mode
      */
@@ -464,6 +789,14 @@ export type DualModeRequest = {
     sizing_params?: {
         [key: string]: unknown;
     } | null;
+    /**
+     * Start Date
+     */
+    start_date?: string | null;
+    /**
+     * Strategy Id
+     */
+    strategy_id: string;
 };
 
 /**
@@ -473,33 +806,9 @@ export type DualModeRequest = {
  */
 export type ExperimentResponse = {
     /**
-     * Id
-     */
-    id: string;
-    /**
-     * Study Name
-     */
-    study_name: string;
-    /**
-     * Market
-     */
-    market: string;
-    /**
-     * Interval
-     */
-    interval: string;
-    /**
      * Composite Score
      */
     composite_score: number;
-    /**
-     * Wfe Score
-     */
-    wfe_score: number;
-    /**
-     * Status
-     */
-    status: string;
     /**
      * Config Json
      */
@@ -507,15 +816,39 @@ export type ExperimentResponse = {
         [key: string]: unknown;
     };
     /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Interval
+     */
+    interval: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
      * Metrics Json
      */
     metrics_json: {
         [key: string]: unknown;
     };
     /**
-     * Created At
+     * Status
      */
-    created_at: string;
+    status: string;
+    /**
+     * Study Name
+     */
+    study_name: string;
+    /**
+     * Wfe Score
+     */
+    wfe_score: number;
 };
 
 /**
@@ -553,14 +886,6 @@ export type ExposureResponse = {
  */
 export type FactorAnalysisRunListResponse = {
     /**
-     * Runs
-     */
-    runs: Array<FactorAnalysisRunResponse>;
-    /**
-     * Total
-     */
-    total: number;
-    /**
      * Limit
      */
     limit: number;
@@ -568,6 +893,14 @@ export type FactorAnalysisRunListResponse = {
      * Offset
      */
     offset: number;
+    /**
+     * Runs
+     */
+    runs: Array<FactorAnalysisRunResponse>;
+    /**
+     * Total
+     */
+    total: number;
 };
 
 /**
@@ -577,19 +910,27 @@ export type FactorAnalysisRunListResponse = {
  */
 export type FactorAnalysisRunResponse = {
     /**
-     * Id
-     */
-    id: string;
-    /**
-     * Run Type
-     */
-    run_type: string;
-    /**
      * Config Json
      */
     config_json: {
         [key: string]: unknown;
     };
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Error
+     */
+    error: string | null;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Market
+     */
+    market: string;
     /**
      * Results Json
      */
@@ -597,21 +938,13 @@ export type FactorAnalysisRunResponse = {
         [key: string]: unknown;
     } | null;
     /**
+     * Run Type
+     */
+    run_type: string;
+    /**
      * Status
      */
     status: string;
-    /**
-     * Market
-     */
-    market: string;
-    /**
-     * Error
-     */
-    error: string | null;
-    /**
-     * Created At
-     */
-    created_at: string;
     /**
      * Updated At
      */
@@ -649,45 +982,45 @@ export type HttpValidationError = {
  */
 export type HoldingResponse = {
     /**
-     * Symbol
+     * Current Price
      */
-    symbol: string;
-    /**
-     * Market
-     */
-    market: string;
-    /**
-     * Weight
-     */
-    weight: number;
-    /**
-     * Shares
-     */
-    shares: number | null;
-    /**
-     * Entry Price
-     */
-    entry_price: number | null;
+    current_price: number | null;
     /**
      * Entry Date
      */
     entry_date: string | null;
     /**
+     * Entry Price
+     */
+    entry_price: number | null;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Shares
+     */
+    shares: number | null;
+    /**
+     * Side
+     */
+    side?: string;
+    /**
      * Stop Loss Pct
      */
     stop_loss_pct: number | null;
     /**
-     * Current Price
+     * Symbol
      */
-    current_price: number | null;
+    symbol: string;
     /**
      * Unrealized Pnl
      */
     unrealized_pnl: number | null;
     /**
-     * Side
+     * Weight
      */
-    side?: string;
+    weight: number;
 };
 
 /**
@@ -711,33 +1044,11 @@ export type HoldingsResponse = {
  */
 export type IcAnalysisRequest = {
     /**
-     * Market
-     */
-    market: string;
-    /**
-     * Symbols
-     *
-     * Optional symbol subset; None = all symbols in market
-     */
-    symbols?: Array<string> | null;
-    /**
-     * Start Date
-     *
-     * Start date YYYY-MM-DD
-     */
-    start_date: string;
-    /**
      * End Date
      *
      * End date YYYY-MM-DD
      */
     end_date: string;
-    /**
-     * Horizons
-     *
-     * Forward return horizons in days
-     */
-    horizons?: Array<number>;
     /**
      * Features
      *
@@ -745,10 +1056,34 @@ export type IcAnalysisRequest = {
      */
     features?: Array<string> | null;
     /**
+     * Horizons
+     *
+     * Forward return horizons in days
+     */
+    horizons?: Array<number>;
+    /**
      * Interval
      */
     interval?: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Start Date
+     *
+     * Start date YYYY-MM-DD
+     */
+    start_date: string;
+    /**
+     * Symbols
+     *
+     * Optional symbol subset; None = all symbols in market
+     */
+    symbols?: Array<string> | null;
 };
+
+export type JsonValue = unknown;
 
 /**
  * MarketSpecSchema
@@ -757,17 +1092,17 @@ export type IcAnalysisRequest = {
  */
 export type MarketSpecSchema = {
     /**
-     * Symbol
+     * Interval
      */
-    symbol: string;
+    interval?: string;
     /**
      * Market
      */
     market: string;
     /**
-     * Interval
+     * Symbol
      */
-    interval?: string;
+    symbol: string;
 };
 
 /**
@@ -789,49 +1124,9 @@ export type MessageResponse = {
 /**
  * ModelMetricsResponse
  *
- * Full metrics response for GET /models/{id} (per RESEARCH-API-08).
+ * Full metrics response for GET /models/{id}.
  */
 export type ModelMetricsResponse = {
-    /**
-     * Id
-     */
-    id: string;
-    /**
-     * Name
-     */
-    name: string;
-    /**
-     * Version
-     */
-    version: number;
-    /**
-     * Status
-     */
-    status: string;
-    /**
-     * Params
-     */
-    params: {
-        [key: string]: unknown;
-    };
-    /**
-     * Metrics
-     */
-    metrics?: {
-        [key: string]: unknown;
-    } | null;
-    /**
-     * Feature List
-     */
-    feature_list: Array<unknown>;
-    /**
-     * Train Start
-     */
-    train_start?: string | null;
-    /**
-     * Train End
-     */
-    train_end?: string | null;
     /**
      * Artifact Path
      */
@@ -840,6 +1135,46 @@ export type ModelMetricsResponse = {
      * Created At
      */
     created_at: string;
+    /**
+     * Feature List
+     */
+    feature_list: Array<unknown>;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Metrics
+     */
+    metrics?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Params
+     */
+    params: {
+        [key: string]: unknown;
+    };
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Train End
+     */
+    train_end?: string | null;
+    /**
+     * Train Start
+     */
+    train_start?: string | null;
+    /**
+     * Version
+     */
+    version: number;
 };
 
 /**
@@ -848,46 +1183,6 @@ export type ModelMetricsResponse = {
  * Response model for a model version.
  */
 export type ModelVersionResponse = {
-    /**
-     * Id
-     */
-    id: string;
-    /**
-     * Name
-     */
-    name: string;
-    /**
-     * Version
-     */
-    version: number;
-    /**
-     * Status
-     */
-    status: string;
-    /**
-     * Params
-     */
-    params: {
-        [key: string]: unknown;
-    };
-    /**
-     * Metrics
-     */
-    metrics: {
-        [key: string]: unknown;
-    } | null;
-    /**
-     * Feature List
-     */
-    feature_list: Array<unknown>;
-    /**
-     * Train Start
-     */
-    train_start: string | null;
-    /**
-     * Train End
-     */
-    train_end: string | null;
     /**
      * Artifact Path
      */
@@ -900,6 +1195,46 @@ export type ModelVersionResponse = {
      * Error Message
      */
     error_message: string | null;
+    /**
+     * Feature List
+     */
+    feature_list: Array<unknown>;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Metrics
+     */
+    metrics: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Params
+     */
+    params: {
+        [key: string]: unknown;
+    };
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Train End
+     */
+    train_end: string | null;
+    /**
+     * Train Start
+     */
+    train_start: string | null;
+    /**
+     * Version
+     */
+    version: number;
 };
 
 /**
@@ -907,31 +1242,45 @@ export type ModelVersionResponse = {
  */
 export type NavPointResponse = {
     /**
+     * Cash
+     */
+    cash: number;
+    /**
+     * Cash Flow
+     */
+    cash_flow?: number;
+    /**
      * Date
      */
     date: string;
     /**
-     * Total Nav
+     * Holdings Count
      */
-    total_nav: number;
+    holdings_count: number;
     /**
      * Holdings Value
      */
     holdings_value: number;
     /**
-     * Cash
+     * Total Nav
      */
-    cash: number;
-    /**
-     * Holdings Count
-     */
-    holdings_count: number;
+    total_nav: number;
 };
 
 /**
  * NotificationItem
  */
 export type NotificationItem = {
+    /**
+     * Data
+     */
+    data: {
+        [key: string]: unknown;
+    };
+    /**
+     * Event Type
+     */
+    event_type: string;
     /**
      * Id
      */
@@ -940,16 +1289,6 @@ export type NotificationItem = {
      * Source
      */
     source: string;
-    /**
-     * Event Type
-     */
-    event_type: string;
-    /**
-     * Data
-     */
-    data: {
-        [key: string]: unknown;
-    };
     /**
      * Timestamp
      */
@@ -975,13 +1314,9 @@ export type NotificationsResponse = {
  */
 export type OhlcvPoint = {
     /**
-     * Time
+     * Close
      */
-    time: string;
-    /**
-     * Open
-     */
-    open: number;
+    close: number;
     /**
      * High
      */
@@ -991,9 +1326,13 @@ export type OhlcvPoint = {
      */
     low: number;
     /**
-     * Close
+     * Open
      */
-    close: number;
+    open: number;
+    /**
+     * Time
+     */
+    time: string;
     /**
      * Volume
      */
@@ -1005,25 +1344,25 @@ export type OhlcvPoint = {
  */
 export type OhlcvResponse = {
     /**
+     * Count
+     */
+    count: number;
+    /**
      * Data
      */
     data: Array<OhlcvPoint>;
-    /**
-     * Symbol
-     */
-    symbol: string;
-    /**
-     * Market
-     */
-    market: string;
     /**
      * Interval
      */
     interval: string;
     /**
-     * Count
+     * Market
      */
-    count: number;
+    market: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
 };
 
 /**
@@ -1033,15 +1372,9 @@ export type OhlcvResponse = {
  */
 export type OptimizeRequest = {
     /**
-     * Strategy Id
+     * End Date
      */
-    strategy_id: string;
-    /**
-     * Param Grid
-     */
-    param_grid: {
-        [key: string]: unknown;
-    };
+    end_date?: string | null;
     /**
      * Method
      */
@@ -1051,17 +1384,23 @@ export type OptimizeRequest = {
      */
     n_trials?: number;
     /**
-     * Target Metric
+     * Param Grid
      */
-    target_metric?: string;
+    param_grid: {
+        [key: string]: unknown;
+    };
     /**
      * Start Date
      */
     start_date?: string | null;
     /**
-     * End Date
+     * Strategy Id
      */
-    end_date?: string | null;
+    strategy_id: string;
+    /**
+     * Target Metric
+     */
+    target_metric?: string;
 };
 
 /**
@@ -1069,49 +1408,51 @@ export type OptimizeRequest = {
  */
 export type OrderResponse = {
     /**
-     * Id
-     */
-    id: string;
-    /**
-     * Symbol
-     */
-    symbol: string;
-    /**
-     * Market
-     */
-    market: string;
-    /**
      * Action
      */
     action: string;
-    /**
-     * Quantity
-     */
-    quantity: number;
-    /**
-     * Status
-     */
-    status: string;
-    /**
-     * Price
-     */
-    price: number | null;
     /**
      * Broker Mode
      */
     broker_mode: string;
     /**
-     * Reject Reason
-     */
-    reject_reason: string | null;
-    /**
      * Created At
      */
     created_at: string;
     /**
+     * Id
+     */
+    id: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Price
+     */
+    price: number | null;
+    /**
+     * Quantity
+     */
+    quantity: number;
+    /**
+     * Reject Reason
+     */
+    reject_reason: {
+        [key: string]: unknown;
+    } | null;
+    /**
      * Side
      */
     side?: string;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
 };
 
 /**
@@ -1129,33 +1470,51 @@ export type OrdersResponse = {
 };
 
 /**
+ * PauseRequest
+ */
+export type PauseRequest = {
+    /**
+     * Expected Active Version Id
+     */
+    expected_active_version_id: string | null;
+    /**
+     * Expected Revision
+     */
+    expected_revision: number;
+    /**
+     * Reason
+     */
+    reason: string;
+};
+
+/**
  * PerformanceSummaryResponse
  */
 export type PerformanceSummaryResponse = {
-    /**
-     * Nav Curve
-     */
-    nav_curve: Array<NavPointResponse>;
-    /**
-     * Total Return Pct
-     */
-    total_return_pct: number;
     /**
      * Max Drawdown Pct
      */
     max_drawdown_pct: number;
     /**
+     * Nav Curve
+     */
+    nav_curve: Array<NavPointResponse>;
+    /**
      * Sharpe Ratio
      */
     sharpe_ratio: number | null;
     /**
-     * Total Trades
-     */
-    total_trades: number;
-    /**
      * Total Realized Pnl
      */
     total_realized_pnl: number;
+    /**
+     * Total Return Pct
+     */
+    total_return_pct: number;
+    /**
+     * Total Trades
+     */
+    total_trades: number;
 };
 
 /**
@@ -1163,17 +1522,13 @@ export type PerformanceSummaryResponse = {
  */
 export type PerpHoldingResponse = {
     /**
-     * Symbol
+     * Cumulative Funding Cost
      */
-    symbol: string;
+    cumulative_funding_cost: number;
     /**
-     * Side
+     * Current Price
      */
-    side: string;
-    /**
-     * Quantity
-     */
-    quantity: number;
+    current_price?: number | null;
     /**
      * Entry Price
      */
@@ -1191,17 +1546,21 @@ export type PerpHoldingResponse = {
      */
     margin_ratio: number;
     /**
+     * Quantity
+     */
+    quantity: number;
+    /**
+     * Side
+     */
+    side: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
      * Unrealized Pnl
      */
     unrealized_pnl: number;
-    /**
-     * Cumulative Funding Cost
-     */
-    cumulative_funding_cost: number;
-    /**
-     * Current Price
-     */
-    current_price?: number | null;
 };
 
 /**
@@ -1225,17 +1584,17 @@ export type PerpHoldingsResponse = {
  */
 export type PredictRequest = {
     /**
-     * Symbol
+     * Interval
      */
-    symbol: string;
+    interval?: string;
     /**
      * Market
      */
     market: string;
     /**
-     * Interval
+     * Symbol
      */
-    interval?: string;
+    symbol: string;
     /**
      * Use Latest Data
      */
@@ -1245,24 +1604,20 @@ export type PredictRequest = {
 /**
  * PredictionResponse
  *
- * Response for GET /models/{id}/predictions with range query (PRED-03).
+ * Response for GET /models/{id}/predictions with range query.
  *
  * Includes training period metadata alongside prediction data so consumers
  * know the model's temporal boundary.
  */
 export type PredictionResponse = {
     /**
-     * Model Id
-     */
-    model_id: string;
-    /**
-     * Segment
-     */
-    segment?: string | null;
-    /**
      * Count
      */
     count: number;
+    /**
+     * Model Id
+     */
+    model_id: string;
     /**
      * Predictions
      */
@@ -1270,29 +1625,63 @@ export type PredictionResponse = {
         [key: string]: unknown;
     }>;
     /**
-     * Train Start
+     * Segment
      */
-    train_start?: string | null;
+    segment?: string | null;
     /**
-     * Train End
+     * Test End
      */
-    train_end?: string | null;
-    /**
-     * Valid Start
-     */
-    valid_start?: string | null;
-    /**
-     * Valid End
-     */
-    valid_end?: string | null;
+    test_end?: string | null;
     /**
      * Test Start
      */
     test_start?: string | null;
     /**
-     * Test End
+     * Train End
      */
-    test_end?: string | null;
+    train_end?: string | null;
+    /**
+     * Train Start
+     */
+    train_start?: string | null;
+    /**
+     * Valid End
+     */
+    valid_end?: string | null;
+    /**
+     * Valid Start
+     */
+    valid_start?: string | null;
+};
+
+/**
+ * PrincipalResponse
+ */
+export type PrincipalResponse = {
+    /**
+     * Account Scopes
+     */
+    account_scopes: Array<string>;
+    /**
+     * Actor Id
+     */
+    actor_id: string;
+    /**
+     * Can Approve
+     */
+    can_approve: boolean;
+    /**
+     * Can Release
+     */
+    can_release: boolean;
+    /**
+     * Kind
+     */
+    kind: 'human' | 'worker' | 'legacy';
+    /**
+     * Roles
+     */
+    roles: Array<string>;
 };
 
 /**
@@ -1302,37 +1691,33 @@ export type PredictionResponse = {
  */
 export type ProtectionLockResponse = {
     /**
-     * Id
+     * Active
      */
-    id: number;
-    /**
-     * Protection Type
-     */
-    protection_type: string;
-    /**
-     * Symbol
-     */
-    symbol: string | null;
-    /**
-     * Market
-     */
-    market: string;
-    /**
-     * Reason
-     */
-    reason: string;
-    /**
-     * Locked At
-     */
-    locked_at: string;
+    active: boolean;
     /**
      * Expires At
      */
     expires_at: string | null;
     /**
-     * Active
+     * Id
      */
-    active: boolean;
+    id: number;
+    /**
+     * Locked At
+     */
+    locked_at: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Protection Type
+     */
+    protection_type: string;
+    /**
+     * Reason
+     */
+    reason: string;
     /**
      * Released At
      */
@@ -1341,6 +1726,10 @@ export type ProtectionLockResponse = {
      * Released By
      */
     released_by: string | null;
+    /**
+     * Symbol
+     */
+    symbol: string | null;
 };
 
 /**
@@ -1366,17 +1755,827 @@ export type ProtectionLocksListResponse = {
  */
 export type ProtectionOverrideResponse = {
     /**
-     * Success
+     * Lock Id
      */
-    success: boolean;
+    lock_id: number;
     /**
      * Message
      */
     message: string;
     /**
-     * Lock Id
+     * Success
      */
-    lock_id: number;
+    success: boolean;
+};
+
+/**
+ * RDAgentRunDetailResponse
+ */
+export type RdAgentRunDetailResponse = {
+    /**
+     * Cancel Reason
+     */
+    cancel_reason?: string | null;
+    /**
+     * Cancel Requested
+     */
+    cancel_requested: boolean;
+    /**
+     * Challenge
+     */
+    challenge: string;
+    /**
+     * Cost Cap Usd
+     */
+    cost_cap_usd: number;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Error
+     */
+    error?: string | null;
+    /**
+     * Finished At
+     */
+    finished_at?: string | null;
+    /**
+     * Requested By
+     */
+    requested_by: string;
+    /**
+     * Result Dir
+     */
+    result_dir?: string | null;
+    /**
+     * Run Id
+     */
+    run_id: string;
+    /**
+     * Started At
+     */
+    started_at?: string | null;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Summary
+     */
+    summary?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Time Budget Hours
+     */
+    time_budget_hours: number;
+    /**
+     * Token Cost Acc Usd
+     */
+    token_cost_acc_usd?: number | null;
+    /**
+     * Updated At
+     */
+    updated_at: string;
+    /**
+     * Use Gpu
+     */
+    use_gpu: boolean;
+    /**
+     * Verdict
+     */
+    verdict?: string | null;
+};
+
+/**
+ * RDAgentRunListResponse
+ */
+export type RdAgentRunListResponse = {
+    /**
+     * Limit
+     */
+    limit: number;
+    /**
+     * Offset
+     */
+    offset: number;
+    /**
+     * Runs
+     */
+    runs: Array<RdAgentRunResponse>;
+    /**
+     * Total
+     */
+    total: number;
+};
+
+/**
+ * RDAgentRunRequest
+ */
+export type RdAgentRunRequest = {
+    /**
+     * Challenge
+     */
+    challenge: string;
+    /**
+     * Cost Cap Usd
+     */
+    cost_cap_usd?: number;
+    /**
+     * Time Budget Hours
+     */
+    time_budget_hours?: number;
+    /**
+     * Use Gpu
+     */
+    use_gpu?: boolean;
+};
+
+/**
+ * RDAgentRunResponse
+ */
+export type RdAgentRunResponse = {
+    /**
+     * Challenge
+     */
+    challenge: string;
+    /**
+     * Cost Cap Usd
+     */
+    cost_cap_usd: number;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Finished At
+     */
+    finished_at?: string | null;
+    /**
+     * Run Id
+     */
+    run_id: string;
+    /**
+     * Started At
+     */
+    started_at?: string | null;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Time Budget Hours
+     */
+    time_budget_hours: number;
+    /**
+     * Use Gpu
+     */
+    use_gpu: boolean;
+};
+
+/**
+ * RLExecutionRequest
+ *
+ * Request body for POST /research/rl-execution/run.
+ *
+ * Pydantic Literal allowlist enforces algo names (input validation).
+ * Defense-in-depth: ``poseidon.api.rl_execution`` re-validates against
+ * ``_ALLOWED_ALGOS`` set inside the endpoint body.
+ */
+export type RlExecutionRequest = {
+    /**
+     * Algos
+     */
+    algos: Array<'twap' | 'vwap' | 'ppo' | 'opds'>;
+    /**
+     * Dates
+     *
+     * Explicit trigger-day list (ISO YYYY-MM-DD); None = compute from v18 basis-z window
+     */
+    dates?: Array<string> | null;
+    /**
+     * Mode
+     */
+    mode?: 'full' | 'preflight';
+    /**
+     * Notional Per Leg
+     */
+    notional_per_leg: number;
+};
+
+/**
+ * RLExecutionRunDetailResponse
+ *
+ * Full detail response for GET /runs/{run_id}.
+ */
+export type RlExecutionRunDetailResponse = {
+    /**
+     * Algos
+     */
+    algos: Array<string>;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Dates
+     */
+    dates?: Array<string> | null;
+    /**
+     * Error
+     */
+    error?: string | null;
+    /**
+     * Finished At
+     */
+    finished_at?: string | null;
+    /**
+     * Mode
+     */
+    mode: string;
+    /**
+     * Requested By
+     */
+    requested_by: string;
+    /**
+     * Result Dir
+     */
+    result_dir?: string | null;
+    /**
+     * Run Id
+     */
+    run_id: string;
+    /**
+     * Started At
+     */
+    started_at?: string | null;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Summary
+     */
+    summary?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Updated At
+     */
+    updated_at: string;
+    /**
+     * Verdict
+     */
+    verdict?: string | null;
+};
+
+/**
+ * RLExecutionRunListResponse
+ *
+ * Paginated list response for GET /runs.
+ */
+export type RlExecutionRunListResponse = {
+    /**
+     * Limit
+     */
+    limit: number;
+    /**
+     * Offset
+     */
+    offset: number;
+    /**
+     * Runs
+     */
+    runs: Array<RlExecutionRunResponse>;
+    /**
+     * Total
+     */
+    total: number;
+};
+
+/**
+ * RLExecutionRunResponse
+ *
+ * Short response for create + list items (mirrors TrainingRunResponse).
+ */
+export type RlExecutionRunResponse = {
+    /**
+     * Algos
+     */
+    algos: Array<string>;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Finished At
+     */
+    finished_at?: string | null;
+    /**
+     * Mode
+     */
+    mode: string;
+    /**
+     * Run Id
+     */
+    run_id: string;
+    /**
+     * Started At
+     */
+    started_at?: string | null;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Verdict
+     */
+    verdict?: string | null;
+};
+
+/**
+ * RejectRequest
+ */
+export type RejectRequest = {
+    /**
+     * Candidate Version Id
+     */
+    candidate_version_id: string;
+    /**
+     * Expected Active Version Id
+     */
+    expected_active_version_id: string | null;
+    /**
+     * Expected Revision
+     */
+    expected_revision: number;
+    /**
+     * Reason
+     */
+    reason: string;
+};
+
+/**
+ * ReleaseAPIError
+ */
+export type ReleaseApiError = {
+    /**
+     * Detail
+     */
+    detail: string;
+};
+
+/**
+ * ReleaseEventResponse
+ */
+export type ReleaseEventResponse = {
+    /**
+     * Account Scope
+     */
+    account_scope: string;
+    /**
+     * Actor Id
+     */
+    actor_id: string;
+    /**
+     * Campaign Id
+     */
+    campaign_id: string | null;
+    /**
+     * Candidate Version Id
+     */
+    candidate_version_id: string | null;
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
+     * Event Type
+     */
+    event_type: 'release' | 'pause' | 'rollback' | 'reject';
+    /**
+     * Expected Revision
+     */
+    expected_revision: number;
+    /**
+     * From Version Id
+     */
+    from_version_id: string | null;
+    gate_json: ReleaseGateResponse;
+    /**
+     * Holdout Use Id
+     */
+    holdout_use_id: string | null;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Reason
+     */
+    reason: string;
+    /**
+     * Reconciliation Id
+     */
+    reconciliation_id: string | null;
+    /**
+     * Resulting Revision
+     */
+    resulting_revision: number;
+    /**
+     * Review Id
+     */
+    review_id: string | null;
+    /**
+     * Source Release Event Id
+     */
+    source_release_event_id: string | null;
+    /**
+     * Strategy Id
+     */
+    strategy_id: string;
+    /**
+     * To Version Id
+     */
+    to_version_id: string | null;
+};
+
+/**
+ * ReleaseGateFailureDetail
+ */
+export type ReleaseGateFailureDetail = {
+    /**
+     * Code
+     */
+    code?: 'release_gate_failed';
+    gate: ReleaseGateResponse;
+    /**
+     * Message
+     */
+    message: string;
+};
+
+/**
+ * ReleaseGateResponse
+ */
+export type ReleaseGateResponse = {
+    /**
+     * Allowed
+     */
+    allowed: boolean;
+    /**
+     * Predicates
+     */
+    predicates: Array<ReleasePredicateResponse>;
+};
+
+/**
+ * ReleaseMutationResponse
+ */
+export type ReleaseMutationResponse = {
+    /**
+     * Event Id
+     */
+    event_id: string;
+    /**
+     * Event Type
+     */
+    event_type: 'release' | 'pause' | 'rollback' | 'reject';
+    /**
+     * From Version Id
+     */
+    from_version_id: string | null;
+    /**
+     * Release Revision
+     */
+    release_revision: number;
+    /**
+     * Strategy Id
+     */
+    strategy_id: string;
+    /**
+     * To Version Id
+     */
+    to_version_id: string | null;
+};
+
+/**
+ * ReleasePredicateEvidence
+ */
+export type ReleasePredicateEvidence = {
+    /**
+     * Account Generation
+     */
+    account_generation?: string | null;
+    /**
+     * Account Scope
+     */
+    account_scope?: string | null;
+    /**
+     * Active Order Ids
+     */
+    active_order_ids?: Array<string> | null;
+    /**
+     * Active Version Id
+     */
+    active_version_id?: string | null;
+    /**
+     * Actor Id
+     */
+    actor_id?: string | null;
+    /**
+     * Actual Trial Identity Sha256
+     */
+    actual_trial_identity_sha256?: string | null;
+    /**
+     * Age Seconds
+     */
+    age_seconds?: number | null;
+    /**
+     * Broker State Watermark
+     */
+    broker_state_watermark?: string | null;
+    /**
+     * Campaign Id
+     */
+    campaign_id?: string | null;
+    /**
+     * Campaign Incumbent Version Id
+     */
+    campaign_incumbent_version_id?: string | null;
+    /**
+     * Candidate Version Id
+     */
+    candidate_version_id?: string | null;
+    /**
+     * Claimed Decision Ids
+     */
+    claimed_decision_ids?: Array<string> | null;
+    /**
+     * Content Sha256
+     */
+    content_sha256?: string | null;
+    /**
+     * Contract Sha256
+     */
+    contract_sha256?: string | null;
+    /**
+     * Declared Trial Identity Sha256
+     */
+    declared_trial_identity_sha256?: string | null;
+    /**
+     * Holdout Identity Sha256
+     */
+    holdout_identity_sha256?: string | null;
+    /**
+     * Holdout Use Id
+     */
+    holdout_use_id?: string | null;
+    /**
+     * Input Sha256
+     */
+    input_sha256?: string | null;
+    /**
+     * Instrument
+     */
+    instrument?: 'spot' | 'perpetual' | null;
+    /**
+     * Internal State Watermark
+     */
+    internal_state_watermark?: string | null;
+    /**
+     * Interval
+     */
+    interval?: string | null;
+    /**
+     * Market
+     */
+    market?: 'tw_stock' | 'crypto_spot' | 'crypto_perp' | null;
+    /**
+     * Mode
+     */
+    mode?: 'human' | 'assisted' | 'automatic' | null;
+    /**
+     * Newer Reconciliation Ids
+     */
+    newer_reconciliation_ids?: Array<string> | null;
+    /**
+     * Owner Campaign Id
+     */
+    owner_campaign_id?: string | null;
+    /**
+     * Paired Sample Key Sha256
+     */
+    paired_sample_key_sha256?: string | null;
+    /**
+     * Paired Sample Sha256
+     */
+    paired_sample_sha256?: string | null;
+    /**
+     * Policy Sha256
+     */
+    policy_sha256?: string | null;
+    /**
+     * Policy State
+     */
+    policy_state?: 'passed' | 'blocked' | 'unavailable' | 'inconclusive' | null;
+    /**
+     * Position Lot Ids
+     */
+    position_lot_ids?: Array<string> | null;
+    /**
+     * Protective Exit
+     */
+    protective_exit?: boolean | null;
+    /**
+     * Reconciliation Id
+     */
+    reconciliation_id?: string | null;
+    /**
+     * Requires Human Release
+     */
+    requires_human_release?: boolean | null;
+    /**
+     * Result Sha256
+     */
+    result_sha256?: string | null;
+    /**
+     * Review Id
+     */
+    review_id?: string | null;
+    /**
+     * Source Account Generation
+     */
+    source_account_generation?: string | null;
+    /**
+     * Source Account Scope
+     */
+    source_account_scope?: string | null;
+    /**
+     * Source Release Event Id
+     */
+    source_release_event_id?: string | null;
+    /**
+     * Status
+     */
+    status?: 'passed' | 'failed' | 'blocked' | 'unavailable' | 'inconclusive' | null;
+    /**
+     * Strategy Id
+     */
+    strategy_id?: string | null;
+    /**
+     * Strategy Market
+     */
+    strategy_market?: string | null;
+    /**
+     * Strategy Type
+     */
+    strategy_type?: 'rule' | 'voting' | 'liquidity_sweep' | 'model' | null;
+    /**
+     * Strategy Version Id
+     */
+    strategy_version_id?: string | null;
+    /**
+     * Symbol
+     */
+    symbol?: string | null;
+    /**
+     * Terminal States
+     */
+    terminal_states?: Array<string> | null;
+    /**
+     * Trial Ids
+     */
+    trial_ids?: Array<string> | null;
+};
+
+/**
+ * ReleasePredicateResponse
+ */
+export type ReleasePredicateResponse = {
+    /**
+     * Code
+     */
+    code: 'candidate_identity' | 'policy_identity' | 'campaign_identity' | 'incumbent_pointer' | 'six_cell_evidence' | 'review_identity' | 'holdout_ownership' | 'reconciliation' | 'release_authority' | 'rollback_target' | 'rollback_policy' | 'rollback_holdings' | 'rollback_outstanding_work' | 'rollback_reconciliation';
+    evidence: ReleasePredicateEvidence;
+    /**
+     * Reason
+     */
+    reason: string;
+    /**
+     * State
+     */
+    state: 'passed' | 'blocked' | 'unavailable' | 'inconclusive';
+};
+
+/**
+ * ReleaseRequest
+ */
+export type ReleaseRequest = {
+    /**
+     * Campaign Id
+     */
+    campaign_id: string;
+    /**
+     * Candidate Version Id
+     */
+    candidate_version_id: string;
+    /**
+     * Expected Active Version Id
+     */
+    expected_active_version_id: string | null;
+    /**
+     * Expected Revision
+     */
+    expected_revision: number;
+    /**
+     * Reason
+     */
+    reason: string;
+    /**
+     * Reconciliation Id
+     */
+    reconciliation_id: string;
+    /**
+     * Review Id
+     */
+    review_id: string;
+};
+
+/**
+ * ReleaseUnprocessableResponse
+ */
+export type ReleaseUnprocessableResponse = {
+    /**
+     * Detail
+     */
+    detail: ReleaseGateFailureDetail | ReleaseValidationFailureDetail;
+};
+
+/**
+ * ReleaseValidationFailureDetail
+ */
+export type ReleaseValidationFailureDetail = {
+    /**
+     * Code
+     */
+    code?: 'validation_failed';
+    /**
+     * Gate
+     */
+    gate?: null;
+    /**
+     * Message
+     */
+    message: string;
+};
+
+/**
+ * RequestValidationIssue
+ */
+export type RequestValidationIssue = {
+    /**
+     * Ctx
+     */
+    ctx?: {
+        [key: string]: JsonValue;
+    } | null;
+    input?: JsonValue | null;
+    /**
+     * Loc
+     */
+    loc: Array<string | number>;
+    /**
+     * Msg
+     */
+    msg: string;
+    /**
+     * Type
+     */
+    type: string;
+};
+
+/**
+ * RequestValidationResponse
+ */
+export type RequestValidationResponse = {
+    /**
+     * Detail
+     */
+    detail: 'Validation error';
+    /**
+     * Error Code
+     */
+    error_code: 'VALIDATION_ERROR';
+    /**
+     * Errors
+     */
+    errors: Array<RequestValidationIssue>;
+    /**
+     * Status Code
+     */
+    status_code: 422;
 };
 
 /**
@@ -1386,27 +2585,27 @@ export type ProtectionOverrideResponse = {
  */
 export type RiskRuleCreate = {
     /**
-     * Rule Type
-     */
-    rule_type: string;
-    /**
-     * Name
-     */
-    name: string;
-    /**
      * Enabled
      */
     enabled?: boolean;
     /**
-     * Priority
+     * Name
      */
-    priority?: number;
+    name: string;
     /**
      * Params
      */
     params?: {
         [key: string]: unknown;
     };
+    /**
+     * Priority
+     */
+    priority?: number;
+    /**
+     * Rule Type
+     */
+    rule_type: string;
 };
 
 /**
@@ -1416,25 +2615,21 @@ export type RiskRuleCreate = {
  */
 export type RiskRuleResponse = {
     /**
-     * Id
+     * Created At
      */
-    id: string;
-    /**
-     * Rule Type
-     */
-    rule_type: string;
-    /**
-     * Name
-     */
-    name: string;
+    created_at: string;
     /**
      * Enabled
      */
     enabled: boolean;
     /**
-     * Priority
+     * Id
      */
-    priority: number;
+    id: string;
+    /**
+     * Name
+     */
+    name: string;
     /**
      * Params
      */
@@ -1442,9 +2637,13 @@ export type RiskRuleResponse = {
         [key: string]: unknown;
     };
     /**
-     * Created At
+     * Priority
      */
-    created_at: string;
+    priority: number;
+    /**
+     * Rule Type
+     */
+    rule_type: string;
     /**
      * Updated At
      */
@@ -1464,15 +2663,75 @@ export type RiskRuleUpdate = {
      */
     enabled?: boolean | null;
     /**
-     * Priority
-     */
-    priority?: number | null;
-    /**
      * Params
      */
     params?: {
         [key: string]: unknown;
     } | null;
+    /**
+     * Priority
+     */
+    priority?: number | null;
+};
+
+/**
+ * RollbackRequest
+ */
+export type RollbackRequest = {
+    /**
+     * Expected Active Version Id
+     */
+    expected_active_version_id: string | null;
+    /**
+     * Expected Revision
+     */
+    expected_revision: number;
+    /**
+     * Reason
+     */
+    reason: string;
+    /**
+     * Reconciliation Id
+     */
+    reconciliation_id: string;
+    /**
+     * Target Version Id
+     */
+    target_version_id: string;
+};
+
+/**
+ * RollbackTargetResponse
+ */
+export type RollbackTargetResponse = {
+    /**
+     * Content Sha256
+     */
+    content_sha256: string;
+    /**
+     * Eligible
+     */
+    eligible: true;
+    /**
+     * Predicates
+     */
+    predicates: Array<ReleasePredicateResponse>;
+    /**
+     * Released Revision
+     */
+    released_revision: number;
+    /**
+     * Source Release Event Id
+     */
+    source_release_event_id: string;
+    /**
+     * Strategy Version Id
+     */
+    strategy_version_id: string;
+    /**
+     * Version No
+     */
+    version_no: number;
 };
 
 /**
@@ -1482,21 +2741,21 @@ export type RiskRuleUpdate = {
  */
 export type SentimentCreate = {
     /**
-     * Symbol
-     */
-    symbol: string;
-    /**
      * Market
      */
     market: string;
+    /**
+     * Score
+     */
+    score: number;
     /**
      * Source Type
      */
     source_type: string;
     /**
-     * Score
+     * Symbol
      */
-    score: number;
+    symbol: string;
 };
 
 /**
@@ -1506,29 +2765,29 @@ export type SentimentCreate = {
  */
 export type SentimentResponse = {
     /**
+     * Created At
+     */
+    created_at: string;
+    /**
      * Id
      */
     id: string;
-    /**
-     * Symbol
-     */
-    symbol: string;
     /**
      * Market
      */
     market: string;
     /**
-     * Source Type
-     */
-    source_type: string;
-    /**
      * Score
      */
     score: number;
     /**
-     * Created At
+     * Source Type
      */
-    created_at: string;
+    source_type: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
 };
 
 /**
@@ -1538,17 +2797,17 @@ export type SentimentResponse = {
  */
 export type ShapleyAnalysisRequest = {
     /**
-     * Model Version Id
-     *
-     * UUID of trained ModelVersion
-     */
-    model_version_id: string;
-    /**
      * Max Samples
      *
      * Max samples for SHAP; None = all (capped at 500 default)
      */
     max_samples?: number | null;
+    /**
+     * Model Version Id
+     *
+     * UUID of trained ModelVersion
+     */
+    model_version_id: string;
 };
 
 /**
@@ -1558,30 +2817,6 @@ export type ShapleyAnalysisRequest = {
  */
 export type SignalResponse = {
     /**
-     * Id
-     */
-    id: string;
-    /**
-     * Strategy Id
-     */
-    strategy_id: string | null;
-    /**
-     * Model Id
-     */
-    model_id: string | null;
-    /**
-     * Symbol
-     */
-    symbol: string;
-    /**
-     * Market
-     */
-    market: string;
-    /**
-     * Instrument
-     */
-    instrument: string;
-    /**
      * Action
      */
     action: string;
@@ -1590,21 +2825,38 @@ export type SignalResponse = {
      */
     confidence: number;
     /**
-     * Quantity Pct
+     * Created At
      */
-    quantity_pct: number | null;
+    created_at: string;
     /**
-     * Signal Time
+     * Id
      */
-    signal_time: string;
+    id: string;
     /**
-     * Valid Until
+     * Instrument
      */
-    valid_until: string | null;
+    instrument: string;
     /**
      * Interval
      */
     interval: string;
+    /**
+     * Market
+     */
+    market: string;
+    metadata: SignalTraceMetadata;
+    /**
+     * Model Id
+     */
+    model_id: string | null;
+    /**
+     * Order Price
+     */
+    order_price?: number | null;
+    /**
+     * Order Type
+     */
+    order_type?: string | null;
     /**
      * Params
      */
@@ -1612,33 +2864,66 @@ export type SignalResponse = {
         [key: string]: unknown;
     };
     /**
-     * Order Type
+     * Quantity Pct
      */
-    order_type?: string | null;
-    /**
-     * Order Price
-     */
-    order_price?: number | null;
-    /**
-     * Stop Loss Price
-     */
-    stop_loss_price?: number | null;
-    /**
-     * Take Profit Price
-     */
-    take_profit_price?: number | null;
-    /**
-     * Status
-     */
-    status: string;
+    quantity_pct: number | null;
     /**
      * Reject Reason
      */
     reject_reason: string | null;
     /**
-     * Created At
+     * Signal Time
      */
-    created_at: string;
+    signal_time: string;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Stop Loss Price
+     */
+    stop_loss_price?: number | null;
+    /**
+     * Strategy Id
+     */
+    strategy_id: string | null;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Take Profit Price
+     */
+    take_profit_price?: number | null;
+    /**
+     * Valid Until
+     */
+    valid_until: string | null;
+};
+
+/**
+ * SignalTraceMetadata
+ *
+ * Explicit stored identities used by the read-only trace API.
+ */
+export type SignalTraceMetadata = {
+    /**
+     * Account Scope
+     */
+    account_scope?: string | null;
+    /**
+     * Decision Id
+     */
+    decision_id?: string | null;
+    /**
+     * Evaluation Snapshot Id
+     */
+    evaluation_snapshot_id?: string | null;
+    /**
+     * Narrative Confidence
+     */
+    narrative_confidence?: number | null;
+    [key: string]: unknown | string | null | string | null | string | null | number | null | undefined;
 };
 
 /**
@@ -1648,6 +2933,24 @@ export type SignalResponse = {
  */
 export type StrategyCreate = {
     /**
+     * Config
+     */
+    config?: {
+        [key: string]: unknown;
+    };
+    /**
+     * Interval
+     */
+    interval?: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Model Version Id
+     */
+    model_version_id?: string | null;
+    /**
      * Name
      */
     name: string;
@@ -1656,27 +2959,9 @@ export type StrategyCreate = {
      */
     strategy_type: string;
     /**
-     * Config
-     */
-    config?: {
-        [key: string]: unknown;
-    };
-    /**
      * Symbol
      */
     symbol: string;
-    /**
-     * Market
-     */
-    market: string;
-    /**
-     * Interval
-     */
-    interval?: string;
-    /**
-     * Model Version Id
-     */
-    model_version_id?: string | null;
 };
 
 /**
@@ -1686,15 +2971,15 @@ export type StrategyCreate = {
  */
 export type StrategyPerformanceResponse = {
     /**
-     * Strategy Id
-     */
-    strategy_id: string;
-    /**
      * Backtest Count
      */
     backtest_count: number;
     best: BacktestMetricsSummary | null;
     latest: BacktestMetricsSummary | null;
+    /**
+     * Strategy Id
+     */
+    strategy_id: string;
 };
 
 /**
@@ -1704,9 +2989,35 @@ export type StrategyPerformanceResponse = {
  */
 export type StrategyResponse = {
     /**
+     * Active
+     */
+    active: boolean;
+    /**
+     * Config
+     */
+    config: {
+        [key: string]: unknown;
+    };
+    /**
+     * Created At
+     */
+    created_at: string;
+    /**
      * Id
      */
     id: string;
+    /**
+     * Interval
+     */
+    interval: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Model Version Id
+     */
+    model_version_id: string | null;
     /**
      * Name
      */
@@ -1716,35 +3027,9 @@ export type StrategyResponse = {
      */
     strategy_type: string;
     /**
-     * Config
-     */
-    config: {
-        [key: string]: unknown;
-    };
-    /**
      * Symbol
      */
     symbol: string;
-    /**
-     * Market
-     */
-    market: string;
-    /**
-     * Interval
-     */
-    interval: string;
-    /**
-     * Active
-     */
-    active: boolean;
-    /**
-     * Model Version Id
-     */
-    model_version_id: string | null;
-    /**
-     * Created At
-     */
-    created_at: string;
     /**
      * Updated At
      */
@@ -1760,6 +3045,24 @@ export type StrategyResponse = {
  */
 export type StrategyUpdate = {
     /**
+     * Config
+     */
+    config?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Interval
+     */
+    interval?: string | null;
+    /**
+     * Market
+     */
+    market?: string | null;
+    /**
+     * Model Version Id
+     */
+    model_version_id?: string | null;
+    /**
      * Name
      */
     name?: string | null;
@@ -1768,27 +3071,9 @@ export type StrategyUpdate = {
      */
     strategy_type?: string | null;
     /**
-     * Config
-     */
-    config?: {
-        [key: string]: unknown;
-    } | null;
-    /**
      * Symbol
      */
     symbol?: string | null;
-    /**
-     * Market
-     */
-    market?: string | null;
-    /**
-     * Interval
-     */
-    interval?: string | null;
-    /**
-     * Model Version Id
-     */
-    model_version_id?: string | null;
 };
 
 /**
@@ -1796,15 +3081,15 @@ export type StrategyUpdate = {
  */
 export type StressTestRequest = {
     /**
-     * Scenario Name
-     */
-    scenario_name: string;
-    /**
      * Custom Shocks
      */
     custom_shocks?: {
         [key: string]: number;
     } | null;
+    /**
+     * Scenario Name
+     */
+    scenario_name: string;
 };
 
 /**
@@ -1812,9 +3097,9 @@ export type StressTestRequest = {
  */
 export type StressTestStatusResponse = {
     /**
-     * Status
+     * Error
      */
-    status: string;
+    error?: string | null;
     /**
      * Result
      */
@@ -1822,9 +3107,9 @@ export type StressTestStatusResponse = {
         [key: string]: unknown;
     } | null;
     /**
-     * Error
+     * Status
      */
-    error?: string | null;
+    status: string;
 };
 
 /**
@@ -1844,13 +3129,9 @@ export type StressTestTriggerResponse = {
  */
 export type TaskStatusResponse = {
     /**
-     * Task Id
+     * Error
      */
-    task_id: string;
-    /**
-     * Status
-     */
-    status: string;
+    error?: string | null;
     /**
      * Progress
      */
@@ -1864,21 +3145,150 @@ export type TaskStatusResponse = {
         [key: string]: unknown;
     } | null;
     /**
-     * Error
+     * Status
      */
-    error?: string | null;
+    status: string;
+    /**
+     * Task Id
+     */
+    task_id: string;
+};
+
+/**
+ * TraceAPIError
+ */
+export type TraceApiError = {
+    /**
+     * Detail
+     */
+    detail: string;
+    /**
+     * Error Code
+     */
+    error_code: string;
+    /**
+     * Status Code
+     */
+    status_code: number;
+};
+
+/**
+ * TraceResponse
+ */
+export type TraceResponse = {
+    /**
+     * Account Scope
+     */
+    account_scope: string;
+    /**
+     * Anchor Id
+     */
+    anchor_id: string;
+    /**
+     * Anchor Type
+     */
+    anchor_type: 'decision' | 'signal' | 'evaluation';
+    /**
+     * Stages
+     */
+    stages: [
+        TraceStage,
+        TraceStage,
+        TraceStage,
+        TraceStage,
+        TraceStage,
+        TraceStage,
+        TraceStage,
+        TraceStage,
+        TraceStage
+    ];
+};
+
+/**
+ * TraceRow
+ */
+export type TraceRow = {
+    /**
+     * Identities
+     */
+    identities?: {
+        [key: string]: string;
+    };
+    /**
+     * Label
+     */
+    label: string;
+    /**
+     * State
+     */
+    state: 'Available' | 'No trade' | 'Not required' | 'Unavailable' | 'Provisional' | 'Inconclusive' | 'Legacy unresolved' | 'Filled' | 'Blocked' | 'Released' | 'Paused' | 'Rolled back' | 'Rejected';
+    /**
+     * Timestamp
+     */
+    timestamp?: string | null;
+    /**
+     * Values
+     */
+    values?: {
+        [key: string]: JsonValue;
+    };
+};
+
+/**
+ * TraceStage
+ */
+export type TraceStage = {
+    /**
+     * Identities
+     */
+    identities?: {
+        [key: string]: string;
+    };
+    /**
+     * Name
+     */
+    name: 'signal_or_no_trade' | 'manifest' | 'research_revision' | 'evaluation' | 'decision_events' | 'execution' | 'outcomes' | 'campaign_review' | 'release';
+    /**
+     * Position
+     */
+    position: number;
+    raw_payload?: JsonValue | null;
+    /**
+     * Reason
+     */
+    reason: string;
+    /**
+     * Rows
+     */
+    rows?: Array<TraceRow>;
+    /**
+     * State
+     */
+    state: 'Available' | 'No trade' | 'Not required' | 'Unavailable' | 'Provisional' | 'Inconclusive' | 'Legacy unresolved' | 'Filled' | 'Blocked' | 'Released' | 'Paused' | 'Rolled back' | 'Rejected';
+    /**
+     * Timestamp
+     */
+    timestamp?: string | null;
 };
 
 /**
  * TrainingRunDetailResponse
  *
- * Full detail response for GET /runs/{run_id} (per RESEARCH-API-04).
+ * Full detail response for GET /runs/{run_id}.
  */
 export type TrainingRunDetailResponse = {
     /**
-     * Run Id
+     * Created At
      */
-    run_id: string;
+    created_at: string;
+    /**
+     * Error
+     */
+    error?: string | null;
+    /**
+     * Finished At
+     */
+    finished_at?: string | null;
     /**
      * Handler Class
      */
@@ -1890,6 +3300,28 @@ export type TrainingRunDetailResponse = {
         [key: string]: unknown;
     };
     /**
+     * Interval
+     */
+    interval: string;
+    /**
+     * Lookback
+     */
+    lookback?: string | null;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Metrics
+     */
+    metrics?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Mlflow Run Id
+     */
+    mlflow_run_id?: string | null;
+    /**
      * Model Class
      */
     model_class: string;
@@ -1900,17 +3332,17 @@ export type TrainingRunDetailResponse = {
         [key: string]: unknown;
     };
     /**
-     * Market
+     * Model Version Id
      */
-    market: string;
+    model_version_id?: string | null;
     /**
-     * Symbols
+     * Requested By
      */
-    symbols: Array<string>;
+    requested_by: string;
     /**
-     * Interval
+     * Run Id
      */
-    interval: string;
+    run_id: string;
     /**
      * Segments
      */
@@ -1918,47 +3350,17 @@ export type TrainingRunDetailResponse = {
         [key: string]: unknown;
     };
     /**
-     * Lookback
+     * Started At
      */
-    lookback?: string | null;
+    started_at?: string | null;
     /**
      * Status
      */
     status: string;
     /**
-     * Metrics
+     * Symbols
      */
-    metrics?: {
-        [key: string]: unknown;
-    } | null;
-    /**
-     * Model Version Id
-     */
-    model_version_id?: string | null;
-    /**
-     * Mlflow Run Id
-     */
-    mlflow_run_id?: string | null;
-    /**
-     * Error
-     */
-    error?: string | null;
-    /**
-     * Requested By
-     */
-    requested_by: string;
-    /**
-     * Started At
-     */
-    started_at?: string | null;
-    /**
-     * Finished At
-     */
-    finished_at?: string | null;
-    /**
-     * Created At
-     */
-    created_at: string;
+    symbols: Array<string>;
     /**
      * Updated At
      */
@@ -1972,14 +3374,6 @@ export type TrainingRunDetailResponse = {
  */
 export type TrainingRunListResponse = {
     /**
-     * Runs
-     */
-    runs: Array<TrainingRunResponse>;
-    /**
-     * Total
-     */
-    total: number;
-    /**
      * Limit
      */
     limit: number;
@@ -1987,6 +3381,14 @@ export type TrainingRunListResponse = {
      * Offset
      */
     offset: number;
+    /**
+     * Runs
+     */
+    runs: Array<TrainingRunResponse>;
+    /**
+     * Total
+     */
+    total: number;
 };
 
 /**
@@ -1996,43 +3398,43 @@ export type TrainingRunListResponse = {
  */
 export type TrainingRunResponse = {
     /**
-     * Run Id
+     * Created At
      */
-    run_id: string;
+    created_at: string;
+    /**
+     * Finished At
+     */
+    finished_at?: string | null;
     /**
      * Handler Class
      */
     handler_class: string;
     /**
-     * Model Class
-     */
-    model_class: string;
-    /**
      * Market
      */
     market: string;
-    /**
-     * Status
-     */
-    status: string;
-    /**
-     * Created At
-     */
-    created_at: string;
-    /**
-     * Started At
-     */
-    started_at?: string | null;
-    /**
-     * Finished At
-     */
-    finished_at?: string | null;
     /**
      * Metrics
      */
     metrics?: {
         [key: string]: unknown;
     } | null;
+    /**
+     * Model Class
+     */
+    model_class: string;
+    /**
+     * Run Id
+     */
+    run_id: string;
+    /**
+     * Started At
+     */
+    started_at?: string | null;
+    /**
+     * Status
+     */
+    status: string;
 };
 
 /**
@@ -2064,17 +3466,13 @@ export type VaRResponse = {
  */
 export type VaRSnapshotResponse = {
     /**
-     * Method
+     * As Of
      */
-    method: string;
+    as_of?: string | null;
     /**
-     * Var 95
+     * Computed At
      */
-    var_95: number;
-    /**
-     * Var 99
-     */
-    var_99: number;
+    computed_at?: string | null;
     /**
      * Cvar 95
      */
@@ -2084,27 +3482,41 @@ export type VaRSnapshotResponse = {
      */
     cvar_99: number;
     /**
-     * Portfolio Value
-     */
-    portfolio_value: number;
-    /**
      * Holding Period
      */
     holding_period: number;
     /**
-     * As Of
+     * Method
      */
-    as_of?: string | null;
+    method: string;
     /**
-     * Computed At
+     * Portfolio Value
      */
-    computed_at?: string | null;
+    portfolio_value: number;
+    /**
+     * Var 95
+     */
+    var_95: number;
+    /**
+     * Var 99
+     */
+    var_99: number;
 };
 
 /**
  * ValidationError
  */
 export type ValidationError = {
+    /**
+     * Context
+     */
+    ctx?: {
+        [key: string]: unknown;
+    };
+    /**
+     * Input
+     */
+    input?: unknown;
     /**
      * Location
      */
@@ -2117,16 +3529,6 @@ export type ValidationError = {
      * Error Type
      */
     type: string;
-    /**
-     * Input
-     */
-    input?: unknown;
-    /**
-     * Context
-     */
-    ctx?: {
-        [key: string]: unknown;
-    };
 };
 
 /**
@@ -2136,33 +3538,33 @@ export type ValidationError = {
  */
 export type VirtualPositionResponse = {
     /**
+     * Entry Time
+     */
+    entry_time: string;
+    /**
      * Id
      */
     id: string;
-    /**
-     * Symbol
-     */
-    symbol: string;
-    /**
-     * Market
-     */
-    market: string;
     /**
      * Instrument
      */
     instrument: string;
     /**
-     * Side
+     * Market
      */
-    side: string;
+    market: string;
     /**
      * Quantity Pct
      */
     quantity_pct: number;
     /**
-     * Entry Time
+     * Side
      */
-    entry_time: string;
+    side: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
 };
 
 /**
@@ -2172,21 +3574,29 @@ export type VirtualPositionResponse = {
  */
 export type PoseidonApiModelsTrainRequest = {
     /**
-     * Model Name
+     * End Date
      */
-    model_name: string;
+    end_date?: string | null;
     /**
-     * Symbol
+     * Feature List
      */
-    symbol: string;
+    feature_list?: Array<string>;
+    /**
+     * Interval
+     */
+    interval?: string;
+    /**
+     * Label Mode
+     */
+    label_mode?: string;
     /**
      * Market
      */
     market: string;
     /**
-     * Interval
+     * Model Name
      */
-    interval?: string;
+    model_name: string;
     /**
      * Params
      */
@@ -2194,27 +3604,19 @@ export type PoseidonApiModelsTrainRequest = {
         [key: string]: unknown;
     };
     /**
-     * Feature List
-     */
-    feature_list?: Array<string>;
-    /**
      * Start Date
      */
     start_date?: string | null;
     /**
-     * End Date
+     * Symbol
      */
-    end_date?: string | null;
-    /**
-     * Label Mode
-     */
-    label_mode?: string;
+    symbol: string;
 };
 
 /**
  * TrainRequest
  *
- * Request body for POST /api/v1/models/train (RESEARCH-API-01).
+ * Request body for POST /api/v1/models/train.
  */
 export type PoseidonCoreSchemasTrainRequest = {
     /**
@@ -2228,6 +3630,18 @@ export type PoseidonCoreSchemasTrainRequest = {
         [key: string]: unknown;
     };
     /**
+     * Interval
+     */
+    interval: string;
+    /**
+     * Lookback
+     */
+    lookback?: string | null;
+    /**
+     * Market
+     */
+    market: string;
+    /**
      * Model Class
      */
     model_class: string;
@@ -2238,56 +3652,371 @@ export type PoseidonCoreSchemasTrainRequest = {
         [key: string]: unknown;
     };
     /**
-     * Market
-     */
-    market: string;
-    /**
-     * Symbols
-     */
-    symbols: Array<string>;
-    /**
-     * Interval
-     */
-    interval: string;
-    /**
      * Segments
      */
     segments?: {
         [key: string]: unknown;
     };
     /**
-     * Lookback
+     * Symbols
      */
-    lookback?: string | null;
+    symbols: Array<string>;
 };
 
-export type HealthHealthGetData = {
+export type ListExperimentsApiAutoresearchExperimentsGetData = {
     body?: never;
     path?: never;
     query?: {
         /**
-         * Details
+         * Study Name
          */
-        details?: boolean;
+        study_name?: string | null;
+        /**
+         * Status
+         */
+        status?: string | null;
+        /**
+         * Limit
+         */
+        limit?: number;
     };
-    url: '/health';
+    url: '/api/autoresearch/experiments';
 };
 
-export type HealthHealthGetErrors = {
+export type ListExperimentsApiAutoresearchExperimentsGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type HealthHealthGetError = HealthHealthGetErrors[keyof HealthHealthGetErrors];
+export type ListExperimentsApiAutoresearchExperimentsGetError = ListExperimentsApiAutoresearchExperimentsGetErrors[keyof ListExperimentsApiAutoresearchExperimentsGetErrors];
 
-export type HealthHealthGetResponses = {
+export type ListExperimentsApiAutoresearchExperimentsGetResponses = {
+    /**
+     * Response List Experiments Api Autoresearch Experiments Get
+     *
+     * Successful Response
+     */
+    200: Array<ExperimentResponse>;
+};
+
+export type ListExperimentsApiAutoresearchExperimentsGetResponse = ListExperimentsApiAutoresearchExperimentsGetResponses[keyof ListExperimentsApiAutoresearchExperimentsGetResponses];
+
+export type RunAutoresearchApiAutoresearchRunPostData = {
+    body: AutoResearchRequest;
+    path?: never;
+    query?: never;
+    url: '/api/autoresearch/run';
+};
+
+export type RunAutoresearchApiAutoresearchRunPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type RunAutoresearchApiAutoresearchRunPostError = RunAutoresearchApiAutoresearchRunPostErrors[keyof RunAutoresearchApiAutoresearchRunPostErrors];
+
+export type RunAutoresearchApiAutoresearchRunPostResponses = {
     /**
      * Successful Response
      */
-    200: unknown;
+    202: MessageResponse;
 };
+
+export type RunAutoresearchApiAutoresearchRunPostResponse = RunAutoresearchApiAutoresearchRunPostResponses[keyof RunAutoresearchApiAutoresearchRunPostResponses];
+
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Task Id
+         */
+        task_id: string;
+    };
+    query?: never;
+    url: '/api/autoresearch/status/{task_id}';
+};
+
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetError = GetTaskStatusApiAutoresearchStatusTaskIdGetErrors[keyof GetTaskStatusApiAutoresearchStatusTaskIdGetErrors];
+
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TaskStatusResponse;
+};
+
+export type GetTaskStatusApiAutoresearchStatusTaskIdGetResponse = GetTaskStatusApiAutoresearchStatusTaskIdGetResponses[keyof GetTaskStatusApiAutoresearchStatusTaskIdGetResponses];
+
+export type StopAutoresearchApiAutoresearchStopTaskIdPostData = {
+    body?: never;
+    path: {
+        /**
+         * Task Id
+         */
+        task_id: string;
+    };
+    query?: never;
+    url: '/api/autoresearch/stop/{task_id}';
+};
+
+export type StopAutoresearchApiAutoresearchStopTaskIdPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type StopAutoresearchApiAutoresearchStopTaskIdPostError = StopAutoresearchApiAutoresearchStopTaskIdPostErrors[keyof StopAutoresearchApiAutoresearchStopTaskIdPostErrors];
+
+export type StopAutoresearchApiAutoresearchStopTaskIdPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: MessageResponse;
+};
+
+export type StopAutoresearchApiAutoresearchStopTaskIdPostResponse = StopAutoresearchApiAutoresearchStopTaskIdPostResponses[keyof StopAutoresearchApiAutoresearchStopTaskIdPostResponses];
+
+export type ListBacktestsApiBacktestGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Strategy Id
+         */
+        strategy_id?: string | null;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/backtest';
+};
+
+export type ListBacktestsApiBacktestGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListBacktestsApiBacktestGetError = ListBacktestsApiBacktestGetErrors[keyof ListBacktestsApiBacktestGetErrors];
+
+export type ListBacktestsApiBacktestGetResponses = {
+    /**
+     * Response List Backtests Api Backtest Get
+     *
+     * Successful Response
+     */
+    200: Array<BacktestResponse>;
+};
+
+export type ListBacktestsApiBacktestGetResponse = ListBacktestsApiBacktestGetResponses[keyof ListBacktestsApiBacktestGetResponses];
+
+export type RunDualModeApiBacktestDualModePostData = {
+    body: DualModeRequest;
+    path?: never;
+    query?: never;
+    url: '/api/backtest/dual-mode';
+};
+
+export type RunDualModeApiBacktestDualModePostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type RunDualModeApiBacktestDualModePostError = RunDualModeApiBacktestDualModePostErrors[keyof RunDualModeApiBacktestDualModePostErrors];
+
+export type RunDualModeApiBacktestDualModePostResponses = {
+    /**
+     * Successful Response
+     */
+    202: MessageResponse;
+};
+
+export type RunDualModeApiBacktestDualModePostResponse = RunDualModeApiBacktestDualModePostResponses[keyof RunDualModeApiBacktestDualModePostResponses];
+
+export type RunOptimizationApiBacktestOptimizePostData = {
+    body: OptimizeRequest;
+    path?: never;
+    query?: never;
+    url: '/api/backtest/optimize';
+};
+
+export type RunOptimizationApiBacktestOptimizePostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type RunOptimizationApiBacktestOptimizePostError = RunOptimizationApiBacktestOptimizePostErrors[keyof RunOptimizationApiBacktestOptimizePostErrors];
+
+export type RunOptimizationApiBacktestOptimizePostResponses = {
+    /**
+     * Successful Response
+     */
+    202: MessageResponse;
+};
+
+export type RunOptimizationApiBacktestOptimizePostResponse = RunOptimizationApiBacktestOptimizePostResponses[keyof RunOptimizationApiBacktestOptimizePostResponses];
+
+export type QueryBacktestsApiBacktestQueryPostData = {
+    body: BatchBacktestQueryRequest;
+    path?: never;
+    query?: never;
+    url: '/api/backtest/query';
+};
+
+export type QueryBacktestsApiBacktestQueryPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type QueryBacktestsApiBacktestQueryPostError = QueryBacktestsApiBacktestQueryPostErrors[keyof QueryBacktestsApiBacktestQueryPostErrors];
+
+export type QueryBacktestsApiBacktestQueryPostResponses = {
+    /**
+     * Response Query Backtests Api Backtest Query Post
+     *
+     * Successful Response
+     */
+    200: Array<BacktestResponse>;
+};
+
+export type QueryBacktestsApiBacktestQueryPostResponse = QueryBacktestsApiBacktestQueryPostResponses[keyof QueryBacktestsApiBacktestQueryPostResponses];
+
+export type RunBacktestApiBacktestRunPostData = {
+    body: BacktestRunRequest;
+    path?: never;
+    query?: never;
+    url: '/api/backtest/run';
+};
+
+export type RunBacktestApiBacktestRunPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type RunBacktestApiBacktestRunPostError = RunBacktestApiBacktestRunPostErrors[keyof RunBacktestApiBacktestRunPostErrors];
+
+export type RunBacktestApiBacktestRunPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: MessageResponse;
+};
+
+export type RunBacktestApiBacktestRunPostResponse = RunBacktestApiBacktestRunPostResponses[keyof RunBacktestApiBacktestRunPostResponses];
+
+export type GetBacktestApiBacktestBacktestIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Backtest Id
+         */
+        backtest_id: string;
+    };
+    query?: never;
+    url: '/api/backtest/{backtest_id}';
+};
+
+export type GetBacktestApiBacktestBacktestIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetBacktestApiBacktestBacktestIdGetError = GetBacktestApiBacktestBacktestIdGetErrors[keyof GetBacktestApiBacktestBacktestIdGetErrors];
+
+export type GetBacktestApiBacktestBacktestIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: BacktestResponse;
+};
+
+export type GetBacktestApiBacktestBacktestIdGetResponse = GetBacktestApiBacktestBacktestIdGetResponses[keyof GetBacktestApiBacktestBacktestIdGetResponses];
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData = {
+    body?: never;
+    path: {
+        /**
+         * Backtest Id
+         */
+        backtest_id: string;
+    };
+    query?: never;
+    url: '/api/backtest/{backtest_id}/equity-curve';
+};
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetError = GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors[keyof GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors];
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: BacktestEquityResponse;
+};
+
+export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponse = GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses[keyof GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses];
+
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetData = {
+    body?: never;
+    path: {
+        /**
+         * Backtest Id
+         */
+        backtest_id: string;
+    };
+    query?: never;
+    url: '/api/backtest/{backtest_id}/trades';
+};
+
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetError = GetBacktestTradesApiBacktestBacktestIdTradesGetErrors[keyof GetBacktestTradesApiBacktestBacktestIdTradesGetErrors];
+
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetResponses = {
+    /**
+     * Response Get Backtest Trades Api Backtest  Backtest Id  Trades Get
+     *
+     * Successful Response
+     */
+    200: Array<BacktestTradeResponse>;
+};
+
+export type GetBacktestTradesApiBacktestBacktestIdTradesGetResponse = GetBacktestTradesApiBacktestBacktestIdTradesGetResponses[keyof GetBacktestTradesApiBacktestBacktestIdTradesGetResponses];
 
 export type GetOhlcvApiDataOhlcvGetData = {
     body?: never;
@@ -2345,94 +4074,330 @@ export type GetOhlcvApiDataOhlcvGetResponses = {
 
 export type GetOhlcvApiDataOhlcvGetResponse = GetOhlcvApiDataOhlcvGetResponses[keyof GetOhlcvApiDataOhlcvGetResponses];
 
-export type ListSentimentApiSentimentGetData = {
+export type ListModelsApiModelsGetData = {
     body?: never;
     path?: never;
-    query: {
+    query?: {
         /**
-         * Symbol
-         *
-         * Symbol to query sentiment for
+         * Name
          */
-        symbol: string;
+        name?: string | null;
+    };
+    url: '/api/models';
+};
+
+export type ListModelsApiModelsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListModelsApiModelsGetError = ListModelsApiModelsGetErrors[keyof ListModelsApiModelsGetErrors];
+
+export type ListModelsApiModelsGetResponses = {
+    /**
+     * Response List Models Api Models Get
+     *
+     * Successful Response
+     */
+    200: Array<ModelVersionResponse>;
+};
+
+export type ListModelsApiModelsGetResponse = ListModelsApiModelsGetResponses[keyof ListModelsApiModelsGetResponses];
+
+export type StartTrainingApiModelsTrainPostData = {
+    body: PoseidonApiModelsTrainRequest;
+    path?: never;
+    query?: never;
+    url: '/api/models/train';
+};
+
+export type StartTrainingApiModelsTrainPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type StartTrainingApiModelsTrainPostError = StartTrainingApiModelsTrainPostErrors[keyof StartTrainingApiModelsTrainPostErrors];
+
+export type StartTrainingApiModelsTrainPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: MessageResponse;
+};
+
+export type StartTrainingApiModelsTrainPostResponse = StartTrainingApiModelsTrainPostResponses[keyof StartTrainingApiModelsTrainPostResponses];
+
+export type GetModelVersionApiModelsVersionIdGetData = {
+    body?: never;
+    path: {
         /**
-         * Market
-         *
-         * Optional market filter
+         * Version Id
          */
-        market?: string | null;
+        version_id: string;
+    };
+    query?: never;
+    url: '/api/models/{version_id}';
+};
+
+export type GetModelVersionApiModelsVersionIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetModelVersionApiModelsVersionIdGetError = GetModelVersionApiModelsVersionIdGetErrors[keyof GetModelVersionApiModelsVersionIdGetErrors];
+
+export type GetModelVersionApiModelsVersionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: ModelVersionResponse;
+};
+
+export type GetModelVersionApiModelsVersionIdGetResponse = GetModelVersionApiModelsVersionIdGetResponses[keyof GetModelVersionApiModelsVersionIdGetResponses];
+
+export type ActivateModelApiModelsVersionIdActivatePostData = {
+    /**
+     * Body
+     */
+    body?: TransitionRequest | null;
+    path: {
+        /**
+         * Version Id
+         */
+        version_id: string;
+    };
+    query?: never;
+    url: '/api/models/{version_id}/activate';
+};
+
+export type ActivateModelApiModelsVersionIdActivatePostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ActivateModelApiModelsVersionIdActivatePostError = ActivateModelApiModelsVersionIdActivatePostErrors[keyof ActivateModelApiModelsVersionIdActivatePostErrors];
+
+export type ActivateModelApiModelsVersionIdActivatePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ModelVersionResponse;
+};
+
+export type ActivateModelApiModelsVersionIdActivatePostResponse = ActivateModelApiModelsVersionIdActivatePostResponses[keyof ActivateModelApiModelsVersionIdActivatePostResponses];
+
+export type PredictApiModelsVersionIdPredictPostData = {
+    body: PredictRequest;
+    path: {
+        /**
+         * Version Id
+         */
+        version_id: string;
+    };
+    query?: never;
+    url: '/api/models/{version_id}/predict';
+};
+
+export type PredictApiModelsVersionIdPredictPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type PredictApiModelsVersionIdPredictPostError = PredictApiModelsVersionIdPredictPostErrors[keyof PredictApiModelsVersionIdPredictPostErrors];
+
+export type PredictApiModelsVersionIdPredictPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: MessageResponse;
+};
+
+export type PredictApiModelsVersionIdPredictPostResponse = PredictApiModelsVersionIdPredictPostResponses[keyof PredictApiModelsVersionIdPredictPostResponses];
+
+export type ShadowModelApiModelsVersionIdShadowPostData = {
+    /**
+     * Body
+     */
+    body?: TransitionRequest | null;
+    path: {
+        /**
+         * Version Id
+         */
+        version_id: string;
+    };
+    query?: never;
+    url: '/api/models/{version_id}/shadow';
+};
+
+export type ShadowModelApiModelsVersionIdShadowPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ShadowModelApiModelsVersionIdShadowPostError = ShadowModelApiModelsVersionIdShadowPostErrors[keyof ShadowModelApiModelsVersionIdShadowPostErrors];
+
+export type ShadowModelApiModelsVersionIdShadowPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ModelVersionResponse;
+};
+
+export type ShadowModelApiModelsVersionIdShadowPostResponse = ShadowModelApiModelsVersionIdShadowPostResponses[keyof ShadowModelApiModelsVersionIdShadowPostResponses];
+
+export type GetNotificationsApiNotificationsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Offset
+         */
+        offset?: number;
+        /**
+         * Source
+         *
+         * Filter by source: risk, data_quality, autoresearch
+         */
+        source?: string | null;
+    };
+    url: '/api/notifications';
+};
+
+export type GetNotificationsApiNotificationsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetNotificationsApiNotificationsGetError = GetNotificationsApiNotificationsGetErrors[keyof GetNotificationsApiNotificationsGetErrors];
+
+export type GetNotificationsApiNotificationsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: NotificationsResponse;
+};
+
+export type GetNotificationsApiNotificationsGetResponse = GetNotificationsApiNotificationsGetResponses[keyof GetNotificationsApiNotificationsGetResponses];
+
+export type GetHoldingsApiPortfolioHoldingsGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/portfolio/holdings';
+};
+
+export type GetHoldingsApiPortfolioHoldingsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: HoldingsResponse;
+};
+
+export type GetHoldingsApiPortfolioHoldingsGetResponse = GetHoldingsApiPortfolioHoldingsGetResponses[keyof GetHoldingsApiPortfolioHoldingsGetResponses];
+
+export type GetOrdersApiPortfolioOrdersGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Status
+         *
+         * Filter by order status
+         */
+        status?: string | null;
         /**
          * Limit
          *
-         * Max results to return
+         * Max orders to return
          */
         limit?: number;
     };
-    url: '/api/sentiment';
+    url: '/api/portfolio/orders';
 };
 
-export type ListSentimentApiSentimentGetErrors = {
+export type GetOrdersApiPortfolioOrdersGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type ListSentimentApiSentimentGetError = ListSentimentApiSentimentGetErrors[keyof ListSentimentApiSentimentGetErrors];
+export type GetOrdersApiPortfolioOrdersGetError = GetOrdersApiPortfolioOrdersGetErrors[keyof GetOrdersApiPortfolioOrdersGetErrors];
 
-export type ListSentimentApiSentimentGetResponses = {
+export type GetOrdersApiPortfolioOrdersGetResponses = {
     /**
-     * Response List Sentiment Api Sentiment Get
-     *
      * Successful Response
      */
-    200: Array<SentimentResponse>;
+    200: OrdersResponse;
 };
 
-export type ListSentimentApiSentimentGetResponse = ListSentimentApiSentimentGetResponses[keyof ListSentimentApiSentimentGetResponses];
+export type GetOrdersApiPortfolioOrdersGetResponse = GetOrdersApiPortfolioOrdersGetResponses[keyof GetOrdersApiPortfolioOrdersGetResponses];
 
-export type CreateSentimentApiSentimentPostData = {
-    body: SentimentCreate;
+export type GetPerformanceApiPortfolioPerformanceGetData = {
+    body?: never;
     path?: never;
-    query?: never;
-    url: '/api/sentiment';
+    query?: {
+        /**
+         * Market
+         *
+         * Filter by market (e.g., 'crypto_perp')
+         */
+        market?: string | null;
+    };
+    url: '/api/portfolio/performance';
 };
 
-export type CreateSentimentApiSentimentPostErrors = {
+export type GetPerformanceApiPortfolioPerformanceGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateSentimentApiSentimentPostError = CreateSentimentApiSentimentPostErrors[keyof CreateSentimentApiSentimentPostErrors];
+export type GetPerformanceApiPortfolioPerformanceGetError = GetPerformanceApiPortfolioPerformanceGetErrors[keyof GetPerformanceApiPortfolioPerformanceGetErrors];
 
-export type CreateSentimentApiSentimentPostResponses = {
+export type GetPerformanceApiPortfolioPerformanceGetResponses = {
     /**
      * Successful Response
      */
-    201: SentimentResponse;
+    200: PerformanceSummaryResponse;
 };
 
-export type CreateSentimentApiSentimentPostResponse = CreateSentimentApiSentimentPostResponses[keyof CreateSentimentApiSentimentPostResponses];
+export type GetPerformanceApiPortfolioPerformanceGetResponse = GetPerformanceApiPortfolioPerformanceGetResponses[keyof GetPerformanceApiPortfolioPerformanceGetResponses];
 
-export type ListRuleTypesApiRiskRulesTypesGetData = {
+export type GetPerpHoldingsApiPortfolioPerpHoldingsGetData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/api/risk-rules/types';
+    url: '/api/portfolio/perp-holdings';
 };
 
-export type ListRuleTypesApiRiskRulesTypesGetResponses = {
+export type GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses = {
     /**
-     * Response List Rule Types Api Risk Rules Types Get
-     *
      * Successful Response
      */
-    200: Array<string>;
+    200: PerpHoldingsResponse;
 };
 
-export type ListRuleTypesApiRiskRulesTypesGetResponse = ListRuleTypesApiRiskRulesTypesGetResponses[keyof ListRuleTypesApiRiskRulesTypesGetResponses];
+export type GetPerpHoldingsApiPortfolioPerpHoldingsGetResponse = GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses[keyof GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses];
 
 export type ListRulesApiRiskRulesGetData = {
     body?: never;
@@ -2508,6 +4473,24 @@ export type GetPortfolioApiRiskRulesPortfolioGetResponses = {
 };
 
 export type GetPortfolioApiRiskRulesPortfolioGetResponse = GetPortfolioApiRiskRulesPortfolioGetResponses[keyof GetPortfolioApiRiskRulesPortfolioGetResponses];
+
+export type ListRuleTypesApiRiskRulesTypesGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/risk-rules/types';
+};
+
+export type ListRuleTypesApiRiskRulesTypesGetResponses = {
+    /**
+     * Response List Rule Types Api Risk Rules Types Get
+     *
+     * Successful Response
+     */
+    200: Array<string>;
+};
+
+export type ListRuleTypesApiRiskRulesTypesGetResponse = ListRuleTypesApiRiskRulesTypesGetResponses[keyof ListRuleTypesApiRiskRulesTypesGetResponses];
 
 export type DeleteRuleApiRiskRulesRuleIdDeleteData = {
     body?: never;
@@ -2598,6 +4581,288 @@ export type UpdateRuleApiRiskRulesRuleIdPatchResponses = {
 };
 
 export type UpdateRuleApiRiskRulesRuleIdPatchResponse = UpdateRuleApiRiskRulesRuleIdPatchResponses[keyof UpdateRuleApiRiskRulesRuleIdPatchResponses];
+
+export type GetAlertsApiRiskAlertsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Offset
+         */
+        offset?: number;
+    };
+    url: '/api/risk/alerts';
+};
+
+export type GetAlertsApiRiskAlertsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetAlertsApiRiskAlertsGetError = GetAlertsApiRiskAlertsGetErrors[keyof GetAlertsApiRiskAlertsGetErrors];
+
+export type GetAlertsApiRiskAlertsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: AlertsResponse;
+};
+
+export type GetAlertsApiRiskAlertsGetResponse = GetAlertsApiRiskAlertsGetResponses[keyof GetAlertsApiRiskAlertsGetResponses];
+
+export type GetCorrelationApiRiskCorrelationGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/risk/correlation';
+};
+
+export type GetCorrelationApiRiskCorrelationGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: CorrelationResponse;
+};
+
+export type GetCorrelationApiRiskCorrelationGetResponse = GetCorrelationApiRiskCorrelationGetResponses[keyof GetCorrelationApiRiskCorrelationGetResponses];
+
+export type GetExposureApiRiskExposureGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/risk/exposure';
+};
+
+export type GetExposureApiRiskExposureGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: ExposureResponse;
+};
+
+export type GetExposureApiRiskExposureGetResponse = GetExposureApiRiskExposureGetResponses[keyof GetExposureApiRiskExposureGetResponses];
+
+export type TriggerStressTestApiRiskStressTestRunPostData = {
+    body: StressTestRequest;
+    path?: never;
+    query?: never;
+    url: '/api/risk/stress-test/run';
+};
+
+export type TriggerStressTestApiRiskStressTestRunPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type TriggerStressTestApiRiskStressTestRunPostError = TriggerStressTestApiRiskStressTestRunPostErrors[keyof TriggerStressTestApiRiskStressTestRunPostErrors];
+
+export type TriggerStressTestApiRiskStressTestRunPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: StressTestTriggerResponse;
+};
+
+export type TriggerStressTestApiRiskStressTestRunPostResponse = TriggerStressTestApiRiskStressTestRunPostResponses[keyof TriggerStressTestApiRiskStressTestRunPostResponses];
+
+export type GetStressTestResultApiRiskStressTestTaskIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Task Id
+         */
+        task_id: string;
+    };
+    query?: never;
+    url: '/api/risk/stress-test/{task_id}';
+};
+
+export type GetStressTestResultApiRiskStressTestTaskIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetStressTestResultApiRiskStressTestTaskIdGetError = GetStressTestResultApiRiskStressTestTaskIdGetErrors[keyof GetStressTestResultApiRiskStressTestTaskIdGetErrors];
+
+export type GetStressTestResultApiRiskStressTestTaskIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: StressTestStatusResponse;
+};
+
+export type GetStressTestResultApiRiskStressTestTaskIdGetResponse = GetStressTestResultApiRiskStressTestTaskIdGetResponses[keyof GetStressTestResultApiRiskStressTestTaskIdGetResponses];
+
+export type GetVarApiRiskVarGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/risk/var';
+};
+
+export type GetVarApiRiskVarGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: VaRResponse;
+};
+
+export type GetVarApiRiskVarGetResponse = GetVarApiRiskVarGetResponses[keyof GetVarApiRiskVarGetResponses];
+
+export type ListSentimentApiSentimentGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         *
+         * Symbol to query sentiment for
+         */
+        symbol: string;
+        /**
+         * Market
+         *
+         * Optional market filter
+         */
+        market?: string | null;
+        /**
+         * Limit
+         *
+         * Max results to return
+         */
+        limit?: number;
+    };
+    url: '/api/sentiment';
+};
+
+export type ListSentimentApiSentimentGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListSentimentApiSentimentGetError = ListSentimentApiSentimentGetErrors[keyof ListSentimentApiSentimentGetErrors];
+
+export type ListSentimentApiSentimentGetResponses = {
+    /**
+     * Response List Sentiment Api Sentiment Get
+     *
+     * Successful Response
+     */
+    200: Array<SentimentResponse>;
+};
+
+export type ListSentimentApiSentimentGetResponse = ListSentimentApiSentimentGetResponses[keyof ListSentimentApiSentimentGetResponses];
+
+export type CreateSentimentApiSentimentPostData = {
+    body: SentimentCreate;
+    path?: never;
+    query?: never;
+    url: '/api/sentiment';
+};
+
+export type CreateSentimentApiSentimentPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateSentimentApiSentimentPostError = CreateSentimentApiSentimentPostErrors[keyof CreateSentimentApiSentimentPostErrors];
+
+export type CreateSentimentApiSentimentPostResponses = {
+    /**
+     * Successful Response
+     */
+    201: SentimentResponse;
+};
+
+export type CreateSentimentApiSentimentPostResponse = CreateSentimentApiSentimentPostResponses[keyof CreateSentimentApiSentimentPostResponses];
+
+export type ListSignalsApiSignalsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Market
+         */
+        market?: string | null;
+        /**
+         * Symbol
+         */
+        symbol?: string | null;
+        /**
+         * Status
+         */
+        status?: string | null;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/signals';
+};
+
+export type ListSignalsApiSignalsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListSignalsApiSignalsGetError = ListSignalsApiSignalsGetErrors[keyof ListSignalsApiSignalsGetErrors];
+
+export type ListSignalsApiSignalsGetResponses = {
+    /**
+     * Response List Signals Api Signals Get
+     *
+     * Successful Response
+     */
+    200: Array<SignalResponse>;
+};
+
+export type ListSignalsApiSignalsGetResponse = ListSignalsApiSignalsGetResponses[keyof ListSignalsApiSignalsGetResponses];
+
+export type GetSignalApiSignalsSignalIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Signal Id
+         */
+        signal_id: string;
+    };
+    query?: never;
+    url: '/api/signals/{signal_id}';
+};
+
+export type GetSignalApiSignalsSignalIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetSignalApiSignalsSignalIdGetError = GetSignalApiSignalsSignalIdGetErrors[keyof GetSignalApiSignalsSignalIdGetErrors];
+
+export type GetSignalApiSignalsSignalIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: SignalResponse;
+};
+
+export type GetSignalApiSignalsSignalIdGetResponse = GetSignalApiSignalsSignalIdGetResponses[keyof GetSignalApiSignalsSignalIdGetResponses];
 
 export type ListStrategiesApiStrategiesGetData = {
     body?: never;
@@ -2822,870 +5087,6 @@ export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses
 
 export type GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponse = GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses[keyof GetStrategyPerformanceApiStrategiesStrategyIdPerformanceGetResponses];
 
-export type StartTrainingApiModelsTrainPostData = {
-    body: PoseidonApiModelsTrainRequest;
-    path?: never;
-    query?: never;
-    url: '/api/models/train';
-};
-
-export type StartTrainingApiModelsTrainPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type StartTrainingApiModelsTrainPostError = StartTrainingApiModelsTrainPostErrors[keyof StartTrainingApiModelsTrainPostErrors];
-
-export type StartTrainingApiModelsTrainPostResponses = {
-    /**
-     * Successful Response
-     */
-    202: MessageResponse;
-};
-
-export type StartTrainingApiModelsTrainPostResponse = StartTrainingApiModelsTrainPostResponses[keyof StartTrainingApiModelsTrainPostResponses];
-
-export type ListModelsApiModelsGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Name
-         */
-        name?: string | null;
-    };
-    url: '/api/models';
-};
-
-export type ListModelsApiModelsGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type ListModelsApiModelsGetError = ListModelsApiModelsGetErrors[keyof ListModelsApiModelsGetErrors];
-
-export type ListModelsApiModelsGetResponses = {
-    /**
-     * Response List Models Api Models Get
-     *
-     * Successful Response
-     */
-    200: Array<ModelVersionResponse>;
-};
-
-export type ListModelsApiModelsGetResponse = ListModelsApiModelsGetResponses[keyof ListModelsApiModelsGetResponses];
-
-export type GetModelVersionApiModelsVersionIdGetData = {
-    body?: never;
-    path: {
-        /**
-         * Version Id
-         */
-        version_id: string;
-    };
-    query?: never;
-    url: '/api/models/{version_id}';
-};
-
-export type GetModelVersionApiModelsVersionIdGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetModelVersionApiModelsVersionIdGetError = GetModelVersionApiModelsVersionIdGetErrors[keyof GetModelVersionApiModelsVersionIdGetErrors];
-
-export type GetModelVersionApiModelsVersionIdGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: ModelVersionResponse;
-};
-
-export type GetModelVersionApiModelsVersionIdGetResponse = GetModelVersionApiModelsVersionIdGetResponses[keyof GetModelVersionApiModelsVersionIdGetResponses];
-
-export type ShadowModelApiModelsVersionIdShadowPostData = {
-    /**
-     * Body
-     */
-    body?: TransitionRequest | null;
-    path: {
-        /**
-         * Version Id
-         */
-        version_id: string;
-    };
-    query?: never;
-    url: '/api/models/{version_id}/shadow';
-};
-
-export type ShadowModelApiModelsVersionIdShadowPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type ShadowModelApiModelsVersionIdShadowPostError = ShadowModelApiModelsVersionIdShadowPostErrors[keyof ShadowModelApiModelsVersionIdShadowPostErrors];
-
-export type ShadowModelApiModelsVersionIdShadowPostResponses = {
-    /**
-     * Successful Response
-     */
-    200: ModelVersionResponse;
-};
-
-export type ShadowModelApiModelsVersionIdShadowPostResponse = ShadowModelApiModelsVersionIdShadowPostResponses[keyof ShadowModelApiModelsVersionIdShadowPostResponses];
-
-export type ActivateModelApiModelsVersionIdActivatePostData = {
-    /**
-     * Body
-     */
-    body?: TransitionRequest | null;
-    path: {
-        /**
-         * Version Id
-         */
-        version_id: string;
-    };
-    query?: never;
-    url: '/api/models/{version_id}/activate';
-};
-
-export type ActivateModelApiModelsVersionIdActivatePostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type ActivateModelApiModelsVersionIdActivatePostError = ActivateModelApiModelsVersionIdActivatePostErrors[keyof ActivateModelApiModelsVersionIdActivatePostErrors];
-
-export type ActivateModelApiModelsVersionIdActivatePostResponses = {
-    /**
-     * Successful Response
-     */
-    200: ModelVersionResponse;
-};
-
-export type ActivateModelApiModelsVersionIdActivatePostResponse = ActivateModelApiModelsVersionIdActivatePostResponses[keyof ActivateModelApiModelsVersionIdActivatePostResponses];
-
-export type PredictApiModelsVersionIdPredictPostData = {
-    body: PredictRequest;
-    path: {
-        /**
-         * Version Id
-         */
-        version_id: string;
-    };
-    query?: never;
-    url: '/api/models/{version_id}/predict';
-};
-
-export type PredictApiModelsVersionIdPredictPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type PredictApiModelsVersionIdPredictPostError = PredictApiModelsVersionIdPredictPostErrors[keyof PredictApiModelsVersionIdPredictPostErrors];
-
-export type PredictApiModelsVersionIdPredictPostResponses = {
-    /**
-     * Successful Response
-     */
-    202: MessageResponse;
-};
-
-export type PredictApiModelsVersionIdPredictPostResponse = PredictApiModelsVersionIdPredictPostResponses[keyof PredictApiModelsVersionIdPredictPostResponses];
-
-export type RunBacktestApiBacktestRunPostData = {
-    body: BacktestRunRequest;
-    path?: never;
-    query?: never;
-    url: '/api/backtest/run';
-};
-
-export type RunBacktestApiBacktestRunPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type RunBacktestApiBacktestRunPostError = RunBacktestApiBacktestRunPostErrors[keyof RunBacktestApiBacktestRunPostErrors];
-
-export type RunBacktestApiBacktestRunPostResponses = {
-    /**
-     * Successful Response
-     */
-    202: MessageResponse;
-};
-
-export type RunBacktestApiBacktestRunPostResponse = RunBacktestApiBacktestRunPostResponses[keyof RunBacktestApiBacktestRunPostResponses];
-
-export type RunDualModeApiBacktestDualModePostData = {
-    body: DualModeRequest;
-    path?: never;
-    query?: never;
-    url: '/api/backtest/dual-mode';
-};
-
-export type RunDualModeApiBacktestDualModePostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type RunDualModeApiBacktestDualModePostError = RunDualModeApiBacktestDualModePostErrors[keyof RunDualModeApiBacktestDualModePostErrors];
-
-export type RunDualModeApiBacktestDualModePostResponses = {
-    /**
-     * Successful Response
-     */
-    202: MessageResponse;
-};
-
-export type RunDualModeApiBacktestDualModePostResponse = RunDualModeApiBacktestDualModePostResponses[keyof RunDualModeApiBacktestDualModePostResponses];
-
-export type RunOptimizationApiBacktestOptimizePostData = {
-    body: OptimizeRequest;
-    path?: never;
-    query?: never;
-    url: '/api/backtest/optimize';
-};
-
-export type RunOptimizationApiBacktestOptimizePostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type RunOptimizationApiBacktestOptimizePostError = RunOptimizationApiBacktestOptimizePostErrors[keyof RunOptimizationApiBacktestOptimizePostErrors];
-
-export type RunOptimizationApiBacktestOptimizePostResponses = {
-    /**
-     * Successful Response
-     */
-    202: MessageResponse;
-};
-
-export type RunOptimizationApiBacktestOptimizePostResponse = RunOptimizationApiBacktestOptimizePostResponses[keyof RunOptimizationApiBacktestOptimizePostResponses];
-
-export type ListBacktestsApiBacktestGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Strategy Id
-         */
-        strategy_id?: string | null;
-        /**
-         * Limit
-         */
-        limit?: number;
-    };
-    url: '/api/backtest';
-};
-
-export type ListBacktestsApiBacktestGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type ListBacktestsApiBacktestGetError = ListBacktestsApiBacktestGetErrors[keyof ListBacktestsApiBacktestGetErrors];
-
-export type ListBacktestsApiBacktestGetResponses = {
-    /**
-     * Response List Backtests Api Backtest Get
-     *
-     * Successful Response
-     */
-    200: Array<BacktestResponse>;
-};
-
-export type ListBacktestsApiBacktestGetResponse = ListBacktestsApiBacktestGetResponses[keyof ListBacktestsApiBacktestGetResponses];
-
-export type GetBacktestApiBacktestBacktestIdGetData = {
-    body?: never;
-    path: {
-        /**
-         * Backtest Id
-         */
-        backtest_id: string;
-    };
-    query?: never;
-    url: '/api/backtest/{backtest_id}';
-};
-
-export type GetBacktestApiBacktestBacktestIdGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetBacktestApiBacktestBacktestIdGetError = GetBacktestApiBacktestBacktestIdGetErrors[keyof GetBacktestApiBacktestBacktestIdGetErrors];
-
-export type GetBacktestApiBacktestBacktestIdGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: BacktestResponse;
-};
-
-export type GetBacktestApiBacktestBacktestIdGetResponse = GetBacktestApiBacktestBacktestIdGetResponses[keyof GetBacktestApiBacktestBacktestIdGetResponses];
-
-export type GetBacktestTradesApiBacktestBacktestIdTradesGetData = {
-    body?: never;
-    path: {
-        /**
-         * Backtest Id
-         */
-        backtest_id: string;
-    };
-    query?: never;
-    url: '/api/backtest/{backtest_id}/trades';
-};
-
-export type GetBacktestTradesApiBacktestBacktestIdTradesGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetBacktestTradesApiBacktestBacktestIdTradesGetError = GetBacktestTradesApiBacktestBacktestIdTradesGetErrors[keyof GetBacktestTradesApiBacktestBacktestIdTradesGetErrors];
-
-export type GetBacktestTradesApiBacktestBacktestIdTradesGetResponses = {
-    /**
-     * Response Get Backtest Trades Api Backtest  Backtest Id  Trades Get
-     *
-     * Successful Response
-     */
-    200: Array<BacktestTradeResponse>;
-};
-
-export type GetBacktestTradesApiBacktestBacktestIdTradesGetResponse = GetBacktestTradesApiBacktestBacktestIdTradesGetResponses[keyof GetBacktestTradesApiBacktestBacktestIdTradesGetResponses];
-
-export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetData = {
-    body?: never;
-    path: {
-        /**
-         * Backtest Id
-         */
-        backtest_id: string;
-    };
-    query?: never;
-    url: '/api/backtest/{backtest_id}/equity-curve';
-};
-
-export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetError = GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors[keyof GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetErrors];
-
-export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: BacktestEquityResponse;
-};
-
-export type GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponse = GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses[keyof GetBacktestEquityCurveApiBacktestBacktestIdEquityCurveGetResponses];
-
-export type ListSignalsApiSignalsGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Market
-         */
-        market?: string | null;
-        /**
-         * Symbol
-         */
-        symbol?: string | null;
-        /**
-         * Status
-         */
-        status?: string | null;
-        /**
-         * Limit
-         */
-        limit?: number;
-    };
-    url: '/api/signals';
-};
-
-export type ListSignalsApiSignalsGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type ListSignalsApiSignalsGetError = ListSignalsApiSignalsGetErrors[keyof ListSignalsApiSignalsGetErrors];
-
-export type ListSignalsApiSignalsGetResponses = {
-    /**
-     * Response List Signals Api Signals Get
-     *
-     * Successful Response
-     */
-    200: Array<SignalResponse>;
-};
-
-export type ListSignalsApiSignalsGetResponse = ListSignalsApiSignalsGetResponses[keyof ListSignalsApiSignalsGetResponses];
-
-export type GetSignalApiSignalsSignalIdGetData = {
-    body?: never;
-    path: {
-        /**
-         * Signal Id
-         */
-        signal_id: string;
-    };
-    query?: never;
-    url: '/api/signals/{signal_id}';
-};
-
-export type GetSignalApiSignalsSignalIdGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetSignalApiSignalsSignalIdGetError = GetSignalApiSignalsSignalIdGetErrors[keyof GetSignalApiSignalsSignalIdGetErrors];
-
-export type GetSignalApiSignalsSignalIdGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: SignalResponse;
-};
-
-export type GetSignalApiSignalsSignalIdGetResponse = GetSignalApiSignalsSignalIdGetResponses[keyof GetSignalApiSignalsSignalIdGetResponses];
-
-export type RunAutoresearchApiAutoresearchRunPostData = {
-    body: AutoResearchRequest;
-    path?: never;
-    query?: never;
-    url: '/api/autoresearch/run';
-};
-
-export type RunAutoresearchApiAutoresearchRunPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type RunAutoresearchApiAutoresearchRunPostError = RunAutoresearchApiAutoresearchRunPostErrors[keyof RunAutoresearchApiAutoresearchRunPostErrors];
-
-export type RunAutoresearchApiAutoresearchRunPostResponses = {
-    /**
-     * Successful Response
-     */
-    202: MessageResponse;
-};
-
-export type RunAutoresearchApiAutoresearchRunPostResponse = RunAutoresearchApiAutoresearchRunPostResponses[keyof RunAutoresearchApiAutoresearchRunPostResponses];
-
-export type GetTaskStatusApiAutoresearchStatusTaskIdGetData = {
-    body?: never;
-    path: {
-        /**
-         * Task Id
-         */
-        task_id: string;
-    };
-    query?: never;
-    url: '/api/autoresearch/status/{task_id}';
-};
-
-export type GetTaskStatusApiAutoresearchStatusTaskIdGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetTaskStatusApiAutoresearchStatusTaskIdGetError = GetTaskStatusApiAutoresearchStatusTaskIdGetErrors[keyof GetTaskStatusApiAutoresearchStatusTaskIdGetErrors];
-
-export type GetTaskStatusApiAutoresearchStatusTaskIdGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: TaskStatusResponse;
-};
-
-export type GetTaskStatusApiAutoresearchStatusTaskIdGetResponse = GetTaskStatusApiAutoresearchStatusTaskIdGetResponses[keyof GetTaskStatusApiAutoresearchStatusTaskIdGetResponses];
-
-export type StopAutoresearchApiAutoresearchStopTaskIdPostData = {
-    body?: never;
-    path: {
-        /**
-         * Task Id
-         */
-        task_id: string;
-    };
-    query?: never;
-    url: '/api/autoresearch/stop/{task_id}';
-};
-
-export type StopAutoresearchApiAutoresearchStopTaskIdPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type StopAutoresearchApiAutoresearchStopTaskIdPostError = StopAutoresearchApiAutoresearchStopTaskIdPostErrors[keyof StopAutoresearchApiAutoresearchStopTaskIdPostErrors];
-
-export type StopAutoresearchApiAutoresearchStopTaskIdPostResponses = {
-    /**
-     * Successful Response
-     */
-    200: MessageResponse;
-};
-
-export type StopAutoresearchApiAutoresearchStopTaskIdPostResponse = StopAutoresearchApiAutoresearchStopTaskIdPostResponses[keyof StopAutoresearchApiAutoresearchStopTaskIdPostResponses];
-
-export type ListExperimentsApiAutoresearchExperimentsGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Study Name
-         */
-        study_name?: string | null;
-        /**
-         * Status
-         */
-        status?: string | null;
-        /**
-         * Limit
-         */
-        limit?: number;
-    };
-    url: '/api/autoresearch/experiments';
-};
-
-export type ListExperimentsApiAutoresearchExperimentsGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type ListExperimentsApiAutoresearchExperimentsGetError = ListExperimentsApiAutoresearchExperimentsGetErrors[keyof ListExperimentsApiAutoresearchExperimentsGetErrors];
-
-export type ListExperimentsApiAutoresearchExperimentsGetResponses = {
-    /**
-     * Response List Experiments Api Autoresearch Experiments Get
-     *
-     * Successful Response
-     */
-    200: Array<ExperimentResponse>;
-};
-
-export type ListExperimentsApiAutoresearchExperimentsGetResponse = ListExperimentsApiAutoresearchExperimentsGetResponses[keyof ListExperimentsApiAutoresearchExperimentsGetResponses];
-
-export type GetVarApiRiskVarGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/risk/var';
-};
-
-export type GetVarApiRiskVarGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: VaRResponse;
-};
-
-export type GetVarApiRiskVarGetResponse = GetVarApiRiskVarGetResponses[keyof GetVarApiRiskVarGetResponses];
-
-export type GetExposureApiRiskExposureGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/risk/exposure';
-};
-
-export type GetExposureApiRiskExposureGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: ExposureResponse;
-};
-
-export type GetExposureApiRiskExposureGetResponse = GetExposureApiRiskExposureGetResponses[keyof GetExposureApiRiskExposureGetResponses];
-
-export type TriggerStressTestApiRiskStressTestRunPostData = {
-    body: StressTestRequest;
-    path?: never;
-    query?: never;
-    url: '/api/risk/stress-test/run';
-};
-
-export type TriggerStressTestApiRiskStressTestRunPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type TriggerStressTestApiRiskStressTestRunPostError = TriggerStressTestApiRiskStressTestRunPostErrors[keyof TriggerStressTestApiRiskStressTestRunPostErrors];
-
-export type TriggerStressTestApiRiskStressTestRunPostResponses = {
-    /**
-     * Successful Response
-     */
-    200: StressTestTriggerResponse;
-};
-
-export type TriggerStressTestApiRiskStressTestRunPostResponse = TriggerStressTestApiRiskStressTestRunPostResponses[keyof TriggerStressTestApiRiskStressTestRunPostResponses];
-
-export type GetStressTestResultApiRiskStressTestTaskIdGetData = {
-    body?: never;
-    path: {
-        /**
-         * Task Id
-         */
-        task_id: string;
-    };
-    query?: never;
-    url: '/api/risk/stress-test/{task_id}';
-};
-
-export type GetStressTestResultApiRiskStressTestTaskIdGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetStressTestResultApiRiskStressTestTaskIdGetError = GetStressTestResultApiRiskStressTestTaskIdGetErrors[keyof GetStressTestResultApiRiskStressTestTaskIdGetErrors];
-
-export type GetStressTestResultApiRiskStressTestTaskIdGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: StressTestStatusResponse;
-};
-
-export type GetStressTestResultApiRiskStressTestTaskIdGetResponse = GetStressTestResultApiRiskStressTestTaskIdGetResponses[keyof GetStressTestResultApiRiskStressTestTaskIdGetResponses];
-
-export type GetAlertsApiRiskAlertsGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Limit
-         */
-        limit?: number;
-        /**
-         * Offset
-         */
-        offset?: number;
-    };
-    url: '/api/risk/alerts';
-};
-
-export type GetAlertsApiRiskAlertsGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetAlertsApiRiskAlertsGetError = GetAlertsApiRiskAlertsGetErrors[keyof GetAlertsApiRiskAlertsGetErrors];
-
-export type GetAlertsApiRiskAlertsGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: AlertsResponse;
-};
-
-export type GetAlertsApiRiskAlertsGetResponse = GetAlertsApiRiskAlertsGetResponses[keyof GetAlertsApiRiskAlertsGetResponses];
-
-export type GetCorrelationApiRiskCorrelationGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/risk/correlation';
-};
-
-export type GetCorrelationApiRiskCorrelationGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: CorrelationResponse;
-};
-
-export type GetCorrelationApiRiskCorrelationGetResponse = GetCorrelationApiRiskCorrelationGetResponses[keyof GetCorrelationApiRiskCorrelationGetResponses];
-
-export type GetPerformanceApiPortfolioPerformanceGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Market
-         *
-         * Filter by market (e.g., 'crypto_perp')
-         */
-        market?: string | null;
-    };
-    url: '/api/portfolio/performance';
-};
-
-export type GetPerformanceApiPortfolioPerformanceGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetPerformanceApiPortfolioPerformanceGetError = GetPerformanceApiPortfolioPerformanceGetErrors[keyof GetPerformanceApiPortfolioPerformanceGetErrors];
-
-export type GetPerformanceApiPortfolioPerformanceGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: PerformanceSummaryResponse;
-};
-
-export type GetPerformanceApiPortfolioPerformanceGetResponse = GetPerformanceApiPortfolioPerformanceGetResponses[keyof GetPerformanceApiPortfolioPerformanceGetResponses];
-
-export type GetHoldingsApiPortfolioHoldingsGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/portfolio/holdings';
-};
-
-export type GetHoldingsApiPortfolioHoldingsGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: HoldingsResponse;
-};
-
-export type GetHoldingsApiPortfolioHoldingsGetResponse = GetHoldingsApiPortfolioHoldingsGetResponses[keyof GetHoldingsApiPortfolioHoldingsGetResponses];
-
-export type GetOrdersApiPortfolioOrdersGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Status
-         *
-         * Filter by order status
-         */
-        status?: string | null;
-        /**
-         * Limit
-         *
-         * Max orders to return
-         */
-        limit?: number;
-    };
-    url: '/api/portfolio/orders';
-};
-
-export type GetOrdersApiPortfolioOrdersGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetOrdersApiPortfolioOrdersGetError = GetOrdersApiPortfolioOrdersGetErrors[keyof GetOrdersApiPortfolioOrdersGetErrors];
-
-export type GetOrdersApiPortfolioOrdersGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: OrdersResponse;
-};
-
-export type GetOrdersApiPortfolioOrdersGetResponse = GetOrdersApiPortfolioOrdersGetResponses[keyof GetOrdersApiPortfolioOrdersGetResponses];
-
-export type GetPerpHoldingsApiPortfolioPerpHoldingsGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/portfolio/perp-holdings';
-};
-
-export type GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: PerpHoldingsResponse;
-};
-
-export type GetPerpHoldingsApiPortfolioPerpHoldingsGetResponse = GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses[keyof GetPerpHoldingsApiPortfolioPerpHoldingsGetResponses];
-
-export type GetNotificationsApiNotificationsGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Limit
-         */
-        limit?: number;
-        /**
-         * Offset
-         */
-        offset?: number;
-        /**
-         * Source
-         *
-         * Filter by source: risk, data_quality, autoresearch
-         */
-        source?: string | null;
-    };
-    url: '/api/notifications';
-};
-
-export type GetNotificationsApiNotificationsGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetNotificationsApiNotificationsGetError = GetNotificationsApiNotificationsGetErrors[keyof GetNotificationsApiNotificationsGetErrors];
-
-export type GetNotificationsApiNotificationsGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: NotificationsResponse;
-};
-
-export type GetNotificationsApiNotificationsGetResponse = GetNotificationsApiNotificationsGetResponses[keyof GetNotificationsApiNotificationsGetResponses];
-
 export type GetCapabilitiesApiV1CapabilitiesGetData = {
     body?: never;
     path?: never;
@@ -3724,185 +5125,252 @@ export type GetCapabilitiesApiV1CapabilitiesGetResponses = {
 
 export type GetCapabilitiesApiV1CapabilitiesGetResponse = GetCapabilitiesApiV1CapabilitiesGetResponses[keyof GetCapabilitiesApiV1CapabilitiesGetResponses];
 
-export type GetActiveLocksApiV1ProtectionsLocksGetData = {
+export type ListDecisionsApiV1DecisionsGetData = {
     body?: never;
     path?: never;
-    query?: {
+    query: {
         /**
-         * Symbol
-         *
-         * Filter by symbol
+         * Status
          */
-        symbol?: string | null;
-        /**
-         * Market
-         *
-         * Filter by market
-         */
-        market?: string | null;
-        /**
-         * Type
-         *
-         * Filter by protection type
-         */
-        type?: string | null;
+        status: 'pending_approval';
     };
-    url: '/api/v1/protections/locks';
+    url: '/api/v1/decisions/';
 };
 
-export type GetActiveLocksApiV1ProtectionsLocksGetErrors = {
+export type ListDecisionsApiV1DecisionsGetErrors = {
     /**
-     * Validation Error
+     * Forbidden
      */
-    422: HttpValidationError;
+    403: DecisionApiError;
+    /**
+     * Not Found
+     */
+    404: DecisionApiError;
+    /**
+     * Conflict
+     */
+    409: DecisionApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: DecisionApiError;
 };
 
-export type GetActiveLocksApiV1ProtectionsLocksGetError = GetActiveLocksApiV1ProtectionsLocksGetErrors[keyof GetActiveLocksApiV1ProtectionsLocksGetErrors];
+export type ListDecisionsApiV1DecisionsGetError = ListDecisionsApiV1DecisionsGetErrors[keyof ListDecisionsApiV1DecisionsGetErrors];
 
-export type GetActiveLocksApiV1ProtectionsLocksGetResponses = {
+export type ListDecisionsApiV1DecisionsGetResponses = {
+    /**
+     * Response List Decisions Api V1 Decisions  Get
+     *
+     * Successful Response
+     */
+    200: Array<DecisionResponse>;
+};
+
+export type ListDecisionsApiV1DecisionsGetResponse = ListDecisionsApiV1DecisionsGetResponses[keyof ListDecisionsApiV1DecisionsGetResponses];
+
+export type CreateDecisionApiV1DecisionsPostData = {
+    body: DecisionCreateRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/decisions/';
+};
+
+export type CreateDecisionApiV1DecisionsPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: DecisionApiError;
+    /**
+     * Not Found
+     */
+    404: DecisionApiError;
+    /**
+     * Conflict
+     */
+    409: DecisionApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: DecisionApiError;
+};
+
+export type CreateDecisionApiV1DecisionsPostError = CreateDecisionApiV1DecisionsPostErrors[keyof CreateDecisionApiV1DecisionsPostErrors];
+
+export type CreateDecisionApiV1DecisionsPostResponses = {
     /**
      * Successful Response
      */
-    200: ProtectionLocksListResponse;
+    200: DecisionResponse;
 };
 
-export type GetActiveLocksApiV1ProtectionsLocksGetResponse = GetActiveLocksApiV1ProtectionsLocksGetResponses[keyof GetActiveLocksApiV1ProtectionsLocksGetResponses];
+export type CreateDecisionApiV1DecisionsPostResponse = CreateDecisionApiV1DecisionsPostResponses[keyof CreateDecisionApiV1DecisionsPostResponses];
 
-export type GetLockHistoryApiV1ProtectionsHistoryGetData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Symbol
-         *
-         * Filter by symbol
-         */
-        symbol?: string | null;
-        /**
-         * Market
-         *
-         * Filter by market
-         */
-        market?: string | null;
-        /**
-         * Type
-         *
-         * Filter by protection type
-         */
-        type?: string | null;
-        /**
-         * Limit
-         *
-         * Max results
-         */
-        limit?: number;
-        /**
-         * Offset
-         *
-         * Pagination offset
-         */
-        offset?: number;
-    };
-    url: '/api/v1/protections/history';
-};
-
-export type GetLockHistoryApiV1ProtectionsHistoryGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetLockHistoryApiV1ProtectionsHistoryGetError = GetLockHistoryApiV1ProtectionsHistoryGetErrors[keyof GetLockHistoryApiV1ProtectionsHistoryGetErrors];
-
-export type GetLockHistoryApiV1ProtectionsHistoryGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: ProtectionLocksListResponse;
-};
-
-export type GetLockHistoryApiV1ProtectionsHistoryGetResponse = GetLockHistoryApiV1ProtectionsHistoryGetResponses[keyof GetLockHistoryApiV1ProtectionsHistoryGetResponses];
-
-export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostData = {
+export type GetDecisionApiV1DecisionsDecisionIdGetData = {
     body?: never;
     path: {
         /**
-         * Lock Id
+         * Decision Id
          */
-        lock_id: number;
+        decision_id: string;
     };
     query?: never;
-    url: '/api/v1/protections/locks/{lock_id}/override';
+    url: '/api/v1/decisions/{decision_id}';
 };
 
-export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors = {
+export type GetDecisionApiV1DecisionsDecisionIdGetErrors = {
     /**
-     * Validation Error
+     * Forbidden
      */
-    422: HttpValidationError;
+    403: DecisionApiError;
+    /**
+     * Not Found
+     */
+    404: DecisionApiError;
+    /**
+     * Conflict
+     */
+    409: DecisionApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: DecisionApiError;
 };
 
-export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostError = OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors[keyof OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors];
+export type GetDecisionApiV1DecisionsDecisionIdGetError = GetDecisionApiV1DecisionsDecisionIdGetErrors[keyof GetDecisionApiV1DecisionsDecisionIdGetErrors];
 
-export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses = {
+export type GetDecisionApiV1DecisionsDecisionIdGetResponses = {
     /**
      * Successful Response
      */
-    200: ProtectionOverrideResponse;
+    200: DecisionResponse;
 };
 
-export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponse = OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses[keyof OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses];
+export type GetDecisionApiV1DecisionsDecisionIdGetResponse = GetDecisionApiV1DecisionsDecisionIdGetResponses[keyof GetDecisionApiV1DecisionsDecisionIdGetResponses];
 
-export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostData = {
-    body: IcAnalysisRequest;
-    path?: never;
+export type ApproveDecisionApiV1DecisionsDecisionIdApprovePostData = {
+    body: DecisionApprovalRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Decision Id
+         */
+        decision_id: string;
+    };
     query?: never;
-    url: '/api/v1/factor-analysis/ic';
+    url: '/api/v1/decisions/{decision_id}/approve';
 };
 
-export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors = {
+export type ApproveDecisionApiV1DecisionsDecisionIdApprovePostErrors = {
     /**
-     * Validation Error
+     * Forbidden
      */
-    422: HttpValidationError;
+    403: DecisionApiError;
+    /**
+     * Not Found
+     */
+    404: DecisionApiError;
+    /**
+     * Conflict
+     */
+    409: DecisionApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: DecisionApiError;
 };
 
-export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostError = CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors[keyof CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors];
+export type ApproveDecisionApiV1DecisionsDecisionIdApprovePostError = ApproveDecisionApiV1DecisionsDecisionIdApprovePostErrors[keyof ApproveDecisionApiV1DecisionsDecisionIdApprovePostErrors];
 
-export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses = {
+export type ApproveDecisionApiV1DecisionsDecisionIdApprovePostResponses = {
     /**
      * Successful Response
      */
-    202: FactorAnalysisTriggerResponse;
+    200: DecisionMutationResponse;
 };
 
-export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponse = CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses[keyof CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses];
+export type ApproveDecisionApiV1DecisionsDecisionIdApprovePostResponse = ApproveDecisionApiV1DecisionsDecisionIdApprovePostResponses[keyof ApproveDecisionApiV1DecisionsDecisionIdApprovePostResponses];
 
-export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData = {
-    body: ShapleyAnalysisRequest;
-    path?: never;
+export type RejectDecisionApiV1DecisionsDecisionIdRejectPostData = {
+    body: DecisionRejectionRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Decision Id
+         */
+        decision_id: string;
+    };
     query?: never;
-    url: '/api/v1/factor-analysis/shapley';
+    url: '/api/v1/decisions/{decision_id}/reject';
 };
 
-export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors = {
+export type RejectDecisionApiV1DecisionsDecisionIdRejectPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: DecisionApiError;
+    /**
+     * Not Found
+     */
+    404: DecisionApiError;
+    /**
+     * Conflict
+     */
+    409: DecisionApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: DecisionApiError;
+};
+
+export type RejectDecisionApiV1DecisionsDecisionIdRejectPostError = RejectDecisionApiV1DecisionsDecisionIdRejectPostErrors[keyof RejectDecisionApiV1DecisionsDecisionIdRejectPostErrors];
+
+export type RejectDecisionApiV1DecisionsDecisionIdRejectPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: DecisionMutationResponse;
+};
+
+export type RejectDecisionApiV1DecisionsDecisionIdRejectPostResponse = RejectDecisionApiV1DecisionsDecisionIdRejectPostResponses[keyof RejectDecisionApiV1DecisionsDecisionIdRejectPostResponses];
+
+export type GetDecisionTraceApiV1DecisionsDecisionIdTraceGetData = {
+    body?: never;
+    path: {
+        /**
+         * Decision Id
+         */
+        decision_id: string;
+    };
+    query?: never;
+    url: '/api/v1/decisions/{decision_id}/trace';
+};
+
+export type GetDecisionTraceApiV1DecisionsDecisionIdTraceGetErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostError = CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors[keyof CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors];
+export type GetDecisionTraceApiV1DecisionsDecisionIdTraceGetError = GetDecisionTraceApiV1DecisionsDecisionIdTraceGetErrors[keyof GetDecisionTraceApiV1DecisionsDecisionIdTraceGetErrors];
 
-export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses = {
+export type GetDecisionTraceApiV1DecisionsDecisionIdTraceGetResponses = {
     /**
      * Successful Response
      */
-    202: FactorAnalysisTriggerResponse;
+    200: unknown;
 };
-
-export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponse = CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses[keyof CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses];
 
 export type CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostData = {
     body: CentralityAnalysisRequest;
@@ -3928,6 +5396,31 @@ export type CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponse
 };
 
 export type CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponse = CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponses[keyof CreateCentralityAnalysisRunApiV1FactorAnalysisCentralityPostResponses];
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostData = {
+    body: IcAnalysisRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/factor-analysis/ic';
+};
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostError = CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors[keyof CreateIcAnalysisRunApiV1FactorAnalysisIcPostErrors];
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: FactorAnalysisTriggerResponse;
+};
+
+export type CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponse = CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses[keyof CreateIcAnalysisRunApiV1FactorAnalysisIcPostResponses];
 
 export type ListFactorAnalysisRunsApiV1FactorAnalysisRunsGetData = {
     body?: never;
@@ -4001,30 +5494,30 @@ export type GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses = {
 
 export type GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponse = GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses[keyof GetFactorAnalysisRunApiV1FactorAnalysisRunsRunIdGetResponses];
 
-export type CreateTrainingRunApiV1ModelsTrainPostData = {
-    body: PoseidonCoreSchemasTrainRequest;
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostData = {
+    body: ShapleyAnalysisRequest;
     path?: never;
     query?: never;
-    url: '/api/v1/models/train';
+    url: '/api/v1/factor-analysis/shapley';
 };
 
-export type CreateTrainingRunApiV1ModelsTrainPostErrors = {
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type CreateTrainingRunApiV1ModelsTrainPostError = CreateTrainingRunApiV1ModelsTrainPostErrors[keyof CreateTrainingRunApiV1ModelsTrainPostErrors];
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostError = CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors[keyof CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostErrors];
 
-export type CreateTrainingRunApiV1ModelsTrainPostResponses = {
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses = {
     /**
      * Successful Response
      */
-    202: TrainingRunResponse;
+    202: FactorAnalysisTriggerResponse;
 };
 
-export type CreateTrainingRunApiV1ModelsTrainPostResponse = CreateTrainingRunApiV1ModelsTrainPostResponses[keyof CreateTrainingRunApiV1ModelsTrainPostResponses];
+export type CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponse = CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses[keyof CreateShapleyAnalysisRunApiV1FactorAnalysisShapleyPostResponses];
 
 export type ListTrainingRunsApiV1ModelsRunsGetData = {
     body?: never;
@@ -4130,6 +5623,31 @@ export type CancelTrainingRunApiV1ModelsRunsRunIdCancelPostResponses = {
     200: unknown;
 };
 
+export type CreateTrainingRunApiV1ModelsTrainPostData = {
+    body: PoseidonCoreSchemasTrainRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/models/train';
+};
+
+export type CreateTrainingRunApiV1ModelsTrainPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateTrainingRunApiV1ModelsTrainPostError = CreateTrainingRunApiV1ModelsTrainPostErrors[keyof CreateTrainingRunApiV1ModelsTrainPostErrors];
+
+export type CreateTrainingRunApiV1ModelsTrainPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: TrainingRunResponse;
+};
+
+export type CreateTrainingRunApiV1ModelsTrainPostResponse = CreateTrainingRunApiV1ModelsTrainPostResponses[keyof CreateTrainingRunApiV1ModelsTrainPostResponses];
+
 export type DeleteModelApiV1ModelsModelIdDeleteData = {
     body?: never;
     path: {
@@ -4234,3 +5752,947 @@ export type GetPredictionsApiV1ModelsModelIdPredictionsGetResponses = {
 };
 
 export type GetPredictionsApiV1ModelsModelIdPredictionsGetResponse = GetPredictionsApiV1ModelsModelIdPredictionsGetResponses[keyof GetPredictionsApiV1ModelsModelIdPredictionsGetResponses];
+
+export type GetPrincipalApiV1PrincipalGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/principal';
+};
+
+export type GetPrincipalApiV1PrincipalGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PrincipalResponse;
+};
+
+export type GetPrincipalApiV1PrincipalGetResponse = GetPrincipalApiV1PrincipalGetResponses[keyof GetPrincipalApiV1PrincipalGetResponses];
+
+export type GetLockHistoryApiV1ProtectionsHistoryGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Symbol
+         *
+         * Filter by symbol
+         */
+        symbol?: string | null;
+        /**
+         * Market
+         *
+         * Filter by market
+         */
+        market?: string | null;
+        /**
+         * Type
+         *
+         * Filter by protection type
+         */
+        type?: string | null;
+        /**
+         * Limit
+         *
+         * Max results
+         */
+        limit?: number;
+        /**
+         * Offset
+         *
+         * Pagination offset
+         */
+        offset?: number;
+    };
+    url: '/api/v1/protections/history';
+};
+
+export type GetLockHistoryApiV1ProtectionsHistoryGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetLockHistoryApiV1ProtectionsHistoryGetError = GetLockHistoryApiV1ProtectionsHistoryGetErrors[keyof GetLockHistoryApiV1ProtectionsHistoryGetErrors];
+
+export type GetLockHistoryApiV1ProtectionsHistoryGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: ProtectionLocksListResponse;
+};
+
+export type GetLockHistoryApiV1ProtectionsHistoryGetResponse = GetLockHistoryApiV1ProtectionsHistoryGetResponses[keyof GetLockHistoryApiV1ProtectionsHistoryGetResponses];
+
+export type GetActiveLocksApiV1ProtectionsLocksGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Symbol
+         *
+         * Filter by symbol
+         */
+        symbol?: string | null;
+        /**
+         * Market
+         *
+         * Filter by market
+         */
+        market?: string | null;
+        /**
+         * Type
+         *
+         * Filter by protection type
+         */
+        type?: string | null;
+    };
+    url: '/api/v1/protections/locks';
+};
+
+export type GetActiveLocksApiV1ProtectionsLocksGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetActiveLocksApiV1ProtectionsLocksGetError = GetActiveLocksApiV1ProtectionsLocksGetErrors[keyof GetActiveLocksApiV1ProtectionsLocksGetErrors];
+
+export type GetActiveLocksApiV1ProtectionsLocksGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: ProtectionLocksListResponse;
+};
+
+export type GetActiveLocksApiV1ProtectionsLocksGetResponse = GetActiveLocksApiV1ProtectionsLocksGetResponses[keyof GetActiveLocksApiV1ProtectionsLocksGetResponses];
+
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostData = {
+    body?: never;
+    path: {
+        /**
+         * Lock Id
+         */
+        lock_id: number;
+    };
+    query?: never;
+    url: '/api/v1/protections/locks/{lock_id}/override';
+};
+
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostError = OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors[keyof OverrideLockApiV1ProtectionsLocksLockIdOverridePostErrors];
+
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ProtectionOverrideResponse;
+};
+
+export type OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponse = OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses[keyof OverrideLockApiV1ProtectionsLocksLockIdOverridePostResponses];
+
+export type PauseStrategyApiV1StrategiesStrategyIdPausePostData = {
+    body: PauseRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query?: never;
+    url: '/api/v1/strategies/{strategy_id}/pause';
+};
+
+export type PauseStrategyApiV1StrategiesStrategyIdPausePostErrors = {
+    /**
+     * Forbidden
+     */
+    403: ReleaseApiError;
+    /**
+     * Not Found
+     */
+    404: ReleaseApiError;
+    /**
+     * Conflict
+     */
+    409: ReleaseApiError;
+    /**
+     * Response 422 Pause Strategy Api V1 Strategies  Strategy Id  Pause Post
+     *
+     * Unprocessable Entity
+     */
+    422: ReleaseUnprocessableResponse | RequestValidationResponse;
+};
+
+export type PauseStrategyApiV1StrategiesStrategyIdPausePostError = PauseStrategyApiV1StrategiesStrategyIdPausePostErrors[keyof PauseStrategyApiV1StrategiesStrategyIdPausePostErrors];
+
+export type PauseStrategyApiV1StrategiesStrategyIdPausePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ReleaseMutationResponse;
+};
+
+export type PauseStrategyApiV1StrategiesStrategyIdPausePostResponse = PauseStrategyApiV1StrategiesStrategyIdPausePostResponses[keyof PauseStrategyApiV1StrategiesStrategyIdPausePostResponses];
+
+export type RejectStrategyApiV1StrategiesStrategyIdRejectPostData = {
+    body: RejectRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query?: never;
+    url: '/api/v1/strategies/{strategy_id}/reject';
+};
+
+export type RejectStrategyApiV1StrategiesStrategyIdRejectPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: ReleaseApiError;
+    /**
+     * Not Found
+     */
+    404: ReleaseApiError;
+    /**
+     * Conflict
+     */
+    409: ReleaseApiError;
+    /**
+     * Response 422 Reject Strategy Api V1 Strategies  Strategy Id  Reject Post
+     *
+     * Unprocessable Entity
+     */
+    422: ReleaseUnprocessableResponse | RequestValidationResponse;
+};
+
+export type RejectStrategyApiV1StrategiesStrategyIdRejectPostError = RejectStrategyApiV1StrategiesStrategyIdRejectPostErrors[keyof RejectStrategyApiV1StrategiesStrategyIdRejectPostErrors];
+
+export type RejectStrategyApiV1StrategiesStrategyIdRejectPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ReleaseMutationResponse;
+};
+
+export type RejectStrategyApiV1StrategiesStrategyIdRejectPostResponse = RejectStrategyApiV1StrategiesStrategyIdRejectPostResponses[keyof RejectStrategyApiV1StrategiesStrategyIdRejectPostResponses];
+
+export type ReleaseStrategyApiV1StrategiesStrategyIdReleasePostData = {
+    body: ReleaseRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query?: never;
+    url: '/api/v1/strategies/{strategy_id}/release';
+};
+
+export type ReleaseStrategyApiV1StrategiesStrategyIdReleasePostErrors = {
+    /**
+     * Forbidden
+     */
+    403: ReleaseApiError;
+    /**
+     * Not Found
+     */
+    404: ReleaseApiError;
+    /**
+     * Conflict
+     */
+    409: ReleaseApiError;
+    /**
+     * Response 422 Release Strategy Api V1 Strategies  Strategy Id  Release Post
+     *
+     * Unprocessable Entity
+     */
+    422: ReleaseUnprocessableResponse | RequestValidationResponse;
+};
+
+export type ReleaseStrategyApiV1StrategiesStrategyIdReleasePostError = ReleaseStrategyApiV1StrategiesStrategyIdReleasePostErrors[keyof ReleaseStrategyApiV1StrategiesStrategyIdReleasePostErrors];
+
+export type ReleaseStrategyApiV1StrategiesStrategyIdReleasePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ReleaseMutationResponse;
+};
+
+export type ReleaseStrategyApiV1StrategiesStrategyIdReleasePostResponse = ReleaseStrategyApiV1StrategiesStrategyIdReleasePostResponses[keyof ReleaseStrategyApiV1StrategiesStrategyIdReleasePostResponses];
+
+export type ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetData = {
+    body?: never;
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query?: never;
+    url: '/api/v1/strategies/{strategy_id}/release-events';
+};
+
+export type ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: ReleaseApiError;
+    /**
+     * Not Found
+     */
+    404: ReleaseApiError;
+    /**
+     * Conflict
+     */
+    409: ReleaseApiError;
+    /**
+     * Response 422 List Release Events Api V1 Strategies  Strategy Id  Release Events Get
+     *
+     * Unprocessable Entity
+     */
+    422: ReleaseUnprocessableResponse | RequestValidationResponse;
+};
+
+export type ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetError = ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetErrors[keyof ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetErrors];
+
+export type ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetResponses = {
+    /**
+     * Response List Release Events Api V1 Strategies  Strategy Id  Release Events Get
+     *
+     * Successful Response
+     */
+    200: Array<ReleaseEventResponse>;
+};
+
+export type ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetResponse = ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetResponses[keyof ListReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetResponses];
+
+export type GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetData = {
+    body?: never;
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query: {
+        /**
+         * Candidate Version Id
+         */
+        candidate_version_id: string;
+        /**
+         * Campaign Id
+         */
+        campaign_id: string;
+        /**
+         * Review Id
+         */
+        review_id: string;
+        /**
+         * Reconciliation Id
+         */
+        reconciliation_id: string;
+    };
+    url: '/api/v1/strategies/{strategy_id}/release-gate';
+};
+
+export type GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: ReleaseApiError;
+    /**
+     * Not Found
+     */
+    404: ReleaseApiError;
+    /**
+     * Conflict
+     */
+    409: ReleaseApiError;
+    /**
+     * Response 422 Get Release Gate Api V1 Strategies  Strategy Id  Release Gate Get
+     *
+     * Unprocessable Entity
+     */
+    422: ReleaseUnprocessableResponse | RequestValidationResponse;
+};
+
+export type GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetError = GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetErrors[keyof GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetErrors];
+
+export type GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: ReleaseGateResponse;
+};
+
+export type GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponse = GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponses[keyof GetReleaseGateApiV1StrategiesStrategyIdReleaseGateGetResponses];
+
+export type RollbackStrategyApiV1StrategiesStrategyIdRollbackPostData = {
+    body: RollbackRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query?: never;
+    url: '/api/v1/strategies/{strategy_id}/rollback';
+};
+
+export type RollbackStrategyApiV1StrategiesStrategyIdRollbackPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: ReleaseApiError;
+    /**
+     * Not Found
+     */
+    404: ReleaseApiError;
+    /**
+     * Conflict
+     */
+    409: ReleaseApiError;
+    /**
+     * Response 422 Rollback Strategy Api V1 Strategies  Strategy Id  Rollback Post
+     *
+     * Unprocessable Entity
+     */
+    422: ReleaseUnprocessableResponse | RequestValidationResponse;
+};
+
+export type RollbackStrategyApiV1StrategiesStrategyIdRollbackPostError = RollbackStrategyApiV1StrategiesStrategyIdRollbackPostErrors[keyof RollbackStrategyApiV1StrategiesStrategyIdRollbackPostErrors];
+
+export type RollbackStrategyApiV1StrategiesStrategyIdRollbackPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ReleaseMutationResponse;
+};
+
+export type RollbackStrategyApiV1StrategiesStrategyIdRollbackPostResponse = RollbackStrategyApiV1StrategiesStrategyIdRollbackPostResponses[keyof RollbackStrategyApiV1StrategiesStrategyIdRollbackPostResponses];
+
+export type ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetData = {
+    body?: never;
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query: {
+        /**
+         * Reconciliation Id
+         */
+        reconciliation_id: string;
+    };
+    url: '/api/v1/strategies/{strategy_id}/rollback-targets';
+};
+
+export type ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: ReleaseApiError;
+    /**
+     * Not Found
+     */
+    404: ReleaseApiError;
+    /**
+     * Conflict
+     */
+    409: ReleaseApiError;
+    /**
+     * Response 422 List Rollback Targets Api V1 Strategies  Strategy Id  Rollback Targets Get
+     *
+     * Unprocessable Entity
+     */
+    422: ReleaseUnprocessableResponse | RequestValidationResponse;
+};
+
+export type ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetError = ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetErrors[keyof ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetErrors];
+
+export type ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetResponses = {
+    /**
+     * Response List Rollback Targets Api V1 Strategies  Strategy Id  Rollback Targets Get
+     *
+     * Successful Response
+     */
+    200: Array<RollbackTargetResponse>;
+};
+
+export type ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetResponse = ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetResponses[keyof ListRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetResponses];
+
+export type GetDecisionTraceApiV1TracesDecisionsDecisionIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Decision Id
+         */
+        decision_id: string;
+    };
+    query?: never;
+    url: '/api/v1/traces/decisions/{decision_id}';
+};
+
+export type GetDecisionTraceApiV1TracesDecisionsDecisionIdGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: TraceApiError;
+    /**
+     * Not Found
+     */
+    404: TraceApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: TraceApiError;
+};
+
+export type GetDecisionTraceApiV1TracesDecisionsDecisionIdGetError = GetDecisionTraceApiV1TracesDecisionsDecisionIdGetErrors[keyof GetDecisionTraceApiV1TracesDecisionsDecisionIdGetErrors];
+
+export type GetDecisionTraceApiV1TracesDecisionsDecisionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TraceResponse;
+};
+
+export type GetDecisionTraceApiV1TracesDecisionsDecisionIdGetResponse = GetDecisionTraceApiV1TracesDecisionsDecisionIdGetResponses[keyof GetDecisionTraceApiV1TracesDecisionsDecisionIdGetResponses];
+
+export type GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Evaluation Snapshot Id
+         */
+        evaluation_snapshot_id: string;
+    };
+    query?: never;
+    url: '/api/v1/traces/evaluations/{evaluation_snapshot_id}';
+};
+
+export type GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: TraceApiError;
+    /**
+     * Not Found
+     */
+    404: TraceApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: TraceApiError;
+};
+
+export type GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetError = GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetErrors[keyof GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetErrors];
+
+export type GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TraceResponse;
+};
+
+export type GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetResponse = GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetResponses[keyof GetEvaluationTraceApiV1TracesEvaluationsEvaluationSnapshotIdGetResponses];
+
+export type GetSignalTraceApiV1TracesSignalsSignalIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Signal Id
+         */
+        signal_id: string;
+    };
+    query?: never;
+    url: '/api/v1/traces/signals/{signal_id}';
+};
+
+export type GetSignalTraceApiV1TracesSignalsSignalIdGetErrors = {
+    /**
+     * Forbidden
+     */
+    403: TraceApiError;
+    /**
+     * Not Found
+     */
+    404: TraceApiError;
+    /**
+     * Unprocessable Entity
+     */
+    422: TraceApiError;
+};
+
+export type GetSignalTraceApiV1TracesSignalsSignalIdGetError = GetSignalTraceApiV1TracesSignalsSignalIdGetErrors[keyof GetSignalTraceApiV1TracesSignalsSignalIdGetErrors];
+
+export type GetSignalTraceApiV1TracesSignalsSignalIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TraceResponse;
+};
+
+export type GetSignalTraceApiV1TracesSignalsSignalIdGetResponse = GetSignalTraceApiV1TracesSignalsSignalIdGetResponses[keyof GetSignalTraceApiV1TracesSignalsSignalIdGetResponses];
+
+export type HealthHealthGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Details
+         */
+        details?: boolean;
+    };
+    url: '/health';
+};
+
+export type HealthHealthGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type HealthHealthGetError = HealthHealthGetErrors[keyof HealthHealthGetErrors];
+
+export type HealthHealthGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type CreateRdagentRunResearchRdAgentRunPostData = {
+    body: RdAgentRunRequest;
+    path?: never;
+    query?: never;
+    url: '/research/rd-agent/run';
+};
+
+export type CreateRdagentRunResearchRdAgentRunPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateRdagentRunResearchRdAgentRunPostError = CreateRdagentRunResearchRdAgentRunPostErrors[keyof CreateRdagentRunResearchRdAgentRunPostErrors];
+
+export type CreateRdagentRunResearchRdAgentRunPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: RdAgentRunResponse;
+};
+
+export type CreateRdagentRunResearchRdAgentRunPostResponse = CreateRdagentRunResearchRdAgentRunPostResponses[keyof CreateRdagentRunResearchRdAgentRunPostResponses];
+
+export type ListRdagentRunsResearchRdAgentRunsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Offset
+         */
+        offset?: number;
+    };
+    url: '/research/rd-agent/runs';
+};
+
+export type ListRdagentRunsResearchRdAgentRunsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListRdagentRunsResearchRdAgentRunsGetError = ListRdagentRunsResearchRdAgentRunsGetErrors[keyof ListRdagentRunsResearchRdAgentRunsGetErrors];
+
+export type ListRdagentRunsResearchRdAgentRunsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: RdAgentRunListResponse;
+};
+
+export type ListRdagentRunsResearchRdAgentRunsGetResponse = ListRdagentRunsResearchRdAgentRunsGetResponses[keyof ListRdagentRunsResearchRdAgentRunsGetResponses];
+
+export type GetRdagentRunResearchRdAgentRunsRunIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/research/rd-agent/runs/{run_id}';
+};
+
+export type GetRdagentRunResearchRdAgentRunsRunIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetRdagentRunResearchRdAgentRunsRunIdGetError = GetRdagentRunResearchRdAgentRunsRunIdGetErrors[keyof GetRdagentRunResearchRdAgentRunsRunIdGetErrors];
+
+export type GetRdagentRunResearchRdAgentRunsRunIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: RdAgentRunDetailResponse;
+};
+
+export type GetRdagentRunResearchRdAgentRunsRunIdGetResponse = GetRdagentRunResearchRdAgentRunsRunIdGetResponses[keyof GetRdagentRunResearchRdAgentRunsRunIdGetResponses];
+
+export type ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/research/rd-agent/runs/{run_id}/artifacts';
+};
+
+export type ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetError = ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetErrors[keyof ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetErrors];
+
+export type ListRdagentArtifactsResearchRdAgentRunsRunIdArtifactsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type CancelRdagentRunResearchRdAgentRunsRunIdCancelPostData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/research/rd-agent/runs/{run_id}/cancel';
+};
+
+export type CancelRdagentRunResearchRdAgentRunsRunIdCancelPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CancelRdagentRunResearchRdAgentRunsRunIdCancelPostError = CancelRdagentRunResearchRdAgentRunsRunIdCancelPostErrors[keyof CancelRdagentRunResearchRdAgentRunsRunIdCancelPostErrors];
+
+export type CancelRdagentRunResearchRdAgentRunsRunIdCancelPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type CreateRlExecutionRunResearchRlExecutionRunPostData = {
+    body: RlExecutionRequest;
+    path?: never;
+    query?: never;
+    url: '/research/rl-execution/run';
+};
+
+export type CreateRlExecutionRunResearchRlExecutionRunPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateRlExecutionRunResearchRlExecutionRunPostError = CreateRlExecutionRunResearchRlExecutionRunPostErrors[keyof CreateRlExecutionRunResearchRlExecutionRunPostErrors];
+
+export type CreateRlExecutionRunResearchRlExecutionRunPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: RlExecutionRunResponse;
+};
+
+export type CreateRlExecutionRunResearchRlExecutionRunPostResponse = CreateRlExecutionRunResearchRlExecutionRunPostResponses[keyof CreateRlExecutionRunResearchRlExecutionRunPostResponses];
+
+export type ListRlExecutionRunsResearchRlExecutionRunsGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Status
+         */
+        status?: string | null;
+        /**
+         * Verdict
+         */
+        verdict?: string | null;
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Offset
+         */
+        offset?: number;
+    };
+    url: '/research/rl-execution/runs';
+};
+
+export type ListRlExecutionRunsResearchRlExecutionRunsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListRlExecutionRunsResearchRlExecutionRunsGetError = ListRlExecutionRunsResearchRlExecutionRunsGetErrors[keyof ListRlExecutionRunsResearchRlExecutionRunsGetErrors];
+
+export type ListRlExecutionRunsResearchRlExecutionRunsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: RlExecutionRunListResponse;
+};
+
+export type ListRlExecutionRunsResearchRlExecutionRunsGetResponse = ListRlExecutionRunsResearchRlExecutionRunsGetResponses[keyof ListRlExecutionRunsResearchRlExecutionRunsGetResponses];
+
+export type GetRlExecutionRunResearchRlExecutionRunsRunIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/research/rl-execution/runs/{run_id}';
+};
+
+export type GetRlExecutionRunResearchRlExecutionRunsRunIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetRlExecutionRunResearchRlExecutionRunsRunIdGetError = GetRlExecutionRunResearchRlExecutionRunsRunIdGetErrors[keyof GetRlExecutionRunResearchRlExecutionRunsRunIdGetErrors];
+
+export type GetRlExecutionRunResearchRlExecutionRunsRunIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: RlExecutionRunDetailResponse;
+};
+
+export type GetRlExecutionRunResearchRlExecutionRunsRunIdGetResponse = GetRlExecutionRunResearchRlExecutionRunsRunIdGetResponses[keyof GetRlExecutionRunResearchRlExecutionRunsRunIdGetResponses];
+
+export type CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/research/rl-execution/runs/{run_id}/cancel';
+};
+
+export type CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostError = CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostErrors[keyof CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostErrors];
+
+export type CancelRlExecutionRunResearchRlExecutionRunsRunIdCancelPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetData = {
+    body?: never;
+    path: {
+        /**
+         * Run Id
+         */
+        run_id: string;
+    };
+    query?: never;
+    url: '/research/rl-execution/runs/{run_id}/results';
+};
+
+export type GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetError = GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetErrors[keyof GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetErrors];
+
+export type GetRlExecutionRunResultsResearchRlExecutionRunsRunIdResultsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};

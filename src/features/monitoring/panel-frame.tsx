@@ -9,15 +9,23 @@ type PanelFrameProps = {
   description?: string;
   eyebrow?: string;
   title: string;
+  typography?: "default" | "phase100";
 };
 
-export function PanelFrame({ action, children, className, description, eyebrow, title }: PanelFrameProps) {
+export function PanelFrame({ action, children, className, description, eyebrow, title, typography = "default" }: PanelFrameProps) {
   return (
     <section className={cn("panel-surface rounded-[28px] p-5 lg:p-6", className)}>
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div className="space-y-2">
           {eyebrow ? (
-            <div className="text-[11px] uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]">{eyebrow}</div>
+            <div
+              className={cn(
+                typography === "phase100" ? "text-xs font-semibold" : "text-[11px]",
+                "uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]",
+              )}
+            >
+              {eyebrow}
+            </div>
           ) : null}
           <div>
             <h2 className="text-lg font-semibold text-[hsl(var(--foreground))]">{title}</h2>

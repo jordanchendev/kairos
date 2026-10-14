@@ -1,6 +1,6 @@
-import { defineConfig } from "@hey-api/openapi-ts";
+import { defineConfig, type UserConfig } from "@hey-api/openapi-ts";
 
-const sharedPlugins = [
+const sharedPlugins: UserConfig["plugins"] = [
   "@hey-api/typescript",
   "@hey-api/sdk",
   "@hey-api/client-fetch",
@@ -10,13 +10,21 @@ const sharedPlugins = [
     queryKeys: true,
     queryOptions: true,
   },
-] as const;
+];
+
+const service = process.env.OPENAPI_SERVICE ?? "";
+if (service !== "" && service !== "poseidon") {
+  throw new Error(`Unsupported OPENAPI_SERVICE: ${service}`);
+}
+if (service === "poseidon" && !process.env.OPENAPI_POSEIDON_INPUT?.trim()) {
+  throw new Error("OPENAPI_SERVICE=poseidon requires an explicit OPENAPI_POSEIDON_INPUT");
+}
 
 const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? "./.cache-specs/poseidon/openapi.json";
 const tritonInput = process.env.OPENAPI_TRITON_INPUT ?? "./.cache-specs/triton/openapi.json";
 const thalassaInput = process.env.OPENAPI_THALASSA_INPUT ?? "./.cache-specs/thalassa/openapi.json";
 
-export default defineConfig([
+const targets: UserConfig[] = [
   {
     input: poseidonInput,
     output: {
@@ -41,4 +49,6 @@ export default defineConfig([
     },
     plugins: sharedPlugins,
   },
-]);
+];
+
+export default defineConfig(service === "poseidon" ? targets.slice(0, 1) : targets);

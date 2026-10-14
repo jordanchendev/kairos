@@ -16,6 +16,7 @@ type MetricCardProps = {
   detail?: string;
   icon?: ReactNode;
   label: string;
+  typography?: "default" | "phase100";
   value: ReactNode;
 };
 
@@ -26,13 +27,21 @@ export function MetricCard({
   detail,
   icon,
   label,
+  typography = "default",
   value,
 }: MetricCardProps) {
   return (
     <article className={cn("panel-surface overflow-hidden rounded-[24px] p-4 lg:p-5", className)}>
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1 space-y-2">
-          <div className="text-[11px] uppercase tracking-[0.26em] text-[hsl(var(--muted-foreground))]">{label}</div>
+          <div
+            className={cn(
+              typography === "phase100" ? "text-xs font-semibold" : "text-[11px]",
+              "uppercase tracking-[0.26em] text-[hsl(var(--muted-foreground))]",
+            )}
+          >
+            {label}
+          </div>
           <div className="truncate text-3xl font-semibold tracking-tight text-[hsl(var(--foreground))]">{value}</div>
         </div>
         {icon ? (

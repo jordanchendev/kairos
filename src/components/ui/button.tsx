@@ -19,6 +19,8 @@ const buttonVariants = cva(
       },
       variant: {
         default: "bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] hover:bg-[hsl(var(--accent)/0.88)]",
+        destructive:
+          "bg-[hsl(var(--destructive))] text-[hsl(var(--destructive-foreground))] text-sm font-semibold hover:bg-[hsl(var(--destructive)/0.88)]",
         ghost: "bg-transparent text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]",
         outline: "border border-[hsl(var(--border))] bg-[hsla(0,0%,100%,0.02)] text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]",
       },

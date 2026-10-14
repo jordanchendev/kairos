@@ -11,6 +11,7 @@ import { ErrorState } from "@/features/monitoring/error-state";
 import { PanelFrame } from "@/features/monitoring/panel-frame";
 import { StatusBadge } from "@/features/monitoring/status-badge";
 import { getMonitoringQueryOptions } from "@/features/monitoring/query-config";
+import { DecisionReviewPanel } from "@/features/portfolio/decision-review-panel";
 import { HoldingsTable } from "@/features/portfolio/holdings-table";
 import { PerformanceChart } from "@/features/portfolio/performance-chart";
 import { PortfolioMetrics } from "@/features/portfolio/portfolio-metrics";
@@ -85,6 +86,8 @@ export function Component() {
   return (
     <section className="space-y-6" data-page-id="portfolio">
       <PortfolioMetrics holdingsSummary={holdingsSummary} performance={performanceQuery.data} />
+
+      <DecisionReviewPanel />
 
       <div className="grid gap-6 xl:grid-cols-[1.35fr_0.95fr]">
         <PanelFrame
