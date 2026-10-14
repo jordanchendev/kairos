@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { ButtonHTMLAttributes } from "react";
-
 import { ICTrendChart } from "@/features/factor-analysis/ic-trend-chart";
 import { ShapleyBarChart } from "@/features/factor-analysis/shapley-bar-chart";
 import { CentralityHeatmap } from "@/features/factor-analysis/centrality-heatmap";
 import { PanelFrame } from "@/features/monitoring/panel-frame";
-import { cn } from "@/lib/cn";
 
 import type {
   CentralityTriggerPayload,
@@ -26,27 +23,6 @@ type RunAnalysisPanelProps = {
   run: FactorAnalysisRun | null;
   selectedMarket: string;
 };
-
-function TabButton({
-  active,
-  children,
-  ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & { active: boolean }) {
-  return (
-    <button
-      className={cn(
-        "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-        active
-          ? "border-sky-400/40 bg-sky-400/15 text-sky-100"
-          : "border-white/10 bg-white/5 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]",
-      )}
-      type="button"
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
 
 export function RunAnalysisPanel({
   activeTab,

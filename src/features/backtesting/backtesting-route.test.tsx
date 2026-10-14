@@ -124,8 +124,8 @@ describe("backtesting route", () => {
 
     expect(markup).toContain("Backtesting");
     expect(markup).toContain("MeanReversionV2");
-    expect(markup).toContain("walk_forward");
-    expect(markup).toContain("2 trades");
+    expect(markup).toContain("Walk Forward");
+    expect(markup).toContain("showing 2 of 2");
     expect(markup).toContain("data-chart-shell");
     expect(markup).toContain("3 points");
   });

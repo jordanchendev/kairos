@@ -81,6 +81,6 @@ describe("data quality route", () => {
     const markup = renderToStaticMarkup(<routeModule.DataQualityPage providerHealth={null} scores={{ scores: [] }} />);
 
     expect(markup).toContain("No quality telemetry");
-    expect(markup).toContain("Poseidon has not published provider health or quality score telemetry yet.");
+    expect(markup).toContain("Thalassa has not published provider health or quality score telemetry yet.");
   });
 });
