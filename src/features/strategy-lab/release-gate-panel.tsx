@@ -29,7 +29,14 @@ import type {
   RollbackTargetResponse,
 } from "@/api/poseidon/types.gen";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  useReturnFocusOnClose,
+} from "@/components/ui/dialog";
 import { EmptyState } from "@/features/monitoring/empty-state";
 import { ErrorState } from "@/features/monitoring/error-state";
 import { MetricCard } from "@/features/monitoring/metric-card";
@@ -747,6 +754,8 @@ export function ReleaseGatePanel({ strategyId, strategyName }: { strategyId: str
   const [action, setAction] = useState<ReleaseActionSpec | null>(null);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  useReturnFocusOnClose(action !== null, containerRef);
   const cadence = getMonitoringQueryOptions("overview");
 
   const principalQuery = useQuery({ ...getPrincipalApiV1PrincipalGetOptions(), ...cadence });
@@ -872,6 +881,7 @@ export function ReleaseGatePanel({ strategyId, strategyName }: { strategyId: str
 
   return (
     <>
+      <div ref={containerRef} tabIndex={-1}>
       <ReleaseGateView
         busy={busy}
         events={eventsQuery.data}
@@ -900,6 +910,7 @@ export function ReleaseGatePanel({ strategyId, strategyName }: { strategyId: str
         stateLoading={stateQuery.isPending}
         targets={targetsQuery.data}
       />
+      </div>
       {action ? (
         <ReleaseActionDialog
           key={action.payloadSignature}

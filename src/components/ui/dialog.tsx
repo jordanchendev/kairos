@@ -1,4 +1,12 @@
-import { forwardRef, type ComponentPropsWithoutRef, type ElementRef, type HTMLAttributes } from "react";
+import {
+  forwardRef,
+  useLayoutEffect,
+  useRef,
+  type ComponentPropsWithoutRef,
+  type ElementRef,
+  type HTMLAttributes,
+  type RefObject,
+} from "react";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
@@ -40,7 +48,7 @@ export const DialogContent = forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full text-[hsl(var(--muted-foreground))] transition-colors hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))]">
+      <DialogPrimitive.Close className="absolute right-3 top-3 inline-flex h-11 w-11 items-center justify-center rounded-full text-[hsl(var(--muted-foreground))] transition-colors hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))]">
         <X className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
@@ -75,3 +83,34 @@ export const DialogDescription = forwardRef<
 ));
 
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
+
+type FocusTarget = { focus: () => void; isConnected: boolean; disabled?: boolean };
+
+/** Picks the element to refocus after a dialog closes: the original trigger if still usable, else the fallback. */
+export function resolveFocusReturnTarget<T extends FocusTarget>(captured: T | null, fallback: T | null) {
+  if (captured && captured.isConnected && !captured.disabled) return captured;
+  return fallback && fallback.isConnected ? fallback : null;
+}
+
+/**
+ * For dialogs that are mounted conditionally (no Radix Trigger): remembers the focused element when the dialog
+ * opens and returns focus to it once it has closed, falling back when the trigger was removed or disabled.
+ */
+export function useReturnFocusOnClose(open: boolean, fallbackRef?: RefObject<HTMLElement | null>) {
+  const captured = useRef<HTMLElement | null>(null);
+  const wasOpen = useRef(false);
+
+  // Layout effect: runs before Radix FocusScope moves focus into the dialog.
+  useLayoutEffect(() => {
+    if (open && !wasOpen.current) {
+      captured.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    }
+    if (!open && wasOpen.current) {
+      const target = resolveFocusReturnTarget<HTMLElement & { disabled?: boolean }>(captured.current, fallbackRef?.current ?? null);
+      captured.current = null;
+      // After Radix FocusScope's own unmount focus handling.
+      window.setTimeout(() => target?.focus(), 0);
+    }
+    wasOpen.current = open;
+  }, [open, fallbackRef]);
+}

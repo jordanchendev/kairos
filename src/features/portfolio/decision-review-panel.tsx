@@ -16,7 +16,14 @@ import {
 } from "@/api/poseidon/sdk.gen";
 import type { DecisionResponse, PrincipalResponse, TraceResponse } from "@/api/poseidon/types.gen";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  useReturnFocusOnClose,
+} from "@/components/ui/dialog";
 import { EmptyState } from "@/features/monitoring/empty-state";
 import { ErrorState } from "@/features/monitoring/error-state";
 import { MetricCard } from "@/features/monitoring/metric-card";
@@ -672,6 +679,7 @@ export function DecisionReviewPanel() {
   const [selectionError, setSelectionError] = useState<string | null>(null);
   const [now, setNow] = useState(() => Date.now());
   const listRef = useRef<HTMLDivElement>(null);
+  useReturnFocusOnClose(dialogAction !== null, listRef);
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(Date.now()), 30000);

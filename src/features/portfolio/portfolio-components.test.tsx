@@ -13,7 +13,7 @@ import type {
   PrincipalResponse,
 } from "@/api/poseidon/types.gen";
 
-import { Dialog } from "@/components/ui/dialog";
+import { Dialog, resolveFocusReturnTarget } from "@/components/ui/dialog";
 
 import {
   ACTION_COPY,
@@ -416,5 +416,38 @@ describe("decision mutation protocol", () => {
     expect(source).toContain("expected_revision: decision.revision");
     expect(source).toContain('"Idempotency-Key"');
     expect(source).toContain("invalidateQueries");
+  });
+});
+
+describe("dialog focus return and close target", () => {
+  const target = (over: Partial<{ disabled: boolean; isConnected: boolean }> = {}) => ({
+    disabled: false,
+    focus: () => undefined,
+    isConnected: true,
+    ...over,
+  });
+
+  it("returns focus to the captured trigger, else the fallback, else nothing", () => {
+    const trigger = target();
+    const fallback = target();
+    expect(resolveFocusReturnTarget(trigger, fallback)).toBe(trigger);
+    expect(resolveFocusReturnTarget(target({ disabled: true }), fallback)).toBe(fallback);
+    expect(resolveFocusReturnTarget(target({ isConnected: false }), fallback)).toBe(fallback);
+    expect(resolveFocusReturnTarget(null, fallback)).toBe(fallback);
+    expect(resolveFocusReturnTarget(null, null)).toBeNull();
+    expect(resolveFocusReturnTarget(target({ isConnected: false }), target({ isConnected: false }))).toBeNull();
+  });
+
+  it("wires every action dialog (approve/modify/reject; release/pause/rollback/reject) through the focus-return hook", () => {
+    const decision = readFileSync(path.resolve(__dirname, "decision-review-panel.tsx"), "utf8");
+    const release = readFileSync(path.resolve(__dirname, "../strategy-lab/release-gate-panel.tsx"), "utf8");
+    expect(decision).toContain("useReturnFocusOnClose(dialogAction !== null, listRef)");
+    expect(release).toContain("useReturnFocusOnClose(action !== null, containerRef)");
+  });
+
+  it("gives the dialog close button a 44px hit target", () => {
+    const dialog = readFileSync(path.resolve(__dirname, "../../components/ui/dialog.tsx"), "utf8");
+    expect(dialog).toContain("h-11 w-11");
+    expect(dialog).not.toContain("h-9 w-9");
   });
 });

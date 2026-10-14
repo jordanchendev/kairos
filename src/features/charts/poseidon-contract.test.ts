@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -7,7 +7,7 @@ import { describe, expect, it } from "vitest";
 const currentFile = fileURLToPath(import.meta.url);
 const currentDir = path.dirname(currentFile);
 const kairosRoot = path.resolve(currentDir, "../../..");
-const poseidonSpecPath = path.join(kairosRoot, ".cache-specs/poseidon/openapi.json");
+const poseidonHelpersPath = path.join(kairosRoot, "src/api/poseidon/@tanstack/react-query.gen.ts");
 const poseidonSdkPath = path.join(kairosRoot, "src/api/poseidon/sdk.gen.ts");
 const poseidonTypesPath = path.join(kairosRoot, "src/api/poseidon/types.gen.ts");
 
@@ -17,11 +17,12 @@ const thalassaSdkPath = path.join(kairosRoot, "src/api/thalassa/sdk.gen.ts");
 const requiredThalassaPaths = ["/api/v1/funding-rates"];
 
 describe("Poseidon research API contract", () => {
-  // The cached spec is gitignored local state; only assert against it when present.
-  it.skipIf(!existsSync(poseidonSpecPath))("includes chart endpoints in the cached OpenAPI spec", () => {
-    const spec = JSON.parse(readFileSync(poseidonSpecPath, "utf8")) as { paths: Record<string, unknown> };
+  it("exposes chart operations through the generated query helpers", () => {
+    const helpers = readFileSync(poseidonHelpersPath, "utf8");
 
-    expect(Object.keys(spec.paths)).toEqual(expect.arrayContaining(requiredResearchPaths));
+    for (const name of ["getOhlcvApiDataOhlcvGet", "getBacktestTradesApiBacktestBacktestIdTradesGet", "getBacktestEquityCurveApiBacktestBacktestIdEquityCurveGet"]) {
+      expect(helpers).toContain(`${name}Options`);
+    }
   });
 
   it("exposes chart endpoints through the generated SDK", () => {
