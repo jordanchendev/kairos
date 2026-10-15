@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
 import { Loader2, RefreshCw } from "lucide-react";
 
 import {
@@ -30,6 +30,8 @@ import { MetricCard } from "@/features/monitoring/metric-card";
 import { PanelFrame } from "@/features/monitoring/panel-frame";
 import { getMonitoringQueryOptions } from "@/features/monitoring/query-config";
 import { StatusBadge } from "@/features/monitoring/status-badge";
+import { DeviceKeyDialog, DeviceKeyRequiredNotice, useDeviceKeyPresence } from "@/features/settings/device-key-dialog";
+import { hasDeviceKey, isPoseidonAuthQueryKey, poseidonAuthClient } from "@/lib/api/runtime";
 import { cn } from "@/lib/cn";
 
 export const COPY = {
@@ -85,6 +87,26 @@ const UNAVAILABLE_REASON: Record<string, string> = {
 
 export function describeUnavailable(reason: string) {
   return UNAVAILABLE_REASON[reason] ?? reason;
+}
+
+const PENDING_QUERY = { status: "pending_approval" } as const;
+
+/**
+ * Every decision-loop request goes through the device-key client (D-09): `/poseidon-auth/...`
+ * with the browser-local key. The legacy `/poseidon` route carries no human authority.
+ */
+export const decisionLoopRequests = {
+  pendingDecisions: () => listDecisionsApiV1DecisionsGetOptions({ client: poseidonAuthClient, query: PENDING_QUERY }),
+  pendingDecisionsKey: () => listDecisionsApiV1DecisionsGetQueryKey({ client: poseidonAuthClient, query: PENDING_QUERY }),
+  principal: () => getPrincipalApiV1PrincipalGetOptions({ client: poseidonAuthClient }),
+  principalKey: () => getPrincipalApiV1PrincipalGetQueryKey({ client: poseidonAuthClient }),
+  trace: (decisionId: string) =>
+    getDecisionTraceApiV1TracesDecisionsDecisionIdGetOptions({ client: poseidonAuthClient, path: { decision_id: decisionId } }),
+};
+
+/** Drops every cached device-key response so a changed or cleared key never shows another principal's data. */
+export function resetDeviceKeyQueries(queryClient: QueryClient) {
+  return queryClient.resetQueries({ predicate: (query) => isPoseidonAuthQueryKey(query.queryKey) });
 }
 
 /** HTTP-level failure classes the UI-SPEC defines distinct recovery for. */
@@ -354,6 +376,10 @@ export function DecisionDetail({ busy, decision, onAction, onToggleTrace, princi
 export type DecisionReviewViewProps = {
   busy?: boolean;
   decisions: DecisionResponse[] | undefined;
+  /** Device-key settings trigger shown next to Refresh. */
+  deviceKeyControl?: ReactNode;
+  /** When set (no device key stored), replaces the panel body; no loop data is shown or requested. */
+  deviceKeyRequired?: ReactNode;
   error: boolean;
   loading: boolean;
   notice?: ReactNode;
@@ -376,19 +402,26 @@ export function DecisionReviewView(props: DecisionReviewViewProps) {
   return (
     <PanelFrame
       action={
-        <Button className="min-h-11 gap-2" onClick={onRetry} variant="outline">
-          <RefreshCw aria-hidden="true" className="h-4 w-4" />
-          Refresh
-        </Button>
+        props.deviceKeyRequired ? undefined : (
+          <div className="flex flex-wrap gap-2">
+            {props.deviceKeyControl}
+            <Button className="min-h-11 gap-2" onClick={onRetry} variant="outline">
+              <RefreshCw aria-hidden="true" className="h-4 w-4" />
+              Refresh
+            </Button>
+          </div>
+        )
       }
       description="Review frozen pending decisions in place. Kairos never submits an order; approval only makes a decision eligible for the existing paper execution path."
       eyebrow="Decision Review"
       title="Pending decisions"
       typography="phase100"
     >
-      <div aria-busy={loading} className="space-y-4">
+      <div aria-busy={props.deviceKeyRequired ? false : loading} className="space-y-4">
         {props.notice}
-        {error ? (
+        {props.deviceKeyRequired ? (
+          props.deviceKeyRequired
+        ) : error ? (
           <ErrorState
             action={
               <Button className="min-h-11" onClick={onRetry} variant="outline">
@@ -542,6 +575,43 @@ export function ActionDialogBody(props: ActionDialogBodyProps) {
   );
 }
 
+export type DecisionActionInput = {
+  action: DecisionActionKind;
+  decision: DecisionResponse;
+  finalAction: string;
+  idempotencyKey: string;
+  reason: string;
+};
+
+/** Sends approve / modify (approve with override) / reject with the device key. */
+export function sendDecisionAction({ action, decision, finalAction, idempotencyKey, reason }: DecisionActionInput) {
+  if (action === "reject") {
+    return unwrapMutation(() =>
+      rejectDecisionApiV1DecisionsDecisionIdRejectPost({
+        body: { expected_revision: decision.revision, reason },
+        client: poseidonAuthClient,
+        headers: { "Idempotency-Key": idempotencyKey },
+        path: { decision_id: decision.id },
+      }),
+    );
+  }
+  return unwrapMutation(() =>
+    approveDecisionApiV1DecisionsDecisionIdApprovePost({
+      body:
+        action === "modify"
+          ? {
+              expected_revision: decision.revision,
+              final_action: finalAction as DecisionResponse["final_action"],
+              override_reason: reason,
+            }
+          : { expected_revision: decision.revision },
+      client: poseidonAuthClient,
+      headers: { "Idempotency-Key": idempotencyKey },
+      path: { decision_id: decision.id },
+    }),
+  );
+}
+
 type DecisionActionDialogProps = {
   action: DecisionActionKind;
   decision: DecisionResponse;
@@ -568,31 +638,8 @@ function DecisionActionDialog({
   const [failure, setFailure] = useState<{ detail: string | null; kind: FailureKind } | null>(null);
 
   const mutation = useMutation({
-    mutationFn: async (vars: { key: string }) => {
-      if (action === "reject") {
-        return unwrapMutation(() =>
-          rejectDecisionApiV1DecisionsDecisionIdRejectPost({
-            body: { expected_revision: decision.revision, reason: reason.trim() },
-            headers: { "Idempotency-Key": vars.key },
-            path: { decision_id: decision.id },
-          }),
-        );
-      }
-      return unwrapMutation(() =>
-        approveDecisionApiV1DecisionsDecisionIdApprovePost({
-          body:
-            action === "modify"
-              ? {
-                  expected_revision: decision.revision,
-                  final_action: finalAction as DecisionResponse["final_action"],
-                  override_reason: reason.trim(),
-                }
-              : { expected_revision: decision.revision },
-          headers: { "Idempotency-Key": vars.key },
-          path: { decision_id: decision.id },
-        }),
-      );
-    },
+    mutationFn: (vars: { key: string }) =>
+      sendDecisionAction({ action, decision, finalAction, idempotencyKey: vars.key, reason: reason.trim() }),
   });
 
   const submit = () => {
@@ -686,32 +733,43 @@ export function DecisionReviewPanel() {
     return () => window.clearInterval(timer);
   }, []);
 
+  // Re-render when the device key is saved or cleared; without it no loop request is sent.
+  useDeviceKeyPresence();
   const principalQuery = useQuery({
-    ...getPrincipalApiV1PrincipalGetOptions(),
+    ...decisionLoopRequests.principal(),
     ...getMonitoringQueryOptions("overview"),
+    enabled: hasDeviceKey(),
   });
   const decisionsQuery = useQuery({
-    ...listDecisionsApiV1DecisionsGetOptions({ query: { status: "pending_approval" } }),
+    ...decisionLoopRequests.pendingDecisions(),
     ...getMonitoringQueryOptions("overview"),
+    enabled: hasDeviceKey(),
   });
   const decisions = decisionsQuery.data;
   const selected = decisions?.find((decision) => decision.id === selectedId) ?? null;
 
   const traceQuery = useQuery({
-    ...getDecisionTraceApiV1TracesDecisionsDecisionIdGetOptions({ path: { decision_id: selectedId ?? "" } }),
+    ...decisionLoopRequests.trace(selectedId ?? ""),
     ...getMonitoringQueryOptions("overview"),
-    enabled: traceOpen && selectedId !== null,
+    enabled: traceOpen && selectedId !== null && hasDeviceKey(),
   });
 
   const invalidate = () =>
     Promise.all([
-      queryClient.invalidateQueries({ queryKey: listDecisionsApiV1DecisionsGetQueryKey({ query: { status: "pending_approval" } }) }),
-      queryClient.invalidateQueries({ queryKey: getPrincipalApiV1PrincipalGetQueryKey() }),
+      queryClient.invalidateQueries({ queryKey: decisionLoopRequests.pendingDecisionsKey() }),
+      queryClient.invalidateQueries({ queryKey: decisionLoopRequests.principalKey() }),
     ]);
 
   const refresh = () => {
+    if (!hasDeviceKey()) return;
     void decisionsQuery.refetch();
     void principalQuery.refetch();
+  };
+
+  const onDeviceKeyChange = () => {
+    setNotice(null);
+    setSelectionError(null);
+    void resetDeviceKeyQueries(queryClient);
   };
 
   const handleFailure = (kind: FailureKind) => {
@@ -731,6 +789,8 @@ export function DecisionReviewPanel() {
       <DecisionReviewView
         busy={busy}
         decisions={decisions}
+        deviceKeyControl={<DeviceKeyDialog onChange={onDeviceKeyChange} />}
+        deviceKeyRequired={hasDeviceKey() ? null : <DeviceKeyRequiredNotice onChange={onDeviceKeyChange} />}
         error={decisionsQuery.isError}
         loading={decisionsQuery.isPending}
         notice={

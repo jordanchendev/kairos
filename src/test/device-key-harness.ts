@@ -81,3 +81,38 @@ export async function runQueryOptions(options: { queryFn?: unknown; queryKey: un
     return error;
   }
 }
+
+export type CapturedQuery = { enabled?: unknown; queryFn?: unknown; queryKey: unknown };
+
+export function queryIdOf(query: CapturedQuery) {
+  return (query.queryKey as [{ _id: string }])[0]._id;
+}
+
+/**
+ * Replaces useQuery/useQueryClient (for static-markup renders of container components) and records
+ * every query a component declares, so tests can assert `enabled` and execute the exact queryFn.
+ * Call after `vi.resetModules()` and import the component afterwards.
+ */
+export function captureComponentQueries(dataFor: (query: CapturedQuery) => unknown = () => undefined) {
+  const captured: CapturedQuery[] = [];
+  vi.doMock("@tanstack/react-query", async (importOriginal) => {
+    const actual = (await importOriginal()) as Record<string, unknown>;
+    return {
+      ...actual,
+      useQuery: (options: CapturedQuery) => {
+        captured.push(options);
+        const data = dataFor(options);
+        return {
+          data,
+          error: null,
+          isError: false,
+          isFetching: false,
+          isPending: data === undefined,
+          refetch: vi.fn(),
+        };
+      },
+      useQueryClient: () => ({ invalidateQueries: vi.fn(), resetQueries: vi.fn() }),
+    };
+  });
+  return captured;
+}

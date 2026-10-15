@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 import type { JsonValue, SignalResponse, TraceResponse, TraceRow, TraceStage } from "@/api/poseidon/types.gen";
 import { EmptyState } from "@/features/monitoring/empty-state";
@@ -14,6 +14,8 @@ export type SignalTraceState = {
   data?: TraceResponse;
   isError: boolean;
   isLoading: boolean;
+  /** Replaces the trace body (e.g. the device-key prompt) instead of showing a load error. */
+  notice?: ReactNode;
 };
 
 type SignalDrawerProps = {
@@ -233,7 +235,9 @@ function SignalTraceSection({ narrativeConfidence, trace }: { narrativeConfidenc
     <div aria-busy={trace.isLoading} className="mt-4 rounded-[22px] border border-[hsl(var(--border))] p-4">
       <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[hsl(var(--muted-foreground))]">End-to-end trace</div>
       <div className="mt-3">
-        {trace.isLoading ? (
+        {trace.notice ? (
+          trace.notice
+        ) : trace.isLoading ? (
           <p className="text-sm">Loading…</p>
         ) : trace.isError || !trace.data ? (
           <p className="text-sm">Decision and release data could not be loaded. Retry; no state was changed.</p>

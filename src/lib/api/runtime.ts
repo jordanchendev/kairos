@@ -105,6 +105,12 @@ export function hasDeviceKey(): boolean {
   return getDeviceKey() !== null;
 }
 
+/** True for TanStack query keys produced with `client: poseidonAuthClient` (keys carry the client baseUrl). */
+export function isPoseidonAuthQueryKey(queryKey: readonly unknown[]) {
+  const head = queryKey[0] as { baseUrl?: unknown } | undefined;
+  return typeof head?.baseUrl === "string" && head.baseUrl === poseidonAuthClient.getConfig().baseUrl;
+}
+
 /**
  * Client for every decision-loop call (principal, decisions, traces, release lifecycle).
  * Uses plain fetch on purpose: the legacy compatibility fetch retries 404s on another path,

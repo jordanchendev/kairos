@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import type {
   BacktestResponse,
@@ -16,7 +16,10 @@ import type {
   StrategyPerformanceResponse,
   StrategyResponse,
 } from "@/api/poseidon/types.gen";
+import { listStrategiesApiStrategiesGetOptions } from "@/api/poseidon/@tanstack/react-query.gen";
 import { Dialog } from "@/components/ui/dialog";
+import { DEVICE_KEY_STORAGE_KEY } from "@/lib/api/runtime";
+import { TEST_DEVICE_KEY, installDeviceKeyHarness, jsonResponse, runQueryOptions } from "@/test/device-key-harness";
 import {
   GATE_ROWS,
   RELEASE_COPY,
@@ -29,6 +32,8 @@ import {
   buildRollbackBody,
   holdoutDisplay,
   isReleaseScopeNotFound,
+  releaseLoopMutations,
+  releaseLoopRequests,
   releaseConsequence,
   sortEventsNewestFirst,
   type ReleaseGateViewProps,
@@ -503,5 +508,112 @@ describe("release gate panel", () => {
     expect(source.indexOf("<StrategyComparisonTable")).toBeLessThan(source.indexOf("<StrategyDetailPanel"));
     expect(source.indexOf("<StrategyDetailPanel")).toBeLessThan(source.indexOf("{releaseGate}"));
     expect(source).not.toMatch(/create\(|zustand/);
+  });
+});
+
+describe("release gate device-key wiring", () => {
+  let harness: ReturnType<typeof installDeviceKeyHarness>;
+  const strategyId = uuid(99);
+
+  beforeEach(() => {
+    harness = installDeviceKeyHarness();
+    harness.storage.setItem(DEVICE_KEY_STORAGE_KEY, TEST_DEVICE_KEY);
+  });
+
+  afterEach(() => {
+    harness.restore();
+  });
+
+  it("sends principal, release-state, release-gate, release-events and rollback-targets reads to /poseidon-auth", async () => {
+    harness.respond(() => jsonResponse({}));
+
+    await runQueryOptions(releaseLoopRequests.principal());
+    await runQueryOptions(releaseLoopRequests.state(strategyId));
+    await runQueryOptions(
+      releaseLoopRequests.gate(strategyId, {
+        campaign_id: uuid(30),
+        candidate_version_id: uuid(2),
+        reconciliation_id: uuid(40),
+        review_id: uuid(50),
+      }),
+    );
+    await runQueryOptions(releaseLoopRequests.events(strategyId));
+    await runQueryOptions(releaseLoopRequests.rollbackTargets(strategyId, uuid(40)));
+
+    const paths = harness.requests.map((request) => new URL(request.url).pathname);
+    expect(paths).toEqual([
+      "/poseidon-auth/api/v1/principal",
+      `/poseidon-auth/api/v1/strategies/${strategyId}/release-state`,
+      `/poseidon-auth/api/v1/strategies/${strategyId}/release-gate`,
+      `/poseidon-auth/api/v1/strategies/${strategyId}/release-events`,
+      `/poseidon-auth/api/v1/strategies/${strategyId}/rollback-targets`,
+    ]);
+    for (const request of harness.requests) {
+      expect(request.headers.get("X-API-Key")).toBe(TEST_DEVICE_KEY);
+    }
+  });
+
+  it("sends release, pause, rollback and reject to /poseidon-auth with the device key and idempotency key", async () => {
+    harness.respond(() => jsonResponse({}));
+    const common = { idempotencyKey: "idem-release", strategyId };
+
+    await releaseLoopMutations.release({ ...common, body: buildReleaseBody(releaseState, candidate, uuid(50), uuid(40), "go") });
+    await releaseLoopMutations.pause({ ...common, body: buildPauseBody(releaseState, "hold") });
+    await releaseLoopMutations.rollback({ ...common, body: buildRollbackBody(releaseState, uuid(1), uuid(40), "back") });
+    await releaseLoopMutations.reject({ ...common, body: buildRejectBody(releaseState, candidate, "no") });
+
+    expect(harness.requests.map((request) => new URL(request.url).pathname)).toEqual([
+      `/poseidon-auth/api/v1/strategies/${strategyId}/release`,
+      `/poseidon-auth/api/v1/strategies/${strategyId}/pause`,
+      `/poseidon-auth/api/v1/strategies/${strategyId}/rollback`,
+      `/poseidon-auth/api/v1/strategies/${strategyId}/reject`,
+    ]);
+    for (const request of harness.requests) {
+      expect(request.method).toBe("POST");
+      expect(request.headers.get("X-API-Key")).toBe(TEST_DEVICE_KEY);
+      expect(request.headers.get("Idempotency-Key")).toBe("idem-release");
+      expect(JSON.parse(request.body)).toMatchObject({ expected_revision: 4 });
+    }
+  });
+
+  it("keeps 409/422 failures typed through the device-key client", async () => {
+    harness.respond(() => jsonResponse({ detail: "stale" }, 409));
+    await expect(
+      releaseLoopMutations.pause({ body: buildPauseBody(releaseState, "hold"), idempotencyKey: "k", strategyId }),
+    ).rejects.toMatchObject({ kind: "conflict" });
+    harness.respond(() => jsonResponse({ detail: "gate" }, 422));
+    await expect(
+      releaseLoopMutations.release({
+        body: buildReleaseBody(releaseState, candidate, uuid(50), uuid(40), "go"),
+        idempotencyKey: "k",
+        strategyId,
+      }),
+    ).rejects.toMatchObject({ kind: "unprocessable" });
+  });
+
+  it("keeps the non-loop strategy list on the legacy /poseidon route without the device key", async () => {
+    harness.respond(() => jsonResponse([]));
+
+    await runQueryOptions(listStrategiesApiStrategiesGetOptions());
+
+    expect(harness.requests[0]?.url.startsWith("http://kairos.test/poseidon/")).toBe(true);
+    expect(harness.requests[0]?.headers.get("X-API-Key")).not.toBe(TEST_DEVICE_KEY);
+  });
+
+  it("renders the device-key prompt instead of release data and history when no key is stored", () => {
+    const markup = renderToStaticMarkup(
+      gateView({ deviceKeyRequired: <p>Device key required for decision review and release actions</p> }),
+    );
+
+    expect(markup).toContain("Device key required for decision review and release actions");
+    expect(markup).not.toContain("Release history");
+    expect(markup).not.toContain("Incumbent (active pointer)");
+    expect(renderToStaticMarkup(gateView())).toContain("Incumbent (active pointer)");
+  });
+
+  it("keeps exactly the four Phase 100 release mutations and adds no bootstrap call", () => {
+    const source = readFileSync(path.resolve(__dirname, "release-gate-panel.tsx"), "utf8");
+    expect(source.match(/StrategiesStrategyId(?:Release|Pause|Rollback|Reject)Post\(/g)?.length).toBe(4);
+    expect(source).not.toMatch(/bootstrap/i);
   });
 });

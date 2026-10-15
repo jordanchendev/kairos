@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type {
   DecisionResponse,
@@ -25,8 +25,19 @@ import {
   createIdempotencyScope,
   formatRelativeExpiry,
   unwrapMutation,
+  decisionLoopRequests,
+  sendDecisionAction,
   type DecisionReviewViewProps,
 } from "./decision-review-panel";
+
+import { getHoldingsApiPortfolioHoldingsGetOptions } from "@/api/poseidon/@tanstack/react-query.gen";
+import { DEVICE_KEY_STORAGE_KEY } from "@/lib/api/runtime";
+import {
+  TEST_DEVICE_KEY,
+  installDeviceKeyHarness,
+  jsonResponse,
+  runQueryOptions,
+} from "@/test/device-key-harness";
 
 import { HoldingsTable } from "./holdings-table";
 import { PerformanceChart } from "./performance-chart";
@@ -449,5 +460,134 @@ describe("dialog focus return and close target", () => {
     const dialog = readFileSync(path.resolve(__dirname, "../../components/ui/dialog.tsx"), "utf8");
     expect(dialog).toContain("h-11 w-11");
     expect(dialog).not.toContain("h-9 w-9");
+  });
+});
+
+describe("decision review device-key wiring", () => {
+  let harness: ReturnType<typeof installDeviceKeyHarness>;
+
+  beforeEach(() => {
+    harness = installDeviceKeyHarness();
+    harness.storage.setItem(DEVICE_KEY_STORAGE_KEY, TEST_DEVICE_KEY);
+  });
+
+  afterEach(() => {
+    harness.restore();
+  });
+
+  it("sends principal, pending-decision list and trace reads to /poseidon-auth with the device key", async () => {
+    harness.respond(() => jsonResponse({}));
+
+    await runQueryOptions(decisionLoopRequests.principal());
+    await runQueryOptions(decisionLoopRequests.pendingDecisions());
+    await runQueryOptions(decisionLoopRequests.trace(decision.id));
+
+    expect(harness.requests.map((request) => request.url)).toEqual([
+      "http://kairos.test/poseidon-auth/api/v1/principal",
+      "http://kairos.test/poseidon-auth/api/v1/decisions/?status=pending_approval",
+      `http://kairos.test/poseidon-auth/api/v1/traces/decisions/${decision.id}`,
+    ]);
+    for (const request of harness.requests) {
+      expect(request.headers.get("X-API-Key")).toBe(TEST_DEVICE_KEY);
+    }
+  });
+
+  it("sends approve, modify and reject to /poseidon-auth with the device key, idempotency key and revision", async () => {
+    harness.respond(() => jsonResponse({ ...decision, status: "approved" }));
+
+    await sendDecisionAction({ action: "approve", decision, finalAction: "enter", idempotencyKey: "idem-1", reason: "" });
+    await sendDecisionAction({ action: "modify", decision, finalAction: "hold", idempotencyKey: "idem-2", reason: "smaller" });
+    await sendDecisionAction({ action: "reject", decision, finalAction: "enter", idempotencyKey: "idem-3", reason: "no" });
+
+    const [approve, modify, reject] = harness.requests;
+    expect(approve?.url).toBe(`http://kairos.test/poseidon-auth/api/v1/decisions/${decision.id}/approve`);
+    expect(JSON.parse(approve?.body ?? "{}")).toEqual({ expected_revision: 7 });
+    expect(modify?.url).toBe(`http://kairos.test/poseidon-auth/api/v1/decisions/${decision.id}/approve`);
+    expect(JSON.parse(modify?.body ?? "{}")).toEqual({ expected_revision: 7, final_action: "hold", override_reason: "smaller" });
+    expect(reject?.url).toBe(`http://kairos.test/poseidon-auth/api/v1/decisions/${decision.id}/reject`);
+    expect(JSON.parse(reject?.body ?? "{}")).toEqual({ expected_revision: 7, reason: "no" });
+    for (const [index, request] of harness.requests.entries()) {
+      expect(request.method).toBe("POST");
+      expect(request.headers.get("X-API-Key")).toBe(TEST_DEVICE_KEY);
+      expect(request.headers.get("Idempotency-Key")).toBe(`idem-${index + 1}`);
+    }
+  });
+
+  it("keeps 403/404/409/422 classification through the device-key client and never retries on /poseidon", async () => {
+    for (const [status, kind] of [
+      [403, "forbidden"],
+      [404, "not_found"],
+      [409, "conflict"],
+      [422, "unprocessable"],
+    ] as const) {
+      harness.respond(() => jsonResponse({ detail: `status ${status}` }, status));
+      await expect(
+        sendDecisionAction({ action: "approve", decision, finalAction: "enter", idempotencyKey: "idem", reason: "" }),
+      ).rejects.toMatchObject({ kind });
+    }
+    expect(harness.requests).toHaveLength(4);
+    expect(harness.requests.every((request) => request.url.startsWith("http://kairos.test/poseidon-auth/"))).toBe(true);
+  });
+
+  it("keeps non-loop portfolio reads on the legacy /poseidon route without the device key", async () => {
+    harness.respond(() => jsonResponse([]));
+
+    await runQueryOptions(getHoldingsApiPortfolioHoldingsGetOptions());
+
+    expect(harness.requests[0]?.url.startsWith("http://kairos.test/poseidon/")).toBe(true);
+    expect(harness.requests[0]?.headers.get("X-API-Key")).not.toBe(TEST_DEVICE_KEY);
+  });
+});
+
+describe("decision review panel without a device key", () => {
+  beforeEach(() => {
+    vi.resetModules();
+  });
+
+  afterEach(() => {
+    vi.doUnmock("@tanstack/react-query");
+    vi.resetModules();
+  });
+
+  async function renderPanel(withKey: boolean) {
+    const harnessModule = await import("@/test/device-key-harness");
+    const harness = harnessModule.installDeviceKeyHarness();
+    if (withKey) harness.storage.setItem("kairos.poseidon.deviceKey", harnessModule.TEST_DEVICE_KEY);
+    const captured = harnessModule.captureComponentQueries();
+    const { DecisionReviewPanel } = await import("./decision-review-panel");
+    const markup = renderToStaticMarkup(<DecisionReviewPanel />);
+    return { captured, harness, harnessModule, markup };
+  }
+
+  it("sends no loop request and shows the device-key prompt", async () => {
+    const { captured, harness, markup } = await renderPanel(false);
+    try {
+      expect(markup).toContain("Device key required for decision review and release actions");
+      expect(markup).toContain('aria-haspopup="dialog"');
+      expect(captured.length).toBeGreaterThanOrEqual(3);
+      expect(captured.every((query) => query.enabled === false)).toBe(true);
+      expect(harness.requests).toHaveLength(0);
+    } finally {
+      harness.restore();
+    }
+  });
+
+  it("enables principal and pending-decision queries on /poseidon-auth once a key is stored", async () => {
+    const { captured, harness, harnessModule, markup } = await renderPanel(true);
+    try {
+      expect(markup).not.toContain("Device key required");
+      const enabled = captured.filter((query) => query.enabled === true).map(harnessModule.queryIdOf);
+      expect(enabled).toEqual(["getPrincipalApiV1PrincipalGet", "listDecisionsApiV1DecisionsGet"]);
+      for (const query of captured) {
+        await harnessModule.runQueryOptions(query);
+      }
+      expect(harness.requests.length).toBe(captured.length);
+      for (const request of harness.requests) {
+        expect(request.url.startsWith("http://kairos.test/poseidon-auth/api/v1/")).toBe(true);
+        expect(request.headers.get("X-API-Key")).toBe(harnessModule.TEST_DEVICE_KEY);
+      }
+    } finally {
+      harness.restore();
+    }
   });
 });

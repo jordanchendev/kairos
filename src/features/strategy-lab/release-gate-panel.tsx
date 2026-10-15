@@ -47,9 +47,12 @@ import {
   DecisionMutationError,
   createIdempotencyScope,
   formatUtc,
+  resetDeviceKeyQueries,
   unwrapMutation,
   type FailureKind,
 } from "@/features/portfolio/decision-review-panel";
+import { DeviceKeyDialog, DeviceKeyRequiredNotice, useDeviceKeyPresence } from "@/features/settings/device-key-dialog";
+import { hasDeviceKey, poseidonAuthClient } from "@/lib/api/runtime";
 
 export const RELEASE_COPY = {
   conflict: "This record changed in Poseidon. Refresh and review the current revision before retrying.",
@@ -248,6 +251,76 @@ export function sortEventsNewestFirst(events: ReleaseEventResponse[]) {
   return [...events].sort((a, b) => b.created_at.localeCompare(a.created_at));
 }
 
+export type ReleaseGateQuery = {
+  campaign_id: string;
+  candidate_version_id: string;
+  reconciliation_id: string;
+  review_id: string;
+};
+
+/**
+ * Every release-loop request goes through the device-key client (D-09): `/poseidon-auth/...`
+ * with the browser-local key. The legacy `/poseidon` route carries no human authority.
+ */
+export const releaseLoopRequests = {
+  events: (strategyId: string) =>
+    listReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetOptions({ client: poseidonAuthClient, path: { strategy_id: strategyId } }),
+  gate: (strategyId: string, query: ReleaseGateQuery) =>
+    getReleaseGateApiV1StrategiesStrategyIdReleaseGateGetOptions({ client: poseidonAuthClient, path: { strategy_id: strategyId }, query }),
+  principal: () => getPrincipalApiV1PrincipalGetOptions({ client: poseidonAuthClient }),
+  principalKey: () => getPrincipalApiV1PrincipalGetQueryKey({ client: poseidonAuthClient }),
+  rollbackTargets: (strategyId: string, reconciliationId: string) =>
+    listRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetOptions({
+      client: poseidonAuthClient,
+      path: { strategy_id: strategyId },
+      query: { reconciliation_id: reconciliationId },
+    }),
+  state: (strategyId: string) =>
+    getReleaseStateApiV1StrategiesStrategyIdReleaseStateGetOptions({ client: poseidonAuthClient, path: { strategy_id: strategyId } }),
+};
+
+type ReleaseMutationInput<TBody> = { body: TBody; idempotencyKey: string; strategyId: string };
+
+/** The four Phase 100 release mutations, all sent with the device key. */
+export const releaseLoopMutations = {
+  pause: ({ body, idempotencyKey, strategyId }: ReleaseMutationInput<ReturnType<typeof buildPauseBody>>) =>
+    unwrapMutation(() =>
+      pauseStrategyApiV1StrategiesStrategyIdPausePost({
+        body,
+        client: poseidonAuthClient,
+        headers: { "Idempotency-Key": idempotencyKey },
+        path: { strategy_id: strategyId },
+      }),
+    ),
+  reject: ({ body, idempotencyKey, strategyId }: ReleaseMutationInput<ReturnType<typeof buildRejectBody>>) =>
+    unwrapMutation(() =>
+      rejectStrategyApiV1StrategiesStrategyIdRejectPost({
+        body,
+        client: poseidonAuthClient,
+        headers: { "Idempotency-Key": idempotencyKey },
+        path: { strategy_id: strategyId },
+      }),
+    ),
+  release: ({ body, idempotencyKey, strategyId }: ReleaseMutationInput<ReturnType<typeof buildReleaseBody>>) =>
+    unwrapMutation(() =>
+      releaseStrategyApiV1StrategiesStrategyIdReleasePost({
+        body,
+        client: poseidonAuthClient,
+        headers: { "Idempotency-Key": idempotencyKey },
+        path: { strategy_id: strategyId },
+      }),
+    ),
+  rollback: ({ body, idempotencyKey, strategyId }: ReleaseMutationInput<ReturnType<typeof buildRollbackBody>>) =>
+    unwrapMutation(() =>
+      rollbackStrategyApiV1StrategiesStrategyIdRollbackPost({
+        body,
+        client: poseidonAuthClient,
+        headers: { "Idempotency-Key": idempotencyKey },
+        path: { strategy_id: strategyId },
+      }),
+    ),
+};
+
 export function isReleaseScopeNotFound(error: unknown) {
   if (!error || typeof error !== "object") return false;
   const candidate = error as { detail?: unknown; response?: { status?: unknown }; status?: unknown };
@@ -285,6 +358,10 @@ function IdentityCard({ heading, version, extra }: { extra?: ReactNode; heading:
 
 export type ReleaseGateViewProps = {
   busy: boolean;
+  /** Device-key settings trigger shown next to Refresh. */
+  deviceKeyControl?: ReactNode;
+  /** When set (no device key stored), replaces the panel body; no loop data is shown or requested. */
+  deviceKeyRequired?: ReactNode;
   events: ReleaseEventResponse[] | undefined;
   gate: ReleaseGateResponse | undefined;
   gateError: boolean;
@@ -319,7 +396,9 @@ export function ReleaseGateView(props: ReleaseGateViewProps) {
   );
 
   let body: ReactNode;
-  if (props.stateError) {
+  if (props.deviceKeyRequired) {
+    body = props.deviceKeyRequired;
+  } else if (props.stateError) {
     body = <ErrorState action={<Button className="min-h-11" onClick={props.onRefresh} variant="outline">Retry</Button>} message={RELEASE_COPY.loadError} />;
   } else if (props.stateLoading) {
     body = (
@@ -493,15 +572,22 @@ export function ReleaseGateView(props: ReleaseGateViewProps) {
   return (
     <div className="space-y-6" data-testid="release-gate">
       <PanelFrame
-        action={refresh}
+        action={
+          props.deviceKeyRequired ? undefined : (
+            <div className="flex flex-wrap gap-2">
+              {props.deviceKeyControl}
+              {refresh}
+            </div>
+          )
+        }
         description="Frozen campaign evidence and backend gate predicates. Poseidon is authoritative; Kairos never computes eligibility."
         eyebrow="Release Gate"
         title="Release candidate"
         typography="phase100"
       >
-        <div aria-busy={props.stateLoading}>{body}</div>
+        <div aria-busy={props.deviceKeyRequired ? false : props.stateLoading}>{body}</div>
       </PanelFrame>
-      <ReleaseHistory events={props.events} />
+      {props.deviceKeyRequired ? null : <ReleaseHistory events={props.events} />}
     </div>
   );
 }
@@ -758,15 +844,19 @@ export function ReleaseGatePanel({ strategyId, strategyName }: { strategyId: str
   useReturnFocusOnClose(action !== null, containerRef);
   const cadence = getMonitoringQueryOptions("overview");
 
-  const principalQuery = useQuery({ ...getPrincipalApiV1PrincipalGetOptions(), ...cadence });
+  // Re-render when the device key is saved or cleared; without it no loop request is sent.
+  useDeviceKeyPresence();
+  const principalQuery = useQuery({ ...releaseLoopRequests.principal(), ...cadence, enabled: hasDeviceKey() });
   const stateQuery = useQuery({
-    ...getReleaseStateApiV1StrategiesStrategyIdReleaseStateGetOptions({ path: { strategy_id: strategyId } }),
+    ...releaseLoopRequests.state(strategyId),
     ...cadence,
+    enabled: hasDeviceKey(),
     retry: false,
   });
   const eventsQuery = useQuery({
-    ...listReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGetOptions({ path: { strategy_id: strategyId } }),
+    ...releaseLoopRequests.events(strategyId),
     ...cadence,
+    enabled: hasDeviceKey(),
     retry: false,
   });
 
@@ -779,33 +869,28 @@ export function ReleaseGatePanel({ strategyId, strategyName }: { strategyId: str
   const gateReady = Boolean(candidate && review && reconciliationId);
 
   const gateQuery = useQuery({
-    ...getReleaseGateApiV1StrategiesStrategyIdReleaseGateGetOptions({
-      path: { strategy_id: strategyId },
-      query: {
-        campaign_id: candidate?.campaign_id ?? "pending",
-        candidate_version_id: candidate?.candidate.strategy_version_id ?? "pending",
-        reconciliation_id: reconciliationId ?? "pending",
-        review_id: review?.review_id ?? "pending",
-      },
+    ...releaseLoopRequests.gate(strategyId, {
+      campaign_id: candidate?.campaign_id ?? "pending",
+      candidate_version_id: candidate?.candidate.strategy_version_id ?? "pending",
+      reconciliation_id: reconciliationId ?? "pending",
+      review_id: review?.review_id ?? "pending",
     }),
     ...cadence,
-    enabled: gateReady,
+    enabled: gateReady && hasDeviceKey(),
     retry: false,
   });
   const authorityReconciliationId = state?.authority_reconciliation?.reconciliation_id ?? null;
   const targetsQuery = useQuery({
-    ...listRollbackTargetsApiV1StrategiesStrategyIdRollbackTargetsGetOptions({
-      path: { strategy_id: strategyId },
-      query: { reconciliation_id: authorityReconciliationId ?? "pending" },
-    }),
+    ...releaseLoopRequests.rollbackTargets(strategyId, authorityReconciliationId ?? "pending"),
     ...cadence,
-    enabled: Boolean(authorityReconciliationId),
+    enabled: Boolean(authorityReconciliationId) && hasDeviceKey(),
     retry: false,
   });
 
   const invalidate = () => queryClient.invalidateQueries({ predicate: (query) => String((query.queryKey[0] as { _id?: string })?._id ?? "").match(/ReleaseState|ReleaseGate|ReleaseEvents|RollbackTargets|Principal/) !== null });
 
   const refresh = () => {
+    if (!hasDeviceKey()) return;
     void stateQuery.refetch();
     void eventsQuery.refetch();
     void principalQuery.refetch();
@@ -813,10 +898,15 @@ export function ReleaseGatePanel({ strategyId, strategyName }: { strategyId: str
     if (authorityReconciliationId) void targetsQuery.refetch();
   };
 
+  const onDeviceKeyChange = () => {
+    setNotice(null);
+    void resetDeviceKeyQueries(queryClient);
+  };
+
   const handleFailure = (kind: FailureKind) => {
     if (kind === "forbidden") {
       setNotice(RELEASE_COPY.permission);
-      void queryClient.invalidateQueries({ queryKey: getPrincipalApiV1PrincipalGetQueryKey() });
+      void queryClient.invalidateQueries({ queryKey: releaseLoopRequests.principalKey() });
     }
     if (kind === "conflict" || kind === "unprocessable") void invalidate();
   };
@@ -835,46 +925,35 @@ export function ReleaseGatePanel({ strategyId, strategyName }: { strategyId: str
     };
     const sig = JSON.stringify([kind, state.release_revision, state.active_version_id, candidate?.campaign_id, review?.review_id, reconciliationId, target?.strategy_version_id]);
     const common = { consequence: releaseConsequence(kind, base), kind, payloadSignature: sig };
-    const path = { strategy_id: strategyId };
     if (kind === "release" && candidate && review && reconciliationId) {
       setAction({
         ...common,
         send: (key, reason) =>
-          unwrapMutation(() =>
-            releaseStrategyApiV1StrategiesStrategyIdReleasePost({
-              body: buildReleaseBody(state, candidate, review.review_id, reconciliationId, reason),
-              headers: { "Idempotency-Key": key },
-              path,
-            }),
-          ),
+          releaseLoopMutations.release({
+            body: buildReleaseBody(state, candidate, review.review_id, reconciliationId, reason),
+            idempotencyKey: key,
+            strategyId,
+          }),
       });
     } else if (kind === "pause") {
       setAction({
         ...common,
-        send: (key, reason) =>
-          unwrapMutation(() =>
-            pauseStrategyApiV1StrategiesStrategyIdPausePost({ body: buildPauseBody(state, reason), headers: { "Idempotency-Key": key }, path }),
-          ),
+        send: (key, reason) => releaseLoopMutations.pause({ body: buildPauseBody(state, reason), idempotencyKey: key, strategyId }),
       });
     } else if (kind === "rollback" && target && authorityReconciliationId) {
       setAction({
         ...common,
         send: (key, reason) =>
-          unwrapMutation(() =>
-            rollbackStrategyApiV1StrategiesStrategyIdRollbackPost({
-              body: buildRollbackBody(state, target.strategy_version_id, authorityReconciliationId, reason),
-              headers: { "Idempotency-Key": key },
-              path,
-            }),
-          ),
+          releaseLoopMutations.rollback({
+            body: buildRollbackBody(state, target.strategy_version_id, authorityReconciliationId, reason),
+            idempotencyKey: key,
+            strategyId,
+          }),
       });
     } else if (kind === "reject" && candidate) {
       setAction({
         ...common,
-        send: (key, reason) =>
-          unwrapMutation(() =>
-            rejectStrategyApiV1StrategiesStrategyIdRejectPost({ body: buildRejectBody(state, candidate, reason), headers: { "Idempotency-Key": key }, path }),
-          ),
+        send: (key, reason) => releaseLoopMutations.reject({ body: buildRejectBody(state, candidate, reason), idempotencyKey: key, strategyId }),
       });
     }
   };
@@ -884,6 +963,8 @@ export function ReleaseGatePanel({ strategyId, strategyName }: { strategyId: str
       <div ref={containerRef} tabIndex={-1}>
       <ReleaseGateView
         busy={busy}
+        deviceKeyControl={<DeviceKeyDialog onChange={onDeviceKeyChange} />}
+        deviceKeyRequired={hasDeviceKey() ? null : <DeviceKeyRequiredNotice onChange={onDeviceKeyChange} />}
         events={eventsQuery.data}
         gate={gateQuery.data}
         gateError={gateQuery.isError}

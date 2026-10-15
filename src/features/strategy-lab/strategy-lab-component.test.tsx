@@ -107,3 +107,62 @@ describe("strategy lab route compatibility", () => {
     expect(markup.indexOf("Ranked Strategy Grid")).toBeLessThan(markup.indexOf('data-release-gate-for="strategy-001"'));
   });
 });
+
+describe("release gate panel device-key gating", () => {
+  beforeEach(() => {
+    // The compatibility test above stubs the panel itself; render the real one here.
+    vi.doUnmock("@/features/strategy-lab/release-gate-panel");
+    vi.doUnmock("@/stores/ui-store");
+    vi.resetModules();
+  });
+
+  afterEach(() => {
+    vi.doUnmock("@tanstack/react-query");
+    vi.resetModules();
+  });
+
+  async function renderPanel(withKey: boolean) {
+    const harnessModule = await import("@/test/device-key-harness");
+    const harness = harnessModule.installDeviceKeyHarness();
+    if (withKey) harness.storage.setItem("kairos.poseidon.deviceKey", harnessModule.TEST_DEVICE_KEY);
+    const captured = harnessModule.captureComponentQueries();
+    const { ReleaseGatePanel } = await import("@/features/strategy-lab/release-gate-panel");
+    const markup = renderToStaticMarkup(<ReleaseGatePanel strategyId="strategy-001" strategyName="Momentum Core" />);
+    return { captured, harness, harnessModule, markup };
+  }
+
+  it("sends no loop request without a device key and shows the prompt", async () => {
+    const { captured, harness, markup } = await renderPanel(false);
+    try {
+      expect(markup).toContain("Device key required for decision review and release actions");
+      expect(markup).not.toContain("Release history");
+      expect(captured.length).toBe(5);
+      expect(captured.every((query) => query.enabled === false)).toBe(true);
+      expect(harness.requests).toHaveLength(0);
+    } finally {
+      harness.restore();
+    }
+  });
+
+  it("routes every release query through /poseidon-auth with the stored key", async () => {
+    const { captured, harness, harnessModule, markup } = await renderPanel(true);
+    try {
+      expect(markup).not.toContain("Device key required");
+      expect(captured.filter((query) => query.enabled === true).map(harnessModule.queryIdOf)).toEqual([
+        "getPrincipalApiV1PrincipalGet",
+        "getReleaseStateApiV1StrategiesStrategyIdReleaseStateGet",
+        "listReleaseEventsApiV1StrategiesStrategyIdReleaseEventsGet",
+      ]);
+      for (const query of captured) {
+        await harnessModule.runQueryOptions(query);
+      }
+      expect(harness.requests).toHaveLength(5);
+      for (const request of harness.requests) {
+        expect(request.url.startsWith("http://kairos.test/poseidon-auth/api/v1/")).toBe(true);
+        expect(request.headers.get("X-API-Key")).toBe(harnessModule.TEST_DEVICE_KEY);
+      }
+    } finally {
+      harness.restore();
+    }
+  });
+});

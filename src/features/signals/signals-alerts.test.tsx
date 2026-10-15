@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { AlertItem, SignalResponse } from "@/api/poseidon/types.gen";
 
@@ -296,5 +296,91 @@ describe("SignalDrawer nine-stage trace", () => {
 
     const source = readFileSync(path.resolve(__dirname, "signal-drawer.tsx"), "utf8");
     expect(source).not.toMatch(/\bfetch\(|overflow-x-auto|useMutation|Idempotency/);
+  });
+});
+
+describe("signal trace device-key wiring", () => {
+  beforeEach(() => {
+    // Fixture signals fall inside the route's default 7D window.
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-03-31T12:00:00Z"));
+    vi.resetModules();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.doUnmock("@tanstack/react-query");
+    vi.doUnmock("@/stores/ui-store");
+    vi.resetModules();
+  });
+
+  async function renderRoute(withKey: boolean) {
+    const harnessModule = await import("@/test/device-key-harness");
+    const harness = harnessModule.installDeviceKeyHarness();
+    if (withKey) harness.storage.setItem("kairos.poseidon.deviceKey", harnessModule.TEST_DEVICE_KEY);
+    const captured = harnessModule.captureComponentQueries((query) => {
+      const id = harnessModule.queryIdOf(query);
+      if (id === "listSignalsApiSignalsGet") return signals;
+      if (id === "getSignalApiSignalsSignalIdGet") return signals[0];
+      return undefined;
+    });
+    vi.doMock("@/stores/ui-store", () => ({
+      useUiStore: (selector: (state: { selectedMarket: string }) => string) => selector({ selectedMarket: "all" }),
+    }));
+    const routeModule = await import("@/routes/signals");
+    const markup = renderToStaticMarkup(<routeModule.Component />);
+    const byId = (id: string) => captured.find((query) => harnessModule.queryIdOf(query) === id);
+    return { byId, captured, harness, harnessModule, markup };
+  }
+
+  it("shows the device-key prompt in the trace area and sends no trace request without a key", async () => {
+    const { byId, harness, harnessModule, markup } = await renderRoute(false);
+    try {
+      expect(markup).toContain("End-to-end trace");
+      expect(markup).toContain("Device key required for decision review and release actions");
+      expect(markup).not.toContain("Retry; no state was changed.");
+      expect(byId("getSignalTraceApiV1TracesSignalsSignalIdGet")?.enabled).toBe(false);
+
+      // Non-loop reads keep working on the legacy route and never carry a device key.
+      await harnessModule.runQueryOptions(byId("listSignalsApiSignalsGet")!);
+      await harnessModule.runQueryOptions(byId("getSignalApiSignalsSignalIdGet")!);
+      expect(harness.requests.map((request) => new URL(request.url).pathname)).toEqual([
+        "/poseidon/api/signals",
+        "/poseidon/api/signals/signal-a",
+      ]);
+    } finally {
+      harness.restore();
+    }
+  });
+
+  it("sends the trace query to /poseidon-auth with the key while list/detail stay on /poseidon without it", async () => {
+    const { byId, harness, harnessModule, markup } = await renderRoute(true);
+    try {
+      expect(markup).not.toContain("Device key required");
+      const trace = byId("getSignalTraceApiV1TracesSignalsSignalIdGet")!;
+      expect(trace.enabled).toBe(true);
+
+      await harnessModule.runQueryOptions(trace);
+      await harnessModule.runQueryOptions(byId("listSignalsApiSignalsGet")!);
+      await harnessModule.runQueryOptions(byId("getSignalApiSignalsSignalIdGet")!);
+
+      const [traceRequest, listRequest, detailRequest] = harness.requests;
+      expect(traceRequest?.url).toBe("http://kairos.test/poseidon-auth/api/v1/traces/signals/signal-a");
+      expect(traceRequest?.headers.get("X-API-Key")).toBe(harnessModule.TEST_DEVICE_KEY);
+      for (const request of [listRequest, detailRequest]) {
+        expect(request?.url.startsWith("http://kairos.test/poseidon/")).toBe(true);
+        expect(request?.headers.get("X-API-Key")).not.toBe(harnessModule.TEST_DEVICE_KEY);
+      }
+    } finally {
+      harness.restore();
+    }
+  });
+
+  it("drawer renders a trace notice in place of the load error", () => {
+    const markup = renderToStaticMarkup(
+      <SignalDrawer isLoading={false} signal={signals[0]} trace={{ isError: true, isLoading: false, notice: <p>key prompt</p> }} />,
+    );
+    expect(markup).toContain("key prompt");
+    expect(markup).not.toContain("Retry; no state was changed.");
   });
 });

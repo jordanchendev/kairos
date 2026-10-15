@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { RefreshCw } from "lucide-react";
 
 import {
@@ -13,16 +13,22 @@ import { ErrorState } from "@/features/monitoring/error-state";
 import { PanelFrame } from "@/features/monitoring/panel-frame";
 import { StatusBadge } from "@/features/monitoring/status-badge";
 import { getMonitoringQueryOptions } from "@/features/monitoring/query-config";
+import { resetDeviceKeyQueries } from "@/features/portfolio/decision-review-panel";
 import { getMarketLabel } from "@/features/portfolio/portfolio-view-model";
+import { DeviceKeyRequiredNotice, useDeviceKeyPresence } from "@/features/settings/device-key-dialog";
 import { SignalDrawer } from "@/features/signals/signal-drawer";
 import { SignalFilters } from "@/features/signals/signal-filters";
 import { filterSignals, getSignalStrategyValue, type SignalDateRange } from "@/features/signals/signals-model";
 import { SignalsTable } from "@/features/signals/signals-table";
+import { hasDeviceKey, poseidonAuthClient } from "@/lib/api/runtime";
 import { useUiStore } from "@/stores/ui-store";
 
 import { getApiMarket } from "@/features/portfolio/portfolio-view-model";
 
 export function Component() {
+  const queryClient = useQueryClient();
+  // Re-render when the device key is saved or cleared; the trace is a decision-loop read (D-09).
+  useDeviceKeyPresence();
   const selectedMarket = useUiStore((state) => state.selectedMarket);
   const apiMarket = getApiMarket(selectedMarket);
   const [strategy, setStrategy] = useState("all");
@@ -74,16 +80,16 @@ export function Component() {
   });
 
   const signalTraceQuery = useQuery({
-    ...getSignalTraceApiV1TracesSignalsSignalIdGetOptions({ path: { signal_id: activeSignalId ?? "pending" } }),
+    ...getSignalTraceApiV1TracesSignalsSignalIdGetOptions({ client: poseidonAuthClient, path: { signal_id: activeSignalId ?? "pending" } }),
     ...getMonitoringQueryOptions("overview"),
-    enabled: Boolean(activeSignalId),
+    enabled: Boolean(activeSignalId) && hasDeviceKey(),
   });
 
   const refresh = () => {
     void signalsQuery.refetch();
     if (activeSignalId) {
       void signalDetailQuery.refetch();
-      void signalTraceQuery.refetch();
+      if (hasDeviceKey()) void signalTraceQuery.refetch();
     }
   };
 
@@ -144,7 +150,10 @@ export function Component() {
           trace={{
             data: signalTraceQuery.data,
             isError: signalTraceQuery.isError,
-            isLoading: signalTraceQuery.isPending && Boolean(activeSignalId),
+            isLoading: signalTraceQuery.isPending && Boolean(activeSignalId) && hasDeviceKey(),
+            notice: hasDeviceKey() ? undefined : (
+              <DeviceKeyRequiredNotice onChange={() => void resetDeviceKeyQueries(queryClient)} />
+            ),
           }}
         />
       </div>
