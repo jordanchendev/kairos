@@ -614,6 +614,12 @@ describe("release gate device-key wiring", () => {
   it("keeps exactly the four Phase 100 release mutations and adds no bootstrap call", () => {
     const source = readFileSync(path.resolve(__dirname, "release-gate-panel.tsx"), "utf8");
     expect(source.match(/StrategiesStrategyId(?:Release|Pause|Rollback|Reject)Post\(/g)?.length).toBe(4);
-    expect(source).not.toMatch(/bootstrap/i);
+    // No bootstrap operation, route, or request type anywhere in the panel.
+    expect(source).not.toMatch(/bootstrapStrategy|\/bootstrap\b|BootstrapRequest/i);
+    // The only "bootstrap" text allowed is the verbatim history label (101-11) and its doc line.
+    const withoutHistoryLabel = source
+      .replace(/^ {2}bootstrap: "bootstrap",$/m, "")
+      .replace(/^ \* until it is listed here\. `bootstrap` is written only by the operator CLI; Kairos only displays it\.$/m, "");
+    expect(withoutHistoryLabel).not.toMatch(/bootstrap/i);
   });
 });

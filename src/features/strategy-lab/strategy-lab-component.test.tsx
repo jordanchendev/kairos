@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import type { BacktestResponse, StrategyResponse } from "@/api/poseidon/types.gen";
+import type { BacktestResponse, ReleaseEventResponse, StrategyResponse } from "@/api/poseidon/types.gen";
 import type * as ReactQueryModule from "@tanstack/react-query";
 
 const strategies: StrategyResponse[] = [
@@ -164,5 +164,72 @@ describe("release gate panel device-key gating", () => {
     } finally {
       harness.restore();
     }
+  });
+});
+
+describe("release history bootstrap events", () => {
+  beforeEach(() => {
+    vi.doUnmock("@/features/strategy-lab/release-gate-panel");
+    vi.doUnmock("@tanstack/react-query");
+    vi.resetModules();
+  });
+
+  afterEach(() => {
+    vi.resetModules();
+  });
+
+  const bootstrapEvent: ReleaseEventResponse = {
+    account_scope: "paper-main",
+    actor_id: "operator-cli",
+    campaign_id: null,
+    candidate_version_id: "00000000-0000-4000-8000-000000000002",
+    created_at: "2026-10-15T01:00:00Z",
+    event_type: "bootstrap",
+    expected_revision: 0,
+    from_version_id: null,
+    gate_json: { allowed: true, predicates: [{ code: "bootstrap_eligibility", evidence: {}, reason: "no prior release events", state: "passed" }] },
+    holdout_use_id: null,
+    id: "00000000-0000-4000-8000-000000000070",
+    reason: "Phase 101 pilot bootstrap",
+    reconciliation_id: null,
+    resulting_revision: 1,
+    review_id: null,
+    source_release_event_id: null,
+    strategy_id: "00000000-0000-4000-8000-000000000099",
+    to_version_id: "00000000-0000-4000-8000-000000000002",
+  };
+
+  it("renders a bootstrap event verbatim in the same row layout, with its reason", async () => {
+    const { RELEASE_EVENT_TYPE_LABEL, ReleaseHistory } = await import("@/features/strategy-lab/release-gate-panel");
+    const pause: ReleaseEventResponse = { ...bootstrapEvent, created_at: "2026-10-14T01:00:00Z", event_type: "pause", id: "00000000-0000-4000-8000-000000000071", reason: "older pause" };
+    const markup = renderToStaticMarkup(<ReleaseHistory events={[pause, bootstrapEvent]} />);
+
+    expect(RELEASE_EVENT_TYPE_LABEL.bootstrap).toBe("bootstrap");
+    expect(Object.keys(RELEASE_EVENT_TYPE_LABEL).sort()).toEqual(["bootstrap", "pause", "reject", "release", "rollback"]);
+    // table (>=1024) and card (<1024) layouts both carry the event type and reason
+    expect(markup).toContain("<td>bootstrap</td>");
+    expect(markup).toContain('<span class="font-semibold">Event type:</span> bootstrap</div>');
+    expect(markup.match(/Phase 101 pilot bootstrap/g)).toHaveLength(2);
+    expect(markup).toContain("bootstrap_eligibility: Passed — no prior release events");
+    // newest first: the bootstrap row precedes the older pause row
+    expect(markup.indexOf("<td>bootstrap</td>")).toBeLessThan(markup.indexOf("<td>pause</td>"));
+    expect(markup).not.toContain("No release events");
+  });
+
+  it("offers no bootstrap action: the panel never imports the generated bootstrap operation", async () => {
+    const { readFileSync, readdirSync, statSync } = await import("node:fs");
+    const { join } = await import("node:path");
+    // Built from parts so this guard does not match itself in a plain-text grep of src/features.
+    const generatedBootstrapSymbol = new RegExp(["boot", "strap", "Strategy"].join(""), "i");
+    const offenders: string[] = [];
+    const walk = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const path = join(dir, name);
+        if (statSync(path).isDirectory()) walk(path);
+        else if (/\.tsx?$/.test(name) && !/\.test\.tsx?$/.test(name) && generatedBootstrapSymbol.test(readFileSync(path, "utf8"))) offenders.push(path);
+      }
+    };
+    walk(join(process.cwd(), "src", "features"));
+    expect(offenders).toEqual([]);
   });
 });

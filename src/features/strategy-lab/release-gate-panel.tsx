@@ -147,6 +147,23 @@ const STATE_LABEL: Record<PredicateState, string> = {
   unavailable: "Unavailable",
 };
 
+/**
+ * Every release event type Poseidon records, shown verbatim (Poseidon's record, no client-side
+ * reinterpretation). Exhaustive over the generated union so a new server event type fails typecheck
+ * until it is listed here. `bootstrap` is written only by the operator CLI; Kairos only displays it.
+ */
+export const RELEASE_EVENT_TYPE_LABEL: Record<ReleaseEventResponse["event_type"], string> = {
+  bootstrap: "bootstrap",
+  pause: "pause",
+  reject: "reject",
+  release: "release",
+  rollback: "rollback",
+};
+
+function eventTypeLabel(eventType: ReleaseEventResponse["event_type"]) {
+  return RELEASE_EVENT_TYPE_LABEL[eventType] ?? eventType;
+}
+
 function tone(state: PredicateState) {
   return state === "passed" ? ("up" as const) : state === "blocked" ? ("down" as const) : state === "inconclusive" ? ("degraded" as const) : ("idle" as const);
 }
@@ -615,7 +632,7 @@ export function ReleaseHistory({ events }: { events: ReleaseEventResponse[] | un
               {sorted.map((event) => (
                 <tr className="align-top [overflow-wrap:anywhere]" key={event.id}>
                   <td>{formatUtc(event.created_at)}</td>
-                  <td>{event.event_type}</td>
+                  <td>{eventTypeLabel(event.event_type)}</td>
                   <td className={monoClass}>{event.from_version_id ?? "none"}</td>
                   <td className={monoClass}>{event.to_version_id ?? "none"}</td>
                   <td>{event.actor_id}</td>
@@ -630,7 +647,7 @@ export function ReleaseHistory({ events }: { events: ReleaseEventResponse[] | un
             {sorted.map((event) => (
               <li className="space-y-1 rounded-[20px] border border-[hsl(var(--border))] p-4 text-sm [overflow-wrap:anywhere]" key={event.id}>
                 <div><span className="font-semibold">Event time:</span> {formatUtc(event.created_at)}</div>
-                <div><span className="font-semibold">Event type:</span> {event.event_type}</div>
+                <div><span className="font-semibold">Event type:</span> {eventTypeLabel(event.event_type)}</div>
                 <div><span className="font-semibold">From version:</span> <span className={monoClass}>{event.from_version_id ?? "none"}</span></div>
                 <div><span className="font-semibold">To version:</span> <span className={monoClass}>{event.to_version_id ?? "none"}</span></div>
                 <div><span className="font-semibold">Actor ID:</span> {event.actor_id}</div>
