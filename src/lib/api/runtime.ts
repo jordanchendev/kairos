@@ -46,6 +46,25 @@ export const DEVICE_KEY_STORAGE_KEY = "kairos.poseidon.deviceKey";
 export const POSEIDON_AUTH_BASE = "/poseidon-auth";
 
 const DEVICE_KEY_PATTERN = /^[A-Za-z0-9_-]{32,256}$/;
+const deviceKeyListeners = new Set<() => void>();
+
+function notifyDeviceKeyListeners() {
+  for (const listener of deviceKeyListeners) listener();
+}
+
+/** Subscribe to device-key changes in this tab (set/clear) and in other tabs (storage event). */
+export function subscribeDeviceKey(listener: () => void) {
+  deviceKeyListeners.add(listener);
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === null || event.key === DEVICE_KEY_STORAGE_KEY) listener();
+  };
+  const target = typeof window !== "undefined" && typeof window.addEventListener === "function" ? window : null;
+  target?.addEventListener("storage", onStorage);
+  return () => {
+    deviceKeyListeners.delete(listener);
+    target?.removeEventListener("storage", onStorage);
+  };
+}
 
 function deviceKeyStorage(): Storage | null {
   if (typeof window === "undefined") return null;
@@ -74,10 +93,12 @@ export function setDeviceKey(key: string): void {
     throw new Error("Browser storage is unavailable");
   }
   storage.setItem(DEVICE_KEY_STORAGE_KEY, key);
+  notifyDeviceKeyListeners();
 }
 
 export function clearDeviceKey(): void {
   deviceKeyStorage()?.removeItem(DEVICE_KEY_STORAGE_KEY);
+  notifyDeviceKeyListeners();
 }
 
 export function hasDeviceKey(): boolean {
