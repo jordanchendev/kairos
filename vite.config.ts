@@ -15,6 +15,12 @@ export default defineConfig({
     host: true,
     port: 5173,
     proxy: {
+      // Must precede "/poseidon": Vite matches proxy keys by prefix in declaration order.
+      "/poseidon-auth": {
+        target: "http://localhost:8001",
+        changeOrigin: true,
+        rewrite: (requestPath) => requestPath.replace(/^\/poseidon-auth/, ""),
+      },
       "/poseidon": {
         target: "http://localhost:8001",
         changeOrigin: true,

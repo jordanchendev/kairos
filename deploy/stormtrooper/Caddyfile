@@ -6,6 +6,12 @@
       }
     }
 
+    # Device-key route (D-09): the browser's own X-API-Key passes through unchanged.
+    # Never add header_up X-API-Key here; the legacy key must not carry human authority.
+    handle_path /poseidon-auth/* {
+      reverse_proxy host.docker.internal:8001
+    }
+
     handle_path /triton/* {
       reverse_proxy host.docker.internal:8000
     }

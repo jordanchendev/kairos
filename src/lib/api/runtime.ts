@@ -1,3 +1,4 @@
+import { createClient, createConfig } from "@/api/poseidon/client";
 import { client as poseidonClient } from "@/api/poseidon/client.gen";
 import { client as thalassaClient } from "@/api/thalassa/client.gen";
 import { client as tritonClient } from "@/api/triton/client.gen";
@@ -37,3 +38,65 @@ export function syncRuntimeClients() {
       : undefined,
   });
 }
+
+// Device key is browser-local (D-08/D-09); never a VITE_* build variable.
+// It is read from localStorage at request time and only ever sent on the
+// /poseidon-auth route, which Caddy proxies without injecting the legacy key.
+export const DEVICE_KEY_STORAGE_KEY = "kairos.poseidon.deviceKey";
+export const POSEIDON_AUTH_BASE = "/poseidon-auth";
+
+const DEVICE_KEY_PATTERN = /^[A-Za-z0-9_-]{32,256}$/;
+
+function deviceKeyStorage(): Storage | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export function isValidDeviceKey(key: string) {
+  return DEVICE_KEY_PATTERN.test(key);
+}
+
+export function getDeviceKey(): string | null {
+  const value = deviceKeyStorage()?.getItem(DEVICE_KEY_STORAGE_KEY) ?? null;
+  return value && isValidDeviceKey(value) ? value : null;
+}
+
+export function setDeviceKey(key: string): void {
+  if (!isValidDeviceKey(key)) {
+    throw new Error("Device key format is invalid");
+  }
+  const storage = deviceKeyStorage();
+  if (!storage) {
+    throw new Error("Browser storage is unavailable");
+  }
+  storage.setItem(DEVICE_KEY_STORAGE_KEY, key);
+}
+
+export function clearDeviceKey(): void {
+  deviceKeyStorage()?.removeItem(DEVICE_KEY_STORAGE_KEY);
+}
+
+export function hasDeviceKey(): boolean {
+  return getDeviceKey() !== null;
+}
+
+/**
+ * Client for every decision-loop call (principal, decisions, traces, release lifecycle).
+ * Uses plain fetch on purpose: the legacy compatibility fetch retries 404s on another path,
+ * and a device key must never be replayed toward the legacy-key route.
+ */
+export const poseidonAuthClient = createClient(createConfig({ baseUrl: POSEIDON_AUTH_BASE }));
+
+poseidonAuthClient.interceptors.request.use((request) => {
+  const key = getDeviceKey();
+  if (key) {
+    request.headers.set("X-API-Key", key);
+  } else {
+    request.headers.delete("X-API-Key");
+  }
+  return request;
+});
