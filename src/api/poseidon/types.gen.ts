@@ -349,6 +349,28 @@ export type BatchBacktestQueryRequest = {
 };
 
 /**
+ * BootstrapRequest
+ */
+export type BootstrapRequest = {
+    /**
+     * Candidate Version Id
+     */
+    candidate_version_id: string;
+    /**
+     * Expected Active Version Id
+     */
+    expected_active_version_id: string | null;
+    /**
+     * Expected Revision
+     */
+    expected_revision: number;
+    /**
+     * Reason
+     */
+    reason: string;
+};
+
+/**
  * CampaignAPIError
  */
 export type CampaignApiError = {
@@ -2363,7 +2385,7 @@ export type ReleaseEventResponse = {
     /**
      * Event Type
      */
-    event_type: 'release' | 'pause' | 'rollback' | 'reject';
+    event_type: 'release' | 'pause' | 'rollback' | 'reject' | 'bootstrap';
     /**
      * Expected Revision
      */
@@ -2435,6 +2457,10 @@ export type ReleaseGateResponse = {
      */
     allowed: boolean;
     /**
+     * Bootstrap
+     */
+    bootstrap?: true | null;
+    /**
      * Predicates
      */
     predicates: Array<ReleasePredicateResponse>;
@@ -2451,7 +2477,7 @@ export type ReleaseMutationResponse = {
     /**
      * Event Type
      */
-    event_type: 'release' | 'pause' | 'rollback' | 'reject';
+    event_type: 'release' | 'pause' | 'rollback' | 'reject' | 'bootstrap';
     /**
      * From Version Id
      */
@@ -2531,6 +2557,10 @@ export type ReleasePredicateEvidence = {
      */
     contract_sha256?: string | null;
     /**
+     * Decision Records
+     */
+    decision_records?: number | null;
+    /**
      * Declared Trial Identity Sha256
      */
     declared_trial_identity_sha256?: string | null;
@@ -2571,6 +2601,10 @@ export type ReleasePredicateEvidence = {
      */
     newer_reconciliation_ids?: Array<string> | null;
     /**
+     * Open Position Lots
+     */
+    open_position_lots?: number | null;
+    /**
      * Owner Campaign Id
      */
     owner_campaign_id?: string | null;
@@ -2582,6 +2616,18 @@ export type ReleasePredicateEvidence = {
      * Paired Sample Sha256
      */
     paired_sample_sha256?: string | null;
+    /**
+     * Paper Accounts
+     */
+    paper_accounts?: number | null;
+    /**
+     * Paper Broker Fills
+     */
+    paper_broker_fills?: number | null;
+    /**
+     * Paper Broker Orders
+     */
+    paper_broker_orders?: number | null;
     /**
      * Policy Sha256
      */
@@ -2595,6 +2641,10 @@ export type ReleasePredicateEvidence = {
      */
     position_lot_ids?: Array<string> | null;
     /**
+     * Prior Release Events
+     */
+    prior_release_events?: number | null;
+    /**
      * Protective Exit
      */
     protective_exit?: boolean | null;
@@ -2602,6 +2652,10 @@ export type ReleasePredicateEvidence = {
      * Reconciliation Id
      */
     reconciliation_id?: string | null;
+    /**
+     * Release Revision
+     */
+    release_revision?: number | null;
     /**
      * Requires Human Release
      */
@@ -2630,6 +2684,10 @@ export type ReleasePredicateEvidence = {
      * Status
      */
     status?: 'passed' | 'failed' | 'blocked' | 'unavailable' | 'inconclusive' | null;
+    /**
+     * Stop Loss Pct
+     */
+    stop_loss_pct?: number | null;
     /**
      * Strategy Id
      */
@@ -2667,7 +2725,7 @@ export type ReleasePredicateResponse = {
     /**
      * Code
      */
-    code: 'candidate_identity' | 'policy_identity' | 'campaign_identity' | 'incumbent_pointer' | 'six_cell_evidence' | 'review_identity' | 'holdout_ownership' | 'reconciliation' | 'release_authority' | 'rollback_target' | 'rollback_policy' | 'rollback_holdings' | 'rollback_outstanding_work' | 'rollback_reconciliation';
+    code: 'candidate_identity' | 'policy_identity' | 'campaign_identity' | 'incumbent_pointer' | 'six_cell_evidence' | 'review_identity' | 'holdout_ownership' | 'reconciliation' | 'release_authority' | 'rollback_target' | 'rollback_policy' | 'rollback_holdings' | 'rollback_outstanding_work' | 'rollback_reconciliation' | 'bootstrap_eligibility' | 'protective_exit' | 'account_fresh';
     evidence: ReleasePredicateEvidence;
     /**
      * Reason
@@ -2873,7 +2931,7 @@ export type ReleaseStateResponse = {
     /**
      * Latest Event Type
      */
-    latest_event_type: 'release' | 'pause' | 'rollback' | 'reject' | null;
+    latest_event_type: 'release' | 'pause' | 'rollback' | 'reject' | 'bootstrap' | null;
     /**
      * Pointer State
      */
@@ -6887,6 +6945,56 @@ export type MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPost
 };
 
 export type MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostResponse = MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostResponses[keyof MarkProviderFailedApiV1ResearchRevisionsRevisionIdProviderFailedPostResponses];
+
+export type BootstrapStrategyApiV1StrategiesStrategyIdBootstrapPostData = {
+    body: BootstrapRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Strategy Id
+         */
+        strategy_id: string;
+    };
+    query?: never;
+    url: '/api/v1/strategies/{strategy_id}/bootstrap';
+};
+
+export type BootstrapStrategyApiV1StrategiesStrategyIdBootstrapPostErrors = {
+    /**
+     * Forbidden
+     */
+    403: ReleaseApiError;
+    /**
+     * Not Found
+     */
+    404: ReleaseApiError;
+    /**
+     * Conflict
+     */
+    409: ReleaseApiError;
+    /**
+     * Response 422 Bootstrap Strategy Api V1 Strategies  Strategy Id  Bootstrap Post
+     *
+     * Unprocessable Entity
+     */
+    422: ReleaseUnprocessableResponse | RequestValidationResponse;
+};
+
+export type BootstrapStrategyApiV1StrategiesStrategyIdBootstrapPostError = BootstrapStrategyApiV1StrategiesStrategyIdBootstrapPostErrors[keyof BootstrapStrategyApiV1StrategiesStrategyIdBootstrapPostErrors];
+
+export type BootstrapStrategyApiV1StrategiesStrategyIdBootstrapPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: ReleaseMutationResponse;
+};
+
+export type BootstrapStrategyApiV1StrategiesStrategyIdBootstrapPostResponse = BootstrapStrategyApiV1StrategiesStrategyIdBootstrapPostResponses[keyof BootstrapStrategyApiV1StrategiesStrategyIdBootstrapPostResponses];
 
 export type PauseStrategyApiV1StrategiesStrategyIdPausePostData = {
     body: PauseRequest;
