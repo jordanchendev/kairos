@@ -19,6 +19,10 @@ export const router = createBrowserRouter([
         lazy: () => import("@/routes/portfolio"),
       },
       {
+        path: "market-briefs",
+        lazy: () => import("@/routes/market-briefs"),
+      },
+      {
         path: "perp-positions",
         lazy: () => import("@/routes/perp-positions"),
       },

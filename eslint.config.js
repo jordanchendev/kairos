@@ -61,5 +61,15 @@ export default tseslint.config(
         }
       ]
     },
+  },
+  {
+    // The only raw-fetch exception: the market-brief loader reads static documents
+    // (/briefs/index.json and markdown) that Caddy proxies same-origin from a read-only file
+    // server. They are not an API and have no OpenAPI spec to generate a client from.
+    // Keep this scoped to this one file.
+    files: ["src/lib/briefs.ts"],
+    rules: {
+      "no-restricted-syntax": "off"
+    },
   }
 );

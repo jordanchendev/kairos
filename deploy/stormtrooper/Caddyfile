@@ -22,6 +22,19 @@
       }
     }
 
+    # Market briefs: read-only brief server on macminim4 (Nexus vault). GET/HEAD only, no key
+    # injected. Must stay before the SPA fallback below so an upstream 404/502 reaches the
+    # page as an error instead of index.html.
+    handle_path /briefs/* {
+      @not_read not method GET HEAD
+      respond @not_read 405
+
+      # ">" defers the header so it overrides whatever the upstream sends.
+      header /index.json >Cache-Control "no-cache"
+
+      reverse_proxy 192.168.31.241:8790
+    }
+
     root * /srv/kairos
     try_files {path} /index.html
     file_server

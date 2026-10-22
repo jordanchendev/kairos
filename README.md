@@ -44,6 +44,7 @@ Production on `stormtrooper` currently uses the Caddy-based deployment in `deplo
 
 - `/poseidon/*` -> Poseidon
 - `/triton/*` -> Triton
+- `/briefs/*` -> read-only market-brief server on macminim4 (`index.json` + markdown; GET/HEAD only)
 
 `deploy/nginx/kairos.conf` is kept as an alternative host config and follows the same proxy contract.
 
