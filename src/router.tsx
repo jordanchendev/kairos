@@ -35,6 +35,10 @@ export const router = createBrowserRouter([
         lazy: () => import("@/routes/backtesting"),
       },
       {
+        path: "pipelines",
+        lazy: () => import("@/routes/pipelines"),
+      },
+      {
         path: "strategy-lab",
         lazy: () => import("@/routes/strategy-lab"),
       },

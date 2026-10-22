@@ -6,6 +6,7 @@ services:
     environment:
       POSEIDON_API_KEY: ${POSEIDON_API_KEY}
       THALASSA_API_KEY: ${THALASSA_API_KEY}
+      KAIROS_PIPELINE_API_KEY: ${KAIROS_PIPELINE_API_KEY}
     ports:
       - "80:80"
     extra_hosts:

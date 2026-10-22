@@ -15,6 +15,7 @@ import {
   Shield,
   TestTube2,
   Waves,
+  Workflow,
 } from "lucide-react";
 
 export type NavigationItem = {
@@ -86,6 +87,13 @@ export const navigationGroups: NavigationGroup[] = [
   {
     title: "Research",
     items: [
+      {
+        description: "Strategy validation pipeline runs, stage verdicts, and attempt reports.",
+        icon: Workflow,
+        pageId: "pipelines",
+        path: "/pipelines",
+        title: "Pipelines",
+      },
       {
         description: "Strategy experimentation and hypothesis review.",
         icon: BarChart3,

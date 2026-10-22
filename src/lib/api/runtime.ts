@@ -1,4 +1,5 @@
 import { createClient, createConfig } from "@/api/poseidon/client";
+import { client as pipelineClient } from "@/api/pipeline/client.gen";
 import { client as poseidonClient } from "@/api/poseidon/client.gen";
 import { client as thalassaClient } from "@/api/thalassa/client.gen";
 import { client as tritonClient } from "@/api/triton/client.gen";
@@ -6,6 +7,8 @@ import { createPoseidonCompatibilityFetch } from "@/lib/api/poseidon-compat";
 
 export const API_PROXY_BASES = {
   poseidonApiKey: import.meta.env.VITE_POSEIDON_API_KEY,
+  // The pipeline key is injected by Caddy (KAIROS_PIPELINE_API_KEY); never a VITE_* variable.
+  pipeline: import.meta.env.VITE_PIPELINE_PROXY_BASE ?? "/pipeline",
   poseidon: import.meta.env.VITE_POSEIDON_PROXY_BASE ?? "/poseidon",
   triton: import.meta.env.VITE_TRITON_PROXY_BASE ?? "/triton",
   thalassa: import.meta.env.VITE_THALASSA_PROXY_BASE ?? "/thalassa",
@@ -25,6 +28,10 @@ export function syncRuntimeClients() {
           "X-API-Key": API_PROXY_BASES.poseidonApiKey,
         }
       : undefined,
+  });
+
+  pipelineClient.setConfig({
+    baseUrl: API_PROXY_BASES.pipeline,
   });
 
   tritonClient.setConfig({

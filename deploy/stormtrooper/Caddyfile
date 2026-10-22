@@ -12,6 +12,15 @@
       reverse_proxy host.docker.internal:8001
     }
 
+    # Strategy pipeline runner (Poseidon feat/strategy-pipeline, localhost:8011 on this host).
+    # KAIROS_PIPELINE_API_KEY is a dedicated principal key (viewer + researcher); it is NOT
+    # the legacy Poseidon key. Writes (rerun/abort) need the researcher role.
+    handle_path /pipeline/* {
+      reverse_proxy host.docker.internal:8011 {
+        header_up X-API-Key {$KAIROS_PIPELINE_API_KEY}
+      }
+    }
+
     handle_path /triton/* {
       reverse_proxy host.docker.internal:8000
     }
