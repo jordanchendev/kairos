@@ -56,7 +56,8 @@ function ActionButton({
         className="min-h-11"
         disabled={!enabled}
         onClick={onClick}
-        variant={variant}
+        // A dimmed destructive fill still reads as clickable; disabled actions fall back to outline.
+        variant={enabled ? variant : "outline"}
       >
         {label}
       </Button>
