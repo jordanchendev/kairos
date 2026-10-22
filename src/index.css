@@ -21,10 +21,16 @@
   --sidebar-accent: 221 24% 17%;
   --sidebar-border: 223 20% 20%;
   --radius: 1rem;
+  /* Market direction, Taiwan convention: up = red, down = green (light values). */
+  --trend-up: 3 65% 54%; /* #d6453d */
+  --trend-down: 152 55% 40%; /* #2e9e6a */
 }
 
 .dark {
   color-scheme: dark;
+  /* Lighter steps for the dark surfaces: >= 5.2:1 on card, panel, muted, and the 10% tint. */
+  --trend-up: 3 85% 72%; /* #f4817b */
+  --trend-down: 152 52% 58%; /* #5ccc98 */
 }
 
 * {
@@ -79,4 +85,21 @@ select {
     linear-gradient(90deg, hsla(0 0% 100% / 0.03) 1px, transparent 1px);
   background-position: center center;
   background-size: 32px 32px;
+}
+
+/* ▲ / ▼ markers in market briefs; the glyph stays, colour is a second signal. */
+.trend-up {
+  color: hsl(var(--trend-up));
+}
+
+.trend-down {
+  color: hsl(var(--trend-down));
+}
+
+td.trend-up {
+  background-color: hsl(var(--trend-up) / 0.1);
+}
+
+td.trend-down {
+  background-color: hsl(var(--trend-down) / 0.1);
 }

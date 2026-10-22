@@ -3,13 +3,16 @@ import type { CSSProperties } from "react";
 import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+import rehypeTrend from "@/features/market-briefs/rehype-trend";
 import { cn } from "@/lib/cn";
 
 function isRightAligned(style: CSSProperties | undefined) {
   return style?.textAlign === "right";
 }
 
-// Element map only: raw HTML is never rendered (no rehype-raw, skipHtml below).
+// Element map only: raw HTML is never rendered (no rehype-raw, skipHtml below). Inline
+// <span style="color:…"> wrappers in the source are dropped; their text keeps the ▲/▼
+// colouring from rehypeTrend via the trend-up / trend-down classes (src/index.css).
 const components: Components = {
   a: ({ children, href, title }) => (
     <a
@@ -53,11 +56,12 @@ const components: Components = {
       <table className="w-full min-w-max border-collapse text-sm">{children}</table>
     </div>
   ),
-  td: ({ children, style }) => (
+  td: ({ children, className, style }) => (
     <td
       className={cn(
         "border-t border-[hsl(var(--border))] px-3 py-2 align-top text-[hsl(var(--foreground))]",
         isRightAligned(style) && "whitespace-nowrap tabular-nums",
+        className,
       )}
       style={style}
     >
@@ -77,6 +81,7 @@ const components: Components = {
 };
 
 const remarkPlugins = [remarkGfm];
+const rehypePlugins = [rehypeTrend];
 
 type BriefMarkdownProps = {
   markdown: string;
@@ -85,7 +90,7 @@ type BriefMarkdownProps = {
 export function BriefMarkdown({ markdown }: BriefMarkdownProps) {
   return (
     <div className="min-w-0 text-[hsl(var(--foreground))]" data-brief-markdown="">
-      <Markdown components={components} remarkPlugins={remarkPlugins} skipHtml>
+      <Markdown components={components} rehypePlugins={rehypePlugins} remarkPlugins={remarkPlugins} skipHtml>
         {markdown}
       </Markdown>
     </div>
