@@ -11,6 +11,7 @@ const workspaceRoot = path.resolve(repoRoot, "..");
 const defaultPoseidonInput = "./.cache-specs/poseidon/openapi.json";
 const defaultTritonInput = "./.cache-specs/triton/openapi.json";
 const defaultThalassaInput = "./.cache-specs/thalassa/openapi.json";
+const defaultPipelineInput = "./.cache-specs/pipeline/openapi.json";
 
 const openapiService = process.env.OPENAPI_SERVICE ?? "";
 if (openapiService !== "" && openapiService !== "poseidon") {
@@ -22,6 +23,7 @@ const poseidonOnly = openapiService === "poseidon";
 const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? defaultPoseidonInput;
 const tritonInput = process.env.OPENAPI_TRITON_INPUT ?? defaultTritonInput;
 const thalassaInput = process.env.OPENAPI_THALASSA_INPUT ?? defaultThalassaInput;
+const pipelineInput = process.env.OPENAPI_PIPELINE_INPUT ?? defaultPipelineInput;
 
 async function ensureReadable(filePath) {
   await access(filePath);
@@ -107,12 +109,59 @@ sys.stdout.write("\\n")
   await writeFile(thalassaCachePath, result.stdout, "utf8");
 }
 
+// The strategy-pipeline runner is a separate FastAPI app inside the Poseidon repo
+// (branch feat/strategy-pipeline, poseidon.pipeline.app). Set OPENAPI_PIPELINE_INPUT to a spec
+// file or URL (e.g. http://localhost:8011/openapi.json on stormtrooper) to skip the local build.
+// Importing the app asserts an isolated pipeline database, so the local build also needs
+// POSEIDON_DATABASE_URL pointing at one.
+async function syncPipelineSpec() {
+  if (pipelineInput !== defaultPipelineInput) {
+    return;
+  }
+
+  const poseidonRoot = path.join(workspaceRoot, "poseidon");
+  const poseidonPython = path.join(poseidonRoot, ".venv", "bin", "python");
+  const cacheDir = path.join(repoRoot, ".cache-specs", "pipeline");
+  const pythonCode = `
+import json
+import sys
+from poseidon.pipeline.app import app
+
+json.dump(app.openapi(), sys.stdout, indent=2)
+sys.stdout.write("\\n")
+`.trim();
+
+  await mkdir(cacheDir, { recursive: true });
+
+  const result = spawnSync(poseidonPython, ["-c", pythonCode], {
+    cwd: poseidonRoot,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      PYTHONPATH: path.join(poseidonRoot, "src"),
+    },
+  });
+
+  if (result.status !== 0) {
+    throw new Error(result.stderr || "Failed to generate Pipeline OpenAPI spec");
+  }
+
+  if (!result.stdout.trim()) {
+    throw new Error("Generated Pipeline OpenAPI spec was empty");
+  }
+
+  await writeFile(path.join(cacheDir, "openapi.json"), result.stdout, "utf8");
+}
+
 async function verifyInputs() {
   if (tritonInput === defaultTritonInput) {
     await ensureReadable(path.join(repoRoot, ".cache-specs", "triton", "openapi.json"));
   }
   if (thalassaInput === defaultThalassaInput) {
     await ensureReadable(path.join(repoRoot, ".cache-specs", "thalassa", "openapi.json"));
+  }
+  if (pipelineInput === defaultPipelineInput) {
+    await ensureReadable(path.join(repoRoot, ".cache-specs", "pipeline", "openapi.json"));
   }
 }
 
@@ -130,6 +179,7 @@ async function main() {
   }
   await syncPoseidonSpec();
   await syncThalassaSpec();
+  await syncPipelineSpec();
   await verifyInputs();
 }
 

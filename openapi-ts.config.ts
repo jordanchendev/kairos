@@ -23,6 +23,7 @@ if (service === "poseidon" && !process.env.OPENAPI_POSEIDON_INPUT?.trim()) {
 const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? "./.cache-specs/poseidon/openapi.json";
 const tritonInput = process.env.OPENAPI_TRITON_INPUT ?? "./.cache-specs/triton/openapi.json";
 const thalassaInput = process.env.OPENAPI_THALASSA_INPUT ?? "./.cache-specs/thalassa/openapi.json";
+const pipelineInput = process.env.OPENAPI_PIPELINE_INPUT ?? "./.cache-specs/pipeline/openapi.json";
 
 const targets: UserConfig[] = [
   {
@@ -46,6 +47,14 @@ const targets: UserConfig[] = [
     output: {
       lint: "eslint",
       path: "src/api/thalassa",
+    },
+    plugins: sharedPlugins,
+  },
+  {
+    input: pipelineInput,
+    output: {
+      lint: "eslint",
+      path: "src/api/pipeline",
     },
     plugins: sharedPlugins,
   },
