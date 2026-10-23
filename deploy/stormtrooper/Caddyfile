@@ -25,7 +25,18 @@
       reverse_proxy host.docker.internal:8000
     }
 
+    # Thalassa: read-only through this proxy. The injected key can write upstream, so
+    # anything but GET/HEAD is refused here; POST /api/v1/ohlcv/batch is a batch read.
     handle_path /thalassa/* {
+      @not_read {
+        not method GET HEAD
+        not {
+          method POST
+          path /api/v1/ohlcv/batch
+        }
+      }
+      respond @not_read 405
+
       reverse_proxy 192.168.31.241:8001 {
         header_up X-API-Key {$THALASSA_API_KEY}
       }
