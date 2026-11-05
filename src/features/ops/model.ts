@@ -112,6 +112,6 @@ export function feedView(feed: Feed | undefined): FeedView {
   }
   const detail = feed.note ?? `自 ${formatUtc(feed.failing_since)} 起讀不到（${feed.error ?? "原因不明"}）`;
   return feed.long
-    ? { detail, title: "中斷超過 60 分鐘", tone: "danger" }
+    ? { detail, title: "中斷", tone: "danger" }
     : { detail, title: "讀不到", tone: "warning" };
 }

@@ -203,7 +203,7 @@ export function OpsBoardView({ board, fetchFailed = false, nowMs }: OpsBoardView
       {feedState.tone === "danger" || feedState.tone === "warning" ? (
         <Banner tone={feedState.tone}>
           <span data-feed-outage={feed?.long ? "long" : "short"}>
-            macminim4 資料來源{feedState.title}：{feedState.detail}
+            macminim4 資料來源{feed?.long ? "中斷超過 60 分鐘" : feedState.title}：{feedState.detail}
           </span>
         </Banner>
       ) : null}
