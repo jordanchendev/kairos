@@ -14,6 +14,11 @@ export const monitoringQueryDefaults = {
     refetchInterval: 20 * second,
     staleTime: 10 * second,
   },
+  // board.json is rewritten every 5 minutes; a minute keeps the page at most one tick behind.
+  ops: {
+    refetchInterval: minute,
+    staleTime: 30 * second,
+  },
   overview: {
     refetchInterval: 30 * second,
     staleTime: 15 * second,

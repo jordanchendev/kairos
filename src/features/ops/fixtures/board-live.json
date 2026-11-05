@@ -1,0 +1,206 @@
+{
+ "now": "2026-11-05T15:26:01Z",
+ "needs_attention": [],
+ "pipelines": [
+  {
+   "id": "market-brief",
+   "name": "日報 4 時段",
+   "host": "stormtrooper",
+   "state": "ok",
+   "label": "正常",
+   "needs_attention": false,
+   "reason": "us-postmarket 2026-11-04 已送達",
+   "expected_at": "2026-11-04T21:15:00Z",
+   "deadline_at": "2026-11-04T21:25:00Z",
+   "evidence_at": "2026-11-04T21:15:27Z",
+   "grace_minutes": 10,
+   "parts": [
+    {
+     "part": "us-postmarket",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "us-postmarket 2026-11-04 已送達",
+     "expected_at": "2026-11-04T21:15:00Z",
+     "deadline_at": "2026-11-04T21:25:00Z",
+     "evidence_at": "2026-11-04T21:15:27Z"
+    },
+    {
+     "part": "tw-premarket",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "tw-premarket 2026-11-05 已送達",
+     "expected_at": "2026-11-05T00:15:00Z",
+     "deadline_at": "2026-11-05T00:25:00Z",
+     "evidence_at": "2026-11-05T00:15:36Z"
+    },
+    {
+     "part": "tw-postmarket",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "tw-postmarket 2026-11-05 已送達",
+     "expected_at": "2026-11-05T09:45:00Z",
+     "deadline_at": "2026-11-05T09:55:00Z",
+     "evidence_at": "2026-11-05T09:45:34Z"
+    },
+    {
+     "part": "us-premarket",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "us-premarket 2026-11-05 已送達",
+     "expected_at": "2026-11-05T12:45:00Z",
+     "deadline_at": "2026-11-05T12:55:00Z",
+     "evidence_at": "2026-11-05T12:45:32Z"
+    }
+   ]
+  },
+  {
+   "id": "research-runner",
+   "name": "研究 runner",
+   "host": "stormtrooper",
+   "state": "ok",
+   "label": "正常",
+   "needs_attention": false,
+   "reason": "11-05 06:30Z 那一輪沒有待辦，正常結束",
+   "expected_at": "2026-11-05T06:30:00Z",
+   "deadline_at": "2026-11-05T06:40:00Z",
+   "evidence_at": "2026-11-05T06:30:02Z",
+   "grace_minutes": 10,
+   "parts": [
+    {
+     "part": "runner",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "11-05 06:30Z 那一輪沒有待辦，正常結束",
+     "expected_at": "2026-11-05T06:30:00Z",
+     "deadline_at": "2026-11-05T06:40:00Z",
+     "evidence_at": "2026-11-05T06:30:02Z"
+    }
+   ]
+  },
+  {
+   "id": "strategy-pipeline",
+   "name": "策略 pipeline",
+   "host": "stormtrooper",
+   "state": "ok",
+   "label": "正常",
+   "needs_attention": false,
+   "reason": "scout 20261105 的 1 個提案已送達",
+   "expected_at": "2026-11-04T23:30:00Z",
+   "deadline_at": "2026-11-04T23:40:00Z",
+   "evidence_at": "2026-11-04T23:32:15Z",
+   "grace_minutes": 10,
+   "parts": [
+    {
+     "part": "scout",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "scout 20261105 的 1 個提案已送達",
+     "expected_at": "2026-11-04T23:30:00Z",
+     "deadline_at": "2026-11-04T23:40:00Z",
+     "evidence_at": "2026-11-04T23:32:15Z"
+    },
+    {
+     "part": "runs",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "沒有通知過 error / aborted 的未結案 run（其他未結案 1 個）",
+     "expected_at": null,
+     "deadline_at": null,
+     "evidence_at": null
+    }
+   ]
+  },
+  {
+   "id": "research-scout",
+   "name": "research-scout",
+   "host": "macminim4",
+   "state": "ok",
+   "label": "正常",
+   "needs_attention": false,
+   "reason": "11-05 00:30Z 那次 ok",
+   "expected_at": "2026-11-05T00:30:00Z",
+   "deadline_at": "2026-11-05T00:45:00Z",
+   "evidence_at": "2026-11-05T00:30:00Z",
+   "grace_minutes": 15,
+   "parts": [
+    {
+     "part": "scout",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "11-05 00:30Z 那次 ok",
+     "expected_at": "2026-11-05T00:30:00Z",
+     "deadline_at": "2026-11-05T00:45:00Z",
+     "evidence_at": "2026-11-05T00:30:00Z"
+    }
+   ]
+  },
+  {
+   "id": "thalassa-freshness",
+   "name": "Thalassa 資料新鮮度檢查",
+   "host": "macminim4",
+   "state": "ok",
+   "label": "正常",
+   "needs_attention": false,
+   "reason": "11-05 06:45Z 那次 ok",
+   "expected_at": "2026-11-05T06:45:00Z",
+   "deadline_at": "2026-11-05T06:55:00Z",
+   "evidence_at": "2026-11-05T06:45:00Z",
+   "grace_minutes": 10,
+   "parts": [
+    {
+     "part": "check",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "11-05 06:45Z 那次 ok",
+     "expected_at": "2026-11-05T06:45:00Z",
+     "deadline_at": "2026-11-05T06:55:00Z",
+     "evidence_at": "2026-11-05T06:45:00Z"
+    }
+   ]
+  },
+  {
+   "id": "preopen-watcher",
+   "name": "試撮觀察器",
+   "host": "macminim4",
+   "state": "ok",
+   "label": "正常",
+   "needs_attention": false,
+   "reason": "交易日 2026-11-05 的 status ok",
+   "expected_at": "2026-11-05T00:22:00Z",
+   "deadline_at": "2026-11-05T00:30:00Z",
+   "evidence_at": "2026-11-05T01:05:03Z",
+   "grace_minutes": 8,
+   "parts": [
+    {
+     "part": "session",
+     "state": "ok",
+     "label": "正常",
+     "needs_attention": false,
+     "reason": "交易日 2026-11-05 的 status ok",
+     "expected_at": "2026-11-05T00:22:00Z",
+     "deadline_at": "2026-11-05T00:30:00Z",
+     "evidence_at": "2026-11-05T01:05:03Z"
+    }
+   ]
+  }
+ ],
+ "feeds": {
+  "macminim4": {
+   "ok": true,
+   "last_ok_at": "2026-11-05T15:26:01Z",
+   "failing_since": null,
+   "error": null,
+   "long": false
+  }
+ },
+ "notify": {}
+}

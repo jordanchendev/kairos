@@ -10,6 +10,7 @@ import {
   Gauge,
   LayoutDashboard,
   LineChart,
+  ListChecks,
   Newspaper,
   Server,
   Shield,
@@ -180,6 +181,13 @@ export const navigationGroups: NavigationGroup[] = [
         pageId: "infrastructure",
         path: "/infrastructure",
         title: "Infrastructure",
+      },
+      {
+        description: "Scheduled pipelines: which need attention, last expected run, evidence. Read-only.",
+        icon: ListChecks,
+        pageId: "ops",
+        path: "/ops",
+        title: "流水線狀態",
       },
       {
         description: "Triton transcription task queue and handoff state.",

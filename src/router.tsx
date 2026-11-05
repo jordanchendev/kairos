@@ -75,6 +75,10 @@ export const router = createBrowserRouter([
         lazy: () => import("@/routes/infrastructure"),
       },
       {
+        path: "ops",
+        lazy: () => import("@/routes/ops"),
+      },
+      {
         path: "transcription-tasks",
         lazy: () => import("@/routes/transcription-tasks"),
       },
