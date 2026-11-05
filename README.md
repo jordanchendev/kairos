@@ -45,17 +45,14 @@ Production on `stormtrooper` currently uses the Caddy-based deployment in `deplo
 - `/poseidon/*` -> Poseidon
 - `/triton/*` -> Triton
 - `/briefs/*` -> read-only market-brief server on macminim4 (`index.json` + markdown; GET/HEAD only)
+- `/ops/board.json` -> the pipeline status board, a static file from a read-only mount of `~/pipeline-status/public` (page `/ops`; spec `openapi/ops.json`, client `src/api/ops`, regenerate with `OPENAPI_SERVICE=ops npm run api:generate`)
 
 `deploy/nginx/kairos.conf` is kept as an alternative host config and follows the same proxy contract.
 
-Typical flow:
-
-```bash
-npm run build
-STORMTROOPER_HOST=stormtrooper-lan \
-STORMTROOPER_DEPLOY_PATH=/srv/www/kairos \
-npm run deploy:stormtrooper
-```
+Deploys are owner-run packages in the aquarium workspace (`local_dev/scripts/kairos/deploy-kairos-*.sh`): they ship a
+git bundle into `~/Projects/kairos`, build `dist` on stormtrooper and recreate `kairos-proxy` with `docker compose up -d`,
+which reads `deploy/stormtrooper/.env` itself. The old `scripts/deploy-stormtrooper.sh` (pulled a key out of a running
+container) is retired.
 
 After deployment, run:
 

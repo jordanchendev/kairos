@@ -14,7 +14,6 @@
     "api:generate": "npm run api:sync-specs && openapi-ts",
     "api:generate:watch": "openapi-ts --watch",
     "api:check": "node -e \"const fs=require('node:fs'); const ok=(value)=> value.startsWith('http') ? fetch(value).then((response)=>{ if(!response.ok) throw new Error(value); }) : Promise.resolve(fs.accessSync(value, fs.constants.R_OK)); Promise.all([ok(process.env.OPENAPI_POSEIDON_INPUT || './.cache-specs/poseidon/openapi.json'), ok(process.env.OPENAPI_TRITON_INPUT || './.cache-specs/triton/openapi.json')]).catch((error)=>{ console.error(error.message); process.exit(1); });\"",
-    "deploy:stormtrooper": "bash ./scripts/deploy-stormtrooper.sh",
     "smoke:prod": "bash ./scripts/smoke-prod.sh"
   },
   "dependencies": {
