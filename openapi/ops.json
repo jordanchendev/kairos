@@ -1,0 +1,117 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Pipeline status board",
+    "version": "1",
+    "description": "Hand-written: the board is a static file, not an API. aquarium local_dev/scripts/strategy-bridge/stormtrooper/pipeline_tick.py rewrites ~/pipeline-status/public/board.json on stormtrooper every 5 minutes (pipeline_status.collect() plus feeds and notify); Caddy serves that directory read-only under /ops. Keep this file in step with those two scripts."
+  },
+  "paths": {
+    "/board.json": {
+      "get": {
+        "operationId": "getBoard",
+        "summary": "The current pipeline status board",
+        "responses": {
+          "200": {
+            "description": "The board as the last tick wrote it",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Board" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PipelineState": {
+        "type": "string",
+        "description": "Most severe first: failed, late, unknown, running, ok, closed.",
+        "enum": ["failed", "late", "unknown", "running", "ok", "closed"]
+      },
+      "Verdict": {
+        "type": "object",
+        "required": ["state", "label", "needs_attention", "reason", "expected_at", "deadline_at", "evidence_at"],
+        "properties": {
+          "state": { "$ref": "#/components/schemas/PipelineState" },
+          "label": { "type": "string", "description": "zh-TW label of state" },
+          "needs_attention": {
+            "type": "boolean",
+            "description": "failed, or late past expected_at + grace_minutes (owner D-20261105-02)"
+          },
+          "reason": { "type": "string" },
+          "expected_at": { "type": ["string", "null"], "format": "date-time" },
+          "deadline_at": { "type": ["string", "null"], "format": "date-time" },
+          "evidence_at": { "type": ["string", "null"], "format": "date-time" }
+        }
+      },
+      "Part": {
+        "allOf": [
+          { "$ref": "#/components/schemas/Verdict" },
+          {
+            "type": "object",
+            "required": ["part"],
+            "properties": { "part": { "type": "string" } }
+          }
+        ]
+      },
+      "Pipeline": {
+        "description": "The pipeline's own verdict is its worst part.",
+        "allOf": [
+          { "$ref": "#/components/schemas/Verdict" },
+          {
+            "type": "object",
+            "required": ["id", "name", "host", "grace_minutes", "parts"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "host": { "type": "string" },
+              "grace_minutes": { "type": "integer" },
+              "parts": { "type": "array", "items": { "$ref": "#/components/schemas/Part" } }
+            }
+          }
+        ]
+      },
+      "Feed": {
+        "type": "object",
+        "description": "Whether the macminim4 bridge answered the last tick.",
+        "required": ["ok", "last_ok_at", "failing_since", "error", "long"],
+        "properties": {
+          "ok": { "type": "boolean" },
+          "last_ok_at": { "type": ["string", "null"], "format": "date-time" },
+          "failing_since": { "type": ["string", "null"], "format": "date-time" },
+          "error": { "type": ["string", "null"] },
+          "long": { "type": "boolean", "description": "failing for 60 minutes or more" },
+          "note": { "type": "string", "description": "present while failing_since is set" }
+        }
+      },
+      "PendingPush": {
+        "type": "object",
+        "required": ["to", "error"],
+        "properties": {
+          "to": { "type": "string", "enum": ["red", "ok"] },
+          "error": { "type": ["string", "null"] }
+        }
+      },
+      "Board": {
+        "type": "object",
+        "required": ["now", "needs_attention", "pipelines"],
+        "properties": {
+          "now": { "type": "string", "format": "date-time", "description": "when the tick wrote the board" },
+          "needs_attention": { "type": "array", "items": { "type": "string" } },
+          "pipelines": { "type": "array", "items": { "$ref": "#/components/schemas/Pipeline" } },
+          "feeds": {
+            "type": "object",
+            "properties": { "macminim4": { "$ref": "#/components/schemas/Feed" } }
+          },
+          "notify": {
+            "type": "object",
+            "description": "pipeline id -> push still waiting for the bridge",
+            "additionalProperties": { "$ref": "#/components/schemas/PendingPush" }
+          }
+        }
+      }
+    }
+  }
+}

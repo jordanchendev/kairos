@@ -13,7 +13,7 @@ const sharedPlugins: UserConfig["plugins"] = [
 ];
 
 const service = process.env.OPENAPI_SERVICE ?? "";
-if (service !== "" && service !== "poseidon") {
+if (service !== "" && service !== "poseidon" && service !== "ops") {
   throw new Error(`Unsupported OPENAPI_SERVICE: ${service}`);
 }
 if (service === "poseidon" && !process.env.OPENAPI_POSEIDON_INPUT?.trim()) {
@@ -24,6 +24,8 @@ const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? "./.cache-specs/pose
 const tritonInput = process.env.OPENAPI_TRITON_INPUT ?? "./.cache-specs/triton/openapi.json";
 const thalassaInput = process.env.OPENAPI_THALASSA_INPUT ?? "./.cache-specs/thalassa/openapi.json";
 const pipelineInput = process.env.OPENAPI_PIPELINE_INPUT ?? "./.cache-specs/pipeline/openapi.json";
+// Checked in, not synced: the board is a static file with a hand-written spec.
+const opsInput = "./openapi/ops.json";
 
 const targets: UserConfig[] = [
   {
@@ -58,6 +60,20 @@ const targets: UserConfig[] = [
     },
     plugins: sharedPlugins,
   },
+  {
+    input: opsInput,
+    output: {
+      lint: "eslint",
+      path: "src/api/ops",
+    },
+    plugins: sharedPlugins,
+  },
 ];
 
-export default defineConfig(service === "poseidon" ? targets.slice(0, 1) : targets);
+const selected: Record<string, UserConfig[]> = {
+  "": targets,
+  ops: targets.slice(-1),
+  poseidon: targets.slice(0, 1),
+};
+
+export default defineConfig(selected[service]);

@@ -14,7 +14,7 @@ const defaultThalassaInput = "./.cache-specs/thalassa/openapi.json";
 const defaultPipelineInput = "./.cache-specs/pipeline/openapi.json";
 
 const openapiService = process.env.OPENAPI_SERVICE ?? "";
-if (openapiService !== "" && openapiService !== "poseidon") {
+if (openapiService !== "" && openapiService !== "poseidon" && openapiService !== "ops") {
   console.error(`Unsupported OPENAPI_SERVICE: ${openapiService}`);
   process.exit(1);
 }
@@ -173,6 +173,10 @@ async function verifyPoseidonOnlyInput() {
 }
 
 async function main() {
+  if (openapiService === "ops") {
+    // openapi/ops.json is checked in; nothing to sync.
+    return;
+  }
   if (poseidonOnly) {
     await verifyPoseidonOnlyInput();
     return;
