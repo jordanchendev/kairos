@@ -55,6 +55,25 @@
       reverse_proxy 192.168.31.241:8790
     }
 
+    # Pipeline status board (page /ops): board.json from a read-only mount of
+    # ~/pipeline-status/public only, rewritten atomically every 5 minutes by aquarium
+    # pipeline_tick.py. GET/HEAD and that one file; nothing else in the directory (the
+    # tick's .tmp-* files) is served, no listing, no key. Must stay before the SPA
+    # fallback so a missing file is a 404 instead of index.html.
+    handle_path /ops/* {
+      @not_read not method GET HEAD
+      respond @not_read 405
+
+      @not_board not path /board.json
+      respond @not_board 404
+
+      header Content-Type "application/json; charset=utf-8"
+      header Cache-Control "no-cache"
+
+      root * /srv/ops
+      file_server
+    }
+
     root * /srv/kairos
     try_files {path} /index.html
     file_server

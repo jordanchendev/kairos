@@ -14,6 +14,7 @@ services:
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - /home/jordan/Projects/kairos/dist:/srv/kairos:ro
+      - /home/jordan/pipeline-status/public:/srv/ops:ro
       - kairos_caddy_data:/data
       - kairos_caddy_config:/config
 
