@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { BatchGetOhlcvApiV1OhlcvBatchPostData, BatchGetOhlcvApiV1OhlcvBatchPostErrors, BatchGetOhlcvApiV1OhlcvBatchPostResponses, GetCoverageApiV1CoverageGetData, GetCoverageApiV1CoverageGetErrors, GetCoverageApiV1CoverageGetResponses, GetFreshnessApiV1FreshnessGetData, GetFreshnessApiV1FreshnessGetErrors, GetFreshnessApiV1FreshnessGetResponses, GetFundamentalsApiV1FundamentalsGetData, GetFundamentalsApiV1FundamentalsGetErrors, GetFundamentalsApiV1FundamentalsGetResponses, GetFundamentalsDfApiV1NonpriceFundamentalGetData, GetFundamentalsDfApiV1NonpriceFundamentalGetErrors, GetFundamentalsDfApiV1NonpriceFundamentalGetResponses, GetFundingRatesApiV1FundingRatesGetData, GetFundingRatesApiV1FundingRatesGetErrors, GetFundingRatesApiV1FundingRatesGetResponses, GetGapsApiV1GapsGetData, GetGapsApiV1GapsGetErrors, GetGapsApiV1GapsGetResponses, GetInstitutionalFlowApiV1NonpriceInstitutionalGetData, GetInstitutionalFlowApiV1NonpriceInstitutionalGetErrors, GetInstitutionalFlowApiV1NonpriceInstitutionalGetResponses, GetLatestFundingRateApiV1PerpLatestFundingRateGetData, GetLatestFundingRateApiV1PerpLatestFundingRateGetErrors, GetLatestFundingRateApiV1PerpLatestFundingRateGetResponses, GetLatestPriceApiV1PerpLatestPriceGetData, GetLatestPriceApiV1PerpLatestPriceGetErrors, GetLatestPriceApiV1PerpLatestPriceGetResponses, GetMacroApiV1MacroGetData, GetMacroApiV1MacroGetErrors, GetMacroApiV1MacroGetResponses, GetMarginTransactionsApiV1NonpriceMarginGetData, GetMarginTransactionsApiV1NonpriceMarginGetErrors, GetMarginTransactionsApiV1NonpriceMarginGetResponses, GetOhlcvApiV1OhlcvGetData, GetOhlcvApiV1OhlcvGetErrors, GetOhlcvApiV1OhlcvGetResponses, GetOpenInterestApiV1OpenInterestGetData, GetOpenInterestApiV1OpenInterestGetErrors, GetOpenInterestApiV1OpenInterestGetResponses, GetPerpOhlcvApiV1PerpOhlcvGetData, GetPerpOhlcvApiV1PerpOhlcvGetErrors, GetPerpOhlcvApiV1PerpOhlcvGetResponses, GetProviderHealthApiV1DataQualityProvidersGetData, GetProviderHealthApiV1DataQualityProvidersGetResponses, GetQualityScoresApiV1DataQualityScoresGetData, GetQualityScoresApiV1DataQualityScoresGetErrors, GetQualityScoresApiV1DataQualityScoresGetResponses, GetSentimentApiV1SentimentGetData, GetSentimentApiV1SentimentGetErrors, GetSentimentApiV1SentimentGetResponses, GetTradeStructureApiV1NonpriceTradeStructureGetData, GetTradeStructureApiV1NonpriceTradeStructureGetErrors, GetTradeStructureApiV1NonpriceTradeStructureGetResponses, HealthHealthGetData, HealthHealthGetResponses, UpsertOhlcvApiV1OhlcvPostData, UpsertOhlcvApiV1OhlcvPostErrors, UpsertOhlcvApiV1OhlcvPostResponses, WriteFundamentalsApiV1FundamentalsPostData, WriteFundamentalsApiV1FundamentalsPostErrors, WriteFundamentalsApiV1FundamentalsPostResponses, WriteSentimentApiV1SentimentPostData, WriteSentimentApiV1SentimentPostErrors, WriteSentimentApiV1SentimentPostResponses } from './types.gen';
+import type { BatchGetOhlcvApiV1OhlcvBatchPostData, BatchGetOhlcvApiV1OhlcvBatchPostErrors, BatchGetOhlcvApiV1OhlcvBatchPostResponses, CancelBackfillApiV1BackfillJobIdCancelPostData, CancelBackfillApiV1BackfillJobIdCancelPostErrors, CancelBackfillApiV1BackfillJobIdCancelPostResponses, CorporateActionsApiV1TwCorporateActionsGetData, CorporateActionsApiV1TwCorporateActionsGetErrors, CorporateActionsApiV1TwCorporateActionsGetResponses, CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetData, CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetResponses, CreateBackfillApiV1BackfillPostData, CreateBackfillApiV1BackfillPostErrors, CreateBackfillApiV1BackfillPostResponses, CreditMarketApiV1TwCreditMarketGetData, CreditMarketApiV1TwCreditMarketGetErrors, CreditMarketApiV1TwCreditMarketGetResponses, CreditScreenApiV1TwCreditScreenGetData, CreditScreenApiV1TwCreditScreenGetErrors, CreditScreenApiV1TwCreditScreenGetResponses, CreditStockApiV1TwCreditStockGetData, CreditStockApiV1TwCreditStockGetErrors, CreditStockApiV1TwCreditStockGetResponses, GetActiveRiskFiltersApiV1RiskFiltersActiveGetData, GetActiveRiskFiltersApiV1RiskFiltersActiveGetErrors, GetActiveRiskFiltersApiV1RiskFiltersActiveGetResponses, GetBackfillStatusApiV1BackfillJobIdGetData, GetBackfillStatusApiV1BackfillJobIdGetErrors, GetBackfillStatusApiV1BackfillJobIdGetResponses, GetCoverageApiV1CoverageGetData, GetCoverageApiV1CoverageGetErrors, GetCoverageApiV1CoverageGetResponses, GetFinancialStatementApiV1NonpriceFinancialStatementGetData, GetFinancialStatementApiV1NonpriceFinancialStatementGetErrors, GetFinancialStatementApiV1NonpriceFinancialStatementGetResponses, GetForeignHoldingApiV1NonpriceForeignHoldingGetData, GetForeignHoldingApiV1NonpriceForeignHoldingGetErrors, GetForeignHoldingApiV1NonpriceForeignHoldingGetResponses, GetFreshnessApiV1FreshnessGetData, GetFreshnessApiV1FreshnessGetErrors, GetFreshnessApiV1FreshnessGetResponses, GetFundamentalsApiV1FundamentalsGetData, GetFundamentalsApiV1FundamentalsGetErrors, GetFundamentalsApiV1FundamentalsGetResponses, GetFundamentalsDfApiV1NonpriceFundamentalGetData, GetFundamentalsDfApiV1NonpriceFundamentalGetErrors, GetFundamentalsDfApiV1NonpriceFundamentalGetResponses, GetFundingRatesApiV1FundingRatesGetData, GetFundingRatesApiV1FundingRatesGetErrors, GetFundingRatesApiV1FundingRatesGetResponses, GetGapsApiV1GapsGetData, GetGapsApiV1GapsGetErrors, GetGapsApiV1GapsGetResponses, GetInstitutionalFlowApiV1NonpriceInstitutionalGetData, GetInstitutionalFlowApiV1NonpriceInstitutionalGetErrors, GetInstitutionalFlowApiV1NonpriceInstitutionalGetResponses, GetLatestFundingRateApiV1PerpLatestFundingRateGetData, GetLatestFundingRateApiV1PerpLatestFundingRateGetErrors, GetLatestFundingRateApiV1PerpLatestFundingRateGetResponses, GetLatestPriceApiV1PerpLatestPriceGetData, GetLatestPriceApiV1PerpLatestPriceGetErrors, GetLatestPriceApiV1PerpLatestPriceGetResponses, GetMacroApiV1MacroGetData, GetMacroApiV1MacroGetErrors, GetMacroApiV1MacroGetResponses, GetMarginTransactionsApiV1NonpriceMarginGetData, GetMarginTransactionsApiV1NonpriceMarginGetErrors, GetMarginTransactionsApiV1NonpriceMarginGetResponses, GetMarketValueApiV1NonpriceMarketValueGetData, GetMarketValueApiV1NonpriceMarketValueGetErrors, GetMarketValueApiV1NonpriceMarketValueGetResponses, GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetData, GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetErrors, GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetResponses, GetOhlcvApiV1OhlcvGetData, GetOhlcvApiV1OhlcvGetErrors, GetOhlcvApiV1OhlcvGetResponses, GetOpenInterestApiV1OpenInterestGetData, GetOpenInterestApiV1OpenInterestGetErrors, GetOpenInterestApiV1OpenInterestGetResponses, GetPePbrApiV1NonpricePePbrGetData, GetPePbrApiV1NonpricePePbrGetErrors, GetPePbrApiV1NonpricePePbrGetResponses, GetPerpOhlcvApiV1PerpOhlcvGetData, GetPerpOhlcvApiV1PerpOhlcvGetErrors, GetPerpOhlcvApiV1PerpOhlcvGetResponses, GetProviderHealthApiV1DataQualityProvidersGetData, GetProviderHealthApiV1DataQualityProvidersGetResponses, GetQualityFactorApiV1NonpriceQualityFactorGetData, GetQualityFactorApiV1NonpriceQualityFactorGetErrors, GetQualityFactorApiV1NonpriceQualityFactorGetResponses, GetQualityScoresApiV1DataQualityScoresGetData, GetQualityScoresApiV1DataQualityScoresGetErrors, GetQualityScoresApiV1DataQualityScoresGetResponses, GetRiskFiltersApiV1RiskFiltersGetData, GetRiskFiltersApiV1RiskFiltersGetErrors, GetRiskFiltersApiV1RiskFiltersGetResponses, GetSentimentApiV1SentimentGetData, GetSentimentApiV1SentimentGetErrors, GetSentimentApiV1SentimentGetResponses, GetTradeStructureApiV1NonpriceTradeStructureGetData, GetTradeStructureApiV1NonpriceTradeStructureGetErrors, GetTradeStructureApiV1NonpriceTradeStructureGetResponses, GroupRankingApiV1TwGroupsRankingGetData, GroupRankingApiV1TwGroupsRankingGetErrors, GroupRankingApiV1TwGroupsRankingGetResponses, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetErrors, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponses, HealthHealthGetData, HealthHealthGetResponses, IndexDailyApiV1RefdataIndexDailyGetData, IndexDailyApiV1RefdataIndexDailyGetErrors, IndexDailyApiV1RefdataIndexDailyGetResponses, IndexDailyApiV1TwIndexDailyGetData, IndexDailyApiV1TwIndexDailyGetErrors, IndexDailyApiV1TwIndexDailyGetResponses, IndustryMembershipApiV1TwIndustryMembershipGetData, IndustryMembershipApiV1TwIndustryMembershipGetErrors, IndustryMembershipApiV1TwIndustryMembershipGetResponses, ListBackfillJobsApiV1BackfillGetData, ListBackfillJobsApiV1BackfillGetErrors, ListBackfillJobsApiV1BackfillGetResponses, MarketDailyApiV1TwMarketDailyGetData, MarketDailyApiV1TwMarketDailyGetErrors, MarketDailyApiV1TwMarketDailyGetResponses, MarketSummaryApiV1TwMarketSummaryGetData, MarketSummaryApiV1TwMarketSummaryGetErrors, MarketSummaryApiV1TwMarketSummaryGetResponses, RefdataFreshnessApiV1RefdataFreshnessGetData, RefdataFreshnessApiV1RefdataFreshnessGetResponses, ResearchUniverseApiV1TwResearchUniverseGetData, ResearchUniverseApiV1TwResearchUniverseGetErrors, ResearchUniverseApiV1TwResearchUniverseGetResponses, SblStockApiV1TwSblStockGetData, SblStockApiV1TwSblStockGetErrors, SblStockApiV1TwSblStockGetResponses, SecurityProfileApiV1TwSecurityProfileGetData, SecurityProfileApiV1TwSecurityProfileGetErrors, SecurityProfileApiV1TwSecurityProfileGetResponses, TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetData, TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetErrors, TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetResponses, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetErrors, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponses, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetErrors, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponses, TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostData, TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostErrors, TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostResponses, TriggerOkxOiBackfillApiV1BackfillOkxOiPostData, TriggerOkxOiBackfillApiV1BackfillOkxOiPostErrors, TriggerOkxOiBackfillApiV1BackfillOkxOiPostResponses, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetErrors, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponses, UpsertOhlcvApiV1OhlcvPostData, UpsertOhlcvApiV1OhlcvPostErrors, UpsertOhlcvApiV1OhlcvPostResponses, WhoamiApiV1AuthWhoamiGetData, WhoamiApiV1AuthWhoamiGetResponses, WriteFundamentalsApiV1FundamentalsPostData, WriteFundamentalsApiV1FundamentalsPostErrors, WriteFundamentalsApiV1FundamentalsPostResponses, WriteSentimentApiV1SentimentPostData, WriteSentimentApiV1SentimentPostErrors, WriteSentimentApiV1SentimentPostResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -26,6 +26,25 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 export const healthHealthGet = <ThrowOnError extends boolean = false>(options?: Options<HealthHealthGetData, ThrowOnError>) => {
     return (options?.client ?? client).get<HealthHealthGetResponses, unknown, ThrowOnError>({
         url: '/health',
+        ...options
+    });
+};
+
+/**
+ * Whoami
+ *
+ * The calling principal's name and scopes, so a client can check, before it sends traffic, that its key is
+ * the principal it expects (and no more).
+ */
+export const whoamiApiV1AuthWhoamiGet = <ThrowOnError extends boolean = false>(options?: Options<WhoamiApiV1AuthWhoamiGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<WhoamiApiV1AuthWhoamiGetResponses, unknown, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/auth/whoami',
         ...options
     });
 };
@@ -267,7 +286,7 @@ export const getMarginTransactionsApiV1NonpriceMarginGet = <ThrowOnError extends
 /**
  * Get Fundamentals Df
  *
- * Read fundamentals as DataFrame for a symbol.
+ * Quarterly fundamentals written by the retired FinLab ingest (no newer rows; see financial-statement).
  */
 export const getFundamentalsDfApiV1NonpriceFundamentalGet = <ThrowOnError extends boolean = false>(options: Options<GetFundamentalsDfApiV1NonpriceFundamentalGetData, ThrowOnError>) => {
     return (options.client ?? client).get<GetFundamentalsDfApiV1NonpriceFundamentalGetResponses, GetFundamentalsDfApiV1NonpriceFundamentalGetErrors, ThrowOnError>({
@@ -285,7 +304,7 @@ export const getFundamentalsDfApiV1NonpriceFundamentalGet = <ThrowOnError extend
 /**
  * Get Trade Structure
  *
- * Read trade structure data for a symbol.
+ * Trade value (TWD) and count: from tw_market_daily quotes (older rows: FinLab).
  */
 export const getTradeStructureApiV1NonpriceTradeStructureGet = <ThrowOnError extends boolean = false>(options: Options<GetTradeStructureApiV1NonpriceTradeStructureGetData, ThrowOnError>) => {
     return (options.client ?? client).get<GetTradeStructureApiV1NonpriceTradeStructureGetResponses, GetTradeStructureApiV1NonpriceTradeStructureGetErrors, ThrowOnError>({
@@ -296,6 +315,158 @@ export const getTradeStructureApiV1NonpriceTradeStructureGet = <ThrowOnError ext
             }
         ],
         url: '/api/v1/nonprice/trade-structure',
+        ...options
+    });
+};
+
+/**
+ * Get Monthly Revenue
+ *
+ * Monthly revenue (thousand TWD) from MOPS, dated on the 10th of the following month.
+ */
+export const getMonthlyRevenueApiV1NonpriceMonthlyRevenueGet = <ThrowOnError extends boolean = false>(options: Options<GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetResponses, GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/nonprice/monthly-revenue',
+        ...options
+    });
+};
+
+/**
+ * Get Foreign Holding
+ *
+ * Foreign + mainland holding ratio (%): TWSE MI_QFIIS / TPEx (older rows: FinLab).
+ */
+export const getForeignHoldingApiV1NonpriceForeignHoldingGet = <ThrowOnError extends boolean = false>(options: Options<GetForeignHoldingApiV1NonpriceForeignHoldingGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetForeignHoldingApiV1NonpriceForeignHoldingGetResponses, GetForeignHoldingApiV1NonpriceForeignHoldingGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/nonprice/foreign-holding',
+        ...options
+    });
+};
+
+/**
+ * Get Pe Pbr
+ *
+ * P/E, P/B and dividend yield (%): TWSE BWIBBU_d / TPEx (older rows: FinLab).
+ */
+export const getPePbrApiV1NonpricePePbrGet = <ThrowOnError extends boolean = false>(options: Options<GetPePbrApiV1NonpricePePbrGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetPePbrApiV1NonpricePePbrGetResponses, GetPePbrApiV1NonpricePePbrGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/nonprice/pe-pbr',
+        ...options
+    });
+};
+
+/**
+ * Get Market Value
+ *
+ * Daily market value (TWD): shares issued x close, TWSE / TPEx (older rows: FinLab).
+ */
+export const getMarketValueApiV1NonpriceMarketValueGet = <ThrowOnError extends boolean = false>(options: Options<GetMarketValueApiV1NonpriceMarketValueGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetMarketValueApiV1NonpriceMarketValueGetResponses, GetMarketValueApiV1NonpriceMarketValueGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/nonprice/market-value',
+        ...options
+    });
+};
+
+/**
+ * Get Quality Factor
+ *
+ * Read composite quality-factor z-score series (written by 64-05 task).
+ *
+ * 409 when any returned dimension's newest row is older than its input allows on ``as_of_date``
+ * (default today): a consumer that forward-fills it would carry a frozen score (audit 2026-10-31, P0-6).
+ */
+export const getQualityFactorApiV1NonpriceQualityFactorGet = <ThrowOnError extends boolean = false>(options: Options<GetQualityFactorApiV1NonpriceQualityFactorGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetQualityFactorApiV1NonpriceQualityFactorGetResponses, GetQualityFactorApiV1NonpriceQualityFactorGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/nonprice/quality-factor',
+        ...options
+    });
+};
+
+/**
+ * Get Financial Statement
+ *
+ * Quarterly MOPS statement items for a TW stock, one row per quarter end.
+ *
+ * Thousand TWD (EPS and bvps in TWD); ``*_ytd`` items are year to date, the rest are at the quarter
+ * end. Depreciation, amortization and debt items exist only for the valuation universe.
+ */
+export const getFinancialStatementApiV1NonpriceFinancialStatementGet = <ThrowOnError extends boolean = false>(options: Options<GetFinancialStatementApiV1NonpriceFinancialStatementGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetFinancialStatementApiV1NonpriceFinancialStatementGetResponses, GetFinancialStatementApiV1NonpriceFinancialStatementGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/nonprice/financial-statement',
+        ...options
+    });
+};
+
+/**
+ * Get Risk Filters
+ *
+ * Raw point-in-time query — returns ``list[dict]`` per D-18 (not wide-pivot).
+ */
+export const getRiskFiltersApiV1RiskFiltersGet = <ThrowOnError extends boolean = false>(options: Options<GetRiskFiltersApiV1RiskFiltersGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetRiskFiltersApiV1RiskFiltersGetResponses, GetRiskFiltersApiV1RiskFiltersGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/risk-filters',
+        ...options
+    });
+};
+
+/**
+ * Get Active Risk Filters
+ *
+ * Return the sorted, de-duplicated list of symbols under any active flag.
+ *
+ * Primary consumer: Poseidon universe selection.
+ */
+export const getActiveRiskFiltersApiV1RiskFiltersActiveGet = <ThrowOnError extends boolean = false>(options: Options<GetActiveRiskFiltersApiV1RiskFiltersActiveGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetActiveRiskFiltersApiV1RiskFiltersActiveGetResponses, GetActiveRiskFiltersApiV1RiskFiltersActiveGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/risk-filters/active',
         ...options
     });
 };
@@ -446,6 +617,523 @@ export const getQualityScoresApiV1DataQualityScoresGet = <ThrowOnError extends b
             }
         ],
         url: '/api/v1/data-quality/scores',
+        ...options
+    });
+};
+
+/**
+ * List Backfill Jobs
+ *
+ * List backfill jobs, optionally filtered by status/market.
+ */
+export const listBackfillJobsApiV1BackfillGet = <ThrowOnError extends boolean = false>(options?: Options<ListBackfillJobsApiV1BackfillGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<ListBackfillJobsApiV1BackfillGetResponses, ListBackfillJobsApiV1BackfillGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/backfill',
+        ...options
+    });
+};
+
+/**
+ * Create Backfill
+ *
+ * Create a backfill job and dispatch fetch tasks to the worker.
+ *
+ * If ``intervals`` is omitted, uses all intervals configured for the market
+ * in symbols.yaml.
+ */
+export const createBackfillApiV1BackfillPost = <ThrowOnError extends boolean = false>(options: Options<CreateBackfillApiV1BackfillPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<CreateBackfillApiV1BackfillPostResponses, CreateBackfillApiV1BackfillPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/backfill',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * Get Backfill Status
+ *
+ * Get status of a backfill job.
+ */
+export const getBackfillStatusApiV1BackfillJobIdGet = <ThrowOnError extends boolean = false>(options: Options<GetBackfillStatusApiV1BackfillJobIdGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetBackfillStatusApiV1BackfillJobIdGetResponses, GetBackfillStatusApiV1BackfillJobIdGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/backfill/{job_id}',
+        ...options
+    });
+};
+
+/**
+ * Cancel Backfill
+ *
+ * Cancel a pending/running backfill job.
+ */
+export const cancelBackfillApiV1BackfillJobIdCancelPost = <ThrowOnError extends boolean = false>(options: Options<CancelBackfillApiV1BackfillJobIdCancelPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<CancelBackfillApiV1BackfillJobIdCancelPostResponses, CancelBackfillApiV1BackfillJobIdCancelPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/backfill/{job_id}/cancel',
+        ...options
+    });
+};
+
+/**
+ * Trigger Okx Oi Backfill
+ *
+ * Trigger OKX OI historical backfill (Phase 79 D-16).
+ *
+ * Priority 1: blocks Phase 80 IC rerun.
+ * Runs on backfill queue with budget_class=high.
+ */
+export const triggerOkxOiBackfillApiV1BackfillOkxOiPost = <ThrowOnError extends boolean = false>(options?: Options<TriggerOkxOiBackfillApiV1BackfillOkxOiPostData, ThrowOnError>) => {
+    return (options?.client ?? client).post<TriggerOkxOiBackfillApiV1BackfillOkxOiPostResponses, TriggerOkxOiBackfillApiV1BackfillOkxOiPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/backfill/okx-oi',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        }
+    });
+};
+
+/**
+ * Trigger Binance Funding Backfill
+ *
+ * Trigger Binance funding rate historical backfill from 2019 (Phase 79 D-16).
+ *
+ * Priority 2: doesn't block Phase 80 OI analysis.
+ * Runs on backfill queue with budget_class=low.
+ */
+export const triggerBinanceFundingBackfillApiV1BackfillBinanceFundingPost = <ThrowOnError extends boolean = false>(options?: Options<TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostData, ThrowOnError>) => {
+    return (options?.client ?? client).post<TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostResponses, TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/backfill/binance-funding',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        }
+    });
+};
+
+/**
+ * Market Daily
+ *
+ * Daily quotes; the whole market for a range of at most 31 days, or one symbol up to 400 days.
+ */
+export const marketDailyApiV1TwMarketDailyGet = <ThrowOnError extends boolean = false>(options: Options<MarketDailyApiV1TwMarketDailyGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<MarketDailyApiV1TwMarketDailyGetResponses, MarketDailyApiV1TwMarketDailyGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/market-daily',
+        ...options
+    });
+};
+
+/**
+ * Index Daily
+ *
+ * TWSE price indices (market and sector).
+ */
+export const indexDailyApiV1TwIndexDailyGet = <ThrowOnError extends boolean = false>(options: Options<IndexDailyApiV1TwIndexDailyGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<IndexDailyApiV1TwIndexDailyGetResponses, IndexDailyApiV1TwIndexDailyGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/index-daily',
+        ...options
+    });
+};
+
+/**
+ * Security Profile
+ *
+ * Securities listed on ``as_of`` with the industry valid that day (point in time).
+ */
+export const securityProfileApiV1TwSecurityProfileGet = <ThrowOnError extends boolean = false>(options: Options<SecurityProfileApiV1TwSecurityProfileGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<SecurityProfileApiV1TwSecurityProfileGetResponses, SecurityProfileApiV1TwSecurityProfileGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/security-profile',
+        ...options
+    });
+};
+
+/**
+ * Research Universe
+ *
+ * Latest stored research universe snapshot at or before ``as_of``.
+ */
+export const researchUniverseApiV1TwResearchUniverseGet = <ThrowOnError extends boolean = false>(options?: Options<ResearchUniverseApiV1TwResearchUniverseGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<ResearchUniverseApiV1TwResearchUniverseGetResponses, ResearchUniverseApiV1TwResearchUniverseGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/research-universe',
+        ...options
+    });
+};
+
+/**
+ * Corporate Actions
+ *
+ * Ex-rights, capital-reduction, par-value-change and ETF split events with ``factor = ref_price / prev_close``.
+ *
+ * Backward-adjusted close for day D: ``close(D) * product(factor of events dated after D)``.
+ */
+export const corporateActionsApiV1TwCorporateActionsGet = <ThrowOnError extends boolean = false>(options: Options<CorporateActionsApiV1TwCorporateActionsGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<CorporateActionsApiV1TwCorporateActionsGetResponses, CorporateActionsApiV1TwCorporateActionsGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/corporate-actions',
+        ...options
+    });
+};
+
+/**
+ * Corporate Actions Complete Through
+ *
+ * How far the corporate-action table is complete: the Taipei date of the last successful daily run.
+ *
+ * The daily job re-reads the 14 days up to its own Taipei date, so every event dated up to
+ * ``complete_through`` is in ``/corporate-actions``. ``last_error`` is the newest failed attempt's message
+ * (null once a later run succeeded); history before each source's start is not covered, see
+ * ``CORPORATE_ACTION_FLOORS``.
+ */
+export const corporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGet = <ThrowOnError extends boolean = false>(options?: Options<CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetResponses, unknown, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/corporate-actions/complete-through',
+        ...options
+    });
+};
+
+/**
+ * Industry Membership
+ *
+ * Listed common stocks with their industry on ``as_of`` (point in time, delisted included).
+ *
+ * Before 2026-10-21 this is the newest monthly exchange snapshot at most 45 days old;
+ * from then on the ISIN-based security profile.
+ */
+export const industryMembershipApiV1TwIndustryMembershipGet = <ThrowOnError extends boolean = false>(options: Options<IndustryMembershipApiV1TwIndustryMembershipGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<IndustryMembershipApiV1TwIndustryMembershipGetResponses, IndustryMembershipApiV1TwIndustryMembershipGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/industry-membership',
+        ...options
+    });
+};
+
+/**
+ * Group Ranking
+ *
+ * Strength of the owner's stock groups on a session (default: the latest), computed on read.
+ *
+ * Context for choosing what to look at, not a buy signal: SEED-003 found no rotation rule that held up
+ * out of sample. See ``thalassa.data.tw_public.group_ranking`` for the formulas.
+ */
+export const groupRankingApiV1TwGroupsRankingGet = <ThrowOnError extends boolean = false>(options?: Options<GroupRankingApiV1TwGroupsRankingGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<GroupRankingApiV1TwGroupsRankingGetResponses, GroupRankingApiV1TwGroupsRankingGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/groups/ranking',
+        ...options
+    });
+};
+
+/**
+ * Group Ranking History
+ *
+ * ``/groups/ranking`` for every session in [start, end] (at most 200 days), without the per-member detail.
+ *
+ * A day that cannot be ranked (e.g. fewer than 61 sessions of history before it) is listed under ``unavailable``.
+ */
+export const groupRankingHistoryApiV1TwGroupsRankingHistoryGet = <ThrowOnError extends boolean = false>(options: Options<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponses, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/groups/ranking/history',
+        ...options
+    });
+};
+
+/**
+ * Market Summary
+ *
+ * Daily whole-market turnover, breadth (stocks) and the three institutional investors' totals, per market.
+ *
+ * ``final`` false: fetched on the session's own date, before the exchanges' evening revisions; the next day's run
+ * replaces it. Sources and definitions: ``thalassa.data.tw_public.market_summary``.
+ */
+export const marketSummaryApiV1TwMarketSummaryGet = <ThrowOnError extends boolean = false>(options: Options<MarketSummaryApiV1TwMarketSummaryGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<MarketSummaryApiV1TwMarketSummaryGetResponses, MarketSummaryApiV1TwMarketSummaryGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/market-summary',
+        ...options
+    });
+};
+
+/**
+ * Credit Market
+ *
+ * Daily 融資 / 融券 totals per market (``twse``, ``tpex``) with the margin maintenance-ratio ESTIMATE.
+ *
+ * ``maintenance_ratio_estimate_pct`` = 100 x sum(margin lots x 1,000 x close) / 融資金額, computed on read; the
+ * exchanges publish no such ratio. Assumptions and biases: ``thalassa.data.tw_public.credit``.
+ */
+export const creditMarketApiV1TwCreditMarketGet = <ThrowOnError extends boolean = false>(options: Options<CreditMarketApiV1TwCreditMarketGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<CreditMarketApiV1TwCreditMarketGetResponses, CreditMarketApiV1TwCreditMarketGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/credit/market',
+        ...options
+    });
+};
+
+/**
+ * Credit Stock
+ *
+ * One security's daily 融資 / 融券 flows and balances (lots).
+ */
+export const creditStockApiV1TwCreditStockGet = <ThrowOnError extends boolean = false>(options: Options<CreditStockApiV1TwCreditStockGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<CreditStockApiV1TwCreditStockGetResponses, CreditStockApiV1TwCreditStockGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/credit/stock',
+        ...options
+    });
+};
+
+/**
+ * Sbl Stock
+ *
+ * One security's daily 借券賣出 (securities-lending short sale) flows, balance and next session's limit, in
+ * SHARES: balance = previous balance + sold - returned + adjusted, except on a row with ``unreconciled`` true, where
+ * the exchange published numbers that do not add up (stored as published).
+ */
+export const sblStockApiV1TwSblStockGet = <ThrowOnError extends boolean = false>(options: Options<SblStockApiV1TwSblStockGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<SblStockApiV1TwSblStockGetResponses, SblStockApiV1TwSblStockGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/sbl/stock',
+        ...options
+    });
+};
+
+/**
+ * Credit Screen
+ *
+ * Cross-stock 融資 / 融券 / 借券賣出 / 法人 / 5-day return screen for one session (default: the latest), computed on read.
+ *
+ * ``sort`` is a field, ascending, or ``-field``, descending (nulls last). Context for what to look at, not a buy
+ * or sell signal. Formulas: ``thalassa.data.tw_public.credit_screen``.
+ */
+export const creditScreenApiV1TwCreditScreenGet = <ThrowOnError extends boolean = false>(options?: Options<CreditScreenApiV1TwCreditScreenGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<CreditScreenApiV1TwCreditScreenGetResponses, CreditScreenApiV1TwCreditScreenGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/tw/credit/screen',
+        ...options
+    });
+};
+
+/**
+ * Taifex Futures Daily
+ *
+ * TX / MTX / TMF daily quotes, every contract month and session, for at most 400 days.
+ */
+export const taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGet = <ThrowOnError extends boolean = false>(options: Options<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponses, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/refdata/taifex-futures-daily',
+        ...options
+    });
+};
+
+/**
+ * Taifex Txo Daily
+ *
+ * TXO daily quotes per series and session, for at most 31 days.
+ */
+export const taifexTxoDailyApiV1RefdataTaifexTxoDailyGet = <ThrowOnError extends boolean = false>(options: Options<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponses, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/refdata/taifex-txo-daily',
+        ...options
+    });
+};
+
+/**
+ * Taifex Final Settlement
+ *
+ * Every final settlement of the index futures (TX / MTX / TMF share one) or of TXO.
+ */
+export const taifexFinalSettlementApiV1RefdataTaifexFinalSettlementGet = <ThrowOnError extends boolean = false>(options: Options<TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetResponses, TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/refdata/taifex-final-settlement',
+        ...options
+    });
+};
+
+/**
+ * Index Daily
+ *
+ * TAIEX (OHLC), the TAIEX total-return index (close), the TPEx index 櫃買指數 (OHLC) or the CBOE VIX (OHLC, US
+ * dates).
+ */
+export const indexDailyApiV1RefdataIndexDailyGet = <ThrowOnError extends boolean = false>(options: Options<IndexDailyApiV1RefdataIndexDailyGetData, ThrowOnError>) => {
+    return (options.client ?? client).get<IndexDailyApiV1RefdataIndexDailyGetResponses, IndexDailyApiV1RefdataIndexDailyGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/refdata/index-daily',
+        ...options
+    });
+};
+
+/**
+ * Twse Market Calendar
+ *
+ * The dates the official TWSE holiday schedule lists; ``closed`` False marks a first / last trading day.
+ */
+export const twseMarketCalendarApiV1RefdataTwseMarketCalendarGet = <ThrowOnError extends boolean = false>(options?: Options<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponses, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetErrors, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/refdata/twse-market-calendar',
+        ...options
+    });
+};
+
+/**
+ * Refdata Freshness
+ *
+ * Per dataset: the last date held, its lag and the last daily run; ``status`` is ``fresh`` only when every
+ * dataset is (see ``thalassa.data.market_refdata.freshness``).
+ */
+export const refdataFreshnessApiV1RefdataFreshnessGet = <ThrowOnError extends boolean = false>(options?: Options<RefdataFreshnessApiV1RefdataFreshnessGetData, ThrowOnError>) => {
+    return (options?.client ?? client).get<RefdataFreshnessApiV1RefdataFreshnessGetResponses, unknown, ThrowOnError>({
+        security: [
+            {
+                name: 'X-API-Key',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/refdata/freshness',
         ...options
     });
 };

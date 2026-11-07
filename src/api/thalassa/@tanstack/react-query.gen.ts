@@ -3,8 +3,8 @@
 import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { batchGetOhlcvApiV1OhlcvBatchPost, getCoverageApiV1CoverageGet, getFreshnessApiV1FreshnessGet, getFundamentalsApiV1FundamentalsGet, getFundamentalsDfApiV1NonpriceFundamentalGet, getFundingRatesApiV1FundingRatesGet, getGapsApiV1GapsGet, getInstitutionalFlowApiV1NonpriceInstitutionalGet, getLatestFundingRateApiV1PerpLatestFundingRateGet, getLatestPriceApiV1PerpLatestPriceGet, getMacroApiV1MacroGet, getMarginTransactionsApiV1NonpriceMarginGet, getOhlcvApiV1OhlcvGet, getOpenInterestApiV1OpenInterestGet, getPerpOhlcvApiV1PerpOhlcvGet, getProviderHealthApiV1DataQualityProvidersGet, getQualityScoresApiV1DataQualityScoresGet, getSentimentApiV1SentimentGet, getTradeStructureApiV1NonpriceTradeStructureGet, healthHealthGet, type Options, upsertOhlcvApiV1OhlcvPost, writeFundamentalsApiV1FundamentalsPost, writeSentimentApiV1SentimentPost } from '../sdk.gen';
-import type { BatchGetOhlcvApiV1OhlcvBatchPostData, BatchGetOhlcvApiV1OhlcvBatchPostError, BatchGetOhlcvApiV1OhlcvBatchPostResponse, GetCoverageApiV1CoverageGetData, GetCoverageApiV1CoverageGetError, GetCoverageApiV1CoverageGetResponse, GetFreshnessApiV1FreshnessGetData, GetFreshnessApiV1FreshnessGetError, GetFreshnessApiV1FreshnessGetResponse, GetFundamentalsApiV1FundamentalsGetData, GetFundamentalsApiV1FundamentalsGetError, GetFundamentalsApiV1FundamentalsGetResponse, GetFundamentalsDfApiV1NonpriceFundamentalGetData, GetFundamentalsDfApiV1NonpriceFundamentalGetError, GetFundamentalsDfApiV1NonpriceFundamentalGetResponse, GetFundingRatesApiV1FundingRatesGetData, GetFundingRatesApiV1FundingRatesGetError, GetFundingRatesApiV1FundingRatesGetResponse, GetGapsApiV1GapsGetData, GetGapsApiV1GapsGetError, GetGapsApiV1GapsGetResponse, GetInstitutionalFlowApiV1NonpriceInstitutionalGetData, GetInstitutionalFlowApiV1NonpriceInstitutionalGetError, GetInstitutionalFlowApiV1NonpriceInstitutionalGetResponse, GetLatestFundingRateApiV1PerpLatestFundingRateGetData, GetLatestFundingRateApiV1PerpLatestFundingRateGetError, GetLatestFundingRateApiV1PerpLatestFundingRateGetResponse, GetLatestPriceApiV1PerpLatestPriceGetData, GetLatestPriceApiV1PerpLatestPriceGetError, GetLatestPriceApiV1PerpLatestPriceGetResponse, GetMacroApiV1MacroGetData, GetMacroApiV1MacroGetError, GetMacroApiV1MacroGetResponse, GetMarginTransactionsApiV1NonpriceMarginGetData, GetMarginTransactionsApiV1NonpriceMarginGetError, GetMarginTransactionsApiV1NonpriceMarginGetResponse, GetOhlcvApiV1OhlcvGetData, GetOhlcvApiV1OhlcvGetError, GetOhlcvApiV1OhlcvGetResponse, GetOpenInterestApiV1OpenInterestGetData, GetOpenInterestApiV1OpenInterestGetError, GetOpenInterestApiV1OpenInterestGetResponse, GetPerpOhlcvApiV1PerpOhlcvGetData, GetPerpOhlcvApiV1PerpOhlcvGetError, GetPerpOhlcvApiV1PerpOhlcvGetResponse, GetProviderHealthApiV1DataQualityProvidersGetData, GetProviderHealthApiV1DataQualityProvidersGetResponse, GetQualityScoresApiV1DataQualityScoresGetData, GetQualityScoresApiV1DataQualityScoresGetError, GetQualityScoresApiV1DataQualityScoresGetResponse, GetSentimentApiV1SentimentGetData, GetSentimentApiV1SentimentGetError, GetSentimentApiV1SentimentGetResponse, GetTradeStructureApiV1NonpriceTradeStructureGetData, GetTradeStructureApiV1NonpriceTradeStructureGetError, GetTradeStructureApiV1NonpriceTradeStructureGetResponse, HealthHealthGetData, UpsertOhlcvApiV1OhlcvPostData, UpsertOhlcvApiV1OhlcvPostError, UpsertOhlcvApiV1OhlcvPostResponse, WriteFundamentalsApiV1FundamentalsPostData, WriteFundamentalsApiV1FundamentalsPostError, WriteFundamentalsApiV1FundamentalsPostResponse, WriteSentimentApiV1SentimentPostData, WriteSentimentApiV1SentimentPostError, WriteSentimentApiV1SentimentPostResponse } from '../types.gen';
+import { batchGetOhlcvApiV1OhlcvBatchPost, cancelBackfillApiV1BackfillJobIdCancelPost, corporateActionsApiV1TwCorporateActionsGet, corporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGet, createBackfillApiV1BackfillPost, creditMarketApiV1TwCreditMarketGet, creditScreenApiV1TwCreditScreenGet, creditStockApiV1TwCreditStockGet, getActiveRiskFiltersApiV1RiskFiltersActiveGet, getBackfillStatusApiV1BackfillJobIdGet, getCoverageApiV1CoverageGet, getFinancialStatementApiV1NonpriceFinancialStatementGet, getForeignHoldingApiV1NonpriceForeignHoldingGet, getFreshnessApiV1FreshnessGet, getFundamentalsApiV1FundamentalsGet, getFundamentalsDfApiV1NonpriceFundamentalGet, getFundingRatesApiV1FundingRatesGet, getGapsApiV1GapsGet, getInstitutionalFlowApiV1NonpriceInstitutionalGet, getLatestFundingRateApiV1PerpLatestFundingRateGet, getLatestPriceApiV1PerpLatestPriceGet, getMacroApiV1MacroGet, getMarginTransactionsApiV1NonpriceMarginGet, getMarketValueApiV1NonpriceMarketValueGet, getMonthlyRevenueApiV1NonpriceMonthlyRevenueGet, getOhlcvApiV1OhlcvGet, getOpenInterestApiV1OpenInterestGet, getPePbrApiV1NonpricePePbrGet, getPerpOhlcvApiV1PerpOhlcvGet, getProviderHealthApiV1DataQualityProvidersGet, getQualityFactorApiV1NonpriceQualityFactorGet, getQualityScoresApiV1DataQualityScoresGet, getRiskFiltersApiV1RiskFiltersGet, getSentimentApiV1SentimentGet, getTradeStructureApiV1NonpriceTradeStructureGet, groupRankingApiV1TwGroupsRankingGet, groupRankingHistoryApiV1TwGroupsRankingHistoryGet, healthHealthGet, indexDailyApiV1RefdataIndexDailyGet, indexDailyApiV1TwIndexDailyGet, industryMembershipApiV1TwIndustryMembershipGet, listBackfillJobsApiV1BackfillGet, marketDailyApiV1TwMarketDailyGet, marketSummaryApiV1TwMarketSummaryGet, type Options, refdataFreshnessApiV1RefdataFreshnessGet, researchUniverseApiV1TwResearchUniverseGet, sblStockApiV1TwSblStockGet, securityProfileApiV1TwSecurityProfileGet, taifexFinalSettlementApiV1RefdataTaifexFinalSettlementGet, taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGet, taifexTxoDailyApiV1RefdataTaifexTxoDailyGet, triggerBinanceFundingBackfillApiV1BackfillBinanceFundingPost, triggerOkxOiBackfillApiV1BackfillOkxOiPost, twseMarketCalendarApiV1RefdataTwseMarketCalendarGet, upsertOhlcvApiV1OhlcvPost, whoamiApiV1AuthWhoamiGet, writeFundamentalsApiV1FundamentalsPost, writeSentimentApiV1SentimentPost } from '../sdk.gen';
+import type { BatchGetOhlcvApiV1OhlcvBatchPostData, BatchGetOhlcvApiV1OhlcvBatchPostError, BatchGetOhlcvApiV1OhlcvBatchPostResponse, CancelBackfillApiV1BackfillJobIdCancelPostData, CancelBackfillApiV1BackfillJobIdCancelPostError, CancelBackfillApiV1BackfillJobIdCancelPostResponse, CorporateActionsApiV1TwCorporateActionsGetData, CorporateActionsApiV1TwCorporateActionsGetError, CorporateActionsApiV1TwCorporateActionsGetResponse, CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetData, CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetResponse, CreateBackfillApiV1BackfillPostData, CreateBackfillApiV1BackfillPostError, CreateBackfillApiV1BackfillPostResponse, CreditMarketApiV1TwCreditMarketGetData, CreditMarketApiV1TwCreditMarketGetError, CreditMarketApiV1TwCreditMarketGetResponse, CreditScreenApiV1TwCreditScreenGetData, CreditScreenApiV1TwCreditScreenGetError, CreditScreenApiV1TwCreditScreenGetResponse, CreditStockApiV1TwCreditStockGetData, CreditStockApiV1TwCreditStockGetError, CreditStockApiV1TwCreditStockGetResponse, GetActiveRiskFiltersApiV1RiskFiltersActiveGetData, GetActiveRiskFiltersApiV1RiskFiltersActiveGetError, GetActiveRiskFiltersApiV1RiskFiltersActiveGetResponse, GetBackfillStatusApiV1BackfillJobIdGetData, GetBackfillStatusApiV1BackfillJobIdGetError, GetBackfillStatusApiV1BackfillJobIdGetResponse, GetCoverageApiV1CoverageGetData, GetCoverageApiV1CoverageGetError, GetCoverageApiV1CoverageGetResponse, GetFinancialStatementApiV1NonpriceFinancialStatementGetData, GetFinancialStatementApiV1NonpriceFinancialStatementGetError, GetFinancialStatementApiV1NonpriceFinancialStatementGetResponse, GetForeignHoldingApiV1NonpriceForeignHoldingGetData, GetForeignHoldingApiV1NonpriceForeignHoldingGetError, GetForeignHoldingApiV1NonpriceForeignHoldingGetResponse, GetFreshnessApiV1FreshnessGetData, GetFreshnessApiV1FreshnessGetError, GetFreshnessApiV1FreshnessGetResponse, GetFundamentalsApiV1FundamentalsGetData, GetFundamentalsApiV1FundamentalsGetError, GetFundamentalsApiV1FundamentalsGetResponse, GetFundamentalsDfApiV1NonpriceFundamentalGetData, GetFundamentalsDfApiV1NonpriceFundamentalGetError, GetFundamentalsDfApiV1NonpriceFundamentalGetResponse, GetFundingRatesApiV1FundingRatesGetData, GetFundingRatesApiV1FundingRatesGetError, GetFundingRatesApiV1FundingRatesGetResponse, GetGapsApiV1GapsGetData, GetGapsApiV1GapsGetError, GetGapsApiV1GapsGetResponse, GetInstitutionalFlowApiV1NonpriceInstitutionalGetData, GetInstitutionalFlowApiV1NonpriceInstitutionalGetError, GetInstitutionalFlowApiV1NonpriceInstitutionalGetResponse, GetLatestFundingRateApiV1PerpLatestFundingRateGetData, GetLatestFundingRateApiV1PerpLatestFundingRateGetError, GetLatestFundingRateApiV1PerpLatestFundingRateGetResponse, GetLatestPriceApiV1PerpLatestPriceGetData, GetLatestPriceApiV1PerpLatestPriceGetError, GetLatestPriceApiV1PerpLatestPriceGetResponse, GetMacroApiV1MacroGetData, GetMacroApiV1MacroGetError, GetMacroApiV1MacroGetResponse, GetMarginTransactionsApiV1NonpriceMarginGetData, GetMarginTransactionsApiV1NonpriceMarginGetError, GetMarginTransactionsApiV1NonpriceMarginGetResponse, GetMarketValueApiV1NonpriceMarketValueGetData, GetMarketValueApiV1NonpriceMarketValueGetError, GetMarketValueApiV1NonpriceMarketValueGetResponse, GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetData, GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetError, GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetResponse, GetOhlcvApiV1OhlcvGetData, GetOhlcvApiV1OhlcvGetError, GetOhlcvApiV1OhlcvGetResponse, GetOpenInterestApiV1OpenInterestGetData, GetOpenInterestApiV1OpenInterestGetError, GetOpenInterestApiV1OpenInterestGetResponse, GetPePbrApiV1NonpricePePbrGetData, GetPePbrApiV1NonpricePePbrGetError, GetPePbrApiV1NonpricePePbrGetResponse, GetPerpOhlcvApiV1PerpOhlcvGetData, GetPerpOhlcvApiV1PerpOhlcvGetError, GetPerpOhlcvApiV1PerpOhlcvGetResponse, GetProviderHealthApiV1DataQualityProvidersGetData, GetProviderHealthApiV1DataQualityProvidersGetResponse, GetQualityFactorApiV1NonpriceQualityFactorGetData, GetQualityFactorApiV1NonpriceQualityFactorGetError, GetQualityFactorApiV1NonpriceQualityFactorGetResponse, GetQualityScoresApiV1DataQualityScoresGetData, GetQualityScoresApiV1DataQualityScoresGetError, GetQualityScoresApiV1DataQualityScoresGetResponse, GetRiskFiltersApiV1RiskFiltersGetData, GetRiskFiltersApiV1RiskFiltersGetError, GetRiskFiltersApiV1RiskFiltersGetResponse, GetSentimentApiV1SentimentGetData, GetSentimentApiV1SentimentGetError, GetSentimentApiV1SentimentGetResponse, GetTradeStructureApiV1NonpriceTradeStructureGetData, GetTradeStructureApiV1NonpriceTradeStructureGetError, GetTradeStructureApiV1NonpriceTradeStructureGetResponse, GroupRankingApiV1TwGroupsRankingGetData, GroupRankingApiV1TwGroupsRankingGetError, GroupRankingApiV1TwGroupsRankingGetResponse, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetError, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponse, HealthHealthGetData, HealthHealthGetResponse, IndexDailyApiV1RefdataIndexDailyGetData, IndexDailyApiV1RefdataIndexDailyGetError, IndexDailyApiV1RefdataIndexDailyGetResponse, IndexDailyApiV1TwIndexDailyGetData, IndexDailyApiV1TwIndexDailyGetError, IndexDailyApiV1TwIndexDailyGetResponse, IndustryMembershipApiV1TwIndustryMembershipGetData, IndustryMembershipApiV1TwIndustryMembershipGetError, IndustryMembershipApiV1TwIndustryMembershipGetResponse, ListBackfillJobsApiV1BackfillGetData, ListBackfillJobsApiV1BackfillGetError, ListBackfillJobsApiV1BackfillGetResponse, MarketDailyApiV1TwMarketDailyGetData, MarketDailyApiV1TwMarketDailyGetError, MarketDailyApiV1TwMarketDailyGetResponse, MarketSummaryApiV1TwMarketSummaryGetData, MarketSummaryApiV1TwMarketSummaryGetError, MarketSummaryApiV1TwMarketSummaryGetResponse, RefdataFreshnessApiV1RefdataFreshnessGetData, RefdataFreshnessApiV1RefdataFreshnessGetResponse, ResearchUniverseApiV1TwResearchUniverseGetData, ResearchUniverseApiV1TwResearchUniverseGetError, ResearchUniverseApiV1TwResearchUniverseGetResponse, SblStockApiV1TwSblStockGetData, SblStockApiV1TwSblStockGetError, SblStockApiV1TwSblStockGetResponse, SecurityProfileApiV1TwSecurityProfileGetData, SecurityProfileApiV1TwSecurityProfileGetError, SecurityProfileApiV1TwSecurityProfileGetResponse, TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetData, TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetError, TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetResponse, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetError, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponse, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetError, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponse, TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostData, TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostError, TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostResponse, TriggerOkxOiBackfillApiV1BackfillOkxOiPostData, TriggerOkxOiBackfillApiV1BackfillOkxOiPostError, TriggerOkxOiBackfillApiV1BackfillOkxOiPostResponse, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetError, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponse, UpsertOhlcvApiV1OhlcvPostData, UpsertOhlcvApiV1OhlcvPostError, UpsertOhlcvApiV1OhlcvPostResponse, WhoamiApiV1AuthWhoamiGetData, WhoamiApiV1AuthWhoamiGetResponse, WriteFundamentalsApiV1FundamentalsPostData, WriteFundamentalsApiV1FundamentalsPostError, WriteFundamentalsApiV1FundamentalsPostResponse, WriteSentimentApiV1SentimentPostData, WriteSentimentApiV1SentimentPostError, WriteSentimentApiV1SentimentPostResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -48,7 +48,7 @@ export const healthHealthGetQueryKey = (options?: Options<HealthHealthGetData>) 
  *
  * Health check endpoint. No authentication required.
  */
-export const healthHealthGetOptions = (options?: Options<HealthHealthGetData>) => queryOptions<unknown, DefaultError, unknown, ReturnType<typeof healthHealthGetQueryKey>>({
+export const healthHealthGetOptions = (options?: Options<HealthHealthGetData>) => queryOptions<HealthHealthGetResponse, DefaultError, HealthHealthGetResponse, ReturnType<typeof healthHealthGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
         const { data } = await healthHealthGet({
             ...options,
@@ -59,6 +59,27 @@ export const healthHealthGetOptions = (options?: Options<HealthHealthGetData>) =
         return data;
     },
     queryKey: healthHealthGetQueryKey(options)
+});
+
+export const whoamiApiV1AuthWhoamiGetQueryKey = (options?: Options<WhoamiApiV1AuthWhoamiGetData>) => createQueryKey("whoamiApiV1AuthWhoamiGet", options);
+
+/**
+ * Whoami
+ *
+ * The calling principal's name and scopes, so a client can check, before it sends traffic, that its key is
+ * the principal it expects (and no more).
+ */
+export const whoamiApiV1AuthWhoamiGetOptions = (options?: Options<WhoamiApiV1AuthWhoamiGetData>) => queryOptions<WhoamiApiV1AuthWhoamiGetResponse, DefaultError, WhoamiApiV1AuthWhoamiGetResponse, ReturnType<typeof whoamiApiV1AuthWhoamiGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await whoamiApiV1AuthWhoamiGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: whoamiApiV1AuthWhoamiGetQueryKey(options)
 });
 
 export const getOhlcvApiV1OhlcvGetQueryKey = (options: Options<GetOhlcvApiV1OhlcvGetData>) => createQueryKey("getOhlcvApiV1OhlcvGet", options);
@@ -461,7 +482,7 @@ export const getFundamentalsDfApiV1NonpriceFundamentalGetQueryKey = (options: Op
 /**
  * Get Fundamentals Df
  *
- * Read fundamentals as DataFrame for a symbol.
+ * Quarterly fundamentals written by the retired FinLab ingest (no newer rows; see financial-statement).
  */
 export const getFundamentalsDfApiV1NonpriceFundamentalGetOptions = (options: Options<GetFundamentalsDfApiV1NonpriceFundamentalGetData>) => queryOptions<GetFundamentalsDfApiV1NonpriceFundamentalGetResponse, GetFundamentalsDfApiV1NonpriceFundamentalGetError, GetFundamentalsDfApiV1NonpriceFundamentalGetResponse, ReturnType<typeof getFundamentalsDfApiV1NonpriceFundamentalGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -481,7 +502,7 @@ export const getTradeStructureApiV1NonpriceTradeStructureGetQueryKey = (options:
 /**
  * Get Trade Structure
  *
- * Read trade structure data for a symbol.
+ * Trade value (TWD) and count: from tw_market_daily quotes (older rows: FinLab).
  */
 export const getTradeStructureApiV1NonpriceTradeStructureGetOptions = (options: Options<GetTradeStructureApiV1NonpriceTradeStructureGetData>) => queryOptions<GetTradeStructureApiV1NonpriceTradeStructureGetResponse, GetTradeStructureApiV1NonpriceTradeStructureGetError, GetTradeStructureApiV1NonpriceTradeStructureGetResponse, ReturnType<typeof getTradeStructureApiV1NonpriceTradeStructureGetQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -494,6 +515,174 @@ export const getTradeStructureApiV1NonpriceTradeStructureGetOptions = (options: 
         return data;
     },
     queryKey: getTradeStructureApiV1NonpriceTradeStructureGetQueryKey(options)
+});
+
+export const getMonthlyRevenueApiV1NonpriceMonthlyRevenueGetQueryKey = (options: Options<GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetData>) => createQueryKey("getMonthlyRevenueApiV1NonpriceMonthlyRevenueGet", options);
+
+/**
+ * Get Monthly Revenue
+ *
+ * Monthly revenue (thousand TWD) from MOPS, dated on the 10th of the following month.
+ */
+export const getMonthlyRevenueApiV1NonpriceMonthlyRevenueGetOptions = (options: Options<GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetData>) => queryOptions<GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetResponse, GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetError, GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetResponse, ReturnType<typeof getMonthlyRevenueApiV1NonpriceMonthlyRevenueGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getMonthlyRevenueApiV1NonpriceMonthlyRevenueGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getMonthlyRevenueApiV1NonpriceMonthlyRevenueGetQueryKey(options)
+});
+
+export const getForeignHoldingApiV1NonpriceForeignHoldingGetQueryKey = (options: Options<GetForeignHoldingApiV1NonpriceForeignHoldingGetData>) => createQueryKey("getForeignHoldingApiV1NonpriceForeignHoldingGet", options);
+
+/**
+ * Get Foreign Holding
+ *
+ * Foreign + mainland holding ratio (%): TWSE MI_QFIIS / TPEx (older rows: FinLab).
+ */
+export const getForeignHoldingApiV1NonpriceForeignHoldingGetOptions = (options: Options<GetForeignHoldingApiV1NonpriceForeignHoldingGetData>) => queryOptions<GetForeignHoldingApiV1NonpriceForeignHoldingGetResponse, GetForeignHoldingApiV1NonpriceForeignHoldingGetError, GetForeignHoldingApiV1NonpriceForeignHoldingGetResponse, ReturnType<typeof getForeignHoldingApiV1NonpriceForeignHoldingGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getForeignHoldingApiV1NonpriceForeignHoldingGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getForeignHoldingApiV1NonpriceForeignHoldingGetQueryKey(options)
+});
+
+export const getPePbrApiV1NonpricePePbrGetQueryKey = (options: Options<GetPePbrApiV1NonpricePePbrGetData>) => createQueryKey("getPePbrApiV1NonpricePePbrGet", options);
+
+/**
+ * Get Pe Pbr
+ *
+ * P/E, P/B and dividend yield (%): TWSE BWIBBU_d / TPEx (older rows: FinLab).
+ */
+export const getPePbrApiV1NonpricePePbrGetOptions = (options: Options<GetPePbrApiV1NonpricePePbrGetData>) => queryOptions<GetPePbrApiV1NonpricePePbrGetResponse, GetPePbrApiV1NonpricePePbrGetError, GetPePbrApiV1NonpricePePbrGetResponse, ReturnType<typeof getPePbrApiV1NonpricePePbrGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getPePbrApiV1NonpricePePbrGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getPePbrApiV1NonpricePePbrGetQueryKey(options)
+});
+
+export const getMarketValueApiV1NonpriceMarketValueGetQueryKey = (options: Options<GetMarketValueApiV1NonpriceMarketValueGetData>) => createQueryKey("getMarketValueApiV1NonpriceMarketValueGet", options);
+
+/**
+ * Get Market Value
+ *
+ * Daily market value (TWD): shares issued x close, TWSE / TPEx (older rows: FinLab).
+ */
+export const getMarketValueApiV1NonpriceMarketValueGetOptions = (options: Options<GetMarketValueApiV1NonpriceMarketValueGetData>) => queryOptions<GetMarketValueApiV1NonpriceMarketValueGetResponse, GetMarketValueApiV1NonpriceMarketValueGetError, GetMarketValueApiV1NonpriceMarketValueGetResponse, ReturnType<typeof getMarketValueApiV1NonpriceMarketValueGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getMarketValueApiV1NonpriceMarketValueGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getMarketValueApiV1NonpriceMarketValueGetQueryKey(options)
+});
+
+export const getQualityFactorApiV1NonpriceQualityFactorGetQueryKey = (options: Options<GetQualityFactorApiV1NonpriceQualityFactorGetData>) => createQueryKey("getQualityFactorApiV1NonpriceQualityFactorGet", options);
+
+/**
+ * Get Quality Factor
+ *
+ * Read composite quality-factor z-score series (written by 64-05 task).
+ *
+ * 409 when any returned dimension's newest row is older than its input allows on ``as_of_date``
+ * (default today): a consumer that forward-fills it would carry a frozen score (audit 2026-10-31, P0-6).
+ */
+export const getQualityFactorApiV1NonpriceQualityFactorGetOptions = (options: Options<GetQualityFactorApiV1NonpriceQualityFactorGetData>) => queryOptions<GetQualityFactorApiV1NonpriceQualityFactorGetResponse, GetQualityFactorApiV1NonpriceQualityFactorGetError, GetQualityFactorApiV1NonpriceQualityFactorGetResponse, ReturnType<typeof getQualityFactorApiV1NonpriceQualityFactorGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getQualityFactorApiV1NonpriceQualityFactorGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getQualityFactorApiV1NonpriceQualityFactorGetQueryKey(options)
+});
+
+export const getFinancialStatementApiV1NonpriceFinancialStatementGetQueryKey = (options: Options<GetFinancialStatementApiV1NonpriceFinancialStatementGetData>) => createQueryKey("getFinancialStatementApiV1NonpriceFinancialStatementGet", options);
+
+/**
+ * Get Financial Statement
+ *
+ * Quarterly MOPS statement items for a TW stock, one row per quarter end.
+ *
+ * Thousand TWD (EPS and bvps in TWD); ``*_ytd`` items are year to date, the rest are at the quarter
+ * end. Depreciation, amortization and debt items exist only for the valuation universe.
+ */
+export const getFinancialStatementApiV1NonpriceFinancialStatementGetOptions = (options: Options<GetFinancialStatementApiV1NonpriceFinancialStatementGetData>) => queryOptions<GetFinancialStatementApiV1NonpriceFinancialStatementGetResponse, GetFinancialStatementApiV1NonpriceFinancialStatementGetError, GetFinancialStatementApiV1NonpriceFinancialStatementGetResponse, ReturnType<typeof getFinancialStatementApiV1NonpriceFinancialStatementGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getFinancialStatementApiV1NonpriceFinancialStatementGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getFinancialStatementApiV1NonpriceFinancialStatementGetQueryKey(options)
+});
+
+export const getRiskFiltersApiV1RiskFiltersGetQueryKey = (options: Options<GetRiskFiltersApiV1RiskFiltersGetData>) => createQueryKey("getRiskFiltersApiV1RiskFiltersGet", options);
+
+/**
+ * Get Risk Filters
+ *
+ * Raw point-in-time query — returns ``list[dict]`` per D-18 (not wide-pivot).
+ */
+export const getRiskFiltersApiV1RiskFiltersGetOptions = (options: Options<GetRiskFiltersApiV1RiskFiltersGetData>) => queryOptions<GetRiskFiltersApiV1RiskFiltersGetResponse, GetRiskFiltersApiV1RiskFiltersGetError, GetRiskFiltersApiV1RiskFiltersGetResponse, ReturnType<typeof getRiskFiltersApiV1RiskFiltersGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getRiskFiltersApiV1RiskFiltersGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getRiskFiltersApiV1RiskFiltersGetQueryKey(options)
+});
+
+export const getActiveRiskFiltersApiV1RiskFiltersActiveGetQueryKey = (options: Options<GetActiveRiskFiltersApiV1RiskFiltersActiveGetData>) => createQueryKey("getActiveRiskFiltersApiV1RiskFiltersActiveGet", options);
+
+/**
+ * Get Active Risk Filters
+ *
+ * Return the sorted, de-duplicated list of symbols under any active flag.
+ *
+ * Primary consumer: Poseidon universe selection.
+ */
+export const getActiveRiskFiltersApiV1RiskFiltersActiveGetOptions = (options: Options<GetActiveRiskFiltersApiV1RiskFiltersActiveGetData>) => queryOptions<GetActiveRiskFiltersApiV1RiskFiltersActiveGetResponse, GetActiveRiskFiltersApiV1RiskFiltersActiveGetError, GetActiveRiskFiltersApiV1RiskFiltersActiveGetResponse, ReturnType<typeof getActiveRiskFiltersApiV1RiskFiltersActiveGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getActiveRiskFiltersApiV1RiskFiltersActiveGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getActiveRiskFiltersApiV1RiskFiltersActiveGetQueryKey(options)
 });
 
 export const getPerpOhlcvApiV1PerpOhlcvGetQueryKey = (options: Options<GetPerpOhlcvApiV1PerpOhlcvGetData>) => createQueryKey("getPerpOhlcvApiV1PerpOhlcvGet", options);
@@ -660,4 +849,942 @@ export const getQualityScoresApiV1DataQualityScoresGetOptions = (options?: Optio
         return data;
     },
     queryKey: getQualityScoresApiV1DataQualityScoresGetQueryKey(options)
+});
+
+export const listBackfillJobsApiV1BackfillGetQueryKey = (options?: Options<ListBackfillJobsApiV1BackfillGetData>) => createQueryKey("listBackfillJobsApiV1BackfillGet", options);
+
+/**
+ * List Backfill Jobs
+ *
+ * List backfill jobs, optionally filtered by status/market.
+ */
+export const listBackfillJobsApiV1BackfillGetOptions = (options?: Options<ListBackfillJobsApiV1BackfillGetData>) => queryOptions<ListBackfillJobsApiV1BackfillGetResponse, ListBackfillJobsApiV1BackfillGetError, ListBackfillJobsApiV1BackfillGetResponse, ReturnType<typeof listBackfillJobsApiV1BackfillGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await listBackfillJobsApiV1BackfillGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: listBackfillJobsApiV1BackfillGetQueryKey(options)
+});
+
+/**
+ * Create Backfill
+ *
+ * Create a backfill job and dispatch fetch tasks to the worker.
+ *
+ * If ``intervals`` is omitted, uses all intervals configured for the market
+ * in symbols.yaml.
+ */
+export const createBackfillApiV1BackfillPostMutation = (options?: Partial<Options<CreateBackfillApiV1BackfillPostData>>): UseMutationOptions<CreateBackfillApiV1BackfillPostResponse, CreateBackfillApiV1BackfillPostError, Options<CreateBackfillApiV1BackfillPostData>> => {
+    const mutationOptions: UseMutationOptions<CreateBackfillApiV1BackfillPostResponse, CreateBackfillApiV1BackfillPostError, Options<CreateBackfillApiV1BackfillPostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createBackfillApiV1BackfillPost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getBackfillStatusApiV1BackfillJobIdGetQueryKey = (options: Options<GetBackfillStatusApiV1BackfillJobIdGetData>) => createQueryKey("getBackfillStatusApiV1BackfillJobIdGet", options);
+
+/**
+ * Get Backfill Status
+ *
+ * Get status of a backfill job.
+ */
+export const getBackfillStatusApiV1BackfillJobIdGetOptions = (options: Options<GetBackfillStatusApiV1BackfillJobIdGetData>) => queryOptions<GetBackfillStatusApiV1BackfillJobIdGetResponse, GetBackfillStatusApiV1BackfillJobIdGetError, GetBackfillStatusApiV1BackfillJobIdGetResponse, ReturnType<typeof getBackfillStatusApiV1BackfillJobIdGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getBackfillStatusApiV1BackfillJobIdGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getBackfillStatusApiV1BackfillJobIdGetQueryKey(options)
+});
+
+/**
+ * Cancel Backfill
+ *
+ * Cancel a pending/running backfill job.
+ */
+export const cancelBackfillApiV1BackfillJobIdCancelPostMutation = (options?: Partial<Options<CancelBackfillApiV1BackfillJobIdCancelPostData>>): UseMutationOptions<CancelBackfillApiV1BackfillJobIdCancelPostResponse, CancelBackfillApiV1BackfillJobIdCancelPostError, Options<CancelBackfillApiV1BackfillJobIdCancelPostData>> => {
+    const mutationOptions: UseMutationOptions<CancelBackfillApiV1BackfillJobIdCancelPostResponse, CancelBackfillApiV1BackfillJobIdCancelPostError, Options<CancelBackfillApiV1BackfillJobIdCancelPostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await cancelBackfillApiV1BackfillJobIdCancelPost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Trigger Okx Oi Backfill
+ *
+ * Trigger OKX OI historical backfill (Phase 79 D-16).
+ *
+ * Priority 1: blocks Phase 80 IC rerun.
+ * Runs on backfill queue with budget_class=high.
+ */
+export const triggerOkxOiBackfillApiV1BackfillOkxOiPostMutation = (options?: Partial<Options<TriggerOkxOiBackfillApiV1BackfillOkxOiPostData>>): UseMutationOptions<TriggerOkxOiBackfillApiV1BackfillOkxOiPostResponse, TriggerOkxOiBackfillApiV1BackfillOkxOiPostError, Options<TriggerOkxOiBackfillApiV1BackfillOkxOiPostData>> => {
+    const mutationOptions: UseMutationOptions<TriggerOkxOiBackfillApiV1BackfillOkxOiPostResponse, TriggerOkxOiBackfillApiV1BackfillOkxOiPostError, Options<TriggerOkxOiBackfillApiV1BackfillOkxOiPostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await triggerOkxOiBackfillApiV1BackfillOkxOiPost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Trigger Binance Funding Backfill
+ *
+ * Trigger Binance funding rate historical backfill from 2019 (Phase 79 D-16).
+ *
+ * Priority 2: doesn't block Phase 80 OI analysis.
+ * Runs on backfill queue with budget_class=low.
+ */
+export const triggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostMutation = (options?: Partial<Options<TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostData>>): UseMutationOptions<TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostResponse, TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostError, Options<TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostData>> => {
+    const mutationOptions: UseMutationOptions<TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostResponse, TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostError, Options<TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await triggerBinanceFundingBackfillApiV1BackfillBinanceFundingPost({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const marketDailyApiV1TwMarketDailyGetQueryKey = (options: Options<MarketDailyApiV1TwMarketDailyGetData>) => createQueryKey("marketDailyApiV1TwMarketDailyGet", options);
+
+/**
+ * Market Daily
+ *
+ * Daily quotes; the whole market for a range of at most 31 days, or one symbol up to 400 days.
+ */
+export const marketDailyApiV1TwMarketDailyGetOptions = (options: Options<MarketDailyApiV1TwMarketDailyGetData>) => queryOptions<MarketDailyApiV1TwMarketDailyGetResponse, MarketDailyApiV1TwMarketDailyGetError, MarketDailyApiV1TwMarketDailyGetResponse, ReturnType<typeof marketDailyApiV1TwMarketDailyGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await marketDailyApiV1TwMarketDailyGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: marketDailyApiV1TwMarketDailyGetQueryKey(options)
+});
+
+export const marketDailyApiV1TwMarketDailyGetInfiniteQueryKey = (options: Options<MarketDailyApiV1TwMarketDailyGetData>): QueryKey<Options<MarketDailyApiV1TwMarketDailyGetData>> => createQueryKey("marketDailyApiV1TwMarketDailyGet", options, true);
+
+/**
+ * Market Daily
+ *
+ * Daily quotes; the whole market for a range of at most 31 days, or one symbol up to 400 days.
+ */
+export const marketDailyApiV1TwMarketDailyGetInfiniteOptions = (options: Options<MarketDailyApiV1TwMarketDailyGetData>) => {
+    return infiniteQueryOptions<MarketDailyApiV1TwMarketDailyGetResponse, MarketDailyApiV1TwMarketDailyGetError, InfiniteData<MarketDailyApiV1TwMarketDailyGetResponse>, QueryKey<Options<MarketDailyApiV1TwMarketDailyGetData>>, string | Pick<QueryKey<Options<MarketDailyApiV1TwMarketDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<MarketDailyApiV1TwMarketDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await marketDailyApiV1TwMarketDailyGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: marketDailyApiV1TwMarketDailyGetInfiniteQueryKey(options)
+    });
+};
+
+export const indexDailyApiV1TwIndexDailyGetQueryKey = (options: Options<IndexDailyApiV1TwIndexDailyGetData>) => createQueryKey("indexDailyApiV1TwIndexDailyGet", options);
+
+/**
+ * Index Daily
+ *
+ * TWSE price indices (market and sector).
+ */
+export const indexDailyApiV1TwIndexDailyGetOptions = (options: Options<IndexDailyApiV1TwIndexDailyGetData>) => queryOptions<IndexDailyApiV1TwIndexDailyGetResponse, IndexDailyApiV1TwIndexDailyGetError, IndexDailyApiV1TwIndexDailyGetResponse, ReturnType<typeof indexDailyApiV1TwIndexDailyGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await indexDailyApiV1TwIndexDailyGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: indexDailyApiV1TwIndexDailyGetQueryKey(options)
+});
+
+export const indexDailyApiV1TwIndexDailyGetInfiniteQueryKey = (options: Options<IndexDailyApiV1TwIndexDailyGetData>): QueryKey<Options<IndexDailyApiV1TwIndexDailyGetData>> => createQueryKey("indexDailyApiV1TwIndexDailyGet", options, true);
+
+/**
+ * Index Daily
+ *
+ * TWSE price indices (market and sector).
+ */
+export const indexDailyApiV1TwIndexDailyGetInfiniteOptions = (options: Options<IndexDailyApiV1TwIndexDailyGetData>) => {
+    return infiniteQueryOptions<IndexDailyApiV1TwIndexDailyGetResponse, IndexDailyApiV1TwIndexDailyGetError, InfiniteData<IndexDailyApiV1TwIndexDailyGetResponse>, QueryKey<Options<IndexDailyApiV1TwIndexDailyGetData>>, string | Pick<QueryKey<Options<IndexDailyApiV1TwIndexDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<IndexDailyApiV1TwIndexDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await indexDailyApiV1TwIndexDailyGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: indexDailyApiV1TwIndexDailyGetInfiniteQueryKey(options)
+    });
+};
+
+export const securityProfileApiV1TwSecurityProfileGetQueryKey = (options: Options<SecurityProfileApiV1TwSecurityProfileGetData>) => createQueryKey("securityProfileApiV1TwSecurityProfileGet", options);
+
+/**
+ * Security Profile
+ *
+ * Securities listed on ``as_of`` with the industry valid that day (point in time).
+ */
+export const securityProfileApiV1TwSecurityProfileGetOptions = (options: Options<SecurityProfileApiV1TwSecurityProfileGetData>) => queryOptions<SecurityProfileApiV1TwSecurityProfileGetResponse, SecurityProfileApiV1TwSecurityProfileGetError, SecurityProfileApiV1TwSecurityProfileGetResponse, ReturnType<typeof securityProfileApiV1TwSecurityProfileGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await securityProfileApiV1TwSecurityProfileGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: securityProfileApiV1TwSecurityProfileGetQueryKey(options)
+});
+
+export const researchUniverseApiV1TwResearchUniverseGetQueryKey = (options?: Options<ResearchUniverseApiV1TwResearchUniverseGetData>) => createQueryKey("researchUniverseApiV1TwResearchUniverseGet", options);
+
+/**
+ * Research Universe
+ *
+ * Latest stored research universe snapshot at or before ``as_of``.
+ */
+export const researchUniverseApiV1TwResearchUniverseGetOptions = (options?: Options<ResearchUniverseApiV1TwResearchUniverseGetData>) => queryOptions<ResearchUniverseApiV1TwResearchUniverseGetResponse, ResearchUniverseApiV1TwResearchUniverseGetError, ResearchUniverseApiV1TwResearchUniverseGetResponse, ReturnType<typeof researchUniverseApiV1TwResearchUniverseGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await researchUniverseApiV1TwResearchUniverseGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: researchUniverseApiV1TwResearchUniverseGetQueryKey(options)
+});
+
+export const corporateActionsApiV1TwCorporateActionsGetQueryKey = (options: Options<CorporateActionsApiV1TwCorporateActionsGetData>) => createQueryKey("corporateActionsApiV1TwCorporateActionsGet", options);
+
+/**
+ * Corporate Actions
+ *
+ * Ex-rights, capital-reduction, par-value-change and ETF split events with ``factor = ref_price / prev_close``.
+ *
+ * Backward-adjusted close for day D: ``close(D) * product(factor of events dated after D)``.
+ */
+export const corporateActionsApiV1TwCorporateActionsGetOptions = (options: Options<CorporateActionsApiV1TwCorporateActionsGetData>) => queryOptions<CorporateActionsApiV1TwCorporateActionsGetResponse, CorporateActionsApiV1TwCorporateActionsGetError, CorporateActionsApiV1TwCorporateActionsGetResponse, ReturnType<typeof corporateActionsApiV1TwCorporateActionsGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await corporateActionsApiV1TwCorporateActionsGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: corporateActionsApiV1TwCorporateActionsGetQueryKey(options)
+});
+
+export const corporateActionsApiV1TwCorporateActionsGetInfiniteQueryKey = (options: Options<CorporateActionsApiV1TwCorporateActionsGetData>): QueryKey<Options<CorporateActionsApiV1TwCorporateActionsGetData>> => createQueryKey("corporateActionsApiV1TwCorporateActionsGet", options, true);
+
+/**
+ * Corporate Actions
+ *
+ * Ex-rights, capital-reduction, par-value-change and ETF split events with ``factor = ref_price / prev_close``.
+ *
+ * Backward-adjusted close for day D: ``close(D) * product(factor of events dated after D)``.
+ */
+export const corporateActionsApiV1TwCorporateActionsGetInfiniteOptions = (options: Options<CorporateActionsApiV1TwCorporateActionsGetData>) => {
+    return infiniteQueryOptions<CorporateActionsApiV1TwCorporateActionsGetResponse, CorporateActionsApiV1TwCorporateActionsGetError, InfiniteData<CorporateActionsApiV1TwCorporateActionsGetResponse>, QueryKey<Options<CorporateActionsApiV1TwCorporateActionsGetData>>, string | Pick<QueryKey<Options<CorporateActionsApiV1TwCorporateActionsGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<CorporateActionsApiV1TwCorporateActionsGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await corporateActionsApiV1TwCorporateActionsGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: corporateActionsApiV1TwCorporateActionsGetInfiniteQueryKey(options)
+    });
+};
+
+export const corporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetQueryKey = (options?: Options<CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetData>) => createQueryKey("corporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGet", options);
+
+/**
+ * Corporate Actions Complete Through
+ *
+ * How far the corporate-action table is complete: the Taipei date of the last successful daily run.
+ *
+ * The daily job re-reads the 14 days up to its own Taipei date, so every event dated up to
+ * ``complete_through`` is in ``/corporate-actions``. ``last_error`` is the newest failed attempt's message
+ * (null once a later run succeeded); history before each source's start is not covered, see
+ * ``CORPORATE_ACTION_FLOORS``.
+ */
+export const corporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetOptions = (options?: Options<CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetData>) => queryOptions<CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetResponse, DefaultError, CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetResponse, ReturnType<typeof corporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await corporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: corporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetQueryKey(options)
+});
+
+export const industryMembershipApiV1TwIndustryMembershipGetQueryKey = (options: Options<IndustryMembershipApiV1TwIndustryMembershipGetData>) => createQueryKey("industryMembershipApiV1TwIndustryMembershipGet", options);
+
+/**
+ * Industry Membership
+ *
+ * Listed common stocks with their industry on ``as_of`` (point in time, delisted included).
+ *
+ * Before 2026-10-21 this is the newest monthly exchange snapshot at most 45 days old;
+ * from then on the ISIN-based security profile.
+ */
+export const industryMembershipApiV1TwIndustryMembershipGetOptions = (options: Options<IndustryMembershipApiV1TwIndustryMembershipGetData>) => queryOptions<IndustryMembershipApiV1TwIndustryMembershipGetResponse, IndustryMembershipApiV1TwIndustryMembershipGetError, IndustryMembershipApiV1TwIndustryMembershipGetResponse, ReturnType<typeof industryMembershipApiV1TwIndustryMembershipGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await industryMembershipApiV1TwIndustryMembershipGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: industryMembershipApiV1TwIndustryMembershipGetQueryKey(options)
+});
+
+export const groupRankingApiV1TwGroupsRankingGetQueryKey = (options?: Options<GroupRankingApiV1TwGroupsRankingGetData>) => createQueryKey("groupRankingApiV1TwGroupsRankingGet", options);
+
+/**
+ * Group Ranking
+ *
+ * Strength of the owner's stock groups on a session (default: the latest), computed on read.
+ *
+ * Context for choosing what to look at, not a buy signal: SEED-003 found no rotation rule that held up
+ * out of sample. See ``thalassa.data.tw_public.group_ranking`` for the formulas.
+ */
+export const groupRankingApiV1TwGroupsRankingGetOptions = (options?: Options<GroupRankingApiV1TwGroupsRankingGetData>) => queryOptions<GroupRankingApiV1TwGroupsRankingGetResponse, GroupRankingApiV1TwGroupsRankingGetError, GroupRankingApiV1TwGroupsRankingGetResponse, ReturnType<typeof groupRankingApiV1TwGroupsRankingGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await groupRankingApiV1TwGroupsRankingGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: groupRankingApiV1TwGroupsRankingGetQueryKey(options)
+});
+
+export const groupRankingHistoryApiV1TwGroupsRankingHistoryGetQueryKey = (options: Options<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData>) => createQueryKey("groupRankingHistoryApiV1TwGroupsRankingHistoryGet", options);
+
+/**
+ * Group Ranking History
+ *
+ * ``/groups/ranking`` for every session in [start, end] (at most 200 days), without the per-member detail.
+ *
+ * A day that cannot be ranked (e.g. fewer than 61 sessions of history before it) is listed under ``unavailable``.
+ */
+export const groupRankingHistoryApiV1TwGroupsRankingHistoryGetOptions = (options: Options<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData>) => queryOptions<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponse, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetError, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponse, ReturnType<typeof groupRankingHistoryApiV1TwGroupsRankingHistoryGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await groupRankingHistoryApiV1TwGroupsRankingHistoryGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: groupRankingHistoryApiV1TwGroupsRankingHistoryGetQueryKey(options)
+});
+
+export const groupRankingHistoryApiV1TwGroupsRankingHistoryGetInfiniteQueryKey = (options: Options<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData>): QueryKey<Options<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData>> => createQueryKey("groupRankingHistoryApiV1TwGroupsRankingHistoryGet", options, true);
+
+/**
+ * Group Ranking History
+ *
+ * ``/groups/ranking`` for every session in [start, end] (at most 200 days), without the per-member detail.
+ *
+ * A day that cannot be ranked (e.g. fewer than 61 sessions of history before it) is listed under ``unavailable``.
+ */
+export const groupRankingHistoryApiV1TwGroupsRankingHistoryGetInfiniteOptions = (options: Options<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData>) => {
+    return infiniteQueryOptions<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponse, GroupRankingHistoryApiV1TwGroupsRankingHistoryGetError, InfiniteData<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponse>, QueryKey<Options<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData>>, string | Pick<QueryKey<Options<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await groupRankingHistoryApiV1TwGroupsRankingHistoryGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: groupRankingHistoryApiV1TwGroupsRankingHistoryGetInfiniteQueryKey(options)
+    });
+};
+
+export const marketSummaryApiV1TwMarketSummaryGetQueryKey = (options: Options<MarketSummaryApiV1TwMarketSummaryGetData>) => createQueryKey("marketSummaryApiV1TwMarketSummaryGet", options);
+
+/**
+ * Market Summary
+ *
+ * Daily whole-market turnover, breadth (stocks) and the three institutional investors' totals, per market.
+ *
+ * ``final`` false: fetched on the session's own date, before the exchanges' evening revisions; the next day's run
+ * replaces it. Sources and definitions: ``thalassa.data.tw_public.market_summary``.
+ */
+export const marketSummaryApiV1TwMarketSummaryGetOptions = (options: Options<MarketSummaryApiV1TwMarketSummaryGetData>) => queryOptions<MarketSummaryApiV1TwMarketSummaryGetResponse, MarketSummaryApiV1TwMarketSummaryGetError, MarketSummaryApiV1TwMarketSummaryGetResponse, ReturnType<typeof marketSummaryApiV1TwMarketSummaryGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await marketSummaryApiV1TwMarketSummaryGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: marketSummaryApiV1TwMarketSummaryGetQueryKey(options)
+});
+
+export const marketSummaryApiV1TwMarketSummaryGetInfiniteQueryKey = (options: Options<MarketSummaryApiV1TwMarketSummaryGetData>): QueryKey<Options<MarketSummaryApiV1TwMarketSummaryGetData>> => createQueryKey("marketSummaryApiV1TwMarketSummaryGet", options, true);
+
+/**
+ * Market Summary
+ *
+ * Daily whole-market turnover, breadth (stocks) and the three institutional investors' totals, per market.
+ *
+ * ``final`` false: fetched on the session's own date, before the exchanges' evening revisions; the next day's run
+ * replaces it. Sources and definitions: ``thalassa.data.tw_public.market_summary``.
+ */
+export const marketSummaryApiV1TwMarketSummaryGetInfiniteOptions = (options: Options<MarketSummaryApiV1TwMarketSummaryGetData>) => {
+    return infiniteQueryOptions<MarketSummaryApiV1TwMarketSummaryGetResponse, MarketSummaryApiV1TwMarketSummaryGetError, InfiniteData<MarketSummaryApiV1TwMarketSummaryGetResponse>, QueryKey<Options<MarketSummaryApiV1TwMarketSummaryGetData>>, string | Pick<QueryKey<Options<MarketSummaryApiV1TwMarketSummaryGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<MarketSummaryApiV1TwMarketSummaryGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await marketSummaryApiV1TwMarketSummaryGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: marketSummaryApiV1TwMarketSummaryGetInfiniteQueryKey(options)
+    });
+};
+
+export const creditMarketApiV1TwCreditMarketGetQueryKey = (options: Options<CreditMarketApiV1TwCreditMarketGetData>) => createQueryKey("creditMarketApiV1TwCreditMarketGet", options);
+
+/**
+ * Credit Market
+ *
+ * Daily 融資 / 融券 totals per market (``twse``, ``tpex``) with the margin maintenance-ratio ESTIMATE.
+ *
+ * ``maintenance_ratio_estimate_pct`` = 100 x sum(margin lots x 1,000 x close) / 融資金額, computed on read; the
+ * exchanges publish no such ratio. Assumptions and biases: ``thalassa.data.tw_public.credit``.
+ */
+export const creditMarketApiV1TwCreditMarketGetOptions = (options: Options<CreditMarketApiV1TwCreditMarketGetData>) => queryOptions<CreditMarketApiV1TwCreditMarketGetResponse, CreditMarketApiV1TwCreditMarketGetError, CreditMarketApiV1TwCreditMarketGetResponse, ReturnType<typeof creditMarketApiV1TwCreditMarketGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await creditMarketApiV1TwCreditMarketGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: creditMarketApiV1TwCreditMarketGetQueryKey(options)
+});
+
+export const creditMarketApiV1TwCreditMarketGetInfiniteQueryKey = (options: Options<CreditMarketApiV1TwCreditMarketGetData>): QueryKey<Options<CreditMarketApiV1TwCreditMarketGetData>> => createQueryKey("creditMarketApiV1TwCreditMarketGet", options, true);
+
+/**
+ * Credit Market
+ *
+ * Daily 融資 / 融券 totals per market (``twse``, ``tpex``) with the margin maintenance-ratio ESTIMATE.
+ *
+ * ``maintenance_ratio_estimate_pct`` = 100 x sum(margin lots x 1,000 x close) / 融資金額, computed on read; the
+ * exchanges publish no such ratio. Assumptions and biases: ``thalassa.data.tw_public.credit``.
+ */
+export const creditMarketApiV1TwCreditMarketGetInfiniteOptions = (options: Options<CreditMarketApiV1TwCreditMarketGetData>) => {
+    return infiniteQueryOptions<CreditMarketApiV1TwCreditMarketGetResponse, CreditMarketApiV1TwCreditMarketGetError, InfiniteData<CreditMarketApiV1TwCreditMarketGetResponse>, QueryKey<Options<CreditMarketApiV1TwCreditMarketGetData>>, string | Pick<QueryKey<Options<CreditMarketApiV1TwCreditMarketGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<CreditMarketApiV1TwCreditMarketGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await creditMarketApiV1TwCreditMarketGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: creditMarketApiV1TwCreditMarketGetInfiniteQueryKey(options)
+    });
+};
+
+export const creditStockApiV1TwCreditStockGetQueryKey = (options: Options<CreditStockApiV1TwCreditStockGetData>) => createQueryKey("creditStockApiV1TwCreditStockGet", options);
+
+/**
+ * Credit Stock
+ *
+ * One security's daily 融資 / 融券 flows and balances (lots).
+ */
+export const creditStockApiV1TwCreditStockGetOptions = (options: Options<CreditStockApiV1TwCreditStockGetData>) => queryOptions<CreditStockApiV1TwCreditStockGetResponse, CreditStockApiV1TwCreditStockGetError, CreditStockApiV1TwCreditStockGetResponse, ReturnType<typeof creditStockApiV1TwCreditStockGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await creditStockApiV1TwCreditStockGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: creditStockApiV1TwCreditStockGetQueryKey(options)
+});
+
+export const creditStockApiV1TwCreditStockGetInfiniteQueryKey = (options: Options<CreditStockApiV1TwCreditStockGetData>): QueryKey<Options<CreditStockApiV1TwCreditStockGetData>> => createQueryKey("creditStockApiV1TwCreditStockGet", options, true);
+
+/**
+ * Credit Stock
+ *
+ * One security's daily 融資 / 融券 flows and balances (lots).
+ */
+export const creditStockApiV1TwCreditStockGetInfiniteOptions = (options: Options<CreditStockApiV1TwCreditStockGetData>) => {
+    return infiniteQueryOptions<CreditStockApiV1TwCreditStockGetResponse, CreditStockApiV1TwCreditStockGetError, InfiniteData<CreditStockApiV1TwCreditStockGetResponse>, QueryKey<Options<CreditStockApiV1TwCreditStockGetData>>, string | Pick<QueryKey<Options<CreditStockApiV1TwCreditStockGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<CreditStockApiV1TwCreditStockGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await creditStockApiV1TwCreditStockGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: creditStockApiV1TwCreditStockGetInfiniteQueryKey(options)
+    });
+};
+
+export const sblStockApiV1TwSblStockGetQueryKey = (options: Options<SblStockApiV1TwSblStockGetData>) => createQueryKey("sblStockApiV1TwSblStockGet", options);
+
+/**
+ * Sbl Stock
+ *
+ * One security's daily 借券賣出 (securities-lending short sale) flows, balance and next session's limit, in
+ * SHARES: balance = previous balance + sold - returned + adjusted, except on a row with ``unreconciled`` true, where
+ * the exchange published numbers that do not add up (stored as published).
+ */
+export const sblStockApiV1TwSblStockGetOptions = (options: Options<SblStockApiV1TwSblStockGetData>) => queryOptions<SblStockApiV1TwSblStockGetResponse, SblStockApiV1TwSblStockGetError, SblStockApiV1TwSblStockGetResponse, ReturnType<typeof sblStockApiV1TwSblStockGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await sblStockApiV1TwSblStockGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: sblStockApiV1TwSblStockGetQueryKey(options)
+});
+
+export const sblStockApiV1TwSblStockGetInfiniteQueryKey = (options: Options<SblStockApiV1TwSblStockGetData>): QueryKey<Options<SblStockApiV1TwSblStockGetData>> => createQueryKey("sblStockApiV1TwSblStockGet", options, true);
+
+/**
+ * Sbl Stock
+ *
+ * One security's daily 借券賣出 (securities-lending short sale) flows, balance and next session's limit, in
+ * SHARES: balance = previous balance + sold - returned + adjusted, except on a row with ``unreconciled`` true, where
+ * the exchange published numbers that do not add up (stored as published).
+ */
+export const sblStockApiV1TwSblStockGetInfiniteOptions = (options: Options<SblStockApiV1TwSblStockGetData>) => {
+    return infiniteQueryOptions<SblStockApiV1TwSblStockGetResponse, SblStockApiV1TwSblStockGetError, InfiniteData<SblStockApiV1TwSblStockGetResponse>, QueryKey<Options<SblStockApiV1TwSblStockGetData>>, string | Pick<QueryKey<Options<SblStockApiV1TwSblStockGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<SblStockApiV1TwSblStockGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await sblStockApiV1TwSblStockGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: sblStockApiV1TwSblStockGetInfiniteQueryKey(options)
+    });
+};
+
+export const creditScreenApiV1TwCreditScreenGetQueryKey = (options?: Options<CreditScreenApiV1TwCreditScreenGetData>) => createQueryKey("creditScreenApiV1TwCreditScreenGet", options);
+
+/**
+ * Credit Screen
+ *
+ * Cross-stock 融資 / 融券 / 借券賣出 / 法人 / 5-day return screen for one session (default: the latest), computed on read.
+ *
+ * ``sort`` is a field, ascending, or ``-field``, descending (nulls last). Context for what to look at, not a buy
+ * or sell signal. Formulas: ``thalassa.data.tw_public.credit_screen``.
+ */
+export const creditScreenApiV1TwCreditScreenGetOptions = (options?: Options<CreditScreenApiV1TwCreditScreenGetData>) => queryOptions<CreditScreenApiV1TwCreditScreenGetResponse, CreditScreenApiV1TwCreditScreenGetError, CreditScreenApiV1TwCreditScreenGetResponse, ReturnType<typeof creditScreenApiV1TwCreditScreenGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await creditScreenApiV1TwCreditScreenGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: creditScreenApiV1TwCreditScreenGetQueryKey(options)
+});
+
+export const taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetQueryKey = (options: Options<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData>) => createQueryKey("taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGet", options);
+
+/**
+ * Taifex Futures Daily
+ *
+ * TX / MTX / TMF daily quotes, every contract month and session, for at most 400 days.
+ */
+export const taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetOptions = (options: Options<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData>) => queryOptions<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponse, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetError, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponse, ReturnType<typeof taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetQueryKey(options)
+});
+
+export const taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetInfiniteQueryKey = (options: Options<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData>): QueryKey<Options<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData>> => createQueryKey("taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGet", options, true);
+
+/**
+ * Taifex Futures Daily
+ *
+ * TX / MTX / TMF daily quotes, every contract month and session, for at most 400 days.
+ */
+export const taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetInfiniteOptions = (options: Options<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData>) => {
+    return infiniteQueryOptions<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponse, TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetError, InfiniteData<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponse>, QueryKey<Options<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData>>, string | Pick<QueryKey<Options<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: taifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetInfiniteQueryKey(options)
+    });
+};
+
+export const taifexTxoDailyApiV1RefdataTaifexTxoDailyGetQueryKey = (options: Options<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData>) => createQueryKey("taifexTxoDailyApiV1RefdataTaifexTxoDailyGet", options);
+
+/**
+ * Taifex Txo Daily
+ *
+ * TXO daily quotes per series and session, for at most 31 days.
+ */
+export const taifexTxoDailyApiV1RefdataTaifexTxoDailyGetOptions = (options: Options<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData>) => queryOptions<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponse, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetError, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponse, ReturnType<typeof taifexTxoDailyApiV1RefdataTaifexTxoDailyGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await taifexTxoDailyApiV1RefdataTaifexTxoDailyGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: taifexTxoDailyApiV1RefdataTaifexTxoDailyGetQueryKey(options)
+});
+
+export const taifexTxoDailyApiV1RefdataTaifexTxoDailyGetInfiniteQueryKey = (options: Options<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData>): QueryKey<Options<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData>> => createQueryKey("taifexTxoDailyApiV1RefdataTaifexTxoDailyGet", options, true);
+
+/**
+ * Taifex Txo Daily
+ *
+ * TXO daily quotes per series and session, for at most 31 days.
+ */
+export const taifexTxoDailyApiV1RefdataTaifexTxoDailyGetInfiniteOptions = (options: Options<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData>) => {
+    return infiniteQueryOptions<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponse, TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetError, InfiniteData<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponse>, QueryKey<Options<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData>>, string | Pick<QueryKey<Options<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await taifexTxoDailyApiV1RefdataTaifexTxoDailyGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: taifexTxoDailyApiV1RefdataTaifexTxoDailyGetInfiniteQueryKey(options)
+    });
+};
+
+export const taifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetQueryKey = (options: Options<TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetData>) => createQueryKey("taifexFinalSettlementApiV1RefdataTaifexFinalSettlementGet", options);
+
+/**
+ * Taifex Final Settlement
+ *
+ * Every final settlement of the index futures (TX / MTX / TMF share one) or of TXO.
+ */
+export const taifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetOptions = (options: Options<TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetData>) => queryOptions<TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetResponse, TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetError, TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetResponse, ReturnType<typeof taifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await taifexFinalSettlementApiV1RefdataTaifexFinalSettlementGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: taifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetQueryKey(options)
+});
+
+export const indexDailyApiV1RefdataIndexDailyGetQueryKey = (options: Options<IndexDailyApiV1RefdataIndexDailyGetData>) => createQueryKey("indexDailyApiV1RefdataIndexDailyGet", options);
+
+/**
+ * Index Daily
+ *
+ * TAIEX (OHLC), the TAIEX total-return index (close), the TPEx index 櫃買指數 (OHLC) or the CBOE VIX (OHLC, US
+ * dates).
+ */
+export const indexDailyApiV1RefdataIndexDailyGetOptions = (options: Options<IndexDailyApiV1RefdataIndexDailyGetData>) => queryOptions<IndexDailyApiV1RefdataIndexDailyGetResponse, IndexDailyApiV1RefdataIndexDailyGetError, IndexDailyApiV1RefdataIndexDailyGetResponse, ReturnType<typeof indexDailyApiV1RefdataIndexDailyGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await indexDailyApiV1RefdataIndexDailyGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: indexDailyApiV1RefdataIndexDailyGetQueryKey(options)
+});
+
+export const indexDailyApiV1RefdataIndexDailyGetInfiniteQueryKey = (options: Options<IndexDailyApiV1RefdataIndexDailyGetData>): QueryKey<Options<IndexDailyApiV1RefdataIndexDailyGetData>> => createQueryKey("indexDailyApiV1RefdataIndexDailyGet", options, true);
+
+/**
+ * Index Daily
+ *
+ * TAIEX (OHLC), the TAIEX total-return index (close), the TPEx index 櫃買指數 (OHLC) or the CBOE VIX (OHLC, US
+ * dates).
+ */
+export const indexDailyApiV1RefdataIndexDailyGetInfiniteOptions = (options: Options<IndexDailyApiV1RefdataIndexDailyGetData>) => {
+    return infiniteQueryOptions<IndexDailyApiV1RefdataIndexDailyGetResponse, IndexDailyApiV1RefdataIndexDailyGetError, InfiniteData<IndexDailyApiV1RefdataIndexDailyGetResponse>, QueryKey<Options<IndexDailyApiV1RefdataIndexDailyGetData>>, string | Pick<QueryKey<Options<IndexDailyApiV1RefdataIndexDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<IndexDailyApiV1RefdataIndexDailyGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await indexDailyApiV1RefdataIndexDailyGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: indexDailyApiV1RefdataIndexDailyGetInfiniteQueryKey(options)
+    });
+};
+
+export const twseMarketCalendarApiV1RefdataTwseMarketCalendarGetQueryKey = (options?: Options<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData>) => createQueryKey("twseMarketCalendarApiV1RefdataTwseMarketCalendarGet", options);
+
+/**
+ * Twse Market Calendar
+ *
+ * The dates the official TWSE holiday schedule lists; ``closed`` False marks a first / last trading day.
+ */
+export const twseMarketCalendarApiV1RefdataTwseMarketCalendarGetOptions = (options?: Options<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData>) => queryOptions<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponse, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetError, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponse, ReturnType<typeof twseMarketCalendarApiV1RefdataTwseMarketCalendarGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await twseMarketCalendarApiV1RefdataTwseMarketCalendarGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: twseMarketCalendarApiV1RefdataTwseMarketCalendarGetQueryKey(options)
+});
+
+export const twseMarketCalendarApiV1RefdataTwseMarketCalendarGetInfiniteQueryKey = (options?: Options<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData>): QueryKey<Options<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData>> => createQueryKey("twseMarketCalendarApiV1RefdataTwseMarketCalendarGet", options, true);
+
+/**
+ * Twse Market Calendar
+ *
+ * The dates the official TWSE holiday schedule lists; ``closed`` False marks a first / last trading day.
+ */
+export const twseMarketCalendarApiV1RefdataTwseMarketCalendarGetInfiniteOptions = (options?: Options<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData>) => {
+    return infiniteQueryOptions<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponse, TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetError, InfiniteData<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponse>, QueryKey<Options<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData>>, string | Pick<QueryKey<Options<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+    // @ts-ignore
+    {
+        queryFn: async ({ pageParam, queryKey, signal }) => {
+            // @ts-ignore
+            const page: Pick<QueryKey<Options<TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+                query: {
+                    start: pageParam
+                }
+            };
+            const params = createInfiniteParams(queryKey, page);
+            const { data } = await twseMarketCalendarApiV1RefdataTwseMarketCalendarGet({
+                ...options,
+                ...params,
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: twseMarketCalendarApiV1RefdataTwseMarketCalendarGetInfiniteQueryKey(options)
+    });
+};
+
+export const refdataFreshnessApiV1RefdataFreshnessGetQueryKey = (options?: Options<RefdataFreshnessApiV1RefdataFreshnessGetData>) => createQueryKey("refdataFreshnessApiV1RefdataFreshnessGet", options);
+
+/**
+ * Refdata Freshness
+ *
+ * Per dataset: the last date held, its lag and the last daily run; ``status`` is ``fresh`` only when every
+ * dataset is (see ``thalassa.data.market_refdata.freshness``).
+ */
+export const refdataFreshnessApiV1RefdataFreshnessGetOptions = (options?: Options<RefdataFreshnessApiV1RefdataFreshnessGetData>) => queryOptions<RefdataFreshnessApiV1RefdataFreshnessGetResponse, DefaultError, RefdataFreshnessApiV1RefdataFreshnessGetResponse, ReturnType<typeof refdataFreshnessApiV1RefdataFreshnessGetQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await refdataFreshnessApiV1RefdataFreshnessGet({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: refdataFreshnessApiV1RefdataFreshnessGetQueryKey(options)
 });

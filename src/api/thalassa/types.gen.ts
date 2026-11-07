@@ -5,6 +5,112 @@ export type ClientOptions = {
 };
 
 /**
+ * ActiveRiskFiltersResponse
+ */
+export type ActiveRiskFiltersResponse = {
+    /**
+     * Excluded Symbols
+     */
+    excluded_symbols: Array<string>;
+};
+
+/**
+ * BackfillDispatchResponse
+ *
+ * Response for POST /backfill.
+ */
+export type BackfillDispatchResponse = {
+    /**
+     * Job Id
+     */
+    job_id: string;
+    /**
+     * Tasks Dispatched
+     */
+    tasks_dispatched: number;
+    /**
+     * Message
+     */
+    message: string;
+};
+
+/**
+ * BackfillJobResponse
+ *
+ * Response for a single backfill job.
+ */
+export type BackfillJobResponse = {
+    /**
+     * Job Id
+     */
+    job_id: string;
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Symbols
+     */
+    symbols: Array<string>;
+    /**
+     * Intervals
+     */
+    intervals: Array<string>;
+    /**
+     * Cursor
+     */
+    cursor?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Progress
+     */
+    progress?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Error
+     */
+    error?: string | null;
+    /**
+     * Created At
+     */
+    created_at?: string | null;
+};
+
+/**
+ * BackfillRequest
+ *
+ * Request body for POST /backfill.
+ */
+export type BackfillRequest = {
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Symbols
+     */
+    symbols: Array<string>;
+    /**
+     * Intervals
+     */
+    intervals?: Array<string> | null;
+    /**
+     * Start
+     */
+    start?: string | null;
+    /**
+     * End
+     */
+    end?: string | null;
+};
+
+/**
  * BatchOHLCVRequest
  */
 export type BatchOhlcvRequest = {
@@ -169,6 +275,26 @@ export type DataGapResponse = {
 };
 
 /**
+ * ExchangeBackfillRequest
+ *
+ * Request body for exchange-specific backfill endpoints.
+ */
+export type ExchangeBackfillRequest = {
+    /**
+     * Symbols
+     */
+    symbols?: Array<string> | null;
+    /**
+     * Start
+     */
+    start?: string;
+    /**
+     * Interval
+     */
+    interval?: string;
+};
+
+/**
  * FundamentalsResponse
  */
 export type FundamentalsResponse = {
@@ -207,6 +333,22 @@ export type FundamentalsRow = {
 };
 
 /**
+ * FundingBackfillRequest
+ *
+ * Request body for funding rate backfill.
+ */
+export type FundingBackfillRequest = {
+    /**
+     * Symbols
+     */
+    symbols?: Array<string> | null;
+    /**
+     * Start
+     */
+    start?: string;
+};
+
+/**
  * HTTPValidationError
  */
 export type HttpValidationError = {
@@ -214,6 +356,50 @@ export type HttpValidationError = {
      * Detail
      */
     detail?: Array<ValidationError>;
+};
+
+/**
+ * HealthResponse
+ */
+export type HealthResponse = {
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * Service
+     */
+    service: string;
+};
+
+/**
+ * MarketIndexDailyRow
+ */
+export type MarketIndexDailyRow = {
+    /**
+     * Index Name
+     */
+    index_name: string;
+    /**
+     * Trade Date
+     */
+    trade_date: string;
+    /**
+     * Open
+     */
+    open: number | null;
+    /**
+     * High
+     */
+    high: number | null;
+    /**
+     * Low
+     */
+    low: number | null;
+    /**
+     * Close
+     */
+    close: number;
 };
 
 /**
@@ -270,6 +456,10 @@ export type OhlcvPoint = {
      * Volume
      */
     volume: number;
+    /**
+     * Adj Close
+     */
+    adj_close?: number | null;
 };
 
 /**
@@ -296,6 +486,10 @@ export type OhlcvResponse = {
      * Count
      */
     count: number;
+    /**
+     * Series Status
+     */
+    series_status?: 'tracked' | 'untracked' | 'delisted' | null;
 };
 
 /**
@@ -395,6 +589,106 @@ export type QualityScoresResponse = {
 };
 
 /**
+ * RefdataFreshnessEntry
+ */
+export type RefdataFreshnessEntry = {
+    /**
+     * Last
+     */
+    last: string | null;
+    /**
+     * Lag Trading Days
+     */
+    lag_trading_days?: number | null;
+    /**
+     * Lag Calendar Days
+     */
+    lag_calendar_days?: number | null;
+    /**
+     * Last Successful Ts
+     */
+    last_successful_ts: string | null;
+    /**
+     * Last Error
+     */
+    last_error: string | null;
+    /**
+     * Fresh
+     */
+    fresh: boolean;
+};
+
+/**
+ * RefdataFreshnessResponse
+ */
+export type RefdataFreshnessResponse = {
+    /**
+     * Status
+     */
+    status: string;
+    /**
+     * As Of
+     */
+    as_of: string;
+    /**
+     * Expected Latest Trading Day
+     */
+    expected_latest_trading_day: string | null;
+    /**
+     * Unscheduled Closures
+     */
+    unscheduled_closures: Array<string>;
+    /**
+     * Datasets
+     */
+    datasets: {
+        [key: string]: RefdataFreshnessEntry;
+    };
+    /**
+     * Stale
+     */
+    stale: Array<string>;
+    /**
+     * Warnings
+     */
+    warnings: Array<string>;
+};
+
+/**
+ * RiskFilterRow
+ */
+export type RiskFilterRow = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Flag Type
+     */
+    flag_type: string;
+    /**
+     * Is Active
+     */
+    is_active: boolean;
+    /**
+     * Source
+     */
+    source: string;
+    /**
+     * Reason
+     */
+    reason: string | null;
+    /**
+     * Effective Date
+     */
+    effective_date: string | null;
+};
+
+/**
  * ScalarValueResponse
  *
  * Response for endpoints returning a single float or null.
@@ -448,6 +742,1085 @@ export type SentimentRow = {
      * Created At
      */
     created_at: string;
+};
+
+/**
+ * TaifexFinalSettlementRow
+ */
+export type TaifexFinalSettlementRow = {
+    /**
+     * Kind
+     */
+    kind: string;
+    /**
+     * Contract Month
+     */
+    contract_month: string;
+    /**
+     * Final Settlement Date
+     */
+    final_settlement_date: string;
+    /**
+     * Final Settlement Price
+     */
+    final_settlement_price: number | null;
+};
+
+/**
+ * TaifexFuturesDailyRow
+ */
+export type TaifexFuturesDailyRow = {
+    /**
+     * Trade Date
+     */
+    trade_date: string;
+    /**
+     * Product
+     */
+    product: string;
+    /**
+     * Contract Month
+     */
+    contract_month: string;
+    /**
+     * Session
+     */
+    session: string;
+    /**
+     * Open
+     */
+    open: number | null;
+    /**
+     * High
+     */
+    high: number | null;
+    /**
+     * Low
+     */
+    low: number | null;
+    /**
+     * Close
+     */
+    close: number | null;
+    /**
+     * Volume
+     */
+    volume: number;
+    /**
+     * Settlement
+     */
+    settlement: number | null;
+    /**
+     * Open Interest
+     */
+    open_interest: number | null;
+    /**
+     * Best Bid
+     */
+    best_bid: number | null;
+    /**
+     * Best Ask
+     */
+    best_ask: number | null;
+};
+
+/**
+ * TaifexOptionDailyRow
+ */
+export type TaifexOptionDailyRow = {
+    /**
+     * Trade Date
+     */
+    trade_date: string;
+    /**
+     * Session
+     */
+    session: string;
+    /**
+     * Contract Month
+     */
+    contract_month: string;
+    /**
+     * Strike
+     */
+    strike: number;
+    /**
+     * Cp
+     */
+    cp: string;
+    /**
+     * Open
+     */
+    open: number | null;
+    /**
+     * High
+     */
+    high: number | null;
+    /**
+     * Low
+     */
+    low: number | null;
+    /**
+     * Close
+     */
+    close: number | null;
+    /**
+     * Volume
+     */
+    volume: number;
+    /**
+     * Settlement
+     */
+    settlement: number | null;
+    /**
+     * Open Interest
+     */
+    open_interest: number | null;
+    /**
+     * Best Bid
+     */
+    best_bid: number | null;
+    /**
+     * Best Ask
+     */
+    best_ask: number | null;
+    /**
+     * Halted
+     */
+    halted: boolean;
+    /**
+     * Taifex Expiry
+     */
+    taifex_expiry: string | null;
+};
+
+/**
+ * TwCompleteThroughResponse
+ */
+export type TwCompleteThroughResponse = {
+    /**
+     * Complete Through
+     */
+    complete_through: string;
+    /**
+     * Last Successful Ts
+     */
+    last_successful_ts: string;
+    /**
+     * Last Error
+     */
+    last_error: string | null;
+};
+
+/**
+ * TwCorporateActionRow
+ */
+export type TwCorporateActionRow = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Kind
+     */
+    kind: string;
+    /**
+     * Prev Close
+     */
+    prev_close: number;
+    /**
+     * Ref Price
+     */
+    ref_price: number;
+    /**
+     * Detail
+     */
+    detail: string | null;
+    /**
+     * Cash Dividend
+     */
+    cash_dividend: number | null;
+    /**
+     * Ex Rights Ref Price
+     */
+    ex_rights_ref_price: number | null;
+    /**
+     * Ingested At
+     */
+    ingested_at: string | null;
+    /**
+     * Factor
+     */
+    factor: number;
+};
+
+/**
+ * TwCreditMarketRow
+ *
+ * One market's credit on one session; see ``thalassa.data.tw_public.credit`` for the estimate.
+ */
+export type TwCreditMarketRow = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Margin Balance
+     */
+    margin_balance: number;
+    /**
+     * Margin Balance Change
+     */
+    margin_balance_change: number;
+    /**
+     * Margin Amount
+     */
+    margin_amount: number;
+    /**
+     * Margin Amount Change
+     */
+    margin_amount_change: number;
+    /**
+     * Short Balance
+     */
+    short_balance: number;
+    /**
+     * Short Balance Change
+     */
+    short_balance_change: number;
+    /**
+     * Margin Market Value
+     */
+    margin_market_value: number | null;
+    /**
+     * Priced Lot Share
+     */
+    priced_lot_share: number | null;
+    /**
+     * Maintenance Ratio Estimate Pct
+     */
+    maintenance_ratio_estimate_pct: number | null;
+};
+
+/**
+ * TwCreditScreenResponse
+ */
+export type TwCreditScreenResponse = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Market
+     */
+    market: 'all' | 'twse' | 'tpex';
+    /**
+     * Sort
+     */
+    sort: string;
+    /**
+     * Limit
+     */
+    limit: number;
+    /**
+     * Min Margin Lots
+     */
+    min_margin_lots: number;
+    /**
+     * Symbols
+     */
+    symbols: Array<string> | null;
+    /**
+     * Sessions
+     */
+    sessions: Array<string>;
+    /**
+     * Group Table Version
+     */
+    group_table_version: string;
+    /**
+     * Universe
+     */
+    universe: number;
+    /**
+     * Missing
+     */
+    missing: Array<string>;
+    /**
+     * Rows
+     */
+    rows: Array<TwCreditScreenRow>;
+};
+
+/**
+ * TwCreditScreenRow
+ *
+ * One security on the screen's date; formulas in ``thalassa.data.tw_public.credit_screen``. Lots are 張.
+ */
+export type TwCreditScreenRow = {
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Name
+     */
+    name: string | null;
+    /**
+     * Group
+     */
+    group: string | null;
+    /**
+     * Margin Balance
+     */
+    margin_balance: number | null;
+    /**
+     * Margin Change 1D
+     */
+    margin_change_1d: number | null;
+    /**
+     * Margin Change 1D Pct
+     */
+    margin_change_1d_pct: number | null;
+    /**
+     * Margin Change 5D
+     */
+    margin_change_5d: number | null;
+    /**
+     * Margin Change 5D Pct
+     */
+    margin_change_5d_pct: number | null;
+    /**
+     * Margin Usage Pct
+     */
+    margin_usage_pct: number | null;
+    /**
+     * Short Balance
+     */
+    short_balance: number | null;
+    /**
+     * Short Change 1D
+     */
+    short_change_1d: number | null;
+    /**
+     * Short Change 5D
+     */
+    short_change_5d: number | null;
+    /**
+     * Sbl Balance
+     */
+    sbl_balance: number | null;
+    /**
+     * Sbl Change 1D
+     */
+    sbl_change_1d: number | null;
+    /**
+     * Sbl Change 5D
+     */
+    sbl_change_5d: number | null;
+    /**
+     * Sbl Unreconciled
+     */
+    sbl_unreconciled: boolean;
+    /**
+     * Foreign Net 1D
+     */
+    foreign_net_1d: number | null;
+    /**
+     * Foreign Net 5D
+     */
+    foreign_net_5d: number | null;
+    /**
+     * Foreign Net 5D Volume Pct
+     */
+    foreign_net_5d_volume_pct: number | null;
+    /**
+     * Trust Net 1D
+     */
+    trust_net_1d: number | null;
+    /**
+     * Trust Net 5D
+     */
+    trust_net_5d: number | null;
+    /**
+     * Trust Net 5D Volume Pct
+     */
+    trust_net_5d_volume_pct: number | null;
+    /**
+     * Return 5D Pct
+     */
+    return_5d_pct: number | null;
+};
+
+/**
+ * TwCreditStockRow
+ *
+ * Lots (張): 融資 margin_*, 融券 short_*; *_limit is the next session's limit.
+ */
+export type TwCreditStockRow = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Margin Buy
+     */
+    margin_buy: number | null;
+    /**
+     * Margin Sell
+     */
+    margin_sell: number | null;
+    /**
+     * Margin Cash Repay
+     */
+    margin_cash_repay: number | null;
+    /**
+     * Margin Balance
+     */
+    margin_balance: number | null;
+    /**
+     * Margin Limit
+     */
+    margin_limit: number | null;
+    /**
+     * Short Sell
+     */
+    short_sell: number | null;
+    /**
+     * Short Buy
+     */
+    short_buy: number | null;
+    /**
+     * Short Stock Repay
+     */
+    short_stock_repay: number | null;
+    /**
+     * Short Balance
+     */
+    short_balance: number | null;
+    /**
+     * Short Limit
+     */
+    short_limit: number | null;
+};
+
+/**
+ * TwGroupHistoryScore
+ *
+ * One group on one day of ``/tw/groups/ranking/history``: ``TwGroupScore`` without the per-member detail.
+ */
+export type TwGroupHistoryScore = {
+    /**
+     * Group
+     */
+    group: string;
+    /**
+     * N Members
+     */
+    n_members: number;
+    /**
+     * N Valid
+     */
+    n_valid: number;
+    /**
+     * Missing
+     */
+    missing: Array<string>;
+    /**
+     * Ret20
+     */
+    ret20: number | null;
+    /**
+     * Ret60
+     */
+    ret60: number | null;
+    /**
+     * Rel20
+     */
+    rel20: number | null;
+    /**
+     * Rel60
+     */
+    rel60: number | null;
+    /**
+     * Turnover Share
+     */
+    turnover_share: number | null;
+    /**
+     * Turnover Share Change
+     */
+    turnover_share_change: number | null;
+    /**
+     * Score
+     */
+    score: number | null;
+    /**
+     * Rank
+     */
+    rank: number | null;
+    /**
+     * Rank Ex Flow
+     */
+    rank_ex_flow: number | null;
+};
+
+/**
+ * TwGroupMember
+ */
+export type TwGroupMember = {
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Ret20
+     */
+    ret20: number | null;
+    /**
+     * Ret60
+     */
+    ret60: number | null;
+};
+
+/**
+ * TwGroupRankingDay
+ */
+export type TwGroupRankingDay = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Taiex
+     */
+    taiex: {
+        [key: string]: number | null;
+    };
+    /**
+     * Groups
+     */
+    groups: Array<TwGroupHistoryScore>;
+};
+
+/**
+ * TwGroupRankingHistoryResponse
+ *
+ * Every session in [start, end], each ranked from its own 61-session window as ``/tw/groups/ranking?date=``.
+ */
+export type TwGroupRankingHistoryResponse = {
+    /**
+     * Start
+     */
+    start: string;
+    /**
+     * End
+     */
+    end: string;
+    /**
+     * Table Version
+     */
+    table_version: string;
+    /**
+     * Table Sha
+     */
+    table_sha: string;
+    /**
+     * Min Members
+     */
+    min_members: number;
+    /**
+     * Days
+     */
+    days: Array<TwGroupRankingDay>;
+    /**
+     * Unavailable
+     */
+    unavailable: Array<TwGroupRankingUnavailable>;
+};
+
+/**
+ * TwGroupRankingResponse
+ */
+export type TwGroupRankingResponse = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Table Version
+     */
+    table_version: string;
+    /**
+     * Table Sha
+     */
+    table_sha: string;
+    /**
+     * Min Members
+     */
+    min_members: number;
+    /**
+     * Taiex
+     */
+    taiex: {
+        [key: string]: number | null;
+    };
+    /**
+     * Groups
+     */
+    groups: Array<TwGroupScore>;
+};
+
+/**
+ * TwGroupRankingUnavailable
+ */
+export type TwGroupRankingUnavailable = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Reason
+     */
+    reason: string;
+};
+
+/**
+ * TwGroupScore
+ */
+export type TwGroupScore = {
+    /**
+     * Group
+     */
+    group: string;
+    /**
+     * N Members
+     */
+    n_members: number;
+    /**
+     * N Valid
+     */
+    n_valid: number;
+    /**
+     * Missing
+     */
+    missing: Array<string>;
+    /**
+     * Ret20
+     */
+    ret20: number | null;
+    /**
+     * Ret60
+     */
+    ret60: number | null;
+    /**
+     * Rel20
+     */
+    rel20: number | null;
+    /**
+     * Rel60
+     */
+    rel60: number | null;
+    /**
+     * Turnover Share
+     */
+    turnover_share: number | null;
+    /**
+     * Turnover Share Change
+     */
+    turnover_share_change: number | null;
+    /**
+     * Score
+     */
+    score: number | null;
+    /**
+     * Rank
+     */
+    rank: number | null;
+    /**
+     * Rank Ex Flow
+     */
+    rank_ex_flow: number | null;
+    /**
+     * Members
+     */
+    members: Array<TwGroupMember>;
+};
+
+/**
+ * TwIndexDailyRow
+ */
+export type TwIndexDailyRow = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Index Name
+     */
+    index_name: string;
+    /**
+     * Close
+     */
+    close: number;
+    /**
+     * Change Pct
+     */
+    change_pct: number | null;
+};
+
+/**
+ * TwIndustryMemberRow
+ */
+export type TwIndustryMemberRow = {
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Name
+     */
+    name: string | null;
+    /**
+     * Market
+     */
+    market: string | null;
+    /**
+     * Industry
+     */
+    industry: string | null;
+};
+
+/**
+ * TwInstitutionalFlow
+ */
+export type TwInstitutionalFlow = {
+    /**
+     * Buy
+     */
+    buy: number;
+    /**
+     * Sell
+     */
+    sell: number;
+    /**
+     * Net
+     */
+    net: number;
+};
+
+/**
+ * TwInstitutionalTotals
+ *
+ * A market's three institutional investors on one session (definitions in ``models.tw_market_summary``).
+ */
+export type TwInstitutionalTotals = {
+    foreign: TwInstitutionalFlow;
+    foreign_dealer: TwInstitutionalFlow;
+    trust: TwInstitutionalFlow;
+    dealer_self: TwInstitutionalFlow;
+    dealer_hedge: TwInstitutionalFlow;
+    dealer: TwInstitutionalFlow;
+    total: TwInstitutionalFlow;
+};
+
+/**
+ * TwMarketDailyRow
+ */
+export type TwMarketDailyRow = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Name
+     */
+    name: string | null;
+    /**
+     * Open
+     */
+    open: number | null;
+    /**
+     * High
+     */
+    high: number | null;
+    /**
+     * Low
+     */
+    low: number | null;
+    /**
+     * Close
+     */
+    close: number | null;
+    /**
+     * Volume
+     */
+    volume: number | null;
+    /**
+     * Turnover
+     */
+    turnover: number | null;
+    /**
+     * Transactions
+     */
+    transactions: number | null;
+    /**
+     * Shares Outstanding
+     */
+    shares_outstanding: number | null;
+};
+
+/**
+ * TwMarketSummaryRow
+ *
+ * One market (``twse`` listed, ``tpex`` OTC) on one session; see ``thalassa.data.tw_public.market_summary``.
+ *
+ * The summary fields are null while that part is missing (``missing`` names it); ``final`` is false until every part
+ * was fetched on a later date than the session (the exchanges revise a session's numbers that evening).
+ */
+export type TwMarketSummaryRow = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Turnover
+     */
+    turnover: number | null;
+    /**
+     * Stock Turnover
+     */
+    stock_turnover: number | null;
+    /**
+     * Volume
+     */
+    volume: number | null;
+    /**
+     * Transactions
+     */
+    transactions: number | null;
+    /**
+     * Up
+     */
+    up: number | null;
+    /**
+     * Up Limit
+     */
+    up_limit: number | null;
+    /**
+     * Down
+     */
+    down: number | null;
+    /**
+     * Down Limit
+     */
+    down_limit: number | null;
+    /**
+     * Unchanged
+     */
+    unchanged: number | null;
+    /**
+     * Untraded
+     */
+    untraded: number | null;
+    /**
+     * No Compare
+     */
+    no_compare: number | null;
+    /**
+     * Listed
+     */
+    listed: number | null;
+    institutional: TwInstitutionalTotals | null;
+    /**
+     * Missing
+     */
+    missing: Array<string>;
+    /**
+     * Final
+     */
+    final: boolean;
+    /**
+     * Fetched At
+     */
+    fetched_at: string | null;
+};
+
+/**
+ * TwResearchUniverseResponse
+ */
+export type TwResearchUniverseResponse = {
+    /**
+     * Snapshot Time
+     */
+    snapshot_time: string;
+    /**
+     * Filter Config
+     */
+    filter_config: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Count
+     */
+    count: number;
+    /**
+     * Symbols
+     */
+    symbols: Array<{
+        [key: string]: unknown;
+    }>;
+};
+
+/**
+ * TwSblStockRow
+ *
+ * One security's 借券賣出 on one session, in shares (``thalassa.models.tw_credit.TwSblDaily``).
+ */
+export type TwSblStockRow = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Sold
+     */
+    sold: number;
+    /**
+     * Returned
+     */
+    returned: number;
+    /**
+     * Adjusted
+     */
+    adjusted: number;
+    /**
+     * Balance
+     */
+    balance: number;
+    /**
+     * Next Day Limit
+     */
+    next_day_limit: number | null;
+    /**
+     * Unreconciled
+     */
+    unreconciled: boolean;
+};
+
+/**
+ * TwSecurityProfileRow
+ */
+export type TwSecurityProfileRow = {
+    /**
+     * Symbol
+     */
+    symbol: string;
+    /**
+     * Valid From
+     */
+    valid_from: string;
+    /**
+     * Market
+     */
+    market: string;
+    /**
+     * Name
+     */
+    name: string | null;
+    /**
+     * Isin
+     */
+    isin: string | null;
+    /**
+     * Listed Date
+     */
+    listed_date: string | null;
+    /**
+     * Industry
+     */
+    industry: string | null;
+    /**
+     * Security Type
+     */
+    security_type: string;
+    /**
+     * Cfi Code
+     */
+    cfi_code: string | null;
+    /**
+     * Listed
+     */
+    listed: boolean;
+};
+
+/**
+ * TwseMarketHolidayRow
+ */
+export type TwseMarketHolidayRow = {
+    /**
+     * Date
+     */
+    date: string;
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Note
+     */
+    note: string;
+    /**
+     * Closed
+     */
+    closed: boolean;
 };
 
 /**
@@ -512,6 +1885,20 @@ export type ValidationError = {
     ctx?: {
         [key: string]: unknown;
     };
+};
+
+/**
+ * WhoAmIResponse
+ */
+export type WhoAmIResponse = {
+    /**
+     * Principal
+     */
+    principal: string;
+    /**
+     * Scopes
+     */
+    scopes: Array<string>;
 };
 
 /**
@@ -611,8 +1998,26 @@ export type HealthHealthGetResponses = {
     /**
      * Successful Response
      */
-    200: unknown;
+    200: HealthResponse;
 };
+
+export type HealthHealthGetResponse = HealthHealthGetResponses[keyof HealthHealthGetResponses];
+
+export type WhoamiApiV1AuthWhoamiGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/auth/whoami';
+};
+
+export type WhoamiApiV1AuthWhoamiGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: WhoAmIResponse;
+};
+
+export type WhoamiApiV1AuthWhoamiGetResponse = WhoamiApiV1AuthWhoamiGetResponses[keyof WhoamiApiV1AuthWhoamiGetResponses];
 
 export type GetOhlcvApiV1OhlcvGetData = {
     body?: never;
@@ -882,6 +2287,12 @@ export type GetOpenInterestApiV1OpenInterestGetData = {
          * Start
          */
         start?: string;
+        /**
+         * Exchange
+         *
+         * Filter by exchange (e.g., 'binance', 'okx')
+         */
+        exchange?: string | null;
     };
     url: '/api/v1/open-interest';
 };
@@ -942,6 +2353,10 @@ export type GetInstitutionalFlowApiV1NonpriceInstitutionalGetData = {
          * Symbol
          */
         symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
     };
     url: '/api/v1/nonprice/institutional';
 };
@@ -972,6 +2387,10 @@ export type GetMarginTransactionsApiV1NonpriceMarginGetData = {
          * Symbol
          */
         symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
     };
     url: '/api/v1/nonprice/margin';
 };
@@ -1002,6 +2421,10 @@ export type GetFundamentalsDfApiV1NonpriceFundamentalGetData = {
          * Symbol
          */
         symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
     };
     url: '/api/v1/nonprice/fundamental';
 };
@@ -1032,6 +2455,10 @@ export type GetTradeStructureApiV1NonpriceTradeStructureGetData = {
          * Symbol
          */
         symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
     };
     url: '/api/v1/nonprice/trade-structure';
 };
@@ -1053,6 +2480,280 @@ export type GetTradeStructureApiV1NonpriceTradeStructureGetResponses = {
 };
 
 export type GetTradeStructureApiV1NonpriceTradeStructureGetResponse = GetTradeStructureApiV1NonpriceTradeStructureGetResponses[keyof GetTradeStructureApiV1NonpriceTradeStructureGetResponses];
+
+export type GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         */
+        symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
+    };
+    url: '/api/v1/nonprice/monthly-revenue';
+};
+
+export type GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetError = GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetErrors[keyof GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetErrors];
+
+export type GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: DataFrameResponse;
+};
+
+export type GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetResponse = GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetResponses[keyof GetMonthlyRevenueApiV1NonpriceMonthlyRevenueGetResponses];
+
+export type GetForeignHoldingApiV1NonpriceForeignHoldingGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         */
+        symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
+    };
+    url: '/api/v1/nonprice/foreign-holding';
+};
+
+export type GetForeignHoldingApiV1NonpriceForeignHoldingGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetForeignHoldingApiV1NonpriceForeignHoldingGetError = GetForeignHoldingApiV1NonpriceForeignHoldingGetErrors[keyof GetForeignHoldingApiV1NonpriceForeignHoldingGetErrors];
+
+export type GetForeignHoldingApiV1NonpriceForeignHoldingGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: DataFrameResponse;
+};
+
+export type GetForeignHoldingApiV1NonpriceForeignHoldingGetResponse = GetForeignHoldingApiV1NonpriceForeignHoldingGetResponses[keyof GetForeignHoldingApiV1NonpriceForeignHoldingGetResponses];
+
+export type GetPePbrApiV1NonpricePePbrGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         */
+        symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
+    };
+    url: '/api/v1/nonprice/pe-pbr';
+};
+
+export type GetPePbrApiV1NonpricePePbrGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetPePbrApiV1NonpricePePbrGetError = GetPePbrApiV1NonpricePePbrGetErrors[keyof GetPePbrApiV1NonpricePePbrGetErrors];
+
+export type GetPePbrApiV1NonpricePePbrGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: DataFrameResponse;
+};
+
+export type GetPePbrApiV1NonpricePePbrGetResponse = GetPePbrApiV1NonpricePePbrGetResponses[keyof GetPePbrApiV1NonpricePePbrGetResponses];
+
+export type GetMarketValueApiV1NonpriceMarketValueGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         */
+        symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
+    };
+    url: '/api/v1/nonprice/market-value';
+};
+
+export type GetMarketValueApiV1NonpriceMarketValueGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetMarketValueApiV1NonpriceMarketValueGetError = GetMarketValueApiV1NonpriceMarketValueGetErrors[keyof GetMarketValueApiV1NonpriceMarketValueGetErrors];
+
+export type GetMarketValueApiV1NonpriceMarketValueGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: DataFrameResponse;
+};
+
+export type GetMarketValueApiV1NonpriceMarketValueGetResponse = GetMarketValueApiV1NonpriceMarketValueGetResponses[keyof GetMarketValueApiV1NonpriceMarketValueGetResponses];
+
+export type GetQualityFactorApiV1NonpriceQualityFactorGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         */
+        symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
+    };
+    url: '/api/v1/nonprice/quality-factor';
+};
+
+export type GetQualityFactorApiV1NonpriceQualityFactorGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetQualityFactorApiV1NonpriceQualityFactorGetError = GetQualityFactorApiV1NonpriceQualityFactorGetErrors[keyof GetQualityFactorApiV1NonpriceQualityFactorGetErrors];
+
+export type GetQualityFactorApiV1NonpriceQualityFactorGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: DataFrameResponse;
+};
+
+export type GetQualityFactorApiV1NonpriceQualityFactorGetResponse = GetQualityFactorApiV1NonpriceQualityFactorGetResponses[keyof GetQualityFactorApiV1NonpriceQualityFactorGetResponses];
+
+export type GetFinancialStatementApiV1NonpriceFinancialStatementGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         */
+        symbol: string;
+        /**
+         * As Of Date
+         */
+        as_of_date?: string | null;
+    };
+    url: '/api/v1/nonprice/financial-statement';
+};
+
+export type GetFinancialStatementApiV1NonpriceFinancialStatementGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetFinancialStatementApiV1NonpriceFinancialStatementGetError = GetFinancialStatementApiV1NonpriceFinancialStatementGetErrors[keyof GetFinancialStatementApiV1NonpriceFinancialStatementGetErrors];
+
+export type GetFinancialStatementApiV1NonpriceFinancialStatementGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: DataFrameResponse;
+};
+
+export type GetFinancialStatementApiV1NonpriceFinancialStatementGetResponse = GetFinancialStatementApiV1NonpriceFinancialStatementGetResponses[keyof GetFinancialStatementApiV1NonpriceFinancialStatementGetResponses];
+
+export type GetRiskFiltersApiV1RiskFiltersGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Date
+         */
+        date: string;
+        /**
+         * Flag Type
+         */
+        flag_type?: string | null;
+        /**
+         * Symbol
+         */
+        symbol?: string | null;
+    };
+    url: '/api/v1/risk-filters';
+};
+
+export type GetRiskFiltersApiV1RiskFiltersGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetRiskFiltersApiV1RiskFiltersGetError = GetRiskFiltersApiV1RiskFiltersGetErrors[keyof GetRiskFiltersApiV1RiskFiltersGetErrors];
+
+export type GetRiskFiltersApiV1RiskFiltersGetResponses = {
+    /**
+     * Response Get Risk Filters Api V1 Risk Filters Get
+     *
+     * Successful Response
+     */
+    200: Array<RiskFilterRow>;
+};
+
+export type GetRiskFiltersApiV1RiskFiltersGetResponse = GetRiskFiltersApiV1RiskFiltersGetResponses[keyof GetRiskFiltersApiV1RiskFiltersGetResponses];
+
+export type GetActiveRiskFiltersApiV1RiskFiltersActiveGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Date
+         */
+        date: string;
+    };
+    url: '/api/v1/risk-filters/active';
+};
+
+export type GetActiveRiskFiltersApiV1RiskFiltersActiveGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetActiveRiskFiltersApiV1RiskFiltersActiveGetError = GetActiveRiskFiltersApiV1RiskFiltersActiveGetErrors[keyof GetActiveRiskFiltersApiV1RiskFiltersActiveGetErrors];
+
+export type GetActiveRiskFiltersApiV1RiskFiltersActiveGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: ActiveRiskFiltersResponse;
+};
+
+export type GetActiveRiskFiltersApiV1RiskFiltersActiveGetResponse = GetActiveRiskFiltersApiV1RiskFiltersActiveGetResponses[keyof GetActiveRiskFiltersApiV1RiskFiltersActiveGetResponses];
 
 export type GetPerpOhlcvApiV1PerpOhlcvGetData = {
     body?: never;
@@ -1325,3 +3026,892 @@ export type GetQualityScoresApiV1DataQualityScoresGetResponses = {
 };
 
 export type GetQualityScoresApiV1DataQualityScoresGetResponse = GetQualityScoresApiV1DataQualityScoresGetResponses[keyof GetQualityScoresApiV1DataQualityScoresGetResponses];
+
+export type ListBackfillJobsApiV1BackfillGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Status
+         */
+        status?: string | null;
+        /**
+         * Market
+         */
+        market?: string | null;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/v1/backfill';
+};
+
+export type ListBackfillJobsApiV1BackfillGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ListBackfillJobsApiV1BackfillGetError = ListBackfillJobsApiV1BackfillGetErrors[keyof ListBackfillJobsApiV1BackfillGetErrors];
+
+export type ListBackfillJobsApiV1BackfillGetResponses = {
+    /**
+     * Response List Backfill Jobs Api V1 Backfill Get
+     *
+     * Successful Response
+     */
+    200: Array<BackfillJobResponse>;
+};
+
+export type ListBackfillJobsApiV1BackfillGetResponse = ListBackfillJobsApiV1BackfillGetResponses[keyof ListBackfillJobsApiV1BackfillGetResponses];
+
+export type CreateBackfillApiV1BackfillPostData = {
+    body: BackfillRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/backfill';
+};
+
+export type CreateBackfillApiV1BackfillPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreateBackfillApiV1BackfillPostError = CreateBackfillApiV1BackfillPostErrors[keyof CreateBackfillApiV1BackfillPostErrors];
+
+export type CreateBackfillApiV1BackfillPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: BackfillDispatchResponse;
+};
+
+export type CreateBackfillApiV1BackfillPostResponse = CreateBackfillApiV1BackfillPostResponses[keyof CreateBackfillApiV1BackfillPostResponses];
+
+export type GetBackfillStatusApiV1BackfillJobIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Job Id
+         */
+        job_id: string;
+    };
+    query?: never;
+    url: '/api/v1/backfill/{job_id}';
+};
+
+export type GetBackfillStatusApiV1BackfillJobIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetBackfillStatusApiV1BackfillJobIdGetError = GetBackfillStatusApiV1BackfillJobIdGetErrors[keyof GetBackfillStatusApiV1BackfillJobIdGetErrors];
+
+export type GetBackfillStatusApiV1BackfillJobIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: BackfillJobResponse;
+};
+
+export type GetBackfillStatusApiV1BackfillJobIdGetResponse = GetBackfillStatusApiV1BackfillJobIdGetResponses[keyof GetBackfillStatusApiV1BackfillJobIdGetResponses];
+
+export type CancelBackfillApiV1BackfillJobIdCancelPostData = {
+    body?: never;
+    path: {
+        /**
+         * Job Id
+         */
+        job_id: string;
+    };
+    query?: never;
+    url: '/api/v1/backfill/{job_id}/cancel';
+};
+
+export type CancelBackfillApiV1BackfillJobIdCancelPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CancelBackfillApiV1BackfillJobIdCancelPostError = CancelBackfillApiV1BackfillJobIdCancelPostErrors[keyof CancelBackfillApiV1BackfillJobIdCancelPostErrors];
+
+export type CancelBackfillApiV1BackfillJobIdCancelPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: BackfillJobResponse;
+};
+
+export type CancelBackfillApiV1BackfillJobIdCancelPostResponse = CancelBackfillApiV1BackfillJobIdCancelPostResponses[keyof CancelBackfillApiV1BackfillJobIdCancelPostResponses];
+
+export type TriggerOkxOiBackfillApiV1BackfillOkxOiPostData = {
+    body?: ExchangeBackfillRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/backfill/okx-oi';
+};
+
+export type TriggerOkxOiBackfillApiV1BackfillOkxOiPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type TriggerOkxOiBackfillApiV1BackfillOkxOiPostError = TriggerOkxOiBackfillApiV1BackfillOkxOiPostErrors[keyof TriggerOkxOiBackfillApiV1BackfillOkxOiPostErrors];
+
+export type TriggerOkxOiBackfillApiV1BackfillOkxOiPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: BackfillDispatchResponse;
+};
+
+export type TriggerOkxOiBackfillApiV1BackfillOkxOiPostResponse = TriggerOkxOiBackfillApiV1BackfillOkxOiPostResponses[keyof TriggerOkxOiBackfillApiV1BackfillOkxOiPostResponses];
+
+export type TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostData = {
+    body?: FundingBackfillRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v1/backfill/binance-funding';
+};
+
+export type TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostError = TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostErrors[keyof TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostErrors];
+
+export type TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostResponses = {
+    /**
+     * Successful Response
+     */
+    202: BackfillDispatchResponse;
+};
+
+export type TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostResponse = TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostResponses[keyof TriggerBinanceFundingBackfillApiV1BackfillBinanceFundingPostResponses];
+
+export type MarketDailyApiV1TwMarketDailyGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+        /**
+         * Symbol
+         */
+        symbol?: string | null;
+    };
+    url: '/api/v1/tw/market-daily';
+};
+
+export type MarketDailyApiV1TwMarketDailyGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type MarketDailyApiV1TwMarketDailyGetError = MarketDailyApiV1TwMarketDailyGetErrors[keyof MarketDailyApiV1TwMarketDailyGetErrors];
+
+export type MarketDailyApiV1TwMarketDailyGetResponses = {
+    /**
+     * Response Market Daily Api V1 Tw Market Daily Get
+     *
+     * Successful Response
+     */
+    200: Array<TwMarketDailyRow>;
+};
+
+export type MarketDailyApiV1TwMarketDailyGetResponse = MarketDailyApiV1TwMarketDailyGetResponses[keyof MarketDailyApiV1TwMarketDailyGetResponses];
+
+export type IndexDailyApiV1TwIndexDailyGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+        /**
+         * Index Name
+         */
+        index_name?: string | null;
+    };
+    url: '/api/v1/tw/index-daily';
+};
+
+export type IndexDailyApiV1TwIndexDailyGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type IndexDailyApiV1TwIndexDailyGetError = IndexDailyApiV1TwIndexDailyGetErrors[keyof IndexDailyApiV1TwIndexDailyGetErrors];
+
+export type IndexDailyApiV1TwIndexDailyGetResponses = {
+    /**
+     * Response Index Daily Api V1 Tw Index Daily Get
+     *
+     * Successful Response
+     */
+    200: Array<TwIndexDailyRow>;
+};
+
+export type IndexDailyApiV1TwIndexDailyGetResponse = IndexDailyApiV1TwIndexDailyGetResponses[keyof IndexDailyApiV1TwIndexDailyGetResponses];
+
+export type SecurityProfileApiV1TwSecurityProfileGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * As Of
+         */
+        as_of: string;
+        /**
+         * Include Etf
+         */
+        include_etf?: boolean;
+    };
+    url: '/api/v1/tw/security-profile';
+};
+
+export type SecurityProfileApiV1TwSecurityProfileGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SecurityProfileApiV1TwSecurityProfileGetError = SecurityProfileApiV1TwSecurityProfileGetErrors[keyof SecurityProfileApiV1TwSecurityProfileGetErrors];
+
+export type SecurityProfileApiV1TwSecurityProfileGetResponses = {
+    /**
+     * Response Security Profile Api V1 Tw Security Profile Get
+     *
+     * Successful Response
+     */
+    200: Array<TwSecurityProfileRow>;
+};
+
+export type SecurityProfileApiV1TwSecurityProfileGetResponse = SecurityProfileApiV1TwSecurityProfileGetResponses[keyof SecurityProfileApiV1TwSecurityProfileGetResponses];
+
+export type ResearchUniverseApiV1TwResearchUniverseGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * As Of
+         */
+        as_of?: string | null;
+    };
+    url: '/api/v1/tw/research-universe';
+};
+
+export type ResearchUniverseApiV1TwResearchUniverseGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ResearchUniverseApiV1TwResearchUniverseGetError = ResearchUniverseApiV1TwResearchUniverseGetErrors[keyof ResearchUniverseApiV1TwResearchUniverseGetErrors];
+
+export type ResearchUniverseApiV1TwResearchUniverseGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TwResearchUniverseResponse;
+};
+
+export type ResearchUniverseApiV1TwResearchUniverseGetResponse = ResearchUniverseApiV1TwResearchUniverseGetResponses[keyof ResearchUniverseApiV1TwResearchUniverseGetResponses];
+
+export type CorporateActionsApiV1TwCorporateActionsGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+        /**
+         * Symbol
+         */
+        symbol?: string | null;
+    };
+    url: '/api/v1/tw/corporate-actions';
+};
+
+export type CorporateActionsApiV1TwCorporateActionsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CorporateActionsApiV1TwCorporateActionsGetError = CorporateActionsApiV1TwCorporateActionsGetErrors[keyof CorporateActionsApiV1TwCorporateActionsGetErrors];
+
+export type CorporateActionsApiV1TwCorporateActionsGetResponses = {
+    /**
+     * Response Corporate Actions Api V1 Tw Corporate Actions Get
+     *
+     * Successful Response
+     */
+    200: Array<TwCorporateActionRow>;
+};
+
+export type CorporateActionsApiV1TwCorporateActionsGetResponse = CorporateActionsApiV1TwCorporateActionsGetResponses[keyof CorporateActionsApiV1TwCorporateActionsGetResponses];
+
+export type CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/tw/corporate-actions/complete-through';
+};
+
+export type CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TwCompleteThroughResponse;
+};
+
+export type CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetResponse = CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetResponses[keyof CorporateActionsCompleteThroughApiV1TwCorporateActionsCompleteThroughGetResponses];
+
+export type IndustryMembershipApiV1TwIndustryMembershipGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * As Of
+         */
+        as_of: string;
+    };
+    url: '/api/v1/tw/industry-membership';
+};
+
+export type IndustryMembershipApiV1TwIndustryMembershipGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type IndustryMembershipApiV1TwIndustryMembershipGetError = IndustryMembershipApiV1TwIndustryMembershipGetErrors[keyof IndustryMembershipApiV1TwIndustryMembershipGetErrors];
+
+export type IndustryMembershipApiV1TwIndustryMembershipGetResponses = {
+    /**
+     * Response Industry Membership Api V1 Tw Industry Membership Get
+     *
+     * Successful Response
+     */
+    200: Array<TwIndustryMemberRow>;
+};
+
+export type IndustryMembershipApiV1TwIndustryMembershipGetResponse = IndustryMembershipApiV1TwIndustryMembershipGetResponses[keyof IndustryMembershipApiV1TwIndustryMembershipGetResponses];
+
+export type GroupRankingApiV1TwGroupsRankingGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Date
+         */
+        date?: string | null;
+    };
+    url: '/api/v1/tw/groups/ranking';
+};
+
+export type GroupRankingApiV1TwGroupsRankingGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GroupRankingApiV1TwGroupsRankingGetError = GroupRankingApiV1TwGroupsRankingGetErrors[keyof GroupRankingApiV1TwGroupsRankingGetErrors];
+
+export type GroupRankingApiV1TwGroupsRankingGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TwGroupRankingResponse;
+};
+
+export type GroupRankingApiV1TwGroupsRankingGetResponse = GroupRankingApiV1TwGroupsRankingGetResponses[keyof GroupRankingApiV1TwGroupsRankingGetResponses];
+
+export type GroupRankingHistoryApiV1TwGroupsRankingHistoryGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+    };
+    url: '/api/v1/tw/groups/ranking/history';
+};
+
+export type GroupRankingHistoryApiV1TwGroupsRankingHistoryGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GroupRankingHistoryApiV1TwGroupsRankingHistoryGetError = GroupRankingHistoryApiV1TwGroupsRankingHistoryGetErrors[keyof GroupRankingHistoryApiV1TwGroupsRankingHistoryGetErrors];
+
+export type GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TwGroupRankingHistoryResponse;
+};
+
+export type GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponse = GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponses[keyof GroupRankingHistoryApiV1TwGroupsRankingHistoryGetResponses];
+
+export type MarketSummaryApiV1TwMarketSummaryGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+        /**
+         * Market
+         *
+         * both markets when omitted
+         */
+        market?: 'twse' | 'tpex' | null;
+    };
+    url: '/api/v1/tw/market-summary';
+};
+
+export type MarketSummaryApiV1TwMarketSummaryGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type MarketSummaryApiV1TwMarketSummaryGetError = MarketSummaryApiV1TwMarketSummaryGetErrors[keyof MarketSummaryApiV1TwMarketSummaryGetErrors];
+
+export type MarketSummaryApiV1TwMarketSummaryGetResponses = {
+    /**
+     * Response Market Summary Api V1 Tw Market Summary Get
+     *
+     * Successful Response
+     */
+    200: Array<TwMarketSummaryRow>;
+};
+
+export type MarketSummaryApiV1TwMarketSummaryGetResponse = MarketSummaryApiV1TwMarketSummaryGetResponses[keyof MarketSummaryApiV1TwMarketSummaryGetResponses];
+
+export type CreditMarketApiV1TwCreditMarketGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+    };
+    url: '/api/v1/tw/credit/market';
+};
+
+export type CreditMarketApiV1TwCreditMarketGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreditMarketApiV1TwCreditMarketGetError = CreditMarketApiV1TwCreditMarketGetErrors[keyof CreditMarketApiV1TwCreditMarketGetErrors];
+
+export type CreditMarketApiV1TwCreditMarketGetResponses = {
+    /**
+     * Response Credit Market Api V1 Tw Credit Market Get
+     *
+     * Successful Response
+     */
+    200: Array<TwCreditMarketRow>;
+};
+
+export type CreditMarketApiV1TwCreditMarketGetResponse = CreditMarketApiV1TwCreditMarketGetResponses[keyof CreditMarketApiV1TwCreditMarketGetResponses];
+
+export type CreditStockApiV1TwCreditStockGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         */
+        symbol: string;
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+    };
+    url: '/api/v1/tw/credit/stock';
+};
+
+export type CreditStockApiV1TwCreditStockGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreditStockApiV1TwCreditStockGetError = CreditStockApiV1TwCreditStockGetErrors[keyof CreditStockApiV1TwCreditStockGetErrors];
+
+export type CreditStockApiV1TwCreditStockGetResponses = {
+    /**
+     * Response Credit Stock Api V1 Tw Credit Stock Get
+     *
+     * Successful Response
+     */
+    200: Array<TwCreditStockRow>;
+};
+
+export type CreditStockApiV1TwCreditStockGetResponse = CreditStockApiV1TwCreditStockGetResponses[keyof CreditStockApiV1TwCreditStockGetResponses];
+
+export type SblStockApiV1TwSblStockGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Symbol
+         */
+        symbol: string;
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+    };
+    url: '/api/v1/tw/sbl/stock';
+};
+
+export type SblStockApiV1TwSblStockGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SblStockApiV1TwSblStockGetError = SblStockApiV1TwSblStockGetErrors[keyof SblStockApiV1TwSblStockGetErrors];
+
+export type SblStockApiV1TwSblStockGetResponses = {
+    /**
+     * Response Sbl Stock Api V1 Tw Sbl Stock Get
+     *
+     * Successful Response
+     */
+    200: Array<TwSblStockRow>;
+};
+
+export type SblStockApiV1TwSblStockGetResponse = SblStockApiV1TwSblStockGetResponses[keyof SblStockApiV1TwSblStockGetResponses];
+
+export type CreditScreenApiV1TwCreditScreenGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Date
+         */
+        date?: string | null;
+        /**
+         * Market
+         */
+        market?: 'all' | 'twse' | 'tpex';
+        /**
+         * Sort
+         */
+        sort?: 'margin_balance' | 'margin_change_1d' | 'margin_change_1d_pct' | 'margin_change_5d' | 'margin_change_5d_pct' | 'margin_usage_pct' | 'short_balance' | 'short_change_1d' | 'short_change_5d' | 'sbl_balance' | 'sbl_change_1d' | 'sbl_change_5d' | 'foreign_net_1d' | 'foreign_net_5d' | 'foreign_net_5d_volume_pct' | 'trust_net_1d' | 'trust_net_5d' | 'trust_net_5d_volume_pct' | 'return_5d_pct' | '-margin_balance' | '-margin_change_1d' | '-margin_change_1d_pct' | '-margin_change_5d' | '-margin_change_5d_pct' | '-margin_usage_pct' | '-short_balance' | '-short_change_1d' | '-short_change_5d' | '-sbl_balance' | '-sbl_change_1d' | '-sbl_change_5d' | '-foreign_net_1d' | '-foreign_net_5d' | '-foreign_net_5d_volume_pct' | '-trust_net_1d' | '-trust_net_5d' | '-trust_net_5d_volume_pct' | '-return_5d_pct';
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Min Margin Lots
+         */
+        min_margin_lots?: number;
+        /**
+         * Symbols
+         *
+         * comma-separated, at most 50
+         */
+        symbols?: string | null;
+    };
+    url: '/api/v1/tw/credit/screen';
+};
+
+export type CreditScreenApiV1TwCreditScreenGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type CreditScreenApiV1TwCreditScreenGetError = CreditScreenApiV1TwCreditScreenGetErrors[keyof CreditScreenApiV1TwCreditScreenGetErrors];
+
+export type CreditScreenApiV1TwCreditScreenGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: TwCreditScreenResponse;
+};
+
+export type CreditScreenApiV1TwCreditScreenGetResponse = CreditScreenApiV1TwCreditScreenGetResponses[keyof CreditScreenApiV1TwCreditScreenGetResponses];
+
+export type TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+        /**
+         * Product
+         *
+         * TX, MTX or TMF; all three when omitted
+         */
+        product?: string | null;
+    };
+    url: '/api/v1/refdata/taifex-futures-daily';
+};
+
+export type TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetError = TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetErrors[keyof TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetErrors];
+
+export type TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponses = {
+    /**
+     * Response Taifex Futures Daily Api V1 Refdata Taifex Futures Daily Get
+     *
+     * Successful Response
+     */
+    200: Array<TaifexFuturesDailyRow>;
+};
+
+export type TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponse = TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponses[keyof TaifexFuturesDailyApiV1RefdataTaifexFuturesDailyGetResponses];
+
+export type TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Start
+         */
+        start: string;
+        /**
+         * End
+         */
+        end: string;
+        /**
+         * Contract Month
+         */
+        contract_month?: string | null;
+    };
+    url: '/api/v1/refdata/taifex-txo-daily';
+};
+
+export type TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetError = TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetErrors[keyof TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetErrors];
+
+export type TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponses = {
+    /**
+     * Response Taifex Txo Daily Api V1 Refdata Taifex Txo Daily Get
+     *
+     * Successful Response
+     */
+    200: Array<TaifexOptionDailyRow>;
+};
+
+export type TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponse = TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponses[keyof TaifexTxoDailyApiV1RefdataTaifexTxoDailyGetResponses];
+
+export type TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Kind
+         */
+        kind: 'futures' | 'txo';
+    };
+    url: '/api/v1/refdata/taifex-final-settlement';
+};
+
+export type TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetError = TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetErrors[keyof TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetErrors];
+
+export type TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetResponses = {
+    /**
+     * Response Taifex Final Settlement Api V1 Refdata Taifex Final Settlement Get
+     *
+     * Successful Response
+     */
+    200: Array<TaifexFinalSettlementRow>;
+};
+
+export type TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetResponse = TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetResponses[keyof TaifexFinalSettlementApiV1RefdataTaifexFinalSettlementGetResponses];
+
+export type IndexDailyApiV1RefdataIndexDailyGetData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Index Name
+         */
+        index_name: 'TAIEX' | 'TAIEX_TR' | 'TPEX' | 'VIX';
+        /**
+         * Start
+         */
+        start?: string;
+        /**
+         * End
+         */
+        end?: string;
+    };
+    url: '/api/v1/refdata/index-daily';
+};
+
+export type IndexDailyApiV1RefdataIndexDailyGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type IndexDailyApiV1RefdataIndexDailyGetError = IndexDailyApiV1RefdataIndexDailyGetErrors[keyof IndexDailyApiV1RefdataIndexDailyGetErrors];
+
+export type IndexDailyApiV1RefdataIndexDailyGetResponses = {
+    /**
+     * Response Index Daily Api V1 Refdata Index Daily Get
+     *
+     * Successful Response
+     */
+    200: Array<MarketIndexDailyRow>;
+};
+
+export type IndexDailyApiV1RefdataIndexDailyGetResponse = IndexDailyApiV1RefdataIndexDailyGetResponses[keyof IndexDailyApiV1RefdataIndexDailyGetResponses];
+
+export type TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Start
+         */
+        start?: string;
+        /**
+         * End
+         */
+        end?: string;
+    };
+    url: '/api/v1/refdata/twse-market-calendar';
+};
+
+export type TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetError = TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetErrors[keyof TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetErrors];
+
+export type TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponses = {
+    /**
+     * Response Twse Market Calendar Api V1 Refdata Twse Market Calendar Get
+     *
+     * Successful Response
+     */
+    200: Array<TwseMarketHolidayRow>;
+};
+
+export type TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponse = TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponses[keyof TwseMarketCalendarApiV1RefdataTwseMarketCalendarGetResponses];
+
+export type RefdataFreshnessApiV1RefdataFreshnessGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/refdata/freshness';
+};
+
+export type RefdataFreshnessApiV1RefdataFreshnessGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: RefdataFreshnessResponse;
+};
+
+export type RefdataFreshnessApiV1RefdataFreshnessGetResponse = RefdataFreshnessApiV1RefdataFreshnessGetResponses[keyof RefdataFreshnessApiV1RefdataFreshnessGetResponses];
