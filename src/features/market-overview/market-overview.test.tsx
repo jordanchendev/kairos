@@ -67,10 +67,12 @@ function panel(markup: string, id: string): string {
   return markup.slice(start, markup.indexOf("</section>", start));
 }
 
+/** The markup of one ticker tile, from its opening tag to the next tile. */
 function tile(markup: string, key: string): string {
-  const start = markup.indexOf(`data-tile="${key}"`);
-  expect(start, `tile ${key}`).toBeGreaterThan(-1);
-  return markup.slice(start, markup.indexOf('data-tile="', start + 10));
+  const at = markup.indexOf(`data-tile="${key}"`);
+  expect(at, `tile ${key}`).toBeGreaterThan(-1);
+  const next = markup.indexOf('data-tile="', at + 10);
+  return markup.slice(markup.lastIndexOf("<div", at), next === -1 ? undefined : markup.lastIndexOf("<div", next));
 }
 
 describe("market overview with the live 2026-11-06 data", () => {
