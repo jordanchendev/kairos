@@ -14,7 +14,7 @@ const defaultThalassaInput = "./.cache-specs/thalassa/openapi.json";
 const defaultPipelineInput = "./.cache-specs/pipeline/openapi.json";
 
 const openapiService = process.env.OPENAPI_SERVICE ?? "";
-if (openapiService !== "" && openapiService !== "poseidon" && openapiService !== "ops") {
+if (openapiService !== "" && openapiService !== "poseidon" && openapiService !== "thalassa" && openapiService !== "ops") {
   console.error(`Unsupported OPENAPI_SERVICE: ${openapiService}`);
   process.exit(1);
 }
@@ -172,6 +172,15 @@ async function verifyPoseidonOnlyInput() {
   await ensureReadable(process.env.OPENAPI_POSEIDON_INPUT);
 }
 
+// OPENAPI_SERVICE=thalassa regenerates only the Thalassa client from a spec exported at a pinned commit
+// (e.g. `git archive <sha>` of thalassa, then app.openapi() as syncThalassaSpec does), so the live API is never called.
+async function verifyThalassaOnlyInput() {
+  if (!process.env.OPENAPI_THALASSA_INPUT?.trim()) {
+    throw new Error("OPENAPI_SERVICE=thalassa requires an explicit OPENAPI_THALASSA_INPUT");
+  }
+  await ensureReadable(process.env.OPENAPI_THALASSA_INPUT);
+}
+
 async function main() {
   if (openapiService === "ops") {
     // openapi/ops.json is checked in; nothing to sync.
@@ -179,6 +188,10 @@ async function main() {
   }
   if (poseidonOnly) {
     await verifyPoseidonOnlyInput();
+    return;
+  }
+  if (openapiService === "thalassa") {
+    await verifyThalassaOnlyInput();
     return;
   }
   await syncPoseidonSpec();

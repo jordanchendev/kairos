@@ -13,11 +13,14 @@ const sharedPlugins: UserConfig["plugins"] = [
 ];
 
 const service = process.env.OPENAPI_SERVICE ?? "";
-if (service !== "" && service !== "poseidon" && service !== "ops") {
+if (service !== "" && service !== "poseidon" && service !== "thalassa" && service !== "ops") {
   throw new Error(`Unsupported OPENAPI_SERVICE: ${service}`);
 }
 if (service === "poseidon" && !process.env.OPENAPI_POSEIDON_INPUT?.trim()) {
   throw new Error("OPENAPI_SERVICE=poseidon requires an explicit OPENAPI_POSEIDON_INPUT");
+}
+if (service === "thalassa" && !process.env.OPENAPI_THALASSA_INPUT?.trim()) {
+  throw new Error("OPENAPI_SERVICE=thalassa requires an explicit OPENAPI_THALASSA_INPUT");
 }
 
 const poseidonInput = process.env.OPENAPI_POSEIDON_INPUT ?? "./.cache-specs/poseidon/openapi.json";
@@ -74,6 +77,7 @@ const selected: Record<string, UserConfig[]> = {
   "": targets,
   ops: targets.slice(-1),
   poseidon: targets.slice(0, 1),
+  thalassa: targets.slice(2, 3),
 };
 
 export default defineConfig(selected[service]);
