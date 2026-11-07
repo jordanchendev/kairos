@@ -15,7 +15,8 @@ export const SESSIONS = 40;
 export const QUERY_CALENDAR_DAYS = 75;
 /** Sessions of group rank history shown in the 名次走勢 column. */
 export const RANK_SESSIONS = 10;
-const GROUP_QUERY_CALENDAR_DAYS = 20;
+/** Enough calendar days for RANK_SESSIONS sessions even across the Lunar New Year closure (up to 9 days). */
+const GROUP_QUERY_CALENDAR_DAYS = 30;
 /** Aggregates of other sector indices (same list as the market brief's collect.py SECTOR_AGGREGATES). */
 const SECTOR_AGGREGATES = new Set(["水泥窯製類指數", "塑膠化工類指數", "機電類指數", "化學生技醫療類指數"]);
 const YI = 1e8;
@@ -349,12 +350,12 @@ export type GroupRow = TwGroupHistoryScore & { rankSeries: (number | null)[] };
 
 export type GroupsView = {
   date: string;
-  minMembers: number;
+  /** sessions in each rankSeries: RANK_SESSIONS, or fewer when the range holds fewer */
+  rankSessions: number;
   rows: GroupRow[];
   tableVersion: string;
   taiexRet20: number | null;
   taiexRet60: number | null;
-  unavailable: { date: string; reason: string }[];
 };
 
 export function groupsView(history: TwGroupRankingHistoryResponse): GroupsView | null {
@@ -370,12 +371,11 @@ export function groupsView(history: TwGroupRankingHistoryResponse): GroupsView |
     }));
   return {
     date: last.date,
-    minMembers: history.min_members,
+    rankSessions: recent.length,
     rows,
     tableVersion: history.table_version,
     taiexRet20: last.taiex.ret20 ?? null,
     taiexRet60: last.taiex.ret60 ?? null,
-    unavailable: history.unavailable.filter((item) => item.date > last.date),
   };
 }
 

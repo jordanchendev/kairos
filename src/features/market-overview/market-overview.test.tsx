@@ -28,7 +28,7 @@ import summary from "./fixtures/market-summary.json";
 import futures from "./fixtures/taifex-tx.json";
 import sectors from "./fixtures/tw-index-daily.json";
 import { MarketOverviewView, type MarketSources } from "./market-overview-view";
-import { formatPct, futuresView, indexQuote, isPreliminaryTurnover, sessionRange, staleNote, trendClass } from "./model";
+import { formatPct, futuresView, groupRange, groupsView, indexQuote, isPreliminaryTurnover, sessionRange, staleNote, trendClass } from "./model";
 import { Signed } from "./panel";
 
 // Real responses through the Kairos proxy on 2026-11-07 (Thalassa main 0822ac1), trimmed to the page's window.
@@ -280,6 +280,17 @@ describe("model", () => {
     expect(view.night?.startDate).toBe("2026-11-06");
     expect(view.night?.prevSettlement).toBe(39652);
     expect(view.night?.change).toBe(448);
+  });
+
+  it("says how many sessions the rank history really holds", () => {
+    const history = groups as TwGroupRankingHistoryResponse;
+    expect(groupsView(history)?.rankSessions).toBe(10);
+    const short = { ...history, days: history.days.slice(-8) };
+    const view = groupsView(short);
+    expect(view?.rankSessions).toBe(8);
+    expect(view?.rows[0].rankSeries).toHaveLength(8);
+    expect(panel(render(sources({ groups: ready(short) })), "groups")).toContain("名次走勢＝近 8 個交易日的名次");
+    expect(groupRange(Date.parse("2026-11-06T16:30:00Z"))).toEqual({ end: "2026-11-07", start: "2026-10-08" });
   });
 
   it("asks for 75 calendar days ending on the Taipei date", () => {

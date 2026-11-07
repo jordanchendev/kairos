@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 
 import { Sparkline } from "./charts";
 import { gate, type Loadable } from "./loadable";
-import { formatNumber, formatPct, groupsView, RANK_SESSIONS, sectorsView, signOf } from "./model";
+import { formatNumber, formatPct, groupsView, sectorsView, signOf } from "./model";
 import { Panel, Signed } from "./panel";
 
 const pct = (value: number | null | undefined) => (value === null || value === undefined ? null : value * 100);
@@ -91,7 +91,7 @@ export function GroupsPanel({ groups, referenceDate }: { groups: Loadable<TwGrou
                       <Signed digits={1} pct value={pct(row.turnover_share_change)} />
                     </td>
                     <td className={cn(td, "@max-md:hidden")}>
-                      <Sparkline invert label={`${row.group} 近 ${RANK_SESSIONS} 日名次`} values={row.rankSeries} />
+                      <Sparkline invert label={`${row.group} 近 ${view.rankSessions} 日名次`} values={row.rankSeries} />
                     </td>
                   </tr>
                 ))}
@@ -99,7 +99,7 @@ export function GroupsPanel({ groups, referenceDate }: { groups: Loadable<TwGrou
             </table>
           </div>
           <p className="mt-1 text-[10.5px] text-[hsl(var(--muted-foreground))]">
-            依過去 20／60 日報酬與成交占比排序的描述統計，不含預測。相對大盤＝族群 20 日報酬減加權指數（百分點）；名次走勢＝近 {RANK_SESSIONS} 個交易日的名次（越高越前）。
+            依過去 20／60 日報酬與成交占比排序的描述統計，不含預測。相對大盤＝族群 20 日報酬減加權指數（百分點）；名次走勢＝近 {view.rankSessions} 個交易日的名次（越高越前）。
           </p>
         </>
       ) : null}
