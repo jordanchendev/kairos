@@ -110,7 +110,7 @@ const alerts: AlertsResponse = {
 
 describe("overview page", () => {
   it("renders the command-center portfolio and risk layout", async () => {
-    const routeModule = await import("@/routes/overview");
+    const routeModule = await import("@/routes/system-overview");
 
     expect("OverviewPage" in routeModule).toBe(true);
 

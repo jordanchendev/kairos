@@ -12,7 +12,11 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        lazy: () => import("@/routes/overview"),
+        lazy: () => import("@/routes/market-overview"),
+      },
+      {
+        path: "system-overview",
+        lazy: () => import("@/routes/system-overview"),
       },
       {
         path: "portfolio",

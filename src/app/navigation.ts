@@ -15,6 +15,7 @@ import {
   Server,
   Shield,
   TestTube2,
+  TrendingUp,
   Waves,
   Workflow,
 } from "lucide-react";
@@ -37,11 +38,11 @@ export const navigationGroups: NavigationGroup[] = [
     title: "Overview",
     items: [
       {
-        description: "Cross-service status snapshot and operator summary.",
-        icon: LayoutDashboard,
-        pageId: "overview",
+        description: "台股大盤、廣度、法人、融資、族群與類股，近 40 個交易日。",
+        icon: TrendingUp,
+        pageId: "market-overview",
         path: "/",
-        title: "Overview",
+        title: "市場總覽",
       },
       {
         description: "Holdings, balances, and capital allocation placeholders.",
@@ -161,6 +162,13 @@ export const navigationGroups: NavigationGroup[] = [
   {
     title: "System",
     items: [
+      {
+        description: "Cross-service status snapshot and operator summary (the former Overview).",
+        icon: LayoutDashboard,
+        pageId: "system-overview",
+        path: "/system-overview",
+        title: "系統總覽",
+      },
       {
         description: "Provider integrity and feed-level data checks.",
         icon: Gauge,
