@@ -1,4 +1,5 @@
 import { Menu, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { useEffect } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 import { CommandMenu } from "@/app/command-menu";
@@ -13,17 +14,36 @@ export function AppShell() {
   const selectedTimeRange = useUiStore((state) => state.selectedTimeRange);
   const setSelectedMarket = useUiStore((state) => state.setSelectedMarket);
   const setSelectedTimeRange = useUiStore((state) => state.setSelectedTimeRange);
-  const sidebarCollapsed = useUiStore((state) => state.sidebarCollapsed);
+  const persistedCollapsed = useUiStore((state) => state.sidebarCollapsed);
   const toggleSidebar = useUiStore((state) => state.toggleSidebar);
+  const mobileNavOpen = useUiStore((state) => state.mobileNavOpen);
+  const setMobileNavOpen = useUiStore((state) => state.setMobileNavOpen);
+  // The icon-only rail is a desktop state; the open mobile drawer always shows full labels.
+  const sidebarCollapsed = persistedCollapsed && !mobileNavOpen;
+
+  useEffect(() => {
+    setMobileNavOpen(false);
+  }, [location.pathname, setMobileNavOpen]);
 
   const activeItem = navigationItems.find((item) => item.path === location.pathname) ?? navigationItems[0];
 
   return (
     <div className="grid min-h-screen lg:grid-cols-[auto_1fr]">
+      {mobileNavOpen && (
+        <button
+          aria-label="Close navigation"
+          className="fixed inset-0 z-30 bg-black/60 lg:hidden"
+          onClick={() => setMobileNavOpen(false)}
+          type="button"
+        />
+      )}
       <aside
+        id="app-sidebar"
         className={cn(
           "grid-overlay border-r border-[hsl(var(--sidebar-border))] bg-[hsl(var(--sidebar))] px-4 py-6 transition-all duration-300",
-          sidebarCollapsed ? "w-[92px]" : "w-[304px]",
+          mobileNavOpen ? "fixed inset-y-0 left-0 z-40 w-[304px] max-w-[85vw] overflow-y-auto" : "hidden",
+          "lg:static lg:block lg:max-w-none lg:overflow-visible",
+          sidebarCollapsed ? "lg:w-[92px]" : "lg:w-[304px]",
         )}
       >
         <div className="flex h-full flex-col gap-6">
@@ -32,7 +52,7 @@ export function AppShell() {
               <p className="text-xs uppercase tracking-[0.32em] text-[hsl(var(--muted-foreground))]">Kairos v6</p>
               <h1 className="text-2xl font-semibold text-[hsl(var(--sidebar-foreground))]">Trading Shell</h1>
             </div>
-            <Button onClick={toggleSidebar} size="icon" variant="ghost">
+            <Button className="max-lg:hidden" onClick={toggleSidebar} size="icon" variant="ghost">
               {sidebarCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
               <span className="sr-only">Toggle sidebar</span>
             </Button>
@@ -87,9 +107,16 @@ export function AppShell() {
         <header className="sticky top-0 z-20 border-b border-[hsl(var(--border))] bg-[hsla(225,47%,4%,0.78)] px-4 py-4 backdrop-blur lg:px-8">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex items-center gap-3">
-              <Button className="lg:hidden" onClick={toggleSidebar} size="icon" variant="ghost">
+              <Button
+                aria-controls="app-sidebar"
+                aria-expanded={mobileNavOpen}
+                className="lg:hidden"
+                onClick={() => setMobileNavOpen(!mobileNavOpen)}
+                size="icon"
+                variant="ghost"
+              >
                 <Menu className="h-4 w-4" />
-                <span className="sr-only">Open sidebar</span>
+                <span className="sr-only">Toggle navigation</span>
               </Button>
               <div>
                 <div className="text-xs uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]">{activeItem.pageId}</div>

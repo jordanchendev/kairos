@@ -12,10 +12,12 @@ type UiState = {
   selectedMarket: MarketOption;
   selectedTimeRange: TimeRangeOption;
   sidebarCollapsed: boolean;
+  mobileNavOpen: boolean;
   setCommandPaletteOpen: (open: boolean) => void;
   setSelectedMarket: (market: MarketOption) => void;
   setSelectedTimeRange: (range: TimeRangeOption) => void;
   toggleSidebar: () => void;
+  setMobileNavOpen: (open: boolean) => void;
 };
 
 export const marketOptions = [...MARKET_OPTIONS];
@@ -28,10 +30,12 @@ export const useUiStore = create<UiState>()(
       selectedMarket: "All Markets",
       selectedTimeRange: "1W",
       sidebarCollapsed: false,
+      mobileNavOpen: false,
       setCommandPaletteOpen: (open) => set({ commandPaletteOpen: open }),
       setSelectedMarket: (market) => set({ selectedMarket: market }),
       setSelectedTimeRange: (range) => set({ selectedTimeRange: range }),
       toggleSidebar: () => set((state) => ({ sidebarCollapsed: !state.sidebarCollapsed })),
+      setMobileNavOpen: (open) => set({ mobileNavOpen: open }),
     }),
     {
       name: "kairos-store",
